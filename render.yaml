@@ -1,0 +1,20 @@
+services:
+  # Backend API Service
+  - type: web
+    name: edu-neetjee-backend
+    runtime: node
+    region: singapore
+    plan: free
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5001
+      # Add these in Render Dashboard (Environment tab):
+      # MONGODB_URI
+      # JWT_SECRET
+      # FRONTEND_URL
