@@ -1,0 +1,5 @@
+{
+  "name": "NEET & JEE Learning Analytics",
+  "description": "An online assessment and learning analytics system for Tamil Nadu school students preparing for NEET & JEE exams. Features dashboards for Admins, Teachers, and Students with detailed performance insights.",
+  "requestFramePermissions": []
+}
