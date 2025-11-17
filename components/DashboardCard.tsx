@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ChevronUpIcon, ChevronDownIcon } from './icons';
+import { ChevronUpIcon, ChevronDownIcon, ChevronRightIcon } from './icons';
 
 interface DashboardCardProps {
   title: string;
@@ -27,15 +27,25 @@ const DashboardCard: React.FC<DashboardCardProps> = ({ title, value, icon, chang
           {icon}
         </div>
       </div>
-      {change !== undefined && (
-        <div className="flex items-center text-sm mt-4">
-          <span className={`flex items-center font-semibold ${isPositive ? 'text-emerald-500' : 'text-red-500'}`}>
-            {isPositive ? <ChevronUpIcon /> : <ChevronDownIcon />}
-            {Math.abs(change)}%
-          </span>
-          <span className="ml-2 text-slate-500 dark:text-slate-400">vs last month</span>
-        </div>
-      )}
+      <div className="flex items-center justify-between mt-4">
+        {change !== undefined ? (
+          <div className="flex items-center text-sm">
+            <span className={`flex items-center font-semibold ${isPositive ? 'text-emerald-500' : 'text-red-500'}`}>
+              {isPositive ? <ChevronUpIcon /> : <ChevronDownIcon />}
+              {Math.abs(change)}%
+            </span>
+            <span className="ml-2 text-slate-500 dark:text-slate-400">vs last month</span>
+          </div>
+        ) : (
+          <div></div>
+        )}
+        {onClick && (
+          <button className="flex items-center gap-1 text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors group">
+            <span>Details</span>
+            <ChevronRightIcon className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+          </button>
+        )}
+      </div>
     </div>
   );
 };
