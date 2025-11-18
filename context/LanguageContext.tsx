@@ -645,7 +645,7 @@ export const translations = {
           },
           teacher: {
             title: 'ஆசிரியர் இணைவு',
-            description: 'அனுபவமுள்ள اساتீர் தங்கள் நிபுணத்துவத்தைப் பகிரலாம்',
+            description: 'அனுபவமுள்ள ஆசிரியர்கள் தங்கள் நிபுணத்துவத்தைப் பகிரலாம்',
             bullets: {
               one: 'தகுதிகள் மற்றும் ஆவணங்களை சமர்ப்பிக்கவும்',
               two: 'தேர்வுகளை உருவாக்கி நிர்வகிக்கவும்',
@@ -753,7 +753,7 @@ export const translations = {
       teacherTitle: 'ஆசிரியர் கட்டுப்பாட்டு பலகை (தரம் 12A)',
       cards: {
         totalStudents: 'மொத்த மாணவர்கள்',
-        activeTeachers: 'செயலில் உள்ள اساتீர்',
+        activeTeachers: 'செயலில் உள்ள ஆசிரியர்கள்',
         testsConducted: 'நடைபெற்ற தேர்வுகள்',
         avgPerformance: 'சராசரி செயல்திறன்',
         classAverage: 'வகுப்பு சராசரி',
