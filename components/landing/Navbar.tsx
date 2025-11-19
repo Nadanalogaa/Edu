@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { LayoutDashboardIcon, MenuIcon, XIcon } from '../icons';
+import { MenuIcon, XIcon } from '../icons';
 import { useLanguage } from '../../context/LanguageContext';
 import LanguageSelector from '../LanguageSelector';
 
@@ -21,9 +21,11 @@ const Navbar: React.FC = () => {
                 <div className="flex justify-between items-center h-16">
                     {/* Logo */}
                     <div className="flex items-center space-x-3">
-                            <div className="p-2 bg-indigo-600 rounded-lg">
-                                <LayoutDashboardIcon className="w-6 h-6 text-white" />
-                            </div>
+                            <img
+                                src="/logo.png"
+                                alt="Education Intelligence Logo"
+                                className="w-10 h-10 sm:w-12 sm:h-12"
+                            />
                             <div className="flex flex-col">
                                 <span className="text-xl font-bold text-slate-800 dark:text-white">
                                     {t('appTitle')}
