@@ -318,7 +318,6 @@ export const translations = {
 
     // Admin
     uploadQuestions: 'Upload Questions',
-    questionBank: 'Question Bank',
     createTest: 'Create Test',
     manageSchools: 'Manage Schools',
     manageTeachers: 'Manage Teachers',
@@ -461,7 +460,6 @@ export const translations = {
       // Practice by Topic
       practiceByTopic: 'Practice by Topic',
       filterLabel: 'Filter:',
-      completed: 'Completed',
       inProgress: 'In Progress',
       notStarted: 'Not Started',
       practiceAgain: 'Practice Again',
@@ -876,7 +874,6 @@ export const translations = {
 
     // Admin
     uploadQuestions: 'கேள்விகளை பதிவேற்று',
-    questionBank: 'கேள்வி வங்கி',
     createTest: 'தேர்வு உருவாக்கு',
     manageSchools: 'பள்ளிகளை நிர்வகி',
     manageTeachers: 'ஆசிரியர்களை நிர்வகி',
@@ -1019,7 +1016,6 @@ export const translations = {
       // Practice by Topic
       practiceByTopic: 'தலைப்பின் மூலம் பயிற்சி',
       filterLabel: 'வடிகட்டு:',
-      completed: 'முடிக்கப்பட்டது',
       inProgress: 'முன்னேற்றத்தில்',
       notStarted: 'தொடங்கவில்லை',
       practiceAgain: 'மீண்டும் பயிற்சி செய்',
