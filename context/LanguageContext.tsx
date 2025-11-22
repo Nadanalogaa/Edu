@@ -574,6 +574,11 @@ export const translations = {
       studyMaterial: 'Study Material',
       augmentedReality: 'Augmented Reality',
       virtualReality: 'Virtual Reality',
+      watch: 'Watch',
+      listen: 'Listen',
+      read: 'Read',
+      ar: 'AR',
+      vr: 'VR',
     },
   },
   ta: {
@@ -1130,6 +1135,11 @@ export const translations = {
       studyMaterial: 'படிப்பு பொருள்',
       augmentedReality: 'பெருக்கப்பட்ட யதார்த்தம்',
       virtualReality: 'மெய்நிகர் யதார்த்தம்',
+      watch: 'பார்க்க',
+      listen: 'கேட்க',
+      read: 'படிக்க',
+      ar: 'மிகை மெய்ம்மை',
+      vr: 'மெய்நிகர் உண்மை',
     },
   }
 };

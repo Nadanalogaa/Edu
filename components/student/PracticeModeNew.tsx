@@ -403,54 +403,9 @@ const PracticeModeNew: React.FC = () => {
               {currentQuestion.subject}
             </span>
 
-            {/* Multimedia Learning Icons */}
-            <div className="flex items-center gap-2">
-              <div className="flex items-center gap-1 mr-2">
-                <button
-                  title={t('practiceExam.watchVideo')}
-                  className="p-2 rounded-lg bg-gradient-to-br from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20 border border-red-200 dark:border-red-700 text-red-600 dark:text-red-400 hover:shadow-md hover:scale-105 transition-all duration-200"
-                  onClick={(e) => { e.preventDefault(); setModalQuestion(currentQuestion); setShowVideoTypeSelection(true); }}
-                >
-                  <VideoIcon className="w-4 h-4" />
-                </button>
-
-                <button
-                  title={t('practiceExam.listenAudio')}
-                  className="p-2 rounded-lg bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 border border-blue-200 dark:border-blue-700 text-blue-600 dark:text-blue-400 hover:shadow-md hover:scale-105 transition-all duration-200"
-                  onClick={(e) => { e.preventDefault(); setModalQuestion(currentQuestion); setShowAudioPlayer(true); }}
-                >
-                  <AudioIcon className="w-4 h-4" />
-                </button>
-
-                <button
-                  title={t('practiceExam.readMaterial')}
-                  className="p-2 rounded-lg bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 border border-emerald-200 dark:border-emerald-700 text-emerald-600 dark:text-emerald-400 hover:shadow-md hover:scale-105 transition-all duration-200"
-                  onClick={(e) => { e.preventDefault(); setModalQuestion(currentQuestion); setShowPDFViewer(true); }}
-                >
-                  <ReadIcon className="w-4 h-4" />
-                </button>
-
-                <button
-                  title={t('practiceExam.viewAR')}
-                  className="p-2 rounded-lg bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 border border-purple-200 dark:border-purple-700 text-purple-600 dark:text-purple-400 hover:shadow-md hover:scale-105 transition-all duration-200"
-                  onClick={(e) => { e.preventDefault(); setModalQuestion(currentQuestion); setShowARViewer(true); }}
-                >
-                  <ARIcon className="w-4 h-4" />
-                </button>
-
-                <button
-                  title={t('practiceExam.experienceVR')}
-                  className="p-2 rounded-lg bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 border border-orange-200 dark:border-orange-700 text-orange-600 dark:text-orange-400 hover:shadow-md hover:scale-105 transition-all duration-200"
-                  onClick={(e) => { e.preventDefault(); setModalQuestion(currentQuestion); setShowVRExperience(true); }}
-                >
-                  <VRIcon className="w-4 h-4" />
-                </button>
-              </div>
-
-              <span className="text-sm text-slate-500 dark:text-slate-400">
-                {currentQuestion.marks} {currentQuestion.marks === 1 ? t('practiceExam.mark') : t('practiceExam.marks')}
-              </span>
-            </div>
+            <span className="text-sm text-slate-500 dark:text-slate-400">
+              {currentQuestion.marks} {currentQuestion.marks === 1 ? t('practiceExam.mark') : t('practiceExam.marks')}
+            </span>
           </div>
 
           {/* Question Text */}
@@ -517,6 +472,62 @@ const PracticeModeNew: React.FC = () => {
               </p>
             </div>
           )}
+
+          {/* Multimedia Learning Buttons */}
+          <div className="mt-6 mb-4">
+            <div className="flex flex-wrap gap-3">
+              <button
+                onClick={() => {
+                  setModalQuestion(currentQuestion);
+                  setShowVideoTypeSelection(true);
+                }}
+                className="flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+              >
+                <VideoIcon className="w-5 h-5" />
+                <span>{t('practiceExam.watch')}</span>
+              </button>
+              <button
+                onClick={() => {
+                  setModalQuestion(currentQuestion);
+                  setShowAudioPlayer(true);
+                }}
+                className="flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+              >
+                <AudioIcon className="w-5 h-5" />
+                <span>{t('practiceExam.listen')}</span>
+              </button>
+              <button
+                onClick={() => {
+                  setModalQuestion(currentQuestion);
+                  setShowPDFViewer(true);
+                }}
+                className="flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+              >
+                <ReadIcon className="w-5 h-5" />
+                <span>{t('practiceExam.read')}</span>
+              </button>
+              <button
+                onClick={() => {
+                  setModalQuestion(currentQuestion);
+                  setShowARViewer(true);
+                }}
+                className="flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-purple-500 to-violet-500 hover:from-purple-600 hover:to-violet-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+              >
+                <ARIcon className="w-5 h-5" />
+                <span>{t('practiceExam.ar')}</span>
+              </button>
+              <button
+                onClick={() => {
+                  setModalQuestion(currentQuestion);
+                  setShowVRExperience(true);
+                }}
+                className="flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+              >
+                <VRIcon className="w-5 h-5" />
+                <span>{t('practiceExam.vr')}</span>
+              </button>
+            </div>
+          </div>
 
           {/* Navigation */}
           <div className="mt-8 flex justify-between items-center">
