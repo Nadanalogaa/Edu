@@ -7,6 +7,7 @@ import SimpleARViewer from './SimpleARViewer';
 import UltraSimpleARViewer from './UltraSimpleARViewer';
 import Video360Viewer from './Video360Viewer';
 import VRViewer from './VRViewer';
+import Lesson3DViewer from './Lesson3DViewer';
 
 type PracticeView = 'dashboard' | 'exam-selection' | 'practicing' | 'results';
 
@@ -1053,60 +1054,44 @@ const PracticeModeNew: React.FC = () => {
 
       {/* AR Viewer Modal */}
       {showARViewer && modalQuestion && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col">
-            <div className="flex items-center justify-between p-4 sm:p-6 border-b border-slate-200 dark:border-slate-700 flex-shrink-0">
-              <div className="flex items-center gap-3">
-                <ARIcon className="w-6 h-6 text-purple-600 dark:text-purple-400" />
-                <div>
-                  <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100">
-                    {t('practiceExam.augmentedReality')}
-                  </h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-400">{modalQuestion.topic}</p>
-                </div>
-              </div>
-              <button
-                onClick={() => setShowARViewer(false)}
-                className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-            <div className="flex-1 overflow-hidden relative">
-              <Video360Viewer topic={modalQuestion.topic} subject={modalQuestion.subject} />
-            </div>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-0">
+          <div className="w-full h-full relative">
+            <button
+              onClick={() => setShowARViewer(false)}
+              className="absolute top-4 right-4 z-50 p-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full text-white transition-all"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <Lesson3DViewer
+              topic={modalQuestion.topic}
+              subject={modalQuestion.subject}
+              mode="ar"
+              onClose={() => setShowARViewer(false)}
+            />
           </div>
         </div>
       )}
 
       {/* VR Experience Modal */}
       {showVRExperience && modalQuestion && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col">
-            <div className="flex items-center justify-between p-4 sm:p-6 border-b border-slate-200 dark:border-slate-700 flex-shrink-0">
-              <div className="flex items-center gap-3">
-                <VRIcon className="w-6 h-6 text-orange-600 dark:text-orange-400" />
-                <div>
-                  <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100">
-                    {t('practiceExam.virtualReality')}
-                  </h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-400">{modalQuestion.topic}</p>
-                </div>
-              </div>
-              <button
-                onClick={() => setShowVRExperience(false)}
-                className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-            <div className="flex-1 overflow-hidden relative">
-              <Video360Viewer topic={modalQuestion.topic} subject={modalQuestion.subject} />
-            </div>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-0">
+          <div className="w-full h-full relative">
+            <button
+              onClick={() => setShowVRExperience(false)}
+              className="absolute top-4 right-4 z-50 p-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full text-white transition-all"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <Lesson3DViewer
+              topic={modalQuestion.topic}
+              subject={modalQuestion.subject}
+              mode="vr"
+              onClose={() => setShowVRExperience(false)}
+            />
           </div>
         </div>
       )}

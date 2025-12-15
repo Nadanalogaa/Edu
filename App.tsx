@@ -23,6 +23,7 @@ import TestCreation from './components/admin/TestCreation';
 import DailyChallengeCreation from './components/admin/DailyChallengeCreation';
 import TestManagement from './components/admin/TestManagement';
 import LanguageSelector from './components/LanguageSelector';
+import TNSchoolsPage from './pages/TNSchoolsPage';
 import GamificationStats from './components/GamificationStats';
 import api from './services/api';
 import {
@@ -248,10 +249,15 @@ const DashboardLayout: React.FC = () => {
       <aside className="w-20 lg:w-64 bg-white dark:bg-slate-800/50 p-4 lg:p-6 flex flex-col border-r border-slate-200 dark:border-slate-800 transition-all duration-300">
         {/* Logo - Fixed at top */}
         <div className="flex-shrink-0 flex items-center mb-6">
-            <div className="p-2 bg-indigo-600 rounded-lg">
-              <LayoutDashboardIcon className="w-6 h-6 text-white" />
+            <img
+              src="/logo.png"
+              alt="Education Intelligence Logo"
+              className="w-10 h-10 lg:w-12 lg:h-12"
+            />
+            <div className="ml-3 hidden lg:flex flex-col">
+              <h1 className="text-lg font-bold text-slate-800 dark:text-slate-100">{t('appTitle')}</h1>
+              <span className="text-xs text-indigo-600 dark:text-indigo-400">{t('landing.nav.tagline')}</span>
             </div>
-            <h1 className="text-xl font-bold ml-3 text-slate-800 dark:text-slate-100 hidden lg:block">Educational Intelligence</h1>
         </div>
 
         {/* Navigation - Scrollable middle section */}
@@ -366,6 +372,7 @@ const AppContent: React.FC = () => {
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<LoginRoute />} />
+      <Route path="/tn-schools" element={<TNSchoolsPage />} />
       <Route path="/register" element={<RegistrationLanding />} />
       <Route path="/register/student" element={<StudentRegistrationForm />} />
       <Route path="/register/teacher" element={<TeacherRegistrationForm />} />

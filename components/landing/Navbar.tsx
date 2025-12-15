@@ -6,7 +6,7 @@ import LanguageSelector from '../LanguageSelector';
 
 const Navbar: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
 
     const menuItems = [
         { label: t('landing.nav.home'), href: '#home' },
@@ -47,6 +47,14 @@ const Navbar: React.FC = () => {
                                 {item.label}
                             </a>
                         ))}
+                        {/* TNSchools Special Link */}
+                        <Link
+                            to="/tn-schools"
+                            className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+                        >
+                            <span>🏫</span>
+                            <span>{language === 'ta' ? 'TN பள்ளிகள்' : 'TN Schools'}</span>
+                        </Link>
                     </div>
 
                     {/* CTA Buttons */}
@@ -94,6 +102,15 @@ const Navbar: React.FC = () => {
                                 {item.label}
                             </a>
                         ))}
+                        {/* TNSchools Link for Mobile */}
+                        <Link
+                            to="/tn-schools"
+                            onClick={() => setIsOpen(false)}
+                            className="flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-medium rounded-lg shadow-md"
+                        >
+                            <span>🏫</span>
+                            <span>{language === 'ta' ? 'TN பள்ளிகள்' : 'TN Schools'}</span>
+                        </Link>
                         <div className="pt-4 space-y-3 border-t border-slate-200 dark:border-slate-800">
                             <div className="flex justify-center mb-3">
                                 <LanguageSelector />
