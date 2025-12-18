@@ -1112,49 +1112,106 @@ const DistrictCard: React.FC<{
   return (
     <div
       onClick={onClick}
-      className="group relative bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/20 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:bg-white/20 hover:shadow-2xl hover:shadow-purple-500/20"
+      className="group relative overflow-hidden rounded-2xl cursor-pointer transform transition-all duration-500 hover:scale-105 hover:shadow-2xl"
       style={{
         animationDelay: `${index * 50}ms`,
         animation: 'fadeInUp 0.5s ease-out forwards',
-        opacity: 0
+        opacity: 0,
+        background: `linear-gradient(135deg, rgba(30, 27, 75, 0.95) 0%, rgba(15, 15, 35, 0.98) 100%)`,
+        border: '1px solid rgba(139, 92, 246, 0.2)'
       }}
     >
+      {/* Gradient overlay on hover */}
       <div
-        className="absolute top-0 left-0 w-full h-1 rounded-t-2xl"
-        style={{ backgroundColor: district.color }}
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{
+          background: `linear-gradient(135deg, ${district.color}15 0%, ${district.color}05 100%)`
+        }}
       />
+
+      {/* Animated border gradient */}
       <div
-        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-30 transition-opacity duration-300 blur-xl"
-        style={{ backgroundColor: district.color }}
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{
+          background: `linear-gradient(135deg, ${district.color}40 0%, transparent 50%, ${district.color}40 100%)`,
+          padding: '2px',
+          WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+          WebkitMaskComposite: 'xor',
+          maskComposite: 'exclude'
+        }}
       />
-      <div className="relative z-10">
-        <div className="flex items-start justify-between mb-3">
-          <div>
-            <h3 className="text-lg font-bold text-white">{district.name}</h3>
-            <p className="text-sm text-purple-300">{district.nameTa}</p>
+
+      {/* Top accent bar with gradient */}
+      <div
+        className="h-1.5"
+        style={{
+          background: `linear-gradient(90deg, ${district.color} 0%, ${district.color}80 50%, ${district.color} 100%)`
+        }}
+      />
+
+      <div className="relative z-10 p-5">
+        {/* Header with icon */}
+        <div className="flex items-start justify-between mb-4">
+          <div className="flex-1">
+            <h3 className="text-lg font-bold text-white mb-1 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-purple-200 transition-all duration-300">
+              {district.name}
+            </h3>
+            <p className="text-sm font-medium bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent">
+              {district.nameTa}
+            </p>
           </div>
           <div
-            className="w-10 h-10 rounded-xl flex items-center justify-center"
-            style={{ backgroundColor: `${district.color}30` }}
+            className="w-12 h-12 rounded-xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg"
+            style={{
+              background: `linear-gradient(135deg, ${district.color}40 0%, ${district.color}20 100%)`,
+              boxShadow: `0 4px 12px ${district.color}30`
+            }}
           >
             <MapIcon />
           </div>
         </div>
-        <div className="flex items-center gap-4 text-sm">
-          <div className="flex items-center gap-1 text-blue-300">
-            <BlockIcon />
-            <span>{district.blocks.length} Blocks</span>
+
+        {/* Stats section with modern badges */}
+        <div className="flex items-center gap-3">
+          <div className="flex-1 bg-gradient-to-br from-indigo-500/20 to-blue-500/20 backdrop-blur-sm rounded-lg px-3 py-2 border border-blue-400/30">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-md bg-blue-400/30 flex items-center justify-center">
+                <BlockIcon />
+              </div>
+              <div>
+                <div className="text-xs text-blue-200/70 font-medium">Blocks</div>
+                <div className="text-sm font-bold text-blue-300">{district.blocks.length}</div>
+              </div>
+            </div>
           </div>
-          <div className="flex items-center gap-1 text-green-300">
-            <SchoolIcon />
-            <span>{schoolCount} Schools</span>
+
+          <div className="flex-1 bg-gradient-to-br from-emerald-500/20 to-green-500/20 backdrop-blur-sm rounded-lg px-3 py-2 border border-green-400/30">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-md bg-green-400/30 flex items-center justify-center">
+                <SchoolIcon />
+              </div>
+              <div>
+                <div className="text-xs text-green-200/70 font-medium">Schools</div>
+                <div className="text-sm font-bold text-green-300">{schoolCount}</div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300">
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-        </svg>
+
+        {/* Hover arrow indicator */}
+        <div className="absolute right-4 bottom-4 opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+          <div
+            className="w-10 h-10 rounded-full flex items-center justify-center"
+            style={{
+              background: `linear-gradient(135deg, ${district.color}50 0%, ${district.color}30 100%)`,
+              boxShadow: `0 4px 12px ${district.color}40`
+            }}
+          >
+            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -1169,33 +1226,49 @@ const BlockCard: React.FC<{
 }> = ({ block, districtColor, onClick, index }) => (
   <div
     onClick={onClick}
-    className="group relative bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20 cursor-pointer transform transition-all duration-300 hover:scale-102 hover:bg-white/20"
+    className="group relative overflow-hidden rounded-xl cursor-pointer transition-all duration-300 hover:scale-102 hover:shadow-xl"
     style={{
       animationDelay: `${index * 30}ms`,
       animation: 'fadeInUp 0.4s ease-out forwards',
-      opacity: 0
+      opacity: 0,
+      background: `linear-gradient(135deg, rgba(30, 27, 75, 0.8) 0%, rgba(15, 15, 35, 0.9) 100%)`,
+      border: `1px solid ${districtColor}30`
     }}
   >
-    <div className="flex items-center justify-between">
-      <div className="flex items-center gap-3">
-        <div
-          className="w-10 h-10 rounded-lg flex items-center justify-center"
-          style={{ backgroundColor: `${districtColor}40` }}
-        >
-          <BlockIcon />
+    {/* Hover gradient effect */}
+    <div
+      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+      style={{
+        background: `linear-gradient(135deg, ${districtColor}10 0%, transparent 100%)`
+      }}
+    />
+
+    <div className="relative z-10 p-4">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3 flex-1">
+          <div
+            className="w-11 h-11 rounded-lg flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 shadow-md"
+            style={{
+              background: `linear-gradient(135deg, ${districtColor}50 0%, ${districtColor}30 100%)`,
+              boxShadow: `0 4px 8px ${districtColor}20`
+            }}
+          >
+            <BlockIcon />
+          </div>
+          <div className="flex-1">
+            <h4 className="font-semibold text-white group-hover:text-purple-100 transition-colors">{block.name}</h4>
+            <div className="flex items-center gap-2 mt-1">
+              <div className="px-2 py-0.5 bg-gradient-to-r from-emerald-500/30 to-green-500/30 border border-green-400/40 text-green-300 text-xs rounded-md font-medium">
+                {block.schools.length} Schools
+              </div>
+            </div>
+          </div>
         </div>
-        <div>
-          <h4 className="font-semibold text-white">{block.name}</h4>
-          <p className="text-xs text-gray-400">{block.schools.length} Schools</p>
+        <div className="opacity-70 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all duration-300">
+          <svg className="w-6 h-6 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+          </svg>
         </div>
-      </div>
-      <div className="flex items-center gap-2">
-        <span className="px-3 py-1 bg-green-500/20 text-green-300 text-xs rounded-full">
-          {block.schools.length}
-        </span>
-        <svg className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-        </svg>
       </div>
     </div>
   </div>
@@ -1208,31 +1281,54 @@ const SchoolCard: React.FC<{
   districtColor: string;
 }> = ({ school, index, districtColor }) => (
   <div
-    className="group relative bg-white/10 backdrop-blur-md rounded-xl p-5 border border-white/20 transform transition-all duration-300 hover:bg-white/15"
+    className="group relative overflow-hidden rounded-xl transform transition-all duration-300 hover:scale-102 hover:shadow-lg"
     style={{
       animationDelay: `${index * 30}ms`,
       animation: 'fadeInUp 0.4s ease-out forwards',
-      opacity: 0
+      opacity: 0,
+      background: `linear-gradient(135deg, rgba(30, 27, 75, 0.7) 0%, rgba(15, 15, 35, 0.85) 100%)`,
+      border: `1px solid ${districtColor}25`
     }}
   >
-    <div className="flex items-start gap-4">
-      <div
-        className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-        style={{ backgroundColor: `${districtColor}30` }}
-      >
-        <SchoolIcon />
-      </div>
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 mb-1">
-          <span className="px-2 py-0.5 bg-purple-500/30 text-purple-300 text-xs rounded-full">
-            #{school.sno}
-          </span>
+    {/* Subtle hover effect */}
+    <div
+      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+      style={{
+        background: `linear-gradient(135deg, ${districtColor}08 0%, transparent 100%)`
+      }}
+    />
+
+    <div className="relative z-10 p-4">
+      <div className="flex items-start gap-3">
+        <div
+          className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 transform group-hover:scale-105 transition-transform duration-300 shadow-md"
+          style={{
+            background: `linear-gradient(135deg, ${districtColor}45 0%, ${districtColor}25 100%)`,
+            boxShadow: `0 3px 6px ${districtColor}15`
+          }}
+        >
+          <SchoolIcon />
         </div>
-        <h4 className="font-semibold text-white text-sm leading-tight line-clamp-2">
-          {school.name}
-        </h4>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="px-2.5 py-0.5 bg-gradient-to-r from-purple-500/30 to-indigo-500/30 border border-purple-400/40 text-purple-200 text-xs rounded-md font-semibold">
+              #{school.sno}
+            </span>
+          </div>
+          <h4 className="font-semibold text-white text-sm leading-tight line-clamp-2 group-hover:text-purple-100 transition-colors">
+            {school.name}
+          </h4>
+        </div>
       </div>
     </div>
+
+    {/* Decorative corner accent */}
+    <div
+      className="absolute top-0 right-0 w-16 h-16 opacity-20 group-hover:opacity-30 transition-opacity duration-300"
+      style={{
+        background: `radial-gradient(circle at top right, ${districtColor}40 0%, transparent 70%)`
+      }}
+    />
   </div>
 );
 
@@ -1255,20 +1351,38 @@ const SearchResults: React.FC<{
         <div
           key={`${result.school.sno}-${index}`}
           onClick={() => onSelectDistrict(result.district)}
-          className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20 cursor-pointer hover:bg-white/15 transition-all"
+          className="group relative overflow-hidden rounded-xl p-4 cursor-pointer transition-all duration-300 hover:scale-102 hover:shadow-lg"
+          style={{
+            background: 'linear-gradient(135deg, rgba(30, 27, 75, 0.75) 0%, rgba(15, 15, 35, 0.9) 100%)',
+            border: '1px solid rgba(139, 92, 246, 0.25)'
+          }}
         >
-          <div className="flex items-center gap-2 mb-2">
-            <span className="px-2 py-0.5 bg-purple-500/30 text-purple-300 text-xs rounded-full">
-              #{result.school.sno}
-            </span>
-          </div>
-          <h4 className="font-semibold text-white text-sm mb-2 line-clamp-2">
-            {result.school.name}
-          </h4>
-          <div className="flex items-center gap-2 text-xs text-gray-400">
-            <span className="text-blue-300">{result.district}</span>
-            <span>•</span>
-            <span className="text-green-300">{result.block}</span>
+          {/* Hover effect */}
+          <div
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            style={{
+              background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, transparent 100%)'
+            }}
+          />
+
+          <div className="relative z-10">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="px-2.5 py-0.5 bg-gradient-to-r from-purple-500/30 to-indigo-500/30 border border-purple-400/40 text-purple-200 text-xs rounded-md font-semibold">
+                #{result.school.sno}
+              </span>
+            </div>
+            <h4 className="font-semibold text-white text-sm mb-3 line-clamp-2 group-hover:text-purple-100 transition-colors">
+              {result.school.name}
+            </h4>
+            <div className="flex items-center gap-2 text-xs">
+              <span className="px-2 py-1 bg-blue-500/20 border border-blue-400/30 text-blue-300 rounded-md font-medium">
+                {result.district}
+              </span>
+              <span className="text-gray-500">•</span>
+              <span className="px-2 py-1 bg-green-500/20 border border-green-400/30 text-green-300 rounded-md font-medium">
+                {result.block}
+              </span>
+            </div>
           </div>
         </div>
       ))}
@@ -1834,18 +1948,53 @@ const TNSchoolsPage: React.FC = () => {
             </div>
 
             {/* Stats row */}
-            <div className="flex justify-center gap-4 mb-6">
-              <div className="bg-green-500/20 rounded-xl px-6 py-3 border border-green-500/30 text-center">
-                <div className="text-2xl font-bold text-green-400">{stats.districts}</div>
-                <div className="text-xs text-green-300">{language === 'ta' ? 'மாவட்டங்கள்' : 'Districts'}</div>
+            <div className="flex justify-center gap-4 mb-6 flex-wrap">
+              <div className="relative overflow-hidden rounded-xl px-8 py-4 text-center transform hover:scale-105 transition-all duration-300"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.25) 100%)',
+                  border: '1px solid rgba(16, 185, 129, 0.3)',
+                  boxShadow: '0 4px 12px rgba(16, 185, 129, 0.15)'
+                }}
+              >
+                <div className="absolute top-0 right-0 w-20 h-20 opacity-10"
+                  style={{
+                    background: 'radial-gradient(circle at top right, rgba(16, 185, 129, 0.5) 0%, transparent 70%)'
+                  }}
+                />
+                <div className="text-3xl font-bold bg-gradient-to-br from-green-300 to-emerald-400 bg-clip-text text-transparent">{stats.districts}</div>
+                <div className="text-xs font-semibold text-green-300 mt-1">{language === 'ta' ? 'மாவட்டங்கள்' : 'Districts'}</div>
               </div>
-              <div className="bg-blue-500/20 rounded-xl px-6 py-3 border border-blue-500/30 text-center">
-                <div className="text-2xl font-bold text-blue-400">{stats.blocks}</div>
-                <div className="text-xs text-blue-300">{language === 'ta' ? 'வட்டாரங்கள்' : 'Blocks'}</div>
+
+              <div className="relative overflow-hidden rounded-xl px-8 py-4 text-center transform hover:scale-105 transition-all duration-300"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0.25) 100%)',
+                  border: '1px solid rgba(59, 130, 246, 0.3)',
+                  boxShadow: '0 4px 12px rgba(59, 130, 246, 0.15)'
+                }}
+              >
+                <div className="absolute top-0 right-0 w-20 h-20 opacity-10"
+                  style={{
+                    background: 'radial-gradient(circle at top right, rgba(59, 130, 246, 0.5) 0%, transparent 70%)'
+                  }}
+                />
+                <div className="text-3xl font-bold bg-gradient-to-br from-blue-300 to-indigo-400 bg-clip-text text-transparent">{stats.blocks}</div>
+                <div className="text-xs font-semibold text-blue-300 mt-1">{language === 'ta' ? 'வட்டாரங்கள்' : 'Blocks'}</div>
               </div>
-              <div className="bg-purple-500/20 rounded-xl px-6 py-3 border border-purple-500/30 text-center">
-                <div className="text-2xl font-bold text-purple-400">{stats.schools}</div>
-                <div className="text-xs text-purple-300">{language === 'ta' ? 'பள்ளிகள்' : 'Schools'}</div>
+
+              <div className="relative overflow-hidden rounded-xl px-8 py-4 text-center transform hover:scale-105 transition-all duration-300"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.15) 0%, rgba(147, 51, 234, 0.25) 100%)',
+                  border: '1px solid rgba(168, 85, 247, 0.3)',
+                  boxShadow: '0 4px 12px rgba(168, 85, 247, 0.15)'
+                }}
+              >
+                <div className="absolute top-0 right-0 w-20 h-20 opacity-10"
+                  style={{
+                    background: 'radial-gradient(circle at top right, rgba(168, 85, 247, 0.5) 0%, transparent 70%)'
+                  }}
+                />
+                <div className="text-3xl font-bold bg-gradient-to-br from-purple-300 to-fuchsia-400 bg-clip-text text-transparent">{stats.schools}</div>
+                <div className="text-xs font-semibold text-purple-300 mt-1">{language === 'ta' ? 'பள்ளிகள்' : 'Schools'}</div>
               </div>
             </div>
 
