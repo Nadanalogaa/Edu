@@ -1521,12 +1521,13 @@ const InteractiveMapView: React.FC<{
         doubleClick={{ mode: 'reset' }}
       >
         <TransformComponent
-          wrapperClass="w-full h-full"
-          contentClass="w-full h-full flex items-center justify-center"
+          wrapperClass="w-full h-full flex items-center justify-center"
+          contentClass="flex items-center justify-center"
         >
           <svg
             viewBox="0 0 600 800"
-            className="w-full h-full max-w-4xl"
+            className="max-h-[90vh] w-auto"
+            preserveAspectRatio="xMidYMid meet"
             style={{ filter: 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3))' }}
           >
             {/* Background */}
