@@ -1118,7 +1118,7 @@ const DistrictCard: React.FC<{
         animation: 'fadeInUp 0.5s ease-out forwards',
         opacity: 0,
         background: 'rgba(30, 27, 75, 0.6)',
-        border: `2px solid ${district.color}40`,
+        border: `1.5px solid ${district.color}20`,
         backdropFilter: 'blur(10px)'
       }}
     >
@@ -1136,10 +1136,10 @@ const DistrictCard: React.FC<{
         style={{ backgroundColor: district.color }}
       />
 
-      <div className="relative z-10 p-5">
+      <div className="relative z-10 p-5 pb-4">
         {/* Header with icon */}
         <div className="flex items-start justify-between mb-4">
-          <div className="flex-1">
+          <div className="flex-1 pr-2">
             <h3 className="text-lg font-bold text-white mb-1.5 group-hover:text-purple-100 transition-colors">
               {district.name}
             </h3>
@@ -1158,7 +1158,7 @@ const DistrictCard: React.FC<{
         </div>
 
         {/* Stats section - simplified */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 mb-1">
           <div className="flex-1 bg-blue-500/20 backdrop-blur-sm rounded-lg px-3 py-2 border border-blue-400/40">
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded-md bg-blue-400/40 flex items-center justify-center">
@@ -1183,19 +1183,19 @@ const DistrictCard: React.FC<{
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Hover arrow indicator */}
-        <div className="absolute right-4 bottom-4 opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-300">
-          <div
-            className="w-10 h-10 rounded-full flex items-center justify-center"
-            style={{
-              backgroundColor: `${district.color}70`
-            }}
-          >
-            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-            </svg>
-          </div>
+      {/* Hover arrow indicator - repositioned to top right */}
+      <div className="absolute right-3 top-16 opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+        <div
+          className="w-8 h-8 rounded-full flex items-center justify-center shadow-lg"
+          style={{
+            backgroundColor: `${district.color}80`
+          }}
+        >
+          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+          </svg>
         </div>
       </div>
     </div>
@@ -1217,7 +1217,7 @@ const BlockCard: React.FC<{
       animation: 'fadeInUp 0.4s ease-out forwards',
       opacity: 0,
       background: 'rgba(30, 27, 75, 0.5)',
-      border: `2px solid ${districtColor}40`,
+      border: `1.5px solid ${districtColor}20`,
       backdropFilter: 'blur(8px)'
     }}
   >
@@ -1272,7 +1272,7 @@ const SchoolCard: React.FC<{
       animation: 'fadeInUp 0.4s ease-out forwards',
       opacity: 0,
       background: 'rgba(30, 27, 75, 0.4)',
-      border: `2px solid ${districtColor}30`,
+      border: `1.5px solid ${districtColor}20`,
       backdropFilter: 'blur(8px)'
     }}
   >
@@ -1328,7 +1328,7 @@ const SearchResults: React.FC<{
         <div
           key={`${result.school.sno}-${index}`}
           onClick={() => onSelectDistrict(result.district)}
-          className="group relative overflow-hidden rounded-xl p-4 cursor-pointer transition-all duration-300 hover:scale-102 hover:shadow-lg bg-slate-800/40 backdrop-blur-sm border-2 border-purple-400/30"
+          className="group relative overflow-hidden rounded-xl p-4 cursor-pointer transition-all duration-300 hover:scale-102 hover:shadow-lg bg-slate-800/40 backdrop-blur-sm border border-purple-400/20"
         >
           {/* Simple hover effect */}
           <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-purple-500/10" />
