@@ -1108,6 +1108,8 @@ const DistrictCard: React.FC<{
   index: number;
 }> = ({ district, onClick, index }) => {
   const schoolCount = district.blocks.reduce((acc, block) => acc + block.schools.length, 0);
+  const studentCount = district.blocks.reduce((acc, block) =>
+    acc + block.schools.reduce((sum, school) => sum + school.studentCount, 0), 0);
 
   return (
     <div
@@ -1157,29 +1159,37 @@ const DistrictCard: React.FC<{
           </div>
         </div>
 
-        {/* Stats section - simplified */}
-        <div className="flex items-center gap-3 mb-1">
-          <div className="flex-1 bg-blue-500/20 backdrop-blur-sm rounded-lg px-3 py-2 border border-blue-400/40">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-md bg-blue-400/40 flex items-center justify-center">
+        {/* Stats section - compact responsive design */}
+        <div className="flex items-stretch gap-1.5 mb-1">
+          <div className="flex-1 bg-blue-500/20 backdrop-blur-sm rounded-lg px-1.5 py-1.5 border border-blue-400/20">
+            <div className="flex flex-col items-center justify-center gap-0.5">
+              <div className="w-4 h-4 rounded-md bg-blue-400/40 flex items-center justify-center">
                 <BlockIcon />
               </div>
-              <div>
-                <div className="text-xs text-blue-200 font-medium">Blocks</div>
-                <div className="text-sm font-bold text-blue-300">{district.blocks.length}</div>
-              </div>
+              <div className="text-[10px] text-blue-200 font-medium leading-tight">Blocks</div>
+              <div className="text-sm font-bold text-blue-300 leading-tight">{district.blocks.length}</div>
             </div>
           </div>
 
-          <div className="flex-1 bg-green-500/20 backdrop-blur-sm rounded-lg px-3 py-2 border border-green-400/40">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-md bg-green-400/40 flex items-center justify-center">
+          <div className="flex-1 bg-green-500/20 backdrop-blur-sm rounded-lg px-1.5 py-1.5 border border-green-400/20">
+            <div className="flex flex-col items-center justify-center gap-0.5">
+              <div className="w-4 h-4 rounded-md bg-green-400/40 flex items-center justify-center">
                 <SchoolIcon />
               </div>
-              <div>
-                <div className="text-xs text-green-200 font-medium">Schools</div>
-                <div className="text-sm font-bold text-green-300">{schoolCount}</div>
+              <div className="text-[10px] text-green-200 font-medium leading-tight">Schools</div>
+              <div className="text-sm font-bold text-green-300 leading-tight">{schoolCount}</div>
+            </div>
+          </div>
+
+          <div className="flex-1 bg-orange-500/20 backdrop-blur-sm rounded-lg px-1.5 py-1.5 border border-orange-400/20">
+            <div className="flex flex-col items-center justify-center gap-0.5">
+              <div className="w-4 h-4 rounded-md bg-orange-400/40 flex items-center justify-center">
+                <svg className="w-2.5 h-2.5 text-orange-300" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+                </svg>
               </div>
+              <div className="text-[10px] text-orange-200 font-medium leading-tight">Students</div>
+              <div className="text-sm font-bold text-orange-300 leading-tight">{studentCount}</div>
             </div>
           </div>
         </div>
@@ -1208,7 +1218,10 @@ const BlockCard: React.FC<{
   districtColor: string;
   onClick: () => void;
   index: number;
-}> = ({ block, districtColor, onClick, index }) => (
+}> = ({ block, districtColor, onClick, index }) => {
+  const studentCount = block.schools.reduce((sum, school) => sum + school.studentCount, 0);
+
+  return (
   <div
     onClick={onClick}
     className="group relative overflow-hidden rounded-xl cursor-pointer transition-all duration-300 hover:scale-102 hover:shadow-xl"
@@ -1246,6 +1259,12 @@ const BlockCard: React.FC<{
               <div className="px-2 py-0.5 bg-green-500/30 border border-green-400/50 text-green-300 text-xs rounded-md font-medium">
                 {block.schools.length} Schools
               </div>
+              <div className="flex items-center gap-1 px-2 py-0.5 bg-orange-500/20 border border-orange-400/30 text-orange-300 text-xs rounded-md font-medium">
+                <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+                </svg>
+                {studentCount}
+              </div>
             </div>
           </div>
         </div>
@@ -1257,7 +1276,8 @@ const BlockCard: React.FC<{
       </div>
     </div>
   </div>
-);
+  );
+};
 
 // School Card Component
 const SchoolCard: React.FC<{
@@ -1299,6 +1319,12 @@ const SchoolCard: React.FC<{
             <span className="px-2.5 py-0.5 bg-purple-500/30 border border-purple-400/50 text-purple-200 text-xs rounded-md font-semibold">
               #{school.sno}
             </span>
+            <div className="flex items-center gap-1 px-2 py-0.5 bg-orange-500/20 border border-orange-400/30 rounded-md">
+              <svg className="w-3 h-3 text-orange-300" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+              </svg>
+              <span className="text-xs font-semibold text-orange-200">{school.studentCount}</span>
+            </div>
           </div>
           <h4 className="font-semibold text-white text-sm leading-tight line-clamp-2 group-hover:text-purple-100 transition-colors">
             {school.name}
@@ -1917,19 +1943,28 @@ const TNSchoolsPage: React.FC = () => {
 
             {/* Stats row */}
             <div className="flex justify-center gap-4 mb-6 flex-wrap">
-              <div className="rounded-xl px-8 py-4 text-center transform hover:scale-105 transition-all duration-300 bg-green-500/20 backdrop-blur-sm border-2 border-green-400/40">
+              <div className="rounded-xl px-8 py-4 text-center transform hover:scale-105 transition-all duration-300 bg-green-500/20 backdrop-blur-sm border border-green-400/20">
+                <div className="text-2xl mb-1">🏛️</div>
                 <div className="text-3xl font-bold text-green-300">{stats.districts}</div>
                 <div className="text-xs font-semibold text-green-200 mt-1">{language === 'ta' ? 'மாவட்டங்கள்' : 'Districts'}</div>
               </div>
 
-              <div className="rounded-xl px-8 py-4 text-center transform hover:scale-105 transition-all duration-300 bg-blue-500/20 backdrop-blur-sm border-2 border-blue-400/40">
+              <div className="rounded-xl px-8 py-4 text-center transform hover:scale-105 transition-all duration-300 bg-blue-500/20 backdrop-blur-sm border border-blue-400/20">
+                <div className="text-2xl mb-1">📦</div>
                 <div className="text-3xl font-bold text-blue-300">{stats.blocks}</div>
                 <div className="text-xs font-semibold text-blue-200 mt-1">{language === 'ta' ? 'வட்டாரங்கள்' : 'Blocks'}</div>
               </div>
 
-              <div className="rounded-xl px-8 py-4 text-center transform hover:scale-105 transition-all duration-300 bg-purple-500/20 backdrop-blur-sm border-2 border-purple-400/40">
+              <div className="rounded-xl px-8 py-4 text-center transform hover:scale-105 transition-all duration-300 bg-purple-500/20 backdrop-blur-sm border border-purple-400/20">
+                <div className="text-2xl mb-1">🏫</div>
                 <div className="text-3xl font-bold text-purple-300">{stats.schools}</div>
                 <div className="text-xs font-semibold text-purple-200 mt-1">{language === 'ta' ? 'பள்ளிகள்' : 'Schools'}</div>
+              </div>
+
+              <div className="rounded-xl px-8 py-4 text-center transform hover:scale-105 transition-all duration-300 bg-orange-500/20 backdrop-blur-sm border border-orange-400/20">
+                <div className="text-2xl mb-1">👥</div>
+                <div className="text-3xl font-bold text-orange-300">{stats.students}</div>
+                <div className="text-xs font-semibold text-orange-200 mt-1">{language === 'ta' ? 'மாணவர்கள்' : 'Students'}</div>
               </div>
             </div>
 
