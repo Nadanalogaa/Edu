@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, Text, Float, Billboard, Sky, Stars } from '@react-three/drei';
 import * as THREE from 'three';
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import { useLanguage } from '../context/LanguageContext';
 import { tnSchoolsData, getTotalStats, searchSchools, District, Block, School } from '../data/tnSchoolsData';
+import { tnMapPaths } from '../data/tnMapPaths';
 
 // Icons
 const BackIcon = () => (
@@ -77,6 +79,30 @@ const TravelIcon = () => (
 const WalkIcon = () => (
   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
+  </svg>
+);
+
+const GeoMapIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+  </svg>
+);
+
+const ZoomInIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
+  </svg>
+);
+
+const ZoomOutIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H7" />
+  </svg>
+);
+
+const ResetIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
   </svg>
 );
 
@@ -1384,6 +1410,208 @@ const SearchResults: React.FC<{
   );
 };
 
+// ==================== INTERACTIVE MAP VIEW COMPONENT ====================
+
+const InteractiveMapView: React.FC<{
+  onDistrictClick: (districtName: string) => void;
+  language: 'en' | 'ta';
+}> = ({ onDistrictClick, language }) => {
+  const [hoveredDistrict, setHoveredDistrict] = useState<string | null>(null);
+  const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
+  const transformComponentRef = useRef<any>(null);
+
+  const handleDistrictClick = (districtName: string) => {
+    setSelectedDistrict(districtName);
+    onDistrictClick(districtName);
+  };
+
+  const handleZoomIn = () => {
+    if (transformComponentRef.current) {
+      transformComponentRef.current.zoomIn();
+    }
+  };
+
+  const handleZoomOut = () => {
+    if (transformComponentRef.current) {
+      transformComponentRef.current.zoomOut();
+    }
+  };
+
+  const handleReset = () => {
+    if (transformComponentRef.current) {
+      transformComponentRef.current.resetTransform();
+    }
+  };
+
+  // Get district data for tooltip
+  const getDistrictData = (districtName: string) => {
+    const district = tnSchoolsData.find(d => d.name === districtName);
+    if (!district) return null;
+
+    const schoolCount = district.blocks.reduce((acc, b) => acc + b.schools.length, 0);
+    const studentCount = district.blocks.reduce((acc, block) =>
+      acc + block.schools.reduce((sum, school) => sum + school.studentCount, 0), 0);
+
+    return {
+      ...district,
+      schoolCount,
+      studentCount
+    };
+  };
+
+  const hoveredData = hoveredDistrict ? getDistrictData(hoveredDistrict) : null;
+
+  return (
+    <div className="relative w-full h-full bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900">
+      {/* Control Panel */}
+      <div className="absolute top-4 right-4 z-20 flex flex-col gap-2">
+        <button
+          onClick={handleZoomIn}
+          className="p-3 bg-black/60 hover:bg-black/80 backdrop-blur-md border border-purple-500/30 rounded-lg text-white transition-all hover:scale-110"
+          title="Zoom In"
+        >
+          <ZoomInIcon />
+        </button>
+        <button
+          onClick={handleZoomOut}
+          className="p-3 bg-black/60 hover:bg-black/80 backdrop-blur-md border border-purple-500/30 rounded-lg text-white transition-all hover:scale-110"
+          title="Zoom Out"
+        >
+          <ZoomOutIcon />
+        </button>
+        <button
+          onClick={handleReset}
+          className="p-3 bg-black/60 hover:bg-black/80 backdrop-blur-md border border-purple-500/30 rounded-lg text-white transition-all hover:scale-110"
+          title="Reset View"
+        >
+          <ResetIcon />
+        </button>
+      </div>
+
+      {/* Hover Tooltip */}
+      {hoveredData && (
+        <div className="absolute top-4 left-4 z-20 bg-black/80 backdrop-blur-md rounded-xl px-4 py-3 border border-purple-500/30 min-w-[250px]">
+          <h3 className="text-white font-bold text-lg mb-1">{hoveredData.name}</h3>
+          <p className="text-purple-300 text-sm mb-3">{hoveredData.nameTa}</p>
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="px-2 py-1 bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs rounded">
+              {hoveredData.blocks.length} {language === 'ta' ? 'வட்டாரங்கள்' : 'Blocks'}
+            </span>
+            <span className="px-2 py-1 bg-green-500/20 border border-green-400/30 text-green-300 text-xs rounded">
+              {hoveredData.schoolCount} {language === 'ta' ? 'பள்ளிகள்' : 'Schools'}
+            </span>
+            <span className="px-2 py-1 bg-orange-500/20 border border-orange-400/30 text-orange-300 text-xs rounded">
+              {hoveredData.studentCount} {language === 'ta' ? 'மாணவர்கள்' : 'Students'}
+            </span>
+          </div>
+          <p className="text-gray-400 text-xs mt-2">
+            {language === 'ta' ? 'விவரங்களைப் பார்க்க கிளிக் செய்க' : 'Click to view details'}
+          </p>
+        </div>
+      )}
+
+      {/* Map Container with Zoom/Pan */}
+      <TransformWrapper
+        ref={transformComponentRef}
+        initialScale={1}
+        minScale={0.5}
+        maxScale={4}
+        centerOnInit={true}
+        wheel={{ step: 0.1 }}
+        doubleClick={{ mode: 'reset' }}
+      >
+        <TransformComponent
+          wrapperClass="w-full h-full"
+          contentClass="w-full h-full flex items-center justify-center"
+        >
+          <svg
+            viewBox="0 0 600 800"
+            className="w-full h-full max-w-4xl"
+            style={{ filter: 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3))' }}
+          >
+            {/* Background */}
+            <rect width="600" height="800" fill="transparent" />
+
+            {/* Districts */}
+            {tnMapPaths.map((districtPath) => {
+              const districtData = tnSchoolsData.find(d => d.name === districtPath.name);
+              const isHovered = hoveredDistrict === districtPath.name;
+              const isSelected = selectedDistrict === districtPath.name;
+              const color = districtData?.color || '#6366f1';
+
+              return (
+                <g key={districtPath.name}>
+                  {/* District Path */}
+                  <path
+                    d={districtPath.path}
+                    fill={isSelected ? color : isHovered ? `${color}cc` : `${color}99`}
+                    stroke={isSelected ? '#fff' : isHovered ? '#fff' : color}
+                    strokeWidth={isSelected ? 3 : isHovered ? 2.5 : 1.5}
+                    className="transition-all duration-200 cursor-pointer"
+                    onMouseEnter={() => setHoveredDistrict(districtPath.name)}
+                    onMouseLeave={() => setHoveredDistrict(null)}
+                    onClick={() => handleDistrictClick(districtPath.name)}
+                    style={{
+                      filter: isSelected ? 'brightness(1.3)' : isHovered ? 'brightness(1.2)' : 'brightness(1)',
+                    }}
+                  />
+
+                  {/* District Label */}
+                  {!isSelected && !isHovered && (
+                    <text
+                      x={districtPath.labelX}
+                      y={districtPath.labelY}
+                      fontSize="9"
+                      fontWeight="600"
+                      fill="white"
+                      textAnchor="middle"
+                      pointerEvents="none"
+                      style={{
+                        textShadow: '1px 1px 2px rgba(0,0,0,0.8)',
+                        filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.8))'
+                      }}
+                    >
+                      {districtPath.name}
+                    </text>
+                  )}
+
+                  {/* Enhanced Label on Hover/Select */}
+                  {(isHovered || isSelected) && (
+                    <text
+                      x={districtPath.labelX}
+                      y={districtPath.labelY}
+                      fontSize="11"
+                      fontWeight="bold"
+                      fill="white"
+                      textAnchor="middle"
+                      pointerEvents="none"
+                      style={{
+                        textShadow: '2px 2px 4px rgba(0,0,0,0.9)',
+                        filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.9))'
+                      }}
+                    >
+                      {districtPath.name}
+                    </text>
+                  )}
+                </g>
+              );
+            })}
+          </svg>
+        </TransformComponent>
+      </TransformWrapper>
+
+      {/* Instructions */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20 bg-black/60 backdrop-blur-md rounded-lg px-4 py-2 border border-purple-500/30">
+        <p className="text-white text-sm text-center">
+          {language === 'ta'
+            ? '🖱️ இழுத்து நகர்த்தவும் • 🔍 சுருட்டல் ஜூம் • 🖱️ மாவட்டத்தைத் தேர்ந்தெடுக்க கிளிக் செய்க'
+            : '🖱️ Drag to Pan • 🔍 Scroll to Zoom • 🖱️ Click District to Select'}
+        </p>
+      </div>
+    </div>
+  );
+};
+
 // Main Component
 const TNSchoolsPage: React.FC = () => {
   const navigate = useNavigate();
@@ -1396,7 +1624,7 @@ const TNSchoolsPage: React.FC = () => {
   const [selectedBlock, setSelectedBlock] = useState<Block | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
-  const [viewMode, setViewMode] = useState<'map' | 'grid' | 'travel'>('map');
+  const [viewMode, setViewMode] = useState<'map' | 'grid' | 'travel' | 'geomap'>('map');
   const [hoveredDistrict, setHoveredDistrict] = useState<string | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
@@ -1577,6 +1805,17 @@ const TNSchoolsPage: React.FC = () => {
                     <span className="hidden sm:inline">{language === 'ta' ? 'பயணம்' : 'Travel'}</span>
                   </button>
                   <button
+                    onClick={() => setViewMode('geomap')}
+                    className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all ${
+                      viewMode === 'geomap'
+                        ? 'bg-blue-600 text-white shadow-lg'
+                        : 'text-gray-400 hover:text-white'
+                    }`}
+                  >
+                    <GeoMapIcon />
+                    <span className="hidden sm:inline">{language === 'ta' ? 'வரைபடம்' : 'Map'}</span>
+                  </button>
+                  <button
                     onClick={() => setViewMode('grid')}
                     className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all ${
                       viewMode === 'grid'
@@ -1589,7 +1828,7 @@ const TNSchoolsPage: React.FC = () => {
                   </button>
                 </div>
 
-                {(viewMode === 'map' || viewMode === 'travel') && (
+                {(viewMode === 'map' || viewMode === 'travel' || viewMode === 'geomap') && (
                   <button
                     onClick={toggleFullscreen}
                     className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors border border-white/20"
@@ -1773,6 +2012,14 @@ const TNSchoolsPage: React.FC = () => {
                 </div>
               </div>
             </div>
+          </div>
+        ) : viewMode === 'geomap' ? (
+          // Interactive Geographic Map View
+          <div className="h-full">
+            <InteractiveMapView
+              onDistrictClick={handleDistrictClickByName}
+              language={language}
+            />
           </div>
         ) : viewMode === 'travel' ? (
           // Travel/City View Mode - Click to navigate
