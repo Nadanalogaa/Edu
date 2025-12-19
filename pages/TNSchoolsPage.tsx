@@ -1416,6 +1416,7 @@ const InteractiveMapView: React.FC<{
   onDistrictClick: (districtName: string) => void;
   language: 'en' | 'ta';
 }> = ({ onDistrictClick, language }) => {
+  const { t, setLanguage } = useLanguage();
   const [hoveredDistrict, setHoveredDistrict] = useState<string | null>(null);
   const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
   const transformComponentRef = useRef<any>(null);
@@ -1461,83 +1462,165 @@ const InteractiveMapView: React.FC<{
 
   const hoveredData = hoveredDistrict ? getDistrictData(hoveredDistrict) : null;
 
+  // Calculate total stats
+  const totalStats = {
+    districts: tnSchoolsData.length,
+    blocks: tnSchoolsData.reduce((acc, d) => acc + d.blocks.length, 0),
+    schools: tnSchoolsData.reduce((acc, d) =>
+      acc + d.blocks.reduce((sum, b) => sum + b.schools.length, 0), 0),
+    students: tnSchoolsData.reduce((acc, d) =>
+      acc + d.blocks.reduce((sum, b) =>
+        sum + b.schools.reduce((total, s) => total + s.studentCount, 0), 0), 0)
+  };
+
   return (
     <div className="relative w-full h-full bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900">
       {/* Control Panel */}
       <div className="absolute top-4 right-4 z-20 flex flex-col gap-2">
-        <button
-          onClick={handleZoomIn}
-          className="p-3 bg-black/60 hover:bg-black/80 backdrop-blur-md border border-purple-500/30 rounded-lg text-white transition-all hover:scale-110"
-          title="Zoom In"
-        >
-          <ZoomInIcon />
-        </button>
-        <button
-          onClick={handleZoomOut}
-          className="p-3 bg-black/60 hover:bg-black/80 backdrop-blur-md border border-purple-500/30 rounded-lg text-white transition-all hover:scale-110"
-          title="Zoom Out"
-        >
-          <ZoomOutIcon />
-        </button>
-        <button
-          onClick={handleReset}
-          className="p-3 bg-black/60 hover:bg-black/80 backdrop-blur-md border border-purple-500/30 rounded-lg text-white transition-all hover:scale-110"
-          title="Reset View"
-        >
-          <ResetIcon />
-        </button>
+        {/* Zoom Controls Row */}
+        <div className="flex flex-row gap-2">
+          <button
+            onClick={handleZoomIn}
+            className="p-3 bg-black/60 hover:bg-black/80 backdrop-blur-md border border-purple-500/30 rounded-lg text-white transition-all hover:scale-110"
+            title={t('tnSchoolsMap.zoomIn')}
+          >
+            <ZoomInIcon />
+          </button>
+          <button
+            onClick={handleZoomOut}
+            className="p-3 bg-black/60 hover:bg-black/80 backdrop-blur-md border border-purple-500/30 rounded-lg text-white transition-all hover:scale-110"
+            title={t('tnSchoolsMap.zoomOut')}
+          >
+            <ZoomOutIcon />
+          </button>
+          <button
+            onClick={handleReset}
+            className="p-3 bg-black/60 hover:bg-black/80 backdrop-blur-md border border-purple-500/30 rounded-lg text-white transition-all hover:scale-110"
+            title={t('tnSchoolsMap.resetView')}
+          >
+            <ResetIcon />
+          </button>
+        </div>
+
+        {/* Language Toggle Row */}
+        <div className="flex flex-row gap-2 bg-black/60 backdrop-blur-md border border-purple-500/30 rounded-lg p-2">
+          <button
+            onClick={() => setLanguage('en')}
+            className={`px-3 py-1.5 text-xs font-semibold rounded transition-all flex-1 ${
+              language === 'en'
+                ? 'bg-purple-600 text-white shadow-lg'
+                : 'text-gray-300 hover:bg-black/40'
+            }`}
+          >
+            EN
+          </button>
+          <button
+            onClick={() => setLanguage('ta')}
+            className={`px-3 py-1.5 text-xs font-semibold rounded transition-all flex-1 ${
+              language === 'ta'
+                ? 'bg-purple-600 text-white shadow-lg'
+                : 'text-gray-300 hover:bg-black/40'
+            }`}
+          >
+            த
+          </button>
+        </div>
+
+        {/* Stats Panel */}
+        <div className="flex flex-col gap-2 mt-2">
+          {/* Districts */}
+          <div className="bg-black/60 backdrop-blur-md border border-purple-500/30 rounded-lg p-3 min-w-[100px]">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-purple-400">{totalStats.districts}</div>
+              <div className="text-[10px] text-purple-300 mt-1 leading-tight">
+                {t('tnSchoolsMap.districtsLabel')}
+              </div>
+            </div>
+          </div>
+
+          {/* Blocks */}
+          <div className="bg-black/60 backdrop-blur-md border border-blue-500/30 rounded-lg p-3 min-w-[100px]">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-blue-400">{totalStats.blocks}</div>
+              <div className="text-[10px] text-blue-300 mt-1 leading-tight">
+                {t('tnSchoolsMap.blocks')}
+              </div>
+            </div>
+          </div>
+
+          {/* Schools */}
+          <div className="bg-black/60 backdrop-blur-md border border-green-500/30 rounded-lg p-3 min-w-[100px]">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-green-400">{totalStats.schools.toLocaleString()}</div>
+              <div className="text-[10px] text-green-300 mt-1 leading-tight">
+                {t('tnSchoolsMap.schools')}
+              </div>
+            </div>
+          </div>
+
+          {/* Students */}
+          <div className="bg-black/60 backdrop-blur-md border border-orange-500/30 rounded-lg p-3 min-w-[100px]">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-orange-400">{totalStats.students.toLocaleString()}</div>
+              <div className="text-[10px] text-orange-300 mt-1 leading-tight">
+                {t('tnSchoolsMap.students')}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Hover Tooltip */}
       {hoveredData && (
         <div className="absolute top-4 left-4 z-20 bg-black/80 backdrop-blur-md rounded-xl px-4 py-3 border border-purple-500/30 min-w-[250px]">
-          <h3 className="text-white font-bold text-lg mb-1">{hoveredData.name}</h3>
-          <p className="text-purple-300 text-sm mb-3">{hoveredData.nameTa}</p>
-          <div className="flex items-center gap-2 flex-wrap">
+          <h3 className="text-white font-bold text-lg mb-1">
+            {t(`tnSchoolsMap.districts.${hoveredData.name}`)}
+          </h3>
+          <div className="flex items-center gap-2 flex-wrap mt-2">
             <span className="px-2 py-1 bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs rounded">
-              {hoveredData.blocks.length} {language === 'ta' ? 'வட்டாரங்கள்' : 'Blocks'}
+              {hoveredData.blocks.length} {t('tnSchoolsMap.blocks')}
             </span>
             <span className="px-2 py-1 bg-green-500/20 border border-green-400/30 text-green-300 text-xs rounded">
-              {hoveredData.schoolCount} {language === 'ta' ? 'பள்ளிகள்' : 'Schools'}
+              {hoveredData.schoolCount} {t('tnSchoolsMap.schools')}
             </span>
             <span className="px-2 py-1 bg-orange-500/20 border border-orange-400/30 text-orange-300 text-xs rounded">
-              {hoveredData.studentCount} {language === 'ta' ? 'மாணவர்கள்' : 'Students'}
+              {hoveredData.studentCount} {t('tnSchoolsMap.students')}
             </span>
           </div>
           <p className="text-gray-400 text-xs mt-2">
-            {language === 'ta' ? 'விவரங்களைப் பார்க்க கிளிக் செய்க' : 'Click to view details'}
+            {t('tnSchoolsMap.clickToViewDetails')}
           </p>
         </div>
       )}
 
       {/* Map Container with Zoom/Pan */}
-      <TransformWrapper
-        ref={transformComponentRef}
-        initialScale={1}
-        minScale={0.5}
-        maxScale={4}
-        centerOnInit={true}
-        wheel={{ step: 0.1 }}
-        doubleClick={{ mode: 'reset' }}
-      >
-        <TransformComponent
-          wrapperClass="w-full h-full"
-          contentClass="w-full h-full flex items-center justify-center"
+      <div className="absolute inset-0 flex items-center justify-center">
+        <TransformWrapper
+          ref={transformComponentRef}
+          initialScale={1}
+          minScale={0.5}
+          maxScale={4}
+          centerOnInit={true}
+          wheel={{ step: 0.1 }}
+          doubleClick={{ mode: 'reset' }}
         >
-          <svg
-            viewBox="0 0 600 800"
-            width="600"
-            height="800"
-            className="mx-auto"
-            preserveAspectRatio="xMidYMid meet"
-            style={{
-              maxHeight: '85vh',
-              width: 'auto',
-              filter: 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3))'
-            }}
+          <TransformComponent
+            wrapperClass="!w-full !h-full flex items-center justify-center"
+            contentClass="!w-full !h-full flex items-center justify-center"
           >
+            <svg
+              viewBox="0 0 800 1000"
+              preserveAspectRatio="xMidYMid meet"
+              style={{
+                width: '100%',
+                height: '100%',
+                maxWidth: '90vw',
+                maxHeight: '85vh',
+                filter: 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3))'
+              }}
+            >
             {/* Background */}
-            <rect width="600" height="800" fill="transparent" />
+            <rect width="800" height="1000" fill="transparent" />
 
             {/* Districts */}
             {tnMapPaths.map((districtPath) => {
@@ -1578,7 +1661,7 @@ const InteractiveMapView: React.FC<{
                         filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.8))'
                       }}
                     >
-                      {districtPath.name}
+                      {t(`tnSchoolsMap.districts.${districtPath.name}`)}
                     </text>
                   )}
 
@@ -1597,7 +1680,7 @@ const InteractiveMapView: React.FC<{
                         filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.9))'
                       }}
                     >
-                      {districtPath.name}
+                      {t(`tnSchoolsMap.districts.${districtPath.name}`)}
                     </text>
                   )}
                 </g>
@@ -1606,13 +1689,12 @@ const InteractiveMapView: React.FC<{
           </svg>
         </TransformComponent>
       </TransformWrapper>
+      </div>
 
       {/* Instructions */}
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20 bg-black/60 backdrop-blur-md rounded-lg px-4 py-2 border border-purple-500/30">
         <p className="text-white text-sm text-center">
-          {language === 'ta'
-            ? '🖱️ இழுத்து நகர்த்தவும் • 🔍 சுருட்டல் ஜூம் • 🖱️ மாவட்டத்தைத் தேர்ந்தெடுக்க கிளிக் செய்க'
-            : '🖱️ Drag to Pan • 🔍 Scroll to Zoom • 🖱️ Click District to Select'}
+          🖱️ {t('tnSchoolsMap.instructions')}
         </p>
       </div>
     </div>
@@ -1622,7 +1704,7 @@ const InteractiveMapView: React.FC<{
 // Main Component
 const TNSchoolsPage: React.FC = () => {
   const navigate = useNavigate();
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const stats = useMemo(() => getTotalStats(), []);
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasContainerRef = useRef<HTMLDivElement>(null);
@@ -1631,7 +1713,7 @@ const TNSchoolsPage: React.FC = () => {
   const [selectedBlock, setSelectedBlock] = useState<Block | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
-  const [viewMode, setViewMode] = useState<'map' | 'grid' | 'travel' | 'geomap'>('map');
+  const [viewMode, setViewMode] = useState<'grid' | 'geomap'>('geomap');
   const [hoveredDistrict, setHoveredDistrict] = useState<string | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
@@ -1640,13 +1722,9 @@ const TNSchoolsPage: React.FC = () => {
   const [travelSelectedBlock, setTravelSelectedBlock] = useState<Block | null>(null);
   const [travelHoveredItem, setTravelHoveredItem] = useState<string | null>(null);
 
-  // Reset travel mode state when switching views
+  // Reset state when switching views
   useEffect(() => {
-    if (viewMode === 'travel') {
-      setTravelSelectedDistrict(null);
-      setTravelSelectedBlock(null);
-      setTravelHoveredItem(null);
-    }
+    // Cleanup can go here if needed
   }, [viewMode]);
 
   // Handle district click in travel mode
@@ -1757,6 +1835,11 @@ const TNSchoolsPage: React.FC = () => {
   // Get hovered district data
   const hoveredDistrictData = hoveredDistrict ? tnSchoolsData.find(d => d.name === hoveredDistrict) : null;
   const hoveredSchoolCount = hoveredDistrictData?.blocks.reduce((acc, b) => acc + b.schools.length, 0) || 0;
+  const allowMapOverflow =
+    !selectedDistrict &&
+    !selectedBlock &&
+    !isSearching &&
+    viewMode === 'geomap';
 
   return (
     <div
@@ -1790,28 +1873,6 @@ const TNSchoolsPage: React.FC = () => {
               <div className="flex items-center gap-3">
                 <div className="flex bg-white/10 backdrop-blur-md rounded-xl p-1 border border-white/20">
                   <button
-                    onClick={() => setViewMode('map')}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all ${
-                      viewMode === 'map'
-                        ? 'bg-purple-600 text-white shadow-lg'
-                        : 'text-gray-400 hover:text-white'
-                    }`}
-                  >
-                    <MapViewIcon />
-                    <span className="hidden sm:inline">{language === 'ta' ? '3D வரைபடம்' : '3D Map'}</span>
-                  </button>
-                  <button
-                    onClick={() => setViewMode('travel')}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all ${
-                      viewMode === 'travel'
-                        ? 'bg-green-600 text-white shadow-lg'
-                        : 'text-gray-400 hover:text-white'
-                    }`}
-                  >
-                    <TravelIcon />
-                    <span className="hidden sm:inline">{language === 'ta' ? 'பயணம்' : 'Travel'}</span>
-                  </button>
-                  <button
                     onClick={() => setViewMode('geomap')}
                     className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all ${
                       viewMode === 'geomap'
@@ -1820,7 +1881,7 @@ const TNSchoolsPage: React.FC = () => {
                     }`}
                   >
                     <GeoMapIcon />
-                    <span className="hidden sm:inline">{language === 'ta' ? 'வரைபடம்' : 'Map'}</span>
+                    <span className="hidden sm:inline">{t('tnSchoolsMap.mapView')}</span>
                   </button>
                   <button
                     onClick={() => setViewMode('grid')}
@@ -1835,7 +1896,7 @@ const TNSchoolsPage: React.FC = () => {
                   </button>
                 </div>
 
-                {(viewMode === 'map' || viewMode === 'travel' || viewMode === 'geomap') && (
+                {viewMode === 'geomap' && (
                   <button
                     onClick={toggleFullscreen}
                     className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors border border-white/20"
@@ -1851,7 +1912,7 @@ const TNSchoolsPage: React.FC = () => {
       </header>
 
       {/* Main content */}
-      <main className="relative z-10 flex-1 overflow-hidden">
+      <main className={`relative z-10 flex-1 ${allowMapOverflow ? '' : 'overflow-hidden'}`}>
         {/* Breadcrumb - For detail views */}
         {(selectedDistrict || selectedBlock) && !isSearching && (
           <div className="px-4 pt-4">
@@ -1922,104 +1983,6 @@ const TNSchoolsPage: React.FC = () => {
               ))}
             </div>
           </div>
-        ) : viewMode === 'map' ? (
-          // 3D Map View
-          <div className="h-full flex">
-            {/* 3D Canvas - Takes most space */}
-            <div className="flex-1 relative">
-              <TamilNadu3DMap
-                onDistrictClick={handleDistrictClickByName}
-                hoveredDistrict={hoveredDistrict}
-                setHoveredDistrict={setHoveredDistrict}
-              />
-
-              {/* Hover tooltip on map */}
-              {hoveredDistrictData && (
-                <div className="absolute bottom-4 left-4 bg-black/80 backdrop-blur-md rounded-xl p-4 border border-purple-500/30 min-w-[200px]">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div
-                      className="w-4 h-4 rounded-full"
-                      style={{ backgroundColor: hoveredDistrictData.color }}
-                    />
-                    <h4 className="font-bold text-white">{hoveredDistrictData.name}</h4>
-                  </div>
-                  <p className="text-purple-300 text-sm mb-2">{hoveredDistrictData.nameTa}</p>
-                  <div className="space-y-1 text-xs">
-                    <div className="flex justify-between text-gray-300">
-                      <span>{language === 'ta' ? 'வட்டாரங்கள்' : 'Blocks'}:</span>
-                      <span className="text-blue-300 font-semibold">{hoveredDistrictData.blocks.length}</span>
-                    </div>
-                    <div className="flex justify-between text-gray-300">
-                      <span>{language === 'ta' ? 'பள்ளிகள்' : 'Schools'}:</span>
-                      <span className="text-green-300 font-semibold">{hoveredSchoolCount}</span>
-                    </div>
-                  </div>
-                  <div className="mt-2 pt-2 border-t border-white/10 text-center">
-                    <span className="text-purple-400 text-xs">
-                      {language === 'ta' ? 'காண கிளிக் செய்யவும்' : 'Click to explore'}
-                    </span>
-                  </div>
-                </div>
-              )}
-
-              {/* Instructions */}
-              <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm rounded-lg px-3 py-2 border border-white/10">
-                <p className="text-xs text-white/70">
-                  {language === 'ta'
-                    ? '🖱️ சுழற்ற இழுக்கவும் • உருட்டி பெரிதாக்கவும் • கிளிக் செய்யவும்'
-                    : '🖱️ Drag to rotate • Scroll to zoom • Click district'}
-                </p>
-              </div>
-            </div>
-
-            {/* Stats Panel - Right side */}
-            <div className="w-64 bg-black/30 backdrop-blur-md border-l border-white/10 p-4 flex flex-col gap-4">
-              <h3 className="text-lg font-bold text-white text-center border-b border-white/10 pb-3">
-                {language === 'ta' ? 'புள்ளிவிவரங்கள்' : 'Statistics'}
-              </h3>
-
-              {/* Active Districts */}
-              <div className="bg-gradient-to-br from-green-500/20 to-green-600/10 rounded-xl p-4 border border-green-500/30">
-                <div className="text-3xl font-bold text-green-400 text-center">{stats.districts}</div>
-                <div className="text-xs text-green-300 text-center mt-1">
-                  {language === 'ta' ? 'செயலில் உள்ள மாவட்டங்கள்' : 'Active Districts'}
-                </div>
-              </div>
-
-              {/* Total Blocks */}
-              <div className="bg-gradient-to-br from-blue-500/20 to-blue-600/10 rounded-xl p-4 border border-blue-500/30">
-                <div className="text-3xl font-bold text-blue-400 text-center">{stats.blocks}</div>
-                <div className="text-xs text-blue-300 text-center mt-1">
-                  {language === 'ta' ? 'மொத்த வட்டாரங்கள்' : 'Total Blocks'}
-                </div>
-              </div>
-
-              {/* Total Schools */}
-              <div className="bg-gradient-to-br from-purple-500/20 to-purple-600/10 rounded-xl p-4 border border-purple-500/30">
-                <div className="text-3xl font-bold text-purple-400 text-center">{stats.schools}</div>
-                <div className="text-xs text-purple-300 text-center mt-1">
-                  {language === 'ta' ? 'மொத்த பள்ளிகள்' : 'Total Schools'}
-                </div>
-              </div>
-
-              {/* Legend */}
-              <div className="mt-auto bg-white/5 rounded-xl p-3 border border-white/10">
-                <h4 className="text-xs font-semibold text-white mb-2">
-                  {language === 'ta' ? 'குறிப்பு' : 'Legend'}
-                </h4>
-                <div className="space-y-2 text-xs">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-green-500" />
-                    <span className="text-gray-300">{language === 'ta' ? 'பள்ளி எண்ணிக்கை' : 'School count'}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-6 bg-purple-500/50 rounded" />
-                    <span className="text-gray-300">{language === 'ta' ? 'உயரம் = பள்ளிகள்' : 'Height = Schools'}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         ) : viewMode === 'geomap' ? (
           // Interactive Geographic Map View
           <div className="h-full">
@@ -2027,143 +1990,6 @@ const TNSchoolsPage: React.FC = () => {
               onDistrictClick={handleDistrictClickByName}
               language={language}
             />
-          </div>
-        ) : viewMode === 'travel' ? (
-          // Travel/City View Mode - Click to navigate
-          <div className="h-full relative">
-            {/* 3D Canvas for Travel Mode */}
-            <div ref={canvasContainerRef} className="w-full h-full">
-              <TravelMode3DScene
-                onDistrictClick={handleTravelDistrictClick}
-                onBlockClick={handleTravelBlockClick}
-                selectedDistrict={travelSelectedDistrict}
-                selectedBlock={travelSelectedBlock}
-                hoveredItem={travelHoveredItem}
-                setHoveredItem={setTravelHoveredItem}
-              />
-            </div>
-
-            {/* Navigation Breadcrumb */}
-            <div className="absolute top-4 left-4 z-20">
-              <div className="bg-black/80 backdrop-blur-md rounded-xl px-4 py-3 border border-green-500/30">
-                <div className="flex items-center gap-2 text-sm">
-                  <button
-                    onClick={() => { setTravelSelectedDistrict(null); setTravelSelectedBlock(null); }}
-                    className={`flex items-center gap-1 ${!travelSelectedDistrict ? 'text-green-400' : 'text-purple-300 hover:text-white'} transition-colors`}
-                  >
-                    <HomeIcon />
-                    <span>{language === 'ta' ? 'தமிழ்நாடு' : 'Tamil Nadu'}</span>
-                  </button>
-                  {travelSelectedDistrict && (
-                    <>
-                      <span className="text-gray-500">/</span>
-                      <button
-                        onClick={() => setTravelSelectedBlock(null)}
-                        className={`${!travelSelectedBlock ? 'text-green-400' : 'text-purple-300 hover:text-white'} transition-colors`}
-                      >
-                        {travelSelectedDistrict.name}
-                      </button>
-                    </>
-                  )}
-                  {travelSelectedBlock && (
-                    <>
-                      <span className="text-gray-500">/</span>
-                      <span className="text-green-400">{travelSelectedBlock.name}</span>
-                    </>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* Info Panel */}
-            <div className="absolute bottom-4 left-4 z-20">
-              <div className="bg-black/80 backdrop-blur-md rounded-xl p-4 border border-green-500/30 min-w-[250px]">
-                <div className="flex items-center gap-2 mb-3">
-                  <TravelIcon />
-                  <span className="text-green-400 font-bold">
-                    {language === 'ta' ? 'நகர காட்சி' : 'City View'}
-                  </span>
-                </div>
-
-                {travelSelectedBlock ? (
-                  <div>
-                    <h3 className="text-white font-bold text-lg">{travelSelectedBlock.name}</h3>
-                    <p className="text-purple-300 text-sm">{travelSelectedDistrict?.name} District</p>
-                    <div className="flex items-center gap-2 mt-2 text-sm">
-                      <span className="px-2 py-1 bg-blue-500/20 text-blue-300 rounded">
-                        {travelSelectedBlock.schools.length} {language === 'ta' ? 'பள்ளிகள்' : 'Schools'}
-                      </span>
-                    </div>
-                  </div>
-                ) : travelSelectedDistrict ? (
-                  <div>
-                    <h3 className="text-white font-bold text-lg">{travelSelectedDistrict.name}</h3>
-                    <p className="text-purple-300 text-sm">{travelSelectedDistrict.nameTa}</p>
-                    <div className="flex items-center gap-2 mt-2 text-sm">
-                      <span className="px-2 py-1 bg-purple-500/20 text-purple-300 rounded">
-                        {travelSelectedDistrict.blocks.length} {language === 'ta' ? 'வட்டாரங்கள்' : 'Blocks'}
-                      </span>
-                      <span className="px-2 py-1 bg-green-500/20 text-green-300 rounded">
-                        {travelSelectedDistrict.blocks.reduce((acc, b) => acc + b.schools.length, 0)} {language === 'ta' ? 'பள்ளிகள்' : 'Schools'}
-                      </span>
-                    </div>
-                    <p className="text-gray-400 text-xs mt-2">
-                      {language === 'ta' ? 'வட்டாரத்தை தேர்ந்தெடுக்க கிளிக் செய்யவும்' : 'Click a block to view schools'}
-                    </p>
-                  </div>
-                ) : (
-                  <div>
-                    <h3 className="text-white font-bold text-lg">{language === 'ta' ? 'தமிழ்நாடு' : 'Tamil Nadu'}</h3>
-                    <p className="text-purple-300 text-sm">{language === 'ta' ? 'VP பள்ளிகள்' : 'VP Schools'}</p>
-                    <div className="flex items-center gap-2 mt-2 text-sm">
-                      <span className="px-2 py-1 bg-green-500/20 text-green-300 rounded">
-                        {stats.districts} {language === 'ta' ? 'மாவட்டங்கள்' : 'Districts'}
-                      </span>
-                      <span className="px-2 py-1 bg-purple-500/20 text-purple-300 rounded">
-                        {stats.schools} {language === 'ta' ? 'பள்ளிகள்' : 'Schools'}
-                      </span>
-                    </div>
-                    <p className="text-gray-400 text-xs mt-2">
-                      {language === 'ta' ? 'மாவட்டத்தை தேர்ந்தெடுக்க கிளிக் செய்யவும்' : 'Click a district to explore'}
-                    </p>
-                  </div>
-                )}
-
-                {/* Back button */}
-                {(travelSelectedDistrict || travelSelectedBlock) && (
-                  <button
-                    onClick={handleTravelBack}
-                    className="mt-3 w-full px-3 py-2 bg-purple-600/50 hover:bg-purple-600 text-white text-sm rounded-lg transition-colors flex items-center justify-center gap-2"
-                  >
-                    <BackIcon />
-                    {language === 'ta' ? 'பின் செல்' : 'Go Back'}
-                  </button>
-                )}
-              </div>
-            </div>
-
-            {/* Hover Info - Right side */}
-            {travelHoveredItem && (
-              <div className="absolute top-4 right-4 z-20">
-                <div className="bg-black/80 backdrop-blur-md rounded-xl px-4 py-3 border border-purple-500/30">
-                  <p className="text-white font-semibold">{travelHoveredItem.replace('school-', '#')}</p>
-                  <p className="text-purple-300 text-xs">
-                    {language === 'ta' ? 'தேர்ந்தெடுக்க கிளிக் செய்யவும்' : 'Click to select'}
-                  </p>
-                </div>
-              </div>
-            )}
-
-            {/* Controls hint */}
-            <div className="absolute bottom-4 right-4 z-20">
-              <div className="bg-black/60 backdrop-blur-sm rounded-lg px-3 py-2 border border-white/10">
-                <p className="text-xs text-gray-400">
-                  {language === 'ta'
-                    ? '🖱️ இழுத்து சுழற்று • உருட்டி பெரிதாக்கு'
-                    : '🖱️ Drag to rotate • Scroll to zoom'}
-                </p>
-              </div>
-            </div>
           </div>
         ) : (
           // Card Grid View
