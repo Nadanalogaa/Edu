@@ -1,7 +1,7 @@
 {
   "name": "education-intelligence-backend",
   "version": "1.0.0",
-  "description": "Backend API for Education Intelligence - NEET & JEE Learning Platform",
+  "description": "Backend API for EduCore - NEET & JEE Learning Platform",
   "main": "dist/server.js",
   "scripts": {
     "dev": "nodemon src/server.ts",

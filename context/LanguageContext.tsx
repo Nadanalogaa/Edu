@@ -22,7 +22,7 @@ export const useLanguage = () => {
 export const translations = {
   en: {
     // Landing Page
-    appTitle: 'Education Intelligence',
+    appTitle: 'EduCore',
     appTagline: 'Master NEET & JEE with AI-Powered Learning',
     getStarted: 'Get Started',
     login: 'Login',
@@ -647,7 +647,7 @@ export const translations = {
   },
   ta: {
     // Landing Page
-    appTitle: 'கல்வி நுண்ணறிவு',
+    appTitle: 'EduCore',
     appTagline: 'AI-ஆல் இயக்கப்படும் கற்றலுடன் NEET & JEE-ஐ வெல்லுங்கள்',
     getStarted: 'தொடங்குங்கள்',
     login: 'உள்நுழைய',
