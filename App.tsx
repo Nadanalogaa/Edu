@@ -28,7 +28,8 @@ import GamificationStats from './components/GamificationStats';
 import api from './services/api';
 import {
     SunIcon, MoonIcon, LayoutDashboardIcon, UsersIcon, UserIcon, LogOutIcon,
-    SchoolIcon, FileTextIcon, ClipboardCheckIcon, GraduationCapIcon, PenSquareIcon, BookOpenIcon, StethoscopeIcon, VideoIcon
+    SchoolIcon, FileTextIcon, ClipboardCheckIcon, GraduationCapIcon, PenSquareIcon, BookOpenIcon, StethoscopeIcon, VideoIcon,
+    MenuIcon, XIcon
 } from './components/icons';
 
 const NavItem: React.FC<{
@@ -40,7 +41,7 @@ const NavItem: React.FC<{
   <button
     onClick={onClick}
     title={label}
-    className={`flex items-center justify-center lg:justify-start w-full px-2 sm:px-4 py-3 text-sm font-medium rounded-lg transition-colors duration-200 ${
+    className={`flex items-center w-full px-4 py-3 text-sm font-medium rounded-lg transition-colors duration-200 ${
       isActive
         ? 'bg-indigo-600 text-white shadow-lg'
         : 'text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
@@ -48,7 +49,7 @@ const NavItem: React.FC<{
     aria-current={isActive ? 'page' : undefined}
   >
     {icon}
-    <span className="ml-3 hidden lg:inline">{label}</span>
+    <span className="ml-3">{label}</span>
   </button>
 );
 
@@ -65,7 +66,7 @@ const ThemeToggle: React.FC<{
         <button
             onClick={toggleTheme}
             aria-label="Toggle theme"
-            className="p-3 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+            className="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
         >
             {theme === 'light' ? <MoonIcon className="w-5 h-5" /> : <SunIcon className="w-5 h-5" />}
         </button>
@@ -101,6 +102,7 @@ const DashboardLayout: React.FC = () => {
   const [activeView, setActiveView] = useState('dashboard');
   const [streak, setStreak] = useState(0);
   const [coins, setCoins] = useState(0);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -145,6 +147,18 @@ const DashboardLayout: React.FC = () => {
       window.removeEventListener('storage', handleStorageChange);
     };
   }, []);
+
+  // Lock body scroll when mobile sidebar drawer is open
+  useEffect(() => {
+    if (isSidebarOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isSidebarOpen]);
 
   // Fetch gamification stats for students
   useEffect(() => {
@@ -245,36 +259,70 @@ const DashboardLayout: React.FC = () => {
 
   if (!currentUser) return null;
 
+  const handleNavClick = (view: string) => {
+    setActiveView(view);
+    setIsSidebarOpen(false);
+  };
+
   return (
     <div className="flex h-screen bg-slate-100 dark:bg-slate-900 font-sans">
-      <aside className="w-16 sm:w-20 lg:w-64 bg-white dark:bg-slate-800/50 p-2 sm:p-4 lg:p-6 flex flex-col border-r border-slate-200 dark:border-slate-800 transition-all duration-300">
-        {/* Logo - Fixed at top */}
-        <div className="flex-shrink-0 flex items-center mb-6">
-            <img
-              src="/logo.png"
-              alt="Education Intelligence Logo"
-              className="w-10 h-10 lg:w-12 lg:h-12"
-            />
-            <div className="ml-3 hidden lg:flex flex-col">
-              <h1 className="text-lg font-bold text-slate-800 dark:text-slate-100">{t('appTitle')}</h1>
-              <span className="text-xs text-indigo-600 dark:text-indigo-400">{t('landing.nav.tagline')}</span>
+      {/* Mobile backdrop overlay */}
+      {isSidebarOpen && (
+        <div
+          onClick={() => setIsSidebarOpen(false)}
+          className="lg:hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-30 transition-opacity"
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Sidebar — drawer on mobile, static on desktop */}
+      <aside
+        className={`
+          fixed lg:static inset-y-0 left-0 z-40
+          w-72 lg:w-64 bg-white dark:bg-slate-800/50 p-4 lg:p-6
+          flex flex-col border-r border-slate-200 dark:border-slate-800
+          transform transition-transform duration-300 ease-in-out
+          ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+          lg:translate-x-0
+        `}
+      >
+        {/* Logo + close (mobile) */}
+        <div className="flex-shrink-0 flex items-center justify-between mb-6">
+            <div className="flex items-center">
+              <img
+                src="/logo.png"
+                alt="Education Intelligence Logo"
+                className="w-10 h-10 lg:w-12 lg:h-12"
+              />
+              <div className="ml-3 flex flex-col">
+                <h1 className="text-base lg:text-lg font-bold text-slate-800 dark:text-slate-100">{t('appTitle')}</h1>
+                <span className="text-xs text-indigo-600 dark:text-indigo-400">{t('landing.nav.tagline')}</span>
+              </div>
             </div>
+            <button
+              type="button"
+              onClick={() => setIsSidebarOpen(false)}
+              className="lg:hidden p-1.5 rounded-md text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700"
+              aria-label="Close menu"
+            >
+              <XIcon className="w-5 h-5" />
+            </button>
         </div>
 
-        {/* Navigation - Scrollable middle section */}
-        <nav className="flex-1 overflow-y-auto space-y-3 mb-4 pr-2 scrollbar-thin scrollbar-thumb-slate-300 dark:scrollbar-thumb-slate-600 scrollbar-track-transparent">
+        {/* Navigation — scrollable middle */}
+        <nav className="flex-1 overflow-y-auto space-y-2 mb-4 pr-1 scrollbar-thin">
            {navConfig[currentUser.role].map(item => (
                <NavItem
                     key={item.view}
                     icon={item.icon}
                     label={item.label}
                     isActive={activeView === item.view}
-                    onClick={() => setActiveView(item.view)}
+                    onClick={() => handleNavClick(item.view)}
                />
            ))}
         </nav>
 
-        {/* Bottom section - Fixed at bottom - Only Female Doctor Image */}
+        {/* Bottom — Doctor image (desktop only) */}
         <div className="flex-shrink-0">
             {currentUser.role === 'student' && (
               <div className="hidden lg:block">
@@ -292,20 +340,30 @@ const DashboardLayout: React.FC = () => {
         </div>
       </aside>
 
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto w-full">
         {/* Compact Universal Header */}
-        <div className="sticky top-0 z-10 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700 px-3 sm:px-6 lg:px-10 py-3">
+        <div className="sticky top-0 z-20 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700 px-3 sm:px-6 lg:px-10 py-2.5 sm:py-3">
           <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
+            {/* Hamburger (mobile only) */}
+            <button
+              type="button"
+              onClick={() => setIsSidebarOpen(true)}
+              className="lg:hidden flex-shrink-0 p-2 -ml-1 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 active:scale-95 transition"
+              aria-label="Open menu"
+            >
+              <MenuIcon className="w-6 h-6" />
+            </button>
+
             {currentUser.role === 'student' ? (
               <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
-                <StethoscopeIcon className="w-6 h-6 sm:w-7 sm:h-7 text-indigo-500 flex-shrink-0" />
+                <StethoscopeIcon className="hidden sm:block w-7 h-7 text-indigo-500 flex-shrink-0" />
                 <div className="min-w-0">
                   <h1 className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100 truncate">
                     <span className="hidden sm:inline">{language === 'ta' ? 'வருக எதிர்கால மருத்துவர், ' : 'Welcome Future Doctor, '}</span>
                     <span className="sm:hidden">{language === 'ta' ? 'வருக, ' : 'Hi, '}</span>
                     <span className="text-indigo-600 dark:text-indigo-400">{currentUser.name}</span>!
                   </h1>
-                  <p className="hidden sm:block text-xs text-slate-500 dark:text-slate-400">
+                  <p className="hidden sm:block text-xs text-slate-500 dark:text-slate-400 truncate">
                     {language === 'ta' ? 'இன்று உங்கள் தேர்வுகளை வெல்லலாம்! தொடங்குவோம்.' : "Ready to conquer your exams today? Let's get started."}
                   </p>
                 </div>
@@ -319,7 +377,7 @@ const DashboardLayout: React.FC = () => {
                 </div>
               </div>
             )}
-            <div className="flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
+            <div className="flex items-center gap-1 sm:gap-3 flex-shrink-0">
               {currentUser.role === 'student' && (
                 <GamificationStats streak={streak} coins={coins} t={{ streak: language === 'ta' ? 'நாள் தொடர்ச்சி' : 'Day Streak', coins: language === 'ta' ? 'நாணயங்கள்' : 'coins' }} />
               )}
