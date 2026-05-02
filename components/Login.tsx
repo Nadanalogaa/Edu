@@ -27,8 +27,8 @@ const Login: React.FC = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-slate-100 dark:bg-slate-900 font-sans">
-            <div className="w-full max-w-md p-8 space-y-8 bg-white dark:bg-slate-800/50 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800">
+        <div className="flex items-center justify-center min-h-screen bg-slate-100 dark:bg-slate-900 font-sans p-4">
+            <div className="w-full max-w-md p-6 sm:p-8 space-y-6 sm:space-y-8 bg-white dark:bg-slate-800/50 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800">
                 <div className="text-center">
                     <div className="inline-flex items-center justify-center p-3 bg-indigo-600 rounded-xl mb-4">
                         <LayoutDashboardIcon className="w-8 h-8 text-white" />

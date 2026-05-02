@@ -50,20 +50,20 @@ const Features: React.FC = () => {
     ];
 
     return (
-        <section id="features" className="py-20 bg-slate-50 dark:bg-slate-900">
+        <section id="features" className="py-12 sm:py-16 lg:py-20 bg-slate-50 dark:bg-slate-900">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Section Header */}
-                <div className="text-center mb-16">
-                    <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4">
+                <div className="text-center mb-10 sm:mb-12 lg:mb-16">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-3 sm:mb-4">
                         {t('landing.featuresSection.title')}
                     </h2>
-                    <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
+                    <p className="text-base sm:text-lg lg:text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
                         {t('landing.featuresSection.subtitle')}
                     </p>
                 </div>
 
                 {/* Features Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                     {featureCards.map((feature, index) => (
                         <div
                             key={index}
@@ -81,14 +81,14 @@ const Features: React.FC = () => {
                             </div>
 
                             {/* Content */}
-                            <div className="p-6">
+                            <div className="p-5 sm:p-6">
                                 {/* Title */}
-                                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">
+                                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-2 sm:mb-3">
                                     {t(feature.titleKey)}
                                 </h3>
 
                                 {/* Description */}
-                                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
                                     {t(feature.descriptionKey)}
                                 </p>
                             </div>
@@ -100,13 +100,13 @@ const Features: React.FC = () => {
                 </div>
 
                 {/* Stats Section */}
-                <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div className="mt-12 sm:mt-16 lg:mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 text-center">
                     {stats.map((stat) => (
-                        <div key={stat.label} className="p-6">
-                            <div className={`text-4xl md:text-5xl font-extrabold ${stat.color} mb-2`}>
+                        <div key={stat.label} className="p-3 sm:p-6">
+                            <div className={`text-3xl sm:text-4xl md:text-5xl font-extrabold ${stat.color} mb-1 sm:mb-2`}>
                                 {stat.value}
                             </div>
-                            <div className="text-slate-600 dark:text-slate-400 font-medium">
+                            <div className="text-sm sm:text-base text-slate-600 dark:text-slate-400 font-medium">
                                 {stat.label}
                             </div>
                         </div>

@@ -171,18 +171,18 @@ NEET,John Doe,john@example.com,password123,2005-05-15,male,ABC School,Jane Doe,9
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-600 via-red-700 to-pink-800 py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-orange-600 via-red-700 to-pink-800 py-8 sm:py-12 px-3 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-orange-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-        <div className="absolute top-0 right-0 w-96 h-96 bg-red-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-        <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-pink-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+        <div className="absolute top-0 left-0 w-72 h-72 sm:w-96 sm:h-96 bg-orange-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div className="absolute top-0 right-0 w-72 h-72 sm:w-96 sm:h-96 bg-red-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute bottom-0 left-1/2 w-72 h-72 sm:w-96 sm:h-96 bg-pink-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
       </div>
 
       <div className="max-w-4xl mx-auto relative z-10">
-        <div className="text-center mb-8">
-          <h2 className="text-4xl font-bold text-white mb-2 drop-shadow-lg">School Registration</h2>
-          <p className="text-orange-100">Bulk registration for schools & institutions</p>
+        <div className="text-center mb-6 sm:mb-8">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2 drop-shadow-lg">School Registration</h2>
+          <p className="text-sm sm:text-base text-orange-100">Bulk registration for schools & institutions</p>
         </div>
 
         {/* Toggle between School and Bulk Registration */}
@@ -220,7 +220,7 @@ NEET,John Doe,john@example.com,password123,2005-05-15,male,ABC School,Jane Doe,9
               <div className="space-y-4">
                 <h3 className="text-lg font-medium text-slate-800 dark:text-white mb-4">School Details</h3>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
                       School Name *
@@ -264,7 +264,7 @@ NEET,John Doe,john@example.com,password123,2005-05-15,male,ABC School,Jane Doe,9
                   />
                 </div>
 
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
                       City *
@@ -309,7 +309,7 @@ NEET,John Doe,john@example.com,password123,2005-05-15,male,ABC School,Jane Doe,9
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
                       Phone *
@@ -341,7 +341,7 @@ NEET,John Doe,john@example.com,password123,2005-05-15,male,ABC School,Jane Doe,9
 
                 <h3 className="text-lg font-medium text-slate-800 dark:text-white mt-6 mb-4">Principal Details</h3>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
                       Principal Name
@@ -400,7 +400,7 @@ NEET,John Doe,john@example.com,password123,2005-05-15,male,ABC School,Jane Doe,9
 
                 <h3 className="text-lg font-medium text-slate-800 dark:text-white mt-6 mb-4">Additional Information</h3>
 
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
                       Website

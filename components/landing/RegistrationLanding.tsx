@@ -47,36 +47,36 @@ const RegistrationLanding: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-800 py-16 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-800 py-10 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold text-white mb-4">
+        <div className="text-center mb-10 sm:mb-12 lg:mb-16">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4">
             {t('landing.registrationLanding.title')}
           </h1>
-          <p className="text-xl text-purple-100">
+          <p className="text-base sm:text-lg lg:text-xl text-purple-100">
             {t('landing.registrationLanding.subtitle')}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {registrationCards.map((card) => (
             <div
               key={card.key}
               className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl overflow-hidden transform hover:scale-105 transition-transform duration-300"
             >
               {/* Icon Section */}
-              <div className={`bg-gradient-to-br ${card.bgColor} p-8 flex justify-center items-center`}>
-                <div className="bg-white/20 rounded-full p-6">
+              <div className={`bg-gradient-to-br ${card.bgColor} p-6 sm:p-8 flex justify-center items-center`}>
+                <div className="bg-white/20 rounded-full p-5 sm:p-6">
                   {card.icon}
                 </div>
               </div>
 
               {/* Content Section */}
-              <div className="p-8">
-                <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-3">
+              <div className="p-6 sm:p-8">
+                <h2 className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-white mb-2 sm:mb-3">
                   {t(`landing.registration.cards.${card.key}.title`)}
                 </h2>
-                <p className="text-slate-600 dark:text-slate-400 mb-6">
+                <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 mb-5 sm:mb-6">
                   {t(`landing.registration.cards.${card.key}.description`)}
                 </p>
 
@@ -115,7 +115,7 @@ const RegistrationLanding: React.FC = () => {
         </div>
 
         {/* Additional Info */}
-        <div className="mt-16 text-center">
+        <div className="mt-10 sm:mt-12 lg:mt-16 text-center">
           <p className="text-purple-100 mb-4">
             {t('landing.registrationLanding.alreadyHaveAccount')}
           </p>

@@ -69,20 +69,20 @@ const LandingPage: React.FC = () => {
             <Features />
 
             {/* Registration Section */}
-            <section id="register" className="py-20 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600">
+            <section id="register" className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-16">
-                        <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
+                    <div className="text-center mb-10 sm:mb-12 lg:mb-16">
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-3 sm:mb-4">
                             {t('landing.registration.title')}
                         </h2>
-                        <p className="text-xl text-white/90 max-w-3xl mx-auto">
+                        <p className="text-base sm:text-lg lg:text-xl text-white/90 max-w-3xl mx-auto">
                             {t('landing.registration.subtitle')}
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
                         {registrationCards.map((card) => (
-                            <div key={card.key} className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-2xl transform hover:scale-105 transition-all duration-300">
+                            <div key={card.key} className="bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl transform hover:scale-105 transition-all duration-300">
                                 <div className="text-center">
                                     <div className={`inline-flex p-6 rounded-full bg-gradient-to-br ${card.gradient} text-white mb-6`}>
                                         {card.icon}
@@ -117,35 +117,35 @@ const LandingPage: React.FC = () => {
             </section>
 
             {/* About Us Section */}
-            <section id="about" className="py-20 bg-white dark:bg-slate-900">
+            <section id="about" className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-slate-900 overflow-hidden">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
                         {/* Content */}
                         <div>
-                            <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-6">
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4 sm:mb-6">
                                 {t('landing.about.title')}
                             </h2>
-                            <p className="text-lg text-slate-600 dark:text-slate-400 mb-4">
+                            <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 mb-3 sm:mb-4">
                                 {t('landing.about.paragraph1')}
                             </p>
-                            <p className="text-lg text-slate-600 dark:text-slate-400 mb-4">
+                            <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 mb-3 sm:mb-4">
                                 {t('landing.about.paragraph2')}
                             </p>
-                            <p className="text-lg text-slate-600 dark:text-slate-400 mb-6">
+                            <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 mb-5 sm:mb-6">
                                 {t('landing.about.paragraph3')}
                             </p>
-                            <div className="grid grid-cols-2 gap-6">
+                            <div className="grid grid-cols-2 gap-4 sm:gap-6">
                                 {aboutStats.map((stat) => (
-                                    <div key={stat.label} className={`text-center p-4 ${stat.bg} rounded-lg`}>
-                                        <div className={`text-3xl font-extrabold ${stat.color} mb-2`}>{stat.value}</div>
-                                        <div className="text-sm text-slate-600 dark:text-slate-400">{stat.label}</div>
+                                    <div key={stat.label} className={`text-center p-3 sm:p-4 ${stat.bg} rounded-lg`}>
+                                        <div className={`text-2xl sm:text-3xl font-extrabold ${stat.color} mb-1 sm:mb-2`}>{stat.value}</div>
+                                        <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">{stat.label}</div>
                                     </div>
                                 ))}
                             </div>
                         </div>
 
                         {/* Image/Illustration */}
-                        <div className="relative">
+                        <div className="relative mt-8 lg:mt-0">
                             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                                 <img
                                     src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=600&fit=crop&q=80"
@@ -155,11 +155,11 @@ const LandingPage: React.FC = () => {
                                 {/* Gradient Overlay */}
                                 <div className="absolute inset-0 bg-gradient-to-tr from-indigo-600/20 to-purple-600/20"></div>
                             </div>
-                            {/* Decorative Elements */}
-                            <div className="absolute -top-6 -right-6 w-32 h-32 bg-indigo-200 dark:bg-indigo-900/30 rounded-full blur-3xl"></div>
-                            <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-purple-200 dark:bg-purple-900/30 rounded-full blur-3xl"></div>
-                            {/* Floating Card */}
-                            <div className="absolute -bottom-8 -left-8 bg-white dark:bg-slate-800 rounded-xl shadow-xl p-6 max-w-xs">
+                            {/* Decorative Elements - hidden on mobile to prevent overflow */}
+                            <div className="hidden sm:block absolute -top-6 -right-6 w-32 h-32 bg-indigo-200 dark:bg-indigo-900/30 rounded-full blur-3xl"></div>
+                            <div className="hidden sm:block absolute -bottom-6 -left-6 w-32 h-32 bg-purple-200 dark:bg-purple-900/30 rounded-full blur-3xl"></div>
+                            {/* Floating Card - hidden on mobile, visible from sm+ */}
+                            <div className="hidden sm:block absolute -bottom-8 -left-8 bg-white dark:bg-slate-800 rounded-xl shadow-xl p-6 max-w-xs">
                                 <div className="flex items-center space-x-4">
                                     <div className="flex-shrink-0">
                                         <div className="w-12 h-12 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center">
@@ -180,28 +180,28 @@ const LandingPage: React.FC = () => {
             </section>
 
             {/* Contact Section */}
-            <section id="contact" className="relative py-20 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 overflow-hidden">
+            <section id="contact" className="relative py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 overflow-hidden">
                 {/* Decorative Background Elements */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-200 dark:bg-indigo-900/30 rounded-full blur-3xl opacity-30"></div>
-                    <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-200 dark:bg-purple-900/30 rounded-full blur-3xl opacity-30"></div>
+                    <div className="absolute top-0 left-1/4 w-72 h-72 sm:w-96 sm:h-96 bg-indigo-200 dark:bg-indigo-900/30 rounded-full blur-3xl opacity-30"></div>
+                    <div className="absolute bottom-0 right-1/4 w-72 h-72 sm:w-96 sm:h-96 bg-purple-200 dark:bg-purple-900/30 rounded-full blur-3xl opacity-30"></div>
                 </div>
 
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-16">
-                        <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4">
+                    <div className="text-center mb-10 sm:mb-12 lg:mb-16">
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-3 sm:mb-4">
                             {contactForm.title}
                         </h2>
-                        <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                        <p className="text-base sm:text-lg lg:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
                             {contactForm.subtitle}
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
                         {/* Contact Information */}
-                        <div className="space-y-8">
+                        <div className="space-y-6 sm:space-y-8">
                             {/* Contact Details Card */}
-                            <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-xl">
+                            <div className="bg-white dark:bg-slate-800 rounded-2xl p-5 sm:p-8 shadow-xl">
                                 <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
                                     Contact Information
                                 </h3>
@@ -256,7 +256,7 @@ const LandingPage: React.FC = () => {
                             </div>
 
                             {/* Social Media & Additional Info */}
-                            <div className="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl p-8 text-white shadow-xl">
+                            <div className="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl p-5 sm:p-8 text-white shadow-xl">
                                 <h3 className="text-2xl font-bold mb-4">Follow Us</h3>
                                 <p className="text-indigo-100 mb-6">
                                     Stay connected with us on social media for updates, tips, and success stories.
@@ -287,11 +287,11 @@ const LandingPage: React.FC = () => {
                         </div>
 
                         {/* Contact Form */}
-                        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8">
-                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
+                        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-5 sm:p-8">
+                            <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-5 sm:mb-6">
                                 Send us a Message
                             </h3>
-                            <form className="space-y-6">
+                            <form className="space-y-5 sm:space-y-6">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                     <div>
                                         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">

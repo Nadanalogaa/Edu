@@ -243,30 +243,30 @@ const StudentRegistrationForm: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 py-8 sm:py-12 px-3 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-        <div className="absolute top-0 right-0 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-        <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-pink-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+        <div className="absolute top-0 left-0 w-72 h-72 sm:w-96 sm:h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div className="absolute top-0 right-0 w-72 h-72 sm:w-96 sm:h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute bottom-0 left-1/2 w-72 h-72 sm:w-96 sm:h-96 bg-pink-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
       </div>
 
       <div className="max-w-4xl mx-auto relative z-10">
-        <div className="text-center mb-8">
-          <h2 className="text-4xl font-bold text-white mb-2 drop-shadow-lg">Student Registration</h2>
-          <p className="text-blue-100">Individual students preparing for NEET or JEE exams</p>
+        <div className="text-center mb-6 sm:mb-8">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2 drop-shadow-lg">Student Registration</h2>
+          <p className="text-sm sm:text-base text-blue-100">Individual students preparing for NEET or JEE exams</p>
         </div>
 
-        <div className="bg-white/95 backdrop-blur-lg dark:bg-slate-800/95 rounded-2xl shadow-2xl p-8 border border-white/20">
+        <div className="bg-white/95 backdrop-blur-lg dark:bg-slate-800/95 rounded-2xl shadow-2xl p-4 sm:p-6 lg:p-8 border border-white/20">
           {/* Tabs */}
-          <div className="mb-8">
-            <div className="flex flex-wrap gap-2 border-b border-slate-200 dark:border-slate-700">
+          <div className="mb-6 sm:mb-8 -mx-4 sm:mx-0">
+            <div className="flex gap-2 border-b border-slate-200 dark:border-slate-700 overflow-x-auto px-4 sm:px-0 scrollbar-thin">
               {tabs.map((tab, index) => (
                 <button
                   key={index}
                   type="button"
                   onClick={() => setActiveTab(index)}
-                  className={`px-4 py-2 font-medium text-sm transition-colors ${
+                  className={`flex-shrink-0 px-3 sm:px-4 py-2 font-medium text-sm transition-colors whitespace-nowrap ${
                     activeTab === index
                       ? 'border-b-2 border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400'
                       : 'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
@@ -483,7 +483,7 @@ const StudentRegistrationForm: React.FC = () => {
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
                       City *
@@ -513,7 +513,7 @@ const StudentRegistrationForm: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
                       Pincode *

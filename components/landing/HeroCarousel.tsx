@@ -60,7 +60,7 @@ const HeroCarousel: React.FC = () => {
     }));
 
     return (
-        <div className="relative w-full h-screen bg-white">
+        <div className="relative w-full min-h-[640px] h-[100svh] lg:h-screen bg-white pt-16 lg:pt-0">
             <Swiper
                 modules={[Autoplay, Pagination, Navigation]}
                 spaceBetween={0}
@@ -164,7 +164,7 @@ const HeroCarousel: React.FC = () => {
                             {/* Mobile/Tablet Layout - Stacked */}
                             <div className="lg:hidden h-full flex flex-col relative z-10">
                                 {/* Image Section */}
-                                <div className="relative h-1/2 w-full flex items-center justify-center p-6">
+                                <div className="relative h-[35%] sm:h-[40%] w-full flex items-center justify-center p-4 sm:p-6">
                                     <img
                                         src={slide.image}
                                         alt={slide.title}
@@ -173,8 +173,8 @@ const HeroCarousel: React.FC = () => {
                                 </div>
 
                                 {/* Content Section */}
-                                <div className="relative h-1/2 flex items-center justify-center px-6 py-8 overflow-y-auto">
-                                    <div className="max-w-2xl text-center">
+                                <div className="relative flex-1 flex items-start sm:items-center justify-center px-4 sm:px-6 py-4 sm:py-6 overflow-y-auto">
+                                    <div className="max-w-2xl text-center w-full">
                                         {/* Badge */}
                                         <div className={`inline-flex items-center px-4 py-2 mb-4 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-full border border-indigo-200 shadow-sm`}>
                                             <span className={`text-xs font-bold bg-gradient-to-r ${slide.textGradient} bg-clip-text text-transparent`}>
@@ -183,49 +183,49 @@ const HeroCarousel: React.FC = () => {
                                         </div>
 
                                         {/* Main Title */}
-                                        <h1 className={`text-3xl sm:text-4xl md:text-5xl font-black mb-3 bg-gradient-to-r ${slide.textGradient} bg-clip-text text-transparent leading-tight`}>
+                                        <h1 className={`text-2xl sm:text-4xl md:text-5xl font-black mb-2 sm:mb-3 bg-gradient-to-r ${slide.textGradient} bg-clip-text text-transparent leading-tight`}>
                                             {slide.title}
                                         </h1>
 
                                         {/* Subtitle */}
-                                        <p className="text-lg sm:text-xl font-bold mb-3 text-slate-800">
+                                        <p className="text-base sm:text-xl font-bold mb-2 sm:mb-3 text-slate-800">
                                             {slide.subtitle}
                                         </p>
 
                                         {/* Description */}
-                                        <p className="text-base mb-6 text-slate-700 leading-relaxed">
+                                        <p className="text-sm sm:text-base mb-4 sm:mb-6 text-slate-700 leading-relaxed">
                                             {slide.description}
                                         </p>
 
                                         {/* CTA Buttons */}
-                                        <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6">
+                                        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center mb-4 sm:mb-6">
                                             <a
                                                 href="#register"
-                                                className={`px-8 py-3 bg-gradient-to-r ${slide.accentColor} text-white font-bold text-base rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300`}
+                                                className={`px-6 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r ${slide.accentColor} text-white font-bold text-sm sm:text-base rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300`}
                                             >
                                                 {slide.cta}
                                             </a>
                                             <a
                                                 href="#features"
-                                                className="px-8 py-3 bg-white text-slate-800 font-bold text-base rounded-xl border-2 border-slate-300 hover:bg-slate-50 shadow-md transition-all duration-300"
+                                                className="px-6 sm:px-8 py-2.5 sm:py-3 bg-white text-slate-800 font-bold text-sm sm:text-base rounded-xl border-2 border-slate-300 hover:bg-slate-50 shadow-md transition-all duration-300"
                                             >
                                                 Learn More
                                             </a>
                                         </div>
 
                                         {/* Stats Cards */}
-                                        <div className="grid grid-cols-3 gap-3">
-                                            <div className="bg-white rounded-lg p-3 shadow-md border border-slate-200">
-                                                <div className={`text-xl font-black bg-gradient-to-r ${slide.textGradient} bg-clip-text text-transparent`}>98%</div>
-                                                <div className="text-xs text-slate-600 font-semibold">Success</div>
+                                        <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                                            <div className="bg-white rounded-lg p-2 sm:p-3 shadow-md border border-slate-200">
+                                                <div className={`text-base sm:text-xl font-black bg-gradient-to-r ${slide.textGradient} bg-clip-text text-transparent`}>98%</div>
+                                                <div className="text-[10px] sm:text-xs text-slate-600 font-semibold">Success</div>
                                             </div>
-                                            <div className="bg-white rounded-lg p-3 shadow-md border border-slate-200">
-                                                <div className={`text-xl font-black bg-gradient-to-r ${slide.textGradient} bg-clip-text text-transparent`}>5000+</div>
-                                                <div className="text-xs text-slate-600 font-semibold">Students</div>
+                                            <div className="bg-white rounded-lg p-2 sm:p-3 shadow-md border border-slate-200">
+                                                <div className={`text-base sm:text-xl font-black bg-gradient-to-r ${slide.textGradient} bg-clip-text text-transparent`}>5000+</div>
+                                                <div className="text-[10px] sm:text-xs text-slate-600 font-semibold">Students</div>
                                             </div>
-                                            <div className="bg-white rounded-lg p-3 shadow-md border border-slate-200">
-                                                <div className={`text-xl font-black bg-gradient-to-r ${slide.textGradient} bg-clip-text text-transparent`}>10K+</div>
-                                                <div className="text-xs text-slate-600 font-semibold">Questions</div>
+                                            <div className="bg-white rounded-lg p-2 sm:p-3 shadow-md border border-slate-200">
+                                                <div className={`text-base sm:text-xl font-black bg-gradient-to-r ${slide.textGradient} bg-clip-text text-transparent`}>10K+</div>
+                                                <div className="text-[10px] sm:text-xs text-slate-600 font-semibold">Questions</div>
                                             </div>
                                         </div>
                                     </div>

@@ -39,7 +39,8 @@ const NavItem: React.FC<{
 }> = ({ icon, label, isActive, onClick }) => (
   <button
     onClick={onClick}
-    className={`flex items-center w-full px-4 py-3 text-sm font-medium rounded-lg transition-colors duration-200 ${
+    title={label}
+    className={`flex items-center justify-center lg:justify-start w-full px-2 sm:px-4 py-3 text-sm font-medium rounded-lg transition-colors duration-200 ${
       isActive
         ? 'bg-indigo-600 text-white shadow-lg'
         : 'text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
@@ -246,7 +247,7 @@ const DashboardLayout: React.FC = () => {
 
   return (
     <div className="flex h-screen bg-slate-100 dark:bg-slate-900 font-sans">
-      <aside className="w-20 lg:w-64 bg-white dark:bg-slate-800/50 p-4 lg:p-6 flex flex-col border-r border-slate-200 dark:border-slate-800 transition-all duration-300">
+      <aside className="w-16 sm:w-20 lg:w-64 bg-white dark:bg-slate-800/50 p-2 sm:p-4 lg:p-6 flex flex-col border-r border-slate-200 dark:border-slate-800 transition-all duration-300">
         {/* Logo - Fixed at top */}
         <div className="flex-shrink-0 flex items-center mb-6">
             <img
@@ -293,31 +294,32 @@ const DashboardLayout: React.FC = () => {
 
       <main className="flex-1 overflow-y-auto">
         {/* Compact Universal Header */}
-        <div className="sticky top-0 z-10 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700 px-4 sm:px-6 lg:px-10 py-3">
-          <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        <div className="sticky top-0 z-10 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700 px-3 sm:px-6 lg:px-10 py-3">
+          <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
             {currentUser.role === 'student' ? (
-              <div className="flex items-center gap-3">
-                <StethoscopeIcon className="w-7 h-7 text-indigo-500" />
-                <div>
-                  <h1 className="text-base font-bold text-slate-800 dark:text-slate-100">
-                    {language === 'ta' ? 'வருக எதிர்கால மருத்துவர், ' : 'Welcome Future Doctor, '}
+              <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                <StethoscopeIcon className="w-6 h-6 sm:w-7 sm:h-7 text-indigo-500 flex-shrink-0" />
+                <div className="min-w-0">
+                  <h1 className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100 truncate">
+                    <span className="hidden sm:inline">{language === 'ta' ? 'வருக எதிர்கால மருத்துவர், ' : 'Welcome Future Doctor, '}</span>
+                    <span className="sm:hidden">{language === 'ta' ? 'வருக, ' : 'Hi, '}</span>
                     <span className="text-indigo-600 dark:text-indigo-400">{currentUser.name}</span>!
                   </h1>
-                  <p className="text-xs text-slate-500 dark:text-slate-400">
+                  <p className="hidden sm:block text-xs text-slate-500 dark:text-slate-400">
                     {language === 'ta' ? 'இன்று உங்கள் தேர்வுகளை வெல்லலாம்! தொடங்குவோம்.' : "Ready to conquer your exams today? Let's get started."}
                   </p>
                 </div>
               </div>
             ) : (
-              <div className="flex items-center gap-3">
-                <UserIcon className="w-8 h-8 p-1.5 text-slate-700 dark:text-slate-200 bg-slate-200 dark:bg-slate-700 rounded-full" />
-                <div>
-                  <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{currentUser.name}</p>
+              <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                <UserIcon className="w-8 h-8 p-1.5 text-slate-700 dark:text-slate-200 bg-slate-200 dark:bg-slate-700 rounded-full flex-shrink-0" />
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-slate-800 dark:text-slate-100 truncate">{currentUser.name}</p>
                   <p className="text-xs text-slate-500 dark:text-slate-400 capitalize">{currentUser.role}</p>
                 </div>
               </div>
             )}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
               {currentUser.role === 'student' && (
                 <GamificationStats streak={streak} coins={coins} t={{ streak: language === 'ta' ? 'நாள் தொடர்ச்சி' : 'Day Streak', coins: language === 'ta' ? 'நாணயங்கள்' : 'coins' }} />
               )}
@@ -335,7 +337,7 @@ const DashboardLayout: React.FC = () => {
         </div>
 
         {/* Main Content */}
-        <div className="p-4 sm:p-6 lg:p-10">
+        <div className="p-3 sm:p-6 lg:p-10">
           <div className="max-w-7xl mx-auto">
             {renderContent()}
           </div>

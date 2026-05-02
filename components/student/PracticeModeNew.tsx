@@ -148,59 +148,59 @@ const PracticeModeNew: React.FC = () => {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent mb-2">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent mb-2">
               {t('practiceExam.practiceDashboardTitle')}
             </h1>
-            <p className="text-lg text-slate-600 dark:text-slate-400">
+            <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400">
               {t('practiceExam.practiceDashboardSubtitle')}
             </p>
           </div>
           <button
             onClick={() => setView('exam-selection')}
-            className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105 whitespace-nowrap"
+            className="px-5 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105 whitespace-nowrap text-sm sm:text-base"
           >
             {t('practiceExam.startPractice')}
           </button>
         </div>
 
         {/* Quick Stats Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-gradient-to-br from-indigo-500 via-indigo-600 to-purple-600 p-6 rounded-2xl text-white shadow-lg hover:shadow-xl transition-shadow">
-            <div className="flex items-center justify-between mb-3">
-              <BookOpenIcon className="w-10 h-10 opacity-90" />
-              <TrendingUpIcon className="w-6 h-6" />
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+          <div className="bg-gradient-to-br from-indigo-500 via-indigo-600 to-purple-600 p-4 sm:p-6 rounded-2xl text-white shadow-lg hover:shadow-xl transition-shadow">
+            <div className="flex items-center justify-between mb-2 sm:mb-3">
+              <BookOpenIcon className="w-7 h-7 sm:w-10 sm:h-10 opacity-90" />
+              <TrendingUpIcon className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
-            <p className="text-3xl font-bold mb-1">{mockStats.totalPracticed}</p>
-            <p className="text-sm opacity-90">{t('practiceExam.questionsPracticed')}</p>
+            <p className="text-2xl sm:text-3xl font-bold mb-1">{mockStats.totalPracticed}</p>
+            <p className="text-xs sm:text-sm opacity-90">{t('practiceExam.questionsPracticed')}</p>
           </div>
 
-          <div className="bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-600 p-6 rounded-2xl text-white shadow-lg hover:shadow-xl transition-shadow">
-            <div className="flex items-center justify-between mb-3">
-              <TargetIcon className="w-10 h-10 opacity-90" />
+          <div className="bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-600 p-4 sm:p-6 rounded-2xl text-white shadow-lg hover:shadow-xl transition-shadow">
+            <div className="flex items-center justify-between mb-2 sm:mb-3">
+              <TargetIcon className="w-7 h-7 sm:w-10 sm:h-10 opacity-90" />
               <span className="text-xs bg-white/20 px-2 py-1 rounded-full font-semibold">
                 {Math.round((mockStats.totalPracticed / mockStats.weeklyGoal) * 100)}%
               </span>
             </div>
-            <p className="text-3xl font-bold mb-1">{mockStats.overallAccuracy}%</p>
-            <p className="text-sm opacity-90">{t('practiceExam.accuracy')}</p>
+            <p className="text-2xl sm:text-3xl font-bold mb-1">{mockStats.overallAccuracy}%</p>
+            <p className="text-xs sm:text-sm opacity-90">{t('practiceExam.accuracy')}</p>
           </div>
 
-          <div className="bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 p-6 rounded-2xl text-white shadow-lg hover:shadow-xl transition-shadow">
-            <div className="flex items-center justify-between mb-3">
-              <FireIcon className="w-10 h-10 opacity-90" />
-              <span className="text-3xl">🔥</span>
+          <div className="bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 p-4 sm:p-6 rounded-2xl text-white shadow-lg hover:shadow-xl transition-shadow">
+            <div className="flex items-center justify-between mb-2 sm:mb-3">
+              <FireIcon className="w-7 h-7 sm:w-10 sm:h-10 opacity-90" />
+              <span className="text-2xl sm:text-3xl">🔥</span>
             </div>
-            <p className="text-3xl font-bold mb-1">{mockStats.currentStreak}</p>
-            <p className="text-sm opacity-90">{t('practiceExam.dayStreak')}</p>
+            <p className="text-2xl sm:text-3xl font-bold mb-1">{mockStats.currentStreak}</p>
+            <p className="text-xs sm:text-sm opacity-90">{t('practiceExam.dayStreak')}</p>
           </div>
 
-          <div className="bg-gradient-to-br from-pink-500 via-pink-600 to-rose-600 p-6 rounded-2xl text-white shadow-lg hover:shadow-xl transition-shadow">
-            <div className="flex items-center justify-between mb-3">
-              <AwardIcon className="w-10 h-10 opacity-90" />
-              <CheckCircleIcon className="w-7 h-7" />
+          <div className="bg-gradient-to-br from-pink-500 via-pink-600 to-rose-600 p-4 sm:p-6 rounded-2xl text-white shadow-lg hover:shadow-xl transition-shadow">
+            <div className="flex items-center justify-between mb-2 sm:mb-3">
+              <AwardIcon className="w-7 h-7 sm:w-10 sm:h-10 opacity-90" />
+              <CheckCircleIcon className="w-6 h-6 sm:w-7 sm:h-7" />
             </div>
-            <p className="text-3xl font-bold mb-1">{mockStats.topicsCompleted}</p>
-            <p className="text-sm opacity-90">{t('practiceExam.topicsCompleted')}</p>
+            <p className="text-2xl sm:text-3xl font-bold mb-1">{mockStats.topicsCompleted}</p>
+            <p className="text-xs sm:text-sm opacity-90">{t('practiceExam.topicsCompleted')}</p>
           </div>
         </div>
 
@@ -397,20 +397,20 @@ const PracticeModeNew: React.FC = () => {
         </div>
 
         {/* Question Card */}
-        <div className="bg-white dark:bg-slate-800/50 p-8 rounded-2xl border-2 border-slate-200 dark:border-slate-700 shadow-lg">
+        <div className="bg-white dark:bg-slate-800/50 p-4 sm:p-6 lg:p-8 rounded-2xl border-2 border-slate-200 dark:border-slate-700 shadow-lg">
           {/* Question Header */}
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-sm font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-3 py-1 rounded-full">
+          <div className="flex items-center justify-between mb-4 gap-2">
+            <span className="text-xs sm:text-sm font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-3 py-1 rounded-full">
               {currentQuestion.subject}
             </span>
 
-            <span className="text-sm text-slate-500 dark:text-slate-400">
+            <span className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 whitespace-nowrap">
               {currentQuestion.marks} {currentQuestion.marks === 1 ? t('practiceExam.mark') : t('practiceExam.marks')}
             </span>
           </div>
 
           {/* Question Text */}
-          <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-6 leading-relaxed">
+          <h2 className="text-lg sm:text-xl font-semibold text-slate-800 dark:text-slate-100 mb-5 sm:mb-6 leading-relaxed">
             {currentQuestion.question[language]}
           </h2>
 
@@ -418,7 +418,7 @@ const PracticeModeNew: React.FC = () => {
           <div className="space-y-3 mb-6">
             {currentQuestion.options[language].map((option, index) => {
               let optionClass =
-                'w-full text-left p-4 rounded-xl border-2 transition-all duration-200 font-medium ';
+                'w-full text-left p-3 sm:p-4 rounded-xl border-2 transition-all duration-200 font-medium text-sm sm:text-base ';
 
               if (currentAnswer.selectedAnswer === null) {
                 optionClass +=
@@ -561,40 +561,40 @@ const PracticeModeNew: React.FC = () => {
       const accuracy = practiceQuestions.length > 0 ? ((correct / practiceQuestions.length) * 100).toFixed(1) : 0;
 
       return (
-        <div className="max-w-5xl mx-auto space-y-8 animate-fade-in">
+        <div className="max-w-5xl mx-auto space-y-6 sm:space-y-8 animate-fade-in">
         {/* Results Header */}
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-slate-800 dark:text-slate-100 mb-2">
+          <h1 className="text-3xl sm:text-4xl font-bold text-slate-800 dark:text-slate-100 mb-2">
             {t('practiceExam.practiceComplete')}
           </h1>
-          <p className="text-lg text-slate-600 dark:text-slate-400">
+          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400">
             {selectedExam?.title[language]}
           </p>
         </div>
 
         {/* Score Card */}
-        <div className="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-8 rounded-3xl shadow-2xl text-white">
-          <p className="text-lg opacity-90 mb-2">{t('practiceExam.yourAccuracy')}</p>
-          <p className="text-7xl font-bold mb-6">{accuracy}%</p>
+        <div className="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-5 sm:p-8 rounded-3xl shadow-2xl text-white">
+          <p className="text-base sm:text-lg opacity-90 mb-1 sm:mb-2">{t('practiceExam.yourAccuracy')}</p>
+          <p className="text-5xl sm:text-7xl font-bold mb-4 sm:mb-6">{accuracy}%</p>
 
-          <div className="grid grid-cols-3 gap-4 bg-white/10 backdrop-blur-sm rounded-2xl p-6">
+          <div className="grid grid-cols-3 gap-2 sm:gap-4 bg-white/10 backdrop-blur-sm rounded-2xl p-4 sm:p-6">
             <div className="text-center">
-              <div className="flex items-center justify-center gap-2 mb-2">
-                <CheckCircleIcon className="w-6 h-6" />
-                <p className="text-3xl font-bold">{correct}</p>
+              <div className="flex items-center justify-center gap-1 sm:gap-2 mb-1 sm:mb-2">
+                <CheckCircleIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+                <p className="text-2xl sm:text-3xl font-bold">{correct}</p>
               </div>
-              <p className="text-sm opacity-90">{t('practiceExam.correct')}</p>
+              <p className="text-xs sm:text-sm opacity-90">{t('practiceExam.correct')}</p>
             </div>
             <div className="text-center border-x border-white/20">
-              <div className="flex items-center justify-center gap-2 mb-2">
-                <XCircleIcon className="w-6 h-6" />
-                <p className="text-3xl font-bold">{incorrect}</p>
+              <div className="flex items-center justify-center gap-1 sm:gap-2 mb-1 sm:mb-2">
+                <XCircleIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+                <p className="text-2xl sm:text-3xl font-bold">{incorrect}</p>
               </div>
-              <p className="text-sm opacity-90">{t('practiceExam.incorrect')}</p>
+              <p className="text-xs sm:text-sm opacity-90">{t('practiceExam.incorrect')}</p>
             </div>
             <div className="text-center">
-              <p className="text-3xl font-bold mb-2">{skipped}</p>
-              <p className="text-sm opacity-90">{t('practiceExam.skipped')}</p>
+              <p className="text-2xl sm:text-3xl font-bold mb-1 sm:mb-2">{skipped}</p>
+              <p className="text-xs sm:text-sm opacity-90">{t('practiceExam.skipped')}</p>
             </div>
           </div>
         </div>

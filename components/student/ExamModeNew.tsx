@@ -213,7 +213,7 @@ const ExamModeNew: React.FC = () => {
     return (
       <div className="space-y-8 animate-fade-in">
         <div className="text-center">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent mb-3">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent mb-3">
             {t('practiceExam.selectExamTest')}
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-400">
@@ -297,7 +297,7 @@ const ExamModeNew: React.FC = () => {
           </p>
         </div>
 
-        <div className="bg-white dark:bg-slate-800/50 p-8 rounded-2xl border-2 border-slate-200 dark:border-slate-700 shadow-lg">
+        <div className="bg-white dark:bg-slate-800/50 p-4 sm:p-6 lg:p-8 rounded-2xl border-2 border-slate-200 dark:border-slate-700 shadow-lg">
           <ul className="space-y-4 mb-6">
             {[1, 2, 3, 4, 5].map((num) => (
               <li key={num} className="flex items-start gap-3">
@@ -394,7 +394,7 @@ const ExamModeNew: React.FC = () => {
           </div>
 
           {/* Question Card */}
-          <div className="bg-white dark:bg-slate-800/50 p-8 rounded-2xl border-2 border-slate-200 dark:border-slate-700 shadow-lg">
+          <div className="bg-white dark:bg-slate-800/50 p-4 sm:p-6 lg:p-8 rounded-2xl border-2 border-slate-200 dark:border-slate-700 shadow-lg">
             {/* Question Header */}
             <div className="flex items-center justify-between mb-4">
               <span className="text-sm font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-3 py-1 rounded-full">
@@ -558,7 +558,7 @@ const ExamModeNew: React.FC = () => {
         {/* Submit Confirmation Modal */}
         {showSubmitConfirm && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-2xl max-w-md w-full">
+            <div className="bg-white dark:bg-slate-800 p-5 sm:p-8 rounded-2xl shadow-2xl max-w-md w-full">
               <h3 className="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-4">
                 {t('practiceExam.confirmSubmit')}
               </h3>
@@ -599,7 +599,7 @@ const ExamModeNew: React.FC = () => {
       <div className="max-w-6xl mx-auto space-y-8 animate-fade-in">
         {/* Results Header */}
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-slate-800 dark:text-slate-100 mb-2">
+          <h1 className="text-3xl sm:text-4xl font-bold text-slate-800 dark:text-slate-100 mb-2">
             {t('practiceExam.examComplete')}
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-400">
@@ -608,7 +608,7 @@ const ExamModeNew: React.FC = () => {
         </div>
 
         {/* Score Card */}
-        <div className="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-8 rounded-3xl shadow-2xl text-white">
+        <div className="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-5 sm:p-8 rounded-3xl shadow-2xl text-white">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="text-center">
               <p className="text-lg opacity-90 mb-2">{t('practiceExam.yourScore')}</p>
