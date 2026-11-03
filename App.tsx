@@ -16,6 +16,7 @@ const TeacherRegistrationForm = lazy(() => import('./components/registration/Tea
 const SchoolRegistrationForm = lazy(() => import('./components/registration/SchoolRegistrationForm'));
 const QuestionBank = lazy(() => import('./components/admin/QuestionBank'));
 const TNSchoolsPage = lazy(() => import('./pages/TNSchoolsPage'));
+const SuperAdminLogin = lazy(() => import('./components/SuperAdminLogin'));
 import SchoolOverview from './components/school/SchoolOverview';
 import PeopleManager from './components/school/PeopleManager';
 import OwnerOverview from './components/owner/OwnerOverview';
@@ -450,6 +451,14 @@ const LoginRoute: React.FC = () => {
   return <Login />;
 };
 
+// Super admin (platform owner) sign-in, separate from the school sign-in
+const SuperAdminRoute: React.FC = () => {
+  const { currentUser, isLoading } = useAuth();
+  if (isLoading) return null;
+  if (currentUser) return <Navigate to="/dashboard" replace />;
+  return <SuperAdminLogin />;
+};
+
 const PageLoading: React.FC = () => (
   <div className="flex items-center justify-center min-h-[50vh]">
     <div className="h-10 w-10 animate-spin rounded-full border-4 border-indigo-600 border-t-transparent" />
@@ -462,6 +471,7 @@ const AppContent: React.FC = () => {
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<LoginRoute />} />
+      <Route path="/superadmin" element={<SuperAdminRoute />} />
       <Route path="/tn-schools" element={<TNSchoolsPage />} />
       <Route path="/register" element={<RegistrationLanding />} />
       <Route path="/register/student" element={<StudentRegistrationForm />} />

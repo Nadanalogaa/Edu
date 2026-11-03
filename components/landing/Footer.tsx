@@ -119,6 +119,7 @@ const Footer: React.FC = () => {
                             <a href="#privacy" className="text-slate-400 hover:text-indigo-400 transition-colors">{t('landing.footer.privacy')}</a>
                             <a href="#terms" className="text-slate-400 hover:text-indigo-400 transition-colors">{t('landing.footer.terms')}</a>
                             <a href="#refund" className="text-slate-400 hover:text-indigo-400 transition-colors">{t('landing.footer.refund')}</a>
+                            <a href="/superadmin" className="text-slate-500 hover:text-indigo-400 transition-colors">Super admin</a>
                         </div>
                     </div>
                 </div>

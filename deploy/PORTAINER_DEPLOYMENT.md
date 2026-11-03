@@ -58,7 +58,7 @@ To ship new code later: push to `main`, then Portainer → `edu-app` → **Pull 
 
 | Role | What they do |
 |---|---|
-| Owner | Creates schools with their admin login (or approves self-registered ones), sets each school's board, student limit and subscription end date, manages the syllabus and the shared question bank. Created from `OWNER_EMAIL` / `OWNER_PASSWORD`. |
+| Owner (super admin) | Signs in at **/superadmin** (link "Super admin" in the landing page footer), not on the school sign-in. Creates schools with their admin login (or approves self-registered ones), sets each school's board, student limit and subscription end date, manages the syllabus and the shared question bank. Created from `OWNER_EMAIL` / `OWNER_PASSWORD`. |
 | School admin | Adds students one by one or imports them from Excel, adds teachers and more school admins, resets passwords, adds the school's own questions, creates tests. Only active students count towards the limit. Signs in with email. |
 | Student | Signs in with the **school code + admission number + password** (no email needed). |
 | Teacher | Signs in with email. Teachers and students can also register themselves with the school code and sign in after the school admin approves them. |

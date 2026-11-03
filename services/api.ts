@@ -41,12 +41,14 @@ api.interceptors.response.use(
     // also a 401; the login form shows that error itself, so no redirect then.
     const isLoginRequest = error.config?.url?.includes('/auth/login');
     if (error.response?.status === 401 && !isLoginRequest) {
+      const wasOwner = localStorage.getItem('user')?.includes('"role":"owner"');
       localStorage.removeItem('token');
       localStorage.removeItem('user');
 
-      // Send the user to sign in again
-      if (window.location.pathname !== '/login') {
-        window.location.href = '/login';
+      // Send the user to sign in again (the owner has their own sign-in page)
+      const signIn = wasOwner ? '/superadmin' : '/login';
+      if (window.location.pathname !== signIn) {
+        window.location.href = signIn;
       }
     }
 

@@ -11,6 +11,8 @@ import { AuthRequest } from '../middleware/auth';
 export const login = async (req: Request, res: Response) => {
   try {
     const { email, password, schoolCode, admissionNumber } = req.body;
+    // The platform owner signs in only on the super admin page; school users only on the school page
+    const ownerPortal = req.body.portal === 'owner';
     const byAdmission = Boolean(schoolCode || admissionNumber);
 
     // Validate input: staff sign in with email, students with school code + admission number
@@ -38,7 +40,8 @@ export const login = async (req: Request, res: Response) => {
     // Check password
     const isPasswordMatch = await comparePassword(password, user.password);
 
-    if (!isPasswordMatch) {
+    // Same answer for a wrong password and for the wrong sign-in page
+    if (!isPasswordMatch || (user.role === 'owner') !== ownerPortal) {
       return res.status(401).json({
         success: false,
         message: 'Invalid credentials',

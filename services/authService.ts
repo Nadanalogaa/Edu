@@ -6,6 +6,8 @@ export interface LoginCredentials {
   schoolCode?: string;
   admissionNumber?: string;
   password: string;
+  /** 'owner' on the super admin sign-in page */
+  portal?: 'owner';
 }
 
 export interface User {
