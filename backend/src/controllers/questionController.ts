@@ -1,6 +1,27 @@
-import { Request, Response } from 'express';
-import Question from '../models/Question';
+import { Response } from 'express';
+import { Questions } from '../models/Question';
+import { query } from '../config/database';
 import { AuthRequest } from '../middleware/auth';
+
+/** Filters shared by the list and random endpoints. */
+const questionFilters = (filters: { subject?: any; topic?: any; difficulty?: any; examType?: any }) => {
+  const params: any[] = [];
+  const where = ['is_active = true'];
+  const add = (column: string, value: any) => {
+    params.push(value);
+    where.push(`${column} = $${params.length}`);
+  };
+
+  if (filters.subject) add('subject', filters.subject);
+  if (filters.topic) add('topic', filters.topic);
+  if (filters.difficulty) add('difficulty', filters.difficulty);
+  if (filters.examType && filters.examType !== 'Both') {
+    params.push(filters.examType);
+    where.push(`exam_type IN ($${params.length}, 'Both')`);
+  }
+
+  return { where: `WHERE ${where.join(' AND ')}`, params };
+};
 
 // @desc    Get all questions with filters
 // @route   GET /api/questions
@@ -9,21 +30,16 @@ export const getQuestions = async (req: AuthRequest, res: Response) => {
   try {
     const { subject, topic, difficulty, examType, limit = 10, page = 1 } = req.query;
 
-    const query: any = { isActive: true };
-
-    if (subject) query.subject = subject;
-    if (topic) query.topic = topic;
-    if (difficulty) query.difficulty = difficulty;
-    if (examType && examType !== 'Both') query.examType = { $in: [examType, 'Both'] };
+    const { where, params } = questionFilters({ subject, topic, difficulty, examType });
 
     const skip = (Number(page) - 1) * Number(limit);
 
-    const questions = await Question.find(query)
-      .limit(Number(limit))
-      .skip(skip)
-      .sort({ createdAt: -1 });
+    const questions = await Questions.select(
+      `SELECT * FROM questions ${where} ORDER BY created_at DESC LIMIT $${params.length + 1} OFFSET $${params.length + 2}`,
+      [...params, Number(limit), skip]
+    );
 
-    const total = await Question.countDocuments(query);
+    const [{ total }] = await query(`SELECT count(*)::int AS total FROM questions ${where}`, params);
 
     res.status(200).json({
       success: true,
@@ -49,17 +65,12 @@ export const getRandomQuestions = async (req: AuthRequest, res: Response) => {
   try {
     const { subject, topic, difficulty, count = 10, examType } = req.query;
 
-    const query: any = { isActive: true };
+    const { where, params } = questionFilters({ subject, topic, difficulty, examType });
 
-    if (subject) query.subject = subject;
-    if (topic) query.topic = topic;
-    if (difficulty) query.difficulty = difficulty;
-    if (examType && examType !== 'Both') query.examType = { $in: [examType, 'Both'] };
-
-    const questions = await Question.aggregate([
-      { $match: query },
-      { $sample: { size: Number(count) } },
-    ]);
+    const questions = await Questions.select(
+      `SELECT * FROM questions ${where} ORDER BY random() LIMIT $${params.length + 1}`,
+      [...params, Number(count)]
+    );
 
     res.status(200).json({
       success: true,
@@ -80,7 +91,7 @@ export const getRandomQuestions = async (req: AuthRequest, res: Response) => {
 // @access  Private
 export const getQuestionById = async (req: AuthRequest, res: Response) => {
   try {
-    const question = await Question.findById(req.params.id);
+    const question = await Questions.findById(req.params.id);
 
     if (!question) {
       return res.status(404).json({
@@ -109,10 +120,11 @@ export const getTopicsBySubject = async (req: AuthRequest, res: Response) => {
   try {
     const { subject } = req.params;
 
-    const topics = await Question.distinct('topic', {
-      subject,
-      isActive: true,
-    });
+    const rows = await query(
+      'SELECT DISTINCT topic FROM questions WHERE subject = $1 AND is_active = true ORDER BY topic',
+      [subject]
+    );
+    const topics = rows.map((row) => row.topic);
 
     res.status(200).json({
       success: true,
@@ -132,7 +144,7 @@ export const getTopicsBySubject = async (req: AuthRequest, res: Response) => {
 // @access  Private (Teacher, Admin)
 export const createQuestion = async (req: AuthRequest, res: Response) => {
   try {
-    const question = await Question.create(req.body);
+    const question = await Questions.insert(req.body);
 
     res.status(201).json({
       success: true,
@@ -153,10 +165,7 @@ export const createQuestion = async (req: AuthRequest, res: Response) => {
 // @access  Private (Teacher, Admin)
 export const updateQuestion = async (req: AuthRequest, res: Response) => {
   try {
-    const question = await Question.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const question = await Questions.updateById(req.params.id, req.body);
 
     if (!question) {
       return res.status(404).json({
@@ -184,11 +193,7 @@ export const updateQuestion = async (req: AuthRequest, res: Response) => {
 // @access  Private (Admin)
 export const deleteQuestion = async (req: AuthRequest, res: Response) => {
   try {
-    const question = await Question.findByIdAndUpdate(
-      req.params.id,
-      { isActive: false },
-      { new: true }
-    );
+    const question = await Questions.updateById(req.params.id, { isActive: false });
 
     if (!question) {
       return res.status(404).json({

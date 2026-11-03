@@ -1,0 +1,61 @@
+# PostgreSQL for Education Intelligence (Portainer stack "edu-db").
+#
+# Its own stack and its own volume, like nadanaloga-db: no other container may
+# ever mount edu-pgdata (two Postgres servers on one data directory corrupt it).
+#
+# Deploy FIRST, before the app stack:
+#   Portainer -> Stacks -> Add stack -> name "edu-db" -> Web editor -> paste this
+#   file -> Environment variables: POSTGRES_PASSWORD (and SMTP_USER / SMTP_PASS
+#   for emailed backups) -> Deploy.
+# No port is published: only containers on edu-network can reach the database.
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: edu-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: education
+      POSTGRES_USER: edu_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - edu-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U edu_user -d education"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # Nightly backup (scripts/db-backup.sh): pg_dump over the network at 02:00 IST,
+  # last 30 copies kept on the backups volume, each copy emailed through Brevo.
+  backup:
+    image: postgres:15-alpine
+    container_name: edu-db-backup
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      DB_HOST: edu-db
+      DB_NAME: education
+      DB_USER: edu_user
+      BACKUP_NAME: education
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      BACKUP_EMAIL_TO: ${BACKUP_EMAIL_TO:-nadanaloga2026@gmail.com}
+    command: ["sh", "-c", "wget -qO /tmp/db-backup.sh https://raw.githubusercontent.com/Nadanalogaa/Edu/main/scripts/db-backup.sh && exec sh /tmp/db-backup.sh"]
+    volumes:
+      - backups:/backups
+    networks:
+      - edu-network
+
+volumes:
+  pgdata:
+    name: edu-pgdata
+  backups:
+    name: edu-db-backups
+
+networks:
+  edu-network:
+    name: edu-network

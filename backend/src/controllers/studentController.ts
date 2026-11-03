@@ -1,9 +1,11 @@
 import { Response } from 'express';
-import StudentAttempt from '../models/StudentAttempt';
-import MistakeBook from '../models/MistakeBook';
-import Question from '../models/Question';
-import User from '../models/User';
-import Test from '../models/Test';
+import { StudentAttempts } from '../models/StudentAttempt';
+import { MistakeBook } from '../models/MistakeBook';
+import { Questions } from '../models/Question';
+import { Users } from '../models/User';
+import { Tests, populateTests } from '../models/Test';
+import { pick, isUuid } from '../db/table';
+import { query, withTransaction } from '../config/database';
 import { AuthRequest } from '../middleware/auth';
 
 // @desc    Start a new test attempt
@@ -13,7 +15,14 @@ export const startAttempt = async (req: AuthRequest, res: Response) => {
   try {
     const { testId, questionIds, totalMarks } = req.body;
 
-    const attempt = await StudentAttempt.create({
+    if (!isUuid(testId) || !(await Tests.findById(testId))) {
+      return res.status(404).json({
+        success: false,
+        message: 'Test not found',
+      });
+    }
+
+    const attempt = await StudentAttempts.insert({
       studentId: req.user._id,
       testId,
       answers: [],
@@ -44,7 +53,7 @@ export const submitAttempt = async (req: AuthRequest, res: Response) => {
   try {
     const { answers, timeTaken } = req.body;
 
-    const attempt = await StudentAttempt.findById(req.params.id);
+    const attempt = await StudentAttempts.findById(req.params.id);
 
     if (!attempt) {
       return res.status(404).json({
@@ -54,7 +63,7 @@ export const submitAttempt = async (req: AuthRequest, res: Response) => {
     }
 
     // Verify ownership
-    if (attempt.studentId.toString() !== req.user._id.toString()) {
+    if (attempt.studentId !== req.user._id) {
       return res.status(403).json({
         success: false,
         message: 'Not authorized',
@@ -69,9 +78,10 @@ export const submitAttempt = async (req: AuthRequest, res: Response) => {
 
     const processedAnswers = [];
     const mistakes = [];
+    const questions = await Questions.findByIds(answers.map((a: any) => a.questionId));
 
     for (const answer of answers) {
-      const question = await Question.findById(answer.questionId);
+      const question = questions.get(String(answer.questionId));
 
       if (!question) continue;
 
@@ -87,14 +97,14 @@ export const submitAttempt = async (req: AuthRequest, res: Response) => {
         wrongAnswers++;
         // Add to mistake book
         mistakes.push({
-          questionId: answer.questionId,
+          questionId: question._id,
           selectedAnswer: answer.selectedAnswer,
           correctAnswer: question.correctAnswer,
         });
       }
 
       processedAnswers.push({
-        questionId: answer.questionId,
+        questionId: question._id,
         selectedAnswer: answer.selectedAnswer,
         isCorrect,
         marksObtained: marks,
@@ -103,47 +113,46 @@ export const submitAttempt = async (req: AuthRequest, res: Response) => {
     }
 
     const percentage = (marksObtained / attempt.totalMarks) * 100;
+    const coinsEarned = Math.floor(marksObtained / 4); // 1 coin per 4 marks
 
-    // Update attempt
-    attempt.answers = processedAnswers as any;
-    attempt.correctAnswers = correctAnswers;
-    attempt.wrongAnswers = wrongAnswers;
-    attempt.skippedAnswers = skippedAnswers;
-    attempt.marksObtained = marksObtained;
-    attempt.percentage = percentage;
-    attempt.timeTaken = timeTaken;
-    attempt.endTime = new Date();
-    attempt.status = 'completed';
+    const updatedAttempt = await withTransaction(async (client) => {
+      const updated = await StudentAttempts.updateById(
+        attempt._id,
+        {
+          answers: processedAnswers,
+          correctAnswers,
+          wrongAnswers,
+          skippedAnswers,
+          marksObtained,
+          percentage,
+          timeTaken,
+          endTime: new Date(),
+          status: 'completed',
+        },
+        client
+      );
 
-    await attempt.save();
+      // Add mistakes to mistake book
+      for (const mistake of mistakes) {
+        await MistakeBook.insert({ studentId: req.user._id, attemptId: attempt._id, ...mistake }, client);
+      }
 
-    // Add mistakes to mistake book
-    if (mistakes.length > 0) {
-      const mistakeBookEntries = mistakes.map((mistake) => ({
-        studentId: req.user._id,
-        questionId: mistake.questionId,
-        attemptId: attempt._id,
-        selectedAnswer: mistake.selectedAnswer,
-        correctAnswer: mistake.correctAnswer,
-      }));
+      // Update student stats
+      await query(
+        'UPDATE users SET total_points = total_points + $1, coins = coins + $2, updated_at = now() WHERE id = $3',
+        [marksObtained, coinsEarned, req.user._id],
+        client
+      );
 
-      await MistakeBook.insertMany(mistakeBookEntries);
-    }
-
-    // Update student stats
-    const student = await User.findById(req.user._id);
-    if (student) {
-      student.totalPoints = (student.totalPoints || 0) + marksObtained;
-      student.coins = (student.coins || 0) + Math.floor(marksObtained / 4); // 1 coin per 4 marks
-      await student.save();
-    }
+      return updated;
+    });
 
     res.status(200).json({
       success: true,
       message: 'Test submitted successfully',
       data: {
-        attempt,
-        coinsEarned: Math.floor(marksObtained / 4),
+        attempt: updatedAttempt,
+        coinsEarned,
       },
     });
   } catch (error: any) {
@@ -162,24 +171,32 @@ export const getMyAttempts = async (req: AuthRequest, res: Response) => {
   try {
     const { status, limit = 20, page = 1 } = req.query;
 
-    const query: any = { studentId: req.user._id };
-    if (status) query.status = status;
+    const params: any[] = [req.user._id];
+    let where = 'WHERE student_id = $1';
+    if (status) {
+      params.push(status);
+      where += ` AND status = $${params.length}`;
+    }
 
     const skip = (Number(page) - 1) * Number(limit);
 
-    const attempts = await StudentAttempt.find(query)
-      .populate('testId', 'title type examType duration')
-      .limit(Number(limit))
-      .skip(skip)
-      .sort({ createdAt: -1 });
+    const attempts = await StudentAttempts.select(
+      `SELECT * FROM student_attempts ${where} ORDER BY created_at DESC LIMIT $${params.length + 1} OFFSET $${params.length + 2}`,
+      [...params, Number(limit), skip]
+    );
+    const tests = await Tests.findByIds(attempts.map((a) => a.testId));
+    const data = attempts.map((a) => ({
+      ...a,
+      testId: pick(tests.get(a.testId), ['title', 'type', 'examType', 'duration']),
+    }));
 
-    const total = await StudentAttempt.countDocuments(query);
+    const [{ total }] = await query(`SELECT count(*)::int AS total FROM student_attempts ${where}`, params);
 
     res.status(200).json({
       success: true,
-      count: attempts.length,
+      count: data.length,
       total,
-      data: attempts,
+      data,
     });
   } catch (error: any) {
     console.error('Get attempts error:', error);
@@ -198,10 +215,10 @@ export const getAnalytics = async (req: AuthRequest, res: Response) => {
     const studentId = req.user._id;
 
     // Get all completed attempts
-    const attempts = await StudentAttempt.find({
-      studentId,
-      status: 'completed',
-    }).populate('testId', 'subjects examType');
+    const attempts = await StudentAttempts.select(
+      "SELECT * FROM student_attempts WHERE student_id = $1 AND status = 'completed'",
+      [studentId]
+    );
 
     // Calculate subject-wise performance
     const subjectStats: any = {
@@ -217,15 +234,19 @@ export const getAnalytics = async (req: AuthRequest, res: Response) => {
     let totalWrong = 0;
     let totalSkipped = 0;
 
+    // Load every answered question once to categorise answers by subject
+    const questions = await Questions.findByIds(
+      attempts.flatMap((attempt) => attempt.answers.map((answer: any) => answer.questionId))
+    );
+
     for (const attempt of attempts) {
       totalQuestions += attempt.totalQuestions;
       totalCorrect += attempt.correctAnswers;
       totalWrong += attempt.wrongAnswers;
       totalSkipped += attempt.skippedAnswers;
 
-      // Get questions from this attempt to categorize by subject
       for (const answer of attempt.answers) {
-        const question = await Question.findById(answer.questionId);
+        const question = questions.get(answer.questionId);
         if (question && subjectStats[question.subject]) {
           subjectStats[question.subject].total++;
           if (answer.isCorrect) {
@@ -252,7 +273,7 @@ export const getAnalytics = async (req: AuthRequest, res: Response) => {
     }));
 
     // Get user stats
-    const student = await User.findById(studentId);
+    const student = await Users.findById(studentId);
 
     res.status(200).json({
       success: true,
@@ -289,24 +310,34 @@ export const getMistakes = async (req: AuthRequest, res: Response) => {
   try {
     const { subject, isReviewed, limit = 20, page = 1 } = req.query;
 
-    const query: any = { studentId: req.user._id };
-    if (isReviewed !== undefined) query.isReviewed = isReviewed === 'true';
+    const params: any[] = [req.user._id];
+    let where = 'WHERE student_id = $1';
+    if (isReviewed !== undefined) {
+      params.push(isReviewed === 'true');
+      where += ` AND is_reviewed = $${params.length}`;
+    }
 
     const skip = (Number(page) - 1) * Number(limit);
 
-    let mistakes = await MistakeBook.find(query)
-      .populate('questionId')
-      .populate('attemptId', 'createdAt')
-      .limit(Number(limit))
-      .skip(skip)
-      .sort({ createdAt: -1 });
+    const rows = await MistakeBook.select(
+      `SELECT * FROM mistake_book ${where} ORDER BY created_at DESC LIMIT $${params.length + 1} OFFSET $${params.length + 2}`,
+      [...params, Number(limit), skip]
+    );
+    const questions = await Questions.findByIds(rows.map((m) => m.questionId));
+    const attempts = await StudentAttempts.findByIds(rows.map((m) => m.attemptId));
+
+    let mistakes = rows.map((m) => ({
+      ...m,
+      questionId: questions.get(m.questionId) || null,
+      attemptId: pick(attempts.get(m.attemptId), ['createdAt']),
+    }));
 
     // Filter by subject if provided
     if (subject) {
       mistakes = mistakes.filter((m: any) => m.questionId?.subject === subject);
     }
 
-    const total = await MistakeBook.countDocuments(query);
+    const [{ total }] = await query(`SELECT count(*)::int AS total FROM mistake_book ${where}`, params);
 
     res.status(200).json({
       success: true,
@@ -330,23 +361,20 @@ export const markMistakeReviewed = async (req: AuthRequest, res: Response) => {
   try {
     const { notes } = req.body;
 
-    const mistake = await MistakeBook.findOne({
-      _id: req.params.id,
-      studentId: req.user._id,
-    });
+    const existing = await MistakeBook.findById(req.params.id);
 
-    if (!mistake) {
+    if (!existing || existing.studentId !== req.user._id) {
       return res.status(404).json({
         success: false,
         message: 'Mistake not found',
       });
     }
 
-    mistake.isReviewed = true;
-    mistake.reviewedAt = new Date();
-    if (notes) mistake.notes = notes;
-
-    await mistake.save();
+    const mistake = await MistakeBook.updateById(existing._id, {
+      isReviewed: true,
+      reviewedAt: new Date(),
+      ...(notes && { notes }),
+    });
 
     res.status(200).json({
       success: true,
@@ -370,7 +398,7 @@ export const getSharedTests = async (req: AuthRequest, res: Response) => {
     const studentId = req.user._id;
 
     // Get student's grade
-    const student = await User.findById(studentId);
+    const student = await Users.findById(studentId);
     if (!student) {
       return res.status(404).json({
         success: false,
@@ -378,28 +406,18 @@ export const getSharedTests = async (req: AuthRequest, res: Response) => {
       });
     }
 
-    // Find tests shared with this student or their grade
-    const query: any = {
-      isActive: true,
-      isPublished: true,
-      $or: [
-        { sharedWithStudents: studentId },
-      ],
-    };
-
-    // If student has a grade, also include tests shared with that grade
-    if (student.grade) {
-      query.$or.push({ sharedWithGrades: student.grade });
-    }
-
-    const tests = await Test.find(query)
-      .populate('createdBy', 'name')
-      .populate('questions')
-      .sort({ sharedAt: -1 });
+    // Find tests shared with this student or, if they have one, their grade
+    const tests = await Tests.select(
+      `SELECT * FROM tests
+       WHERE is_active = true AND is_published = true
+         AND ($1::uuid = ANY(shared_with_students) OR ($2::text IS NOT NULL AND $2::text = ANY(shared_with_grades)))
+       ORDER BY shared_at DESC NULLS LAST`,
+      [studentId, student.grade || null]
+    );
 
     res.status(200).json({
       success: true,
-      data: tests,
+      data: await populateTests(tests, { creatorFields: ['name'], withQuestions: true }),
     });
   } catch (error: any) {
     console.error('Get shared tests error:', error);

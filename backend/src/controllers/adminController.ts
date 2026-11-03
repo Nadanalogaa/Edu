@@ -1,12 +1,22 @@
 import { Request, Response } from 'express';
 import * as XLSX from 'xlsx';
-import Question from '../models/Question';
-import Test from '../models/Test';
-import DailyChallenge from '../models/DailyChallenge';
-import UploadedFile from '../models/UploadedFile';
-import User from '../models/User';
-import path from 'path';
+import { Questions, questionsInOrder } from '../models/Question';
+import { Tests, populateTests } from '../models/Test';
+import { DailyChallenges, localDateString } from '../models/DailyChallenge';
+import { UploadedFiles } from '../models/UploadedFile';
+import { Users } from '../models/User';
+import { isUuid, pick, Doc } from '../db/table';
+import { query } from '../config/database';
 import fs from 'fs';
+
+/** Active questions among the given ids. */
+const activeQuestions = (ids: string[]) =>
+  Questions.select('SELECT * FROM questions WHERE id = ANY($1::uuid[]) AND is_active = true', [
+    ids.filter(isUuid),
+  ]);
+
+const populateChallenge = async (challenge: Doc | null) =>
+  challenge && { ...challenge, questionIds: await questionsInOrder(challenge.questionIds) };
 
 interface ExcelRow {
   _id: number;
@@ -190,19 +200,18 @@ export const uploadQuestions = async (req: Request, res: Response) => {
 
     // Get all existing external IDs in one query
     const externalIds = questions.map(q => q.externalId).filter(Boolean);
-    const existingQuestions = await Question.find(
-      { externalId: { $in: externalIds } },
-      { externalId: 1, _id: 1, isActive: 1 }
+    const existingQuestions = await Questions.select(
+      'SELECT id, external_id, is_active FROM questions WHERE external_id = ANY($1::int[])',
+      [externalIds]
     );
     const existingIds = new Set(existingQuestions.map(q => q.externalId));
 
     // Reactivate any inactive questions that are being re-uploaded
     const inactiveQuestions = existingQuestions.filter(q => !q.isActive);
     if (inactiveQuestions.length > 0) {
-      await Question.updateMany(
-        { _id: { $in: inactiveQuestions.map(q => q._id) } },
-        { $set: { isActive: true } }
-      );
+      await query('UPDATE questions SET is_active = true, updated_at = now() WHERE id = ANY($1::uuid[])', [
+        inactiveQuestions.map(q => q._id),
+      ]);
       console.log(`Reactivated ${inactiveQuestions.length} previously deleted questions`);
     }
 
@@ -220,25 +229,24 @@ export const uploadQuestions = async (req: Request, res: Response) => {
     const insertedQuestionIds: any[] = [];
     if (questionsToInsert.length > 0) {
       try {
-        const result = await Question.insertMany(questionsToInsert, { ordered: false });
-        insertedCount = result.length;
-        insertedQuestionIds.push(...result.map(q => q._id));
+        // Insert row by row so one bad question does not stop the rest (like ordered: false)
+        for (const q of questionsToInsert) {
+          try {
+            const inserted = await Questions.insert(q);
+            insertedQuestionIds.push(inserted._id);
+          } catch (error: any) {
+            errors.push({
+              id: q.externalId,
+              error: error.message,
+            });
+          }
+        }
+        insertedCount = insertedQuestionIds.length;
         console.log(`Successfully inserted ${insertedCount} questions`);
       } catch (error: any) {
-        // Handle bulk insert errors
-        if (error.writeErrors) {
-          insertedCount = questionsToInsert.length - error.writeErrors.length;
-          error.writeErrors.forEach((err: any) => {
-            errors.push({
-              id: questionsToInsert[err.index]?.externalId,
-              error: err.errmsg,
-            });
-          });
-        } else {
-          errors.push({
-            error: error.message,
-          });
-        }
+        errors.push({
+          error: error.message,
+        });
       }
     }
 
@@ -247,9 +255,9 @@ export const uploadQuestions = async (req: Request, res: Response) => {
     const allQuestionIds: any[] = [];
 
     // Fetch all questions by their externalIds to get database IDs
-    const allQuestions = await Question.find(
-      { externalId: { $in: externalIds }, isActive: true },
-      { _id: 1, externalId: 1 }
+    const allQuestions = await Questions.select(
+      'SELECT id, external_id FROM questions WHERE external_id = ANY($1::int[]) AND is_active = true',
+      [externalIds]
     );
 
     // Create a map of externalId -> _id for fast lookup
@@ -271,7 +279,7 @@ export const uploadQuestions = async (req: Request, res: Response) => {
     // Create UploadedFile record to track this upload
     // Always create a file record with ALL question IDs
     try {
-      await UploadedFile.create({
+      await UploadedFiles.insert({
         fileName: filename,
         examType,
         subject,
@@ -346,23 +354,20 @@ export const getQuestions = async (req: Request, res: Response) => {
       limit = 20,
     } = req.query;
 
-    const query: any = { isActive: true };
-
     let questions: any[] = [];
     let total = 0;
 
     // If IDs are provided, fetch questions by IDs and preserve order
     if (ids) {
       const questionIds = (ids as string).split(',');
-      query._id = { $in: questionIds };
 
       // Fetch all questions without sorting
-      const fetchedQuestions = await Question.find(query);
+      const fetchedQuestions = await activeQuestions(questionIds);
 
       // Create a map of _id -> question for fast lookup
       const idToQuestion = new Map();
       fetchedQuestions.forEach(q => {
-        idToQuestion.set(q._id.toString(), q);
+        idToQuestion.set(q._id, q);
       });
 
       // Preserve the order from questionIds array (Excel order)
@@ -378,20 +383,27 @@ export const getQuestions = async (req: Request, res: Response) => {
       questions = questions.slice(skip, skip + limitNum);
     } else {
       // Otherwise use filters with normal sorting
-      if (subject) query.subject = subject;
-      if (unit) query.unit = parseInt(unit as string);
-      if (chapter) query.chapter = parseInt(chapter as string);
-      if (difficulty) query.difficulty = difficulty;
-      if (examType) query.examType = examType;
+      const params: any[] = [];
+      const where = ['is_active = true'];
+      const add = (column: string, value: any) => {
+        params.push(value);
+        where.push(`${column} = $${params.length}`);
+      };
+      if (subject) add('subject', subject);
+      if (unit) add('unit', parseInt(unit as string));
+      if (chapter) add('chapter', parseInt(chapter as string));
+      if (difficulty) add('difficulty', difficulty);
+      if (examType) add('exam_type', examType);
+      const whereSql = `WHERE ${where.join(' AND ')}`;
 
       const skip = (parseInt(page as string) - 1) * parseInt(limit as string);
 
-      questions = await Question.find(query)
-        .skip(skip)
-        .limit(parseInt(limit as string))
-        .sort({ createdAt: -1 });
+      questions = await Questions.select(
+        `SELECT * FROM questions ${whereSql} ORDER BY created_at DESC LIMIT $${params.length + 1} OFFSET $${params.length + 2}`,
+        [...params, parseInt(limit as string), skip]
+      );
 
-      total = await Question.countDocuments(query);
+      [{ total }] = await query(`SELECT count(*)::int AS total FROM questions ${whereSql}`, params);
     }
 
     return res.status(200).json({
@@ -423,11 +435,7 @@ export const deleteQuestion = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    const question = await Question.findByIdAndUpdate(
-      id,
-      { isActive: false },
-      { new: true }
-    );
+    const question = await Questions.updateById(id, { isActive: false });
 
     if (!question) {
       return res.status(404).json({
@@ -476,17 +484,29 @@ export const updateQuestionProperties = async (req: Request, res: Response) => {
       });
     }
 
-    const result = await Question.updateMany(
-      { _id: { $in: questionIds }, isActive: true },
-      { $set: updates }
+    const sets: string[] = [];
+    const params: any[] = [questionIds.filter(isUuid)];
+    if (updates.difficulty) {
+      params.push(updates.difficulty);
+      sets.push(`difficulty = $${params.length}`);
+    }
+    if (updates.marks !== undefined) {
+      params.push(updates.marks);
+      sets.push(`marks = $${params.length}`);
+    }
+
+    const updated = await query(
+      `UPDATE questions SET ${sets.join(', ')}, updated_at = now()
+       WHERE id = ANY($1::uuid[]) AND is_active = true RETURNING id`,
+      params
     );
 
     return res.status(200).json({
       success: true,
-      message: `Updated ${result.modifiedCount} question(s)`,
+      message: `Updated ${updated.length} question(s)`,
       data: {
-        matched: result.matchedCount,
-        modified: result.modifiedCount,
+        matched: updated.length,
+        modified: updated.length,
       },
     });
   } catch (error: any) {
@@ -511,20 +531,28 @@ export const getUploadedFiles = async (req: Request, res: Response) => {
       limit = 20,
     } = req.query;
 
-    const query: any = { isActive: true };
-
-    if (examType) query.examType = examType;
-    if (subject) query.subject = subject;
+    const params: any[] = [];
+    const where = ['is_active = true'];
+    if (examType) {
+      params.push(examType);
+      where.push(`exam_type = $${params.length}`);
+    }
+    if (subject) {
+      params.push(subject);
+      where.push(`subject = $${params.length}`);
+    }
+    const whereSql = `WHERE ${where.join(' AND ')}`;
 
     const skip = (parseInt(page as string) - 1) * parseInt(limit as string);
 
-    const files = await UploadedFile.find(query)
-      .populate('uploadedBy', 'name email')
-      .skip(skip)
-      .limit(parseInt(limit as string))
-      .sort({ uploadDate: -1 });
+    const rows = await UploadedFiles.select(
+      `SELECT * FROM uploaded_files ${whereSql} ORDER BY upload_date DESC LIMIT $${params.length + 1} OFFSET $${params.length + 2}`,
+      [...params, parseInt(limit as string), skip]
+    );
+    const uploaders = await Users.findByIds(rows.map(f => f.uploadedBy));
+    const files = rows.map(f => ({ ...f, uploadedBy: pick(uploaders.get(f.uploadedBy), ['name', 'email']) }));
 
-    const total = await UploadedFile.countDocuments(query);
+    const [{ total }] = await query(`SELECT count(*)::int AS total FROM uploaded_files ${whereSql}`, params);
 
     return res.status(200).json({
       success: true,
@@ -556,7 +584,7 @@ export const deleteUploadedFile = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     // Find the file record
-    const file = await UploadedFile.findById(id);
+    const file = await UploadedFiles.findById(id);
 
     if (!file) {
       return res.status(404).json({
@@ -567,21 +595,19 @@ export const deleteUploadedFile = async (req: Request, res: Response) => {
 
     // Soft delete all associated questions
     if (file.questionIds && file.questionIds.length > 0) {
-      await Question.updateMany(
-        { _id: { $in: file.questionIds } },
-        { isActive: false }
-      );
+      await query('UPDATE questions SET is_active = false, updated_at = now() WHERE id = ANY($1::uuid[])', [
+        file.questionIds,
+      ]);
       console.log(`Deleted ${file.questionIds.length} questions from file ${file.fileName}`);
     }
 
     // Soft delete the file record
-    file.isActive = false;
-    await file.save();
+    const deletedFile = await UploadedFiles.updateById(file._id, { isActive: false });
 
     return res.status(200).json({
       success: true,
       message: 'File and associated questions deleted successfully',
-      data: file,
+      data: deletedFile,
     });
   } catch (error: any) {
     console.error('Error deleting uploaded file:', error);
@@ -628,7 +654,7 @@ export const createTest = async (req: Request, res: Response) => {
     }
 
     // Validate questions exist
-    const questions = await Question.find({ _id: { $in: questionIds }, isActive: true });
+    const questions = await activeQuestions(questionIds);
     if (questions.length !== questionIds.length) {
       return res.status(400).json({
         success: false,
@@ -639,7 +665,7 @@ export const createTest = async (req: Request, res: Response) => {
     // Calculate total marks
     const totalMarks = questions.reduce((sum, q) => sum + q.marks, 0);
 
-    const test = await Test.create({
+    const test = await Tests.insert({
       title,
       description,
       createdBy: userId,
@@ -657,9 +683,7 @@ export const createTest = async (req: Request, res: Response) => {
       sharedWithGrades: [],
     });
 
-    const populatedTest = await Test.findById(test._id)
-      .populate('questions')
-      .populate('createdBy', 'name email');
+    const [populatedTest] = await populateTests([test], { withQuestions: true });
 
     return res.status(201).json({
       success: true,
@@ -683,21 +707,27 @@ export const getTests = async (req: Request, res: Response) => {
   try {
     const { type, examType, isPublished, page = 1, limit = 20 } = req.query;
 
-    const query: any = { isActive: true };
-
-    if (type) query.type = type;
-    if (examType) query.examType = examType;
-    if (isPublished !== undefined) query.isPublished = isPublished === 'true';
+    const params: any[] = [];
+    const where = ['is_active = true'];
+    const add = (column: string, value: any) => {
+      params.push(value);
+      where.push(`${column} = $${params.length}`);
+    };
+    if (type) add('type', type);
+    if (examType) add('exam_type', examType);
+    if (isPublished !== undefined) add('is_published', isPublished === 'true');
+    const whereSql = `WHERE ${where.join(' AND ')}`;
 
     const skip = (parseInt(page as string) - 1) * parseInt(limit as string);
 
-    const tests = await Test.find(query)
-      .populate('createdBy', 'name email')
-      .skip(skip)
-      .limit(parseInt(limit as string))
-      .sort({ createdAt: -1 });
+    const tests = await populateTests(
+      await Tests.select(
+        `SELECT * FROM tests ${whereSql} ORDER BY created_at DESC LIMIT $${params.length + 1} OFFSET $${params.length + 2}`,
+        [...params, parseInt(limit as string), skip]
+      )
+    );
 
-    const total = await Test.countDocuments(query);
+    const [{ total }] = await query(`SELECT count(*)::int AS total FROM tests ${whereSql}`, params);
 
     return res.status(200).json({
       success: true,
@@ -728,9 +758,7 @@ export const getTestById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    const test = await Test.findById(id)
-      .populate('questions')
-      .populate('createdBy', 'name email');
+    const test = await Tests.findById(id);
 
     if (!test) {
       return res.status(404).json({
@@ -739,9 +767,11 @@ export const getTestById = async (req: Request, res: Response) => {
       });
     }
 
+    const [populatedTest] = await populateTests([test], { withQuestions: true });
+
     return res.status(200).json({
       success: true,
-      data: test,
+      data: populatedTest,
     });
   } catch (error: any) {
     console.error('Error fetching test:', error);
@@ -763,7 +793,7 @@ export const updateTest = async (req: Request, res: Response) => {
 
     // If questionIds are being updated, recalculate total marks
     if (updates.questionIds) {
-      const questions = await Question.find({ _id: { $in: updates.questionIds }, isActive: true });
+      const questions = await activeQuestions(updates.questionIds);
       if (questions.length !== updates.questionIds.length) {
         return res.status(400).json({
           success: false,
@@ -775,9 +805,7 @@ export const updateTest = async (req: Request, res: Response) => {
       delete updates.questionIds;
     }
 
-    const test = await Test.findByIdAndUpdate(id, updates, { new: true })
-      .populate('questions')
-      .populate('createdBy', 'name email');
+    const test = await Tests.updateById(id, updates);
 
     if (!test) {
       return res.status(404).json({
@@ -786,10 +814,12 @@ export const updateTest = async (req: Request, res: Response) => {
       });
     }
 
+    const [populatedTest] = await populateTests([test], { withQuestions: true });
+
     return res.status(200).json({
       success: true,
       message: 'Test updated successfully',
-      data: test,
+      data: populatedTest,
     });
   } catch (error: any) {
     console.error('Error updating test:', error);
@@ -808,11 +838,7 @@ export const deleteTest = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    const test = await Test.findByIdAndUpdate(
-      id,
-      { isActive: false },
-      { new: true }
-    );
+    const test = await Tests.updateById(id, { isActive: false });
 
     if (!test) {
       return res.status(404).json({
@@ -854,7 +880,9 @@ export const createDailyChallenge = async (req: Request, res: Response) => {
     const challengeDate = new Date(date);
     challengeDate.setHours(0, 0, 0, 0);
 
-    const existing = await DailyChallenge.findOne({ date: challengeDate });
+    const [existing] = await query('SELECT id FROM daily_challenges WHERE date = $1', [
+      localDateString(challengeDate),
+    ]);
     if (existing) {
       return res.status(400).json({
         success: false,
@@ -863,10 +891,10 @@ export const createDailyChallenge = async (req: Request, res: Response) => {
     }
 
     // Get random questions for the subject
-    const questions = await Question.aggregate([
-      { $match: { subject, isActive: true } },
-      { $sample: { size: count } },
-    ]);
+    const questions = await Questions.select(
+      'SELECT * FROM questions WHERE subject = $1 AND is_active = true ORDER BY random() LIMIT $2',
+      [subject, count]
+    );
 
     if (questions.length < count) {
       return res.status(400).json({
@@ -875,15 +903,14 @@ export const createDailyChallenge = async (req: Request, res: Response) => {
       });
     }
 
-    const challenge = await DailyChallenge.create({
-      date: challengeDate,
+    const challenge = await DailyChallenges.insert({
+      date: localDateString(challengeDate),
       questionIds: questions.map(q => q._id),
       reward,
       isActive: true,
     });
 
-    const populatedChallenge = await DailyChallenge.findById(challenge._id)
-      .populate('questionIds');
+    const populatedChallenge = await populateChallenge(challenge);
 
     return res.status(201).json({
       success: true,
@@ -908,10 +935,11 @@ export const getTodayChallenge = async (req: Request, res: Response) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    const challenge = await DailyChallenge.findOne({
-      date: today,
-      isActive: true,
-    }).populate('questionIds');
+    const [row] = await DailyChallenges.select(
+      'SELECT * FROM daily_challenges WHERE date = $1 AND is_active = true',
+      [localDateString(today)]
+    );
+    const challenge = await populateChallenge(row);
 
     if (!challenge) {
       return res.status(404).json({
@@ -950,25 +978,25 @@ export const shareTest = async (req: Request, res: Response) => {
       });
     }
 
-    const test = await Test.findById(id);
+    // Update sharing information
+    const sharing: Record<string, any> = {
+      sharedAt: new Date(),
+      isPublished: true, // Automatically publish when sharing
+    };
+    if (studentIds && studentIds.length > 0) {
+      sharing.sharedWithStudents = studentIds.filter(isUuid);
+    }
+    if (grades && grades.length > 0) {
+      sharing.sharedWithGrades = grades;
+    }
+
+    const test = await Tests.updateById(id, sharing);
     if (!test) {
       return res.status(404).json({
         success: false,
         message: 'Test not found',
       });
     }
-
-    // Update sharing information
-    if (studentIds && studentIds.length > 0) {
-      test.sharedWithStudents = studentIds;
-    }
-    if (grades && grades.length > 0) {
-      test.sharedWithGrades = grades;
-    }
-    test.sharedAt = new Date();
-    test.isPublished = true; // Automatically publish when sharing
-
-    await test.save();
 
     return res.status(200).json({
       success: true,
@@ -991,13 +1019,15 @@ export const shareTest = async (req: Request, res: Response) => {
 export const getShareOptions = async (req: Request, res: Response) => {
   try {
     // Get all unique grades from students
-    const grades = await User.distinct('grade', { role: 'student', isActive: true });
+    const gradeRows = await query(
+      "SELECT DISTINCT grade FROM users WHERE role = 'student' AND is_active = true ORDER BY grade"
+    );
+    const grades = gradeRows.map(row => row.grade);
 
     // Get all students
-    const students = await User.find(
-      { role: 'student', isActive: true },
-      { name: 1, email: 1, grade: 1 }
-    ).sort({ grade: 1, name: 1 });
+    const students = await Users.select(
+      "SELECT id, name, email, grade FROM users WHERE role = 'student' AND is_active = true ORDER BY grade, name"
+    );
 
     return res.status(200).json({
       success: true,

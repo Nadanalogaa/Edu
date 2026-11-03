@@ -1,22 +1,11 @@
 import axios, { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 
-// Get API URL from environment or use localhost for development
+// Get API URL from environment. Without one, production builds call the API on
+// the same domain (the Docker image serves the app and the API together) and
+// development uses the local backend.
 const getApiUrl = () => {
   const envUrl = import.meta.env.VITE_API_URL;
-
-  // In production, if no API URL is set, show helpful error
-  if (!envUrl && import.meta.env.PROD) {
-    console.error(
-      '⚠️ VITE_API_URL is not configured!\n' +
-      'Please set VITE_API_URL environment variable in Vercel:\n' +
-      '1. Go to your Vercel project settings\n' +
-      '2. Navigate to Environment Variables\n' +
-      '3. Add: VITE_API_URL = https://your-backend-url.com/api\n' +
-      '4. Redeploy your application'
-    );
-  }
-
-  return envUrl || 'http://localhost:5001/api';
+  return envUrl || (import.meta.env.PROD ? '/api' : 'http://localhost:5001/api');
 };
 
 // Create axios instance with base configuration

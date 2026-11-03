@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
-import User from '../models/User';
+import { Users, createUser, findUserByEmail, comparePassword } from '../models/User';
+import { Schools } from '../models/School';
 import { generateToken } from '../utils/jwt';
 import { AuthRequest } from '../middleware/auth';
 
@@ -11,7 +12,7 @@ export const register = async (req: Request, res: Response) => {
     const { name, email, password, role, schoolId, grade, phone } = req.body;
 
     // Check if user already exists
-    const userExists = await User.findOne({ email });
+    const userExists = await findUserByEmail(email);
 
     if (userExists) {
       return res.status(400).json({
@@ -21,7 +22,7 @@ export const register = async (req: Request, res: Response) => {
     }
 
     // Create user
-    const user = await User.create({
+    const user = await createUser({
       name,
       email,
       password,
@@ -33,7 +34,7 @@ export const register = async (req: Request, res: Response) => {
 
     // Generate token
     const token = generateToken({
-      id: (user._id as any).toString(),
+      id: user._id,
       email: user.email,
       role: user.role,
     });
@@ -57,7 +58,7 @@ export const register = async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error('Registration error:', error);
-    res.status(500).json({
+    res.status(error.status || 500).json({
       success: false,
       message: error.message || 'Error registering user',
     });
@@ -80,7 +81,7 @@ export const login = async (req: Request, res: Response) => {
     }
 
     // Check for user (include password for comparison)
-    const user = await User.findOne({ email }).select('+password');
+    let user = await findUserByEmail(email, { withPassword: true });
 
     if (!user) {
       return res.status(401).json({
@@ -98,7 +99,7 @@ export const login = async (req: Request, res: Response) => {
     }
 
     // Check password
-    const isPasswordMatch = await user.comparePassword(password);
+    const isPasswordMatch = await comparePassword(password, user.password);
 
     if (!isPasswordMatch) {
       return res.status(401).json({
@@ -121,22 +122,22 @@ export const login = async (req: Request, res: Response) => {
         ? Math.floor((today.getTime() - lastActivity.getTime()) / (1000 * 60 * 60 * 24))
         : 0;
 
+      let streak = user.streak || 0;
       if (daysDiff === 1) {
         // Consecutive day - increment streak
-        user.streak = (user.streak || 0) + 1;
+        streak += 1;
       } else if (daysDiff > 1) {
         // Streak broken
-        user.streak = 1;
+        streak = 1;
       }
       // If daysDiff === 0, same day - don't change streak
 
-      user.lastActivityDate = new Date();
-      await user.save();
+      user = (await Users.updateById(user._id, { streak, lastActivityDate: new Date() }))!;
     }
 
     // Generate token
     const token = generateToken({
-      id: (user._id as any).toString(),
+      id: user._id,
       email: user.email,
       role: user.role,
     });
@@ -175,7 +176,10 @@ export const login = async (req: Request, res: Response) => {
 // @access  Private
 export const getMe = async (req: AuthRequest, res: Response) => {
   try {
-    const user = await User.findById(req.user._id).populate('schoolId');
+    const user = await Users.findById(req.user._id);
+    if (user?.schoolId) {
+      user.schoolId = await Schools.findById(user.schoolId);
+    }
 
     res.status(200).json({
       success: true,
@@ -197,7 +201,14 @@ export const updateProfile = async (req: AuthRequest, res: Response) => {
   try {
     const { name, phone, language, theme, grade } = req.body;
 
-    const user = await User.findById(req.user._id);
+    const updates: Record<string, any> = {};
+    if (name) updates.name = name;
+    if (phone) updates.phone = phone;
+    if (language) updates.language = language;
+    if (theme) updates.theme = theme;
+    if (grade) updates.grade = grade;
+
+    const user = await Users.updateById(req.user._id, updates);
 
     if (!user) {
       return res.status(404).json({
@@ -205,15 +216,6 @@ export const updateProfile = async (req: AuthRequest, res: Response) => {
         message: 'User not found',
       });
     }
-
-    // Update fields
-    if (name) user.name = name;
-    if (phone) user.phone = phone;
-    if (language) user.language = language;
-    if (theme) user.theme = theme;
-    if (grade) user.grade = grade;
-
-    await user.save();
 
     res.status(200).json({
       success: true,

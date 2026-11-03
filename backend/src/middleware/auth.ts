@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../utils/jwt';
-import User from '../models/User';
+import { Users } from '../models/User';
 
 export interface AuthRequest extends Request {
   user?: any;
@@ -27,7 +27,7 @@ export const protect = async (req: AuthRequest, res: Response, next: NextFunctio
       const decoded = verifyToken(token);
 
       // Get user from database
-      const user = await User.findById(decoded.id).select('-password');
+      const user = await Users.findById(decoded.id);
 
       if (!user) {
         return res.status(401).json({

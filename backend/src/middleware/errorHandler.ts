@@ -7,23 +7,21 @@ export const errorHandler = (err: any, req: Request, res: Response, next: NextFu
   // Log error for debugging
   console.error(err);
 
-  // Mongoose bad ObjectId
-  if (err.name === 'CastError') {
+  // PostgreSQL: malformed id or value (e.g. "abc" for a UUID column)
+  if (err.code === '22P02') {
     const message = 'Resource not found';
     error = { message, statusCode: 404 };
   }
 
-  // Mongoose duplicate key
-  if (err.code === 11000) {
+  // PostgreSQL: unique violation
+  if (err.code === '23505') {
     const message = 'Duplicate field value entered';
     error = { message, statusCode: 400 };
   }
 
-  // Mongoose validation error
-  if (err.name === 'ValidationError') {
-    const message = Object.values(err.errors)
-      .map((val: any) => val.message)
-      .join(', ');
+  // PostgreSQL: missing required value / value outside the allowed list
+  if (err.code === '23502' || err.code === '23514') {
+    const message = `Invalid or missing field${err.column ? `: ${err.column}` : ''}`;
     error = { message, statusCode: 400 };
   }
 

@@ -1,11 +1,10 @@
 import dotenv from 'dotenv';
-import mongoose from 'mongoose';
-import User from '../models/User';
-import School from '../models/School';
-import Question from '../models/Question';
-import connectDB from '../config/database';
-
 dotenv.config();
+
+import connectDB, { pool, withTransaction } from '../config/database';
+import { createUser } from '../models/User';
+import { Schools } from '../models/School';
+import { Questions } from '../models/Question';
 
 // Demo school data
 const schoolData = {
@@ -22,7 +21,7 @@ const schoolData = {
 };
 
 // Demo users data
-const getUsersData = (schoolId: mongoose.Types.ObjectId) => [
+const getUsersData = (schoolId: string) => [
   {
     name: 'Admin User',
     email: 'admin@school.com',
@@ -225,56 +224,81 @@ const questionsData = [
   },
 ];
 
-const seedDatabase = async () => {
-  try {
-    await connectDB();
-
-    console.log('Starting database seeding...');
-
-    // Clear existing data
-    console.log('Clearing existing data...');
-    await User.deleteMany({});
-    await School.deleteMany({});
-    await Question.deleteMany({});
+/** Inserts the demo school, users and questions. `reset` first empties every table. */
+export const seedDemoData = async ({ reset = false } = {}) => {
+  const { users, questions } = await withTransaction(async (client) => {
+    if (reset) {
+      // Clear existing data (every table, so no rows point at removed users)
+      console.log('Clearing existing data...');
+      await client.query(
+        `TRUNCATE mistake_book, student_attempts, daily_challenges, uploaded_files, live_classes,
+                  tests, questions, students, teachers, users, schools`
+      );
+    }
 
     // Create school
     console.log('Creating school...');
-    const school = await School.create(schoolData);
+    const school = await Schools.insert(schoolData, client);
     console.log(`School created: ${school.name}`);
 
     // Create users
     console.log('Creating users...');
-    const users = await User.create(getUsersData(school._id as mongoose.Types.ObjectId));
+    const users = [];
+    for (const user of getUsersData(school._id)) {
+      users.push(await createUser(user, client));
+    }
     console.log(`Created ${users.length} users`);
 
     // Create questions
     console.log('Creating questions...');
-    const questions = await Question.create(questionsData);
+    const questions = [];
+    for (const question of questionsData) {
+      questions.push(await Questions.insert(question, client));
+    }
     console.log(`Created ${questions.length} questions`);
 
-    console.log('\n✅ Database seeded successfully!');
-    console.log('\n📊 Summary:');
-    console.log(`- Schools: 1`);
-    console.log(`- Users: ${users.length}`);
-    console.log(`  - Admin: ${users.filter((u) => u.role === 'admin').length}`);
-    console.log(`  - Teachers: ${users.filter((u) => u.role === 'teacher').length}`);
-    console.log(`  - Students: ${users.filter((u) => u.role === 'student').length}`);
-    console.log(`- Questions: ${questions.length}`);
-    console.log(`  - Physics: ${questions.filter((q) => q.subject === 'Physics').length}`);
-    console.log(`  - Chemistry: ${questions.filter((q) => q.subject === 'Chemistry').length}`);
-    console.log(`  - Biology: ${questions.filter((q) => q.subject === 'Biology').length}`);
-    console.log(`  - Maths: ${questions.filter((q) => q.subject === 'Maths').length}`);
+    return { users, questions };
+  });
 
-    console.log('\n🔑 Demo Credentials:');
-    console.log('Admin: admin@school.com / admin123');
-    console.log('Teacher: teacher@school.com / teacher123');
-    console.log('Student: student@school.com / student123');
+  console.log('\n✅ Database seeded successfully!');
+  console.log('\n📊 Summary:');
+  console.log(`- Schools: 1`);
+  console.log(`- Users: ${users.length}`);
+  console.log(`  - Admin: ${users.filter((u) => u.role === 'admin').length}`);
+  console.log(`  - Teachers: ${users.filter((u) => u.role === 'teacher').length}`);
+  console.log(`  - Students: ${users.filter((u) => u.role === 'student').length}`);
+  console.log(`- Questions: ${questions.length}`);
+  console.log(`  - Physics: ${questions.filter((q) => q.subject === 'Physics').length}`);
+  console.log(`  - Chemistry: ${questions.filter((q) => q.subject === 'Chemistry').length}`);
+  console.log(`  - Biology: ${questions.filter((q) => q.subject === 'Biology').length}`);
+  console.log(`  - Maths: ${questions.filter((q) => q.subject === 'Maths').length}`);
 
-    process.exit(0);
-  } catch (error) {
-    console.error('Error seeding database:', error);
-    process.exit(1);
-  }
+  console.log('\n🔑 Demo Credentials:');
+  console.log('Admin: admin@school.com / admin123');
+  console.log('Teacher: teacher@school.com / teacher123');
+  console.log('Student: student@school.com / student123');
 };
 
-seedDatabase();
+/** Seeds the demo data only when the database has no users (safe on every startup). */
+export const seedIfEmpty = async () => {
+  const { rows } = await pool.query('SELECT count(*)::int AS count FROM users');
+  if (rows[0].count > 0) return;
+  console.log('Database is empty - adding demo data...');
+  await seedDemoData();
+};
+
+// `npm run seed`: wipes the database and re-creates the demo data.
+if (require.main === module) {
+  (async () => {
+    try {
+      await connectDB();
+      console.log('Starting database seeding...');
+      await seedDemoData({ reset: true });
+      await pool.end();
+      process.exit(0);
+    } catch (error) {
+      console.error('Error seeding database:', error);
+      process.exit(1);
+    }
+  })();
+}

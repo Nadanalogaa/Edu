@@ -1,11 +1,51 @@
 import { Request, Response } from 'express';
-import User from '../models/User';
-import Student from '../models/Student';
-import Teacher from '../models/Teacher';
-import School from '../models/School';
+import { createUser, findUserByEmail } from '../models/User';
+import { Students } from '../models/Student';
+import { Teachers } from '../models/Teacher';
+import { Schools } from '../models/School';
+import { query, withTransaction } from '../config/database';
 import fs from 'fs';
-import path from 'path';
 import csvParser from 'csv-parser';
+
+const MOBILE_RE = /^[0-9]{10}$/;
+const PINCODE_RE = /^[0-9]{6}$/;
+const AADHAAR_RE = /^[0-9]{12}$/;
+const EMAIL_RE = /^\S+@\S+\.\S+$/;
+
+class ValidationError extends Error {
+  name = 'ValidationError';
+}
+
+/** Collects the messages of failed rules and throws them together (as Mongoose did). */
+const validate = (rules: Array<[boolean, string]>) => {
+  const messages = rules.filter(([ok]) => !ok).map(([, message]) => message);
+  if (messages.length) throw new ValidationError(messages.join(', '));
+};
+const optional = (value: any, re: RegExp) => !value || re.test(String(value));
+
+/** Maps database and validation errors to the 400 responses the forms expect. */
+const registrationError = (res: Response, error: any, label: string) => {
+  console.error(`${label} registration error:`, error);
+
+  if (error.name === 'ValidationError' || error.status === 400) {
+    return res.status(400).json({ message: error.message });
+  }
+
+  // Unique violation
+  if (error.code === '23505') {
+    if (String(error.constraint).includes('code')) {
+      return res.status(400).json({ message: 'School code already registered' });
+    }
+    return res.status(400).json({ message: 'Email already registered' });
+  }
+
+  // Missing required value / value outside the allowed list / bad date or number
+  if (['23502', '23514', '22P02', '22007', '22008'].includes(error.code)) {
+    return res.status(400).json({ message: `Invalid or missing field${error.column ? `: ${error.column}` : ''}` });
+  }
+
+  res.status(500).json({ message: error.message || 'Registration failed. Please try again.' });
+};
 
 // @desc    Register a new student
 // @route   POST /api/registration/student
@@ -44,21 +84,27 @@ export const registerStudent = async (req: Request, res: Response) => {
       password,
     } = req.body;
 
+    validate([
+      [Boolean(email) && EMAIL_RE.test(email), 'Please provide a valid email'],
+      [Boolean(parentName), 'Parent name is required'],
+      [MOBILE_RE.test(String(parentMobileNumber || '')), 'Please provide a valid 10-digit mobile number'],
+      [optional(parentEmail, EMAIL_RE), 'Please provide a valid email'],
+      [optional(parentAadhaar, AADHAAR_RE), 'Please provide a valid 12-digit Aadhaar number'],
+      [Boolean(addressLine1), 'Address Line 1 is required'],
+      [Boolean(city), 'City is required'],
+      [Boolean(state), 'State is required'],
+      [PINCODE_RE.test(String(pincode || '')), 'Please provide a valid 6-digit pincode'],
+      [Boolean(academicYear), 'Academic year is required'],
+      [Boolean(classStandard), 'Class/Standard is required'],
+      [Boolean(admissionType), 'Admission type is required'],
+      [Boolean(mediumOfInstruction), 'Medium of instruction is required'],
+    ]);
+
     // Check if user already exists
-    const existingUser = await User.findOne({ email });
+    const existingUser = await findUserByEmail(email);
     if (existingUser) {
       return res.status(400).json({ message: 'Email already registered' });
     }
-
-    // Create user account
-    const user = await User.create({
-      name: studentName,
-      email,
-      password,
-      role: 'student',
-      phone: parentMobileNumber,
-      isActive: true,
-    });
 
     // Handle file uploads
     const files = req.files as { [fieldname: string]: Express.Multer.File[] };
@@ -74,39 +120,55 @@ export const registerStudent = async (req: Request, res: Response) => {
       if (files.parentPhoto) documents.parentPhoto = files.parentPhoto[0].path;
     }
 
-    // Create student profile
-    const student = await Student.create({
-      userId: user._id,
-      courseAppliedFor,
-      studentName,
-      dateOfBirth,
-      gender,
-      schoolDetails,
-      parentDetails: {
-        name: parentName,
-        mobileNumber: parentMobileNumber,
-        email: parentEmail,
-        aadhaar: parentAadhaar,
-      },
-      addressDetails: {
-        addressLine1,
-        addressLine2,
-        city,
-        state,
-        pincode,
-        country: country || 'India',
-      },
-      admissionDetails: {
-        academicYear,
-        classStandard,
-        section,
-        admissionType,
-        transportNeeded: transportNeeded === 'true' || transportNeeded === true,
-        hostelNeeded: hostelNeeded === 'true' || hostelNeeded === true,
-        mediumOfInstruction,
-      },
-      documents,
-      registrationStatus: 'pending',
+    // Create user account and student profile together
+    const { user, student } = await withTransaction(async (client) => {
+      const user = await createUser(
+        {
+          name: studentName,
+          email,
+          password,
+          role: 'student',
+          phone: parentMobileNumber,
+          isActive: true,
+        },
+        client
+      );
+
+      const student = await Students.insert({
+        userId: user._id,
+        courseAppliedFor,
+        studentName,
+        dateOfBirth,
+        gender,
+        schoolDetails,
+        parentDetails: {
+          name: parentName,
+          mobileNumber: parentMobileNumber,
+          email: parentEmail,
+          aadhaar: parentAadhaar,
+        },
+        addressDetails: {
+          addressLine1,
+          addressLine2,
+          city,
+          state,
+          pincode,
+          country: country || 'India',
+        },
+        admissionDetails: {
+          academicYear,
+          classStandard,
+          section,
+          admissionType,
+          transportNeeded: transportNeeded === 'true' || transportNeeded === true,
+          hostelNeeded: hostelNeeded === 'true' || hostelNeeded === true,
+          mediumOfInstruction,
+        },
+        documents,
+        registrationStatus: 'pending',
+      }, client);
+
+      return { user, student };
     });
 
     res.status(201).json({
@@ -119,20 +181,7 @@ export const registerStudent = async (req: Request, res: Response) => {
       },
     });
   } catch (error: any) {
-    console.error('Student registration error:', error);
-
-    // Handle Mongoose validation errors
-    if (error.name === 'ValidationError') {
-      const messages = Object.values(error.errors).map((err: any) => err.message);
-      return res.status(400).json({ message: messages.join(', ') });
-    }
-
-    // Handle duplicate key errors
-    if (error.code === 11000) {
-      return res.status(400).json({ message: 'Email already registered' });
-    }
-
-    res.status(500).json({ message: error.message || 'Registration failed. Please try again.' });
+    registrationError(res, error, 'Student');
   }
 };
 
@@ -173,20 +222,10 @@ export const registerTeacher = async (req: Request, res: Response) => {
     } = req.body;
 
     // Check if user already exists
-    const existingUser = await User.findOne({ email });
+    const existingUser = await findUserByEmail(email);
     if (existingUser) {
       return res.status(400).json({ message: 'Email already registered' });
     }
-
-    // Create user account
-    const user = await User.create({
-      name: teacherName,
-      email,
-      password,
-      role: 'teacher',
-      phone: mobileNumber,
-      isActive: true,
-    });
 
     // Handle file uploads
     const files = req.files as { [fieldname: string]: Express.Multer.File[] };
@@ -213,33 +252,60 @@ export const registerTeacher = async (req: Request, res: Response) => {
     const parsedCoursesPreparing = typeof coursesPreparing === 'string' ? JSON.parse(coursesPreparing) : coursesPreparing;
     const parsedPreferredLanguages = typeof preferredLanguages === 'string' ? JSON.parse(preferredLanguages) : preferredLanguages;
 
-    // Create teacher profile
-    const teacher = await Teacher.create({
-      userId: user._id,
-      teacherName,
-      dateOfBirth,
-      gender,
-      mobileNumber,
-      email,
-      alternatePhone,
-      addressLine1,
-      addressLine2,
-      city,
-      state,
-      pincode,
-      country: country || 'India',
-      qualifications: parsedQualifications,
-      experience: parsedExperience || [],
-      totalExperience: totalExperience || 0,
-      subjectsTeaching: parsedSubjectsTeaching,
-      specialization: parsedSpecialization || [],
-      coursesPreparing: parsedCoursesPreparing,
-      availableForOnlineClasses: availableForOnlineClasses === 'true' || availableForOnlineClasses === true,
-      availableForOfflineClasses: availableForOfflineClasses === 'true' || availableForOfflineClasses === true,
-      preferredLanguages: parsedPreferredLanguages,
-      documents,
-      registrationStatus: 'pending',
-      verificationStatus: 'pending',
+    validate([
+      [Boolean(email) && EMAIL_RE.test(email), 'Please provide a valid email'],
+      [MOBILE_RE.test(String(mobileNumber || '')), 'Please provide a valid 10-digit mobile number'],
+      [optional(alternatePhone, MOBILE_RE), 'Please provide a valid 10-digit mobile number'],
+      [Boolean(addressLine1), 'Address Line 1 is required'],
+      [Boolean(city), 'City is required'],
+      [Boolean(state), 'State is required'],
+      [PINCODE_RE.test(String(pincode || '')), 'Please provide a valid 6-digit pincode'],
+      [Array.isArray(parsedQualifications) && parsedQualifications.length > 0, 'At least one qualification is required'],
+      [Array.isArray(parsedSubjectsTeaching) && parsedSubjectsTeaching.length > 0, 'Subjects teaching are required'],
+      [Array.isArray(parsedCoursesPreparing) && parsedCoursesPreparing.length > 0, 'Courses preparing for are required'],
+    ]);
+
+    // Create user account and teacher profile together
+    const teacher = await withTransaction(async (client) => {
+      const user = await createUser(
+        {
+          name: teacherName,
+          email,
+          password,
+          role: 'teacher',
+          phone: mobileNumber,
+          isActive: true,
+        },
+        client
+      );
+
+      return Teachers.insert({
+        userId: user._id,
+        teacherName,
+        dateOfBirth,
+        gender,
+        mobileNumber,
+        email,
+        alternatePhone,
+        addressLine1,
+        addressLine2,
+        city,
+        state,
+        pincode,
+        country: country || 'India',
+        qualifications: parsedQualifications,
+        experience: parsedExperience || [],
+        totalExperience: totalExperience || 0,
+        subjectsTeaching: parsedSubjectsTeaching,
+        specialization: parsedSpecialization || [],
+        coursesPreparing: parsedCoursesPreparing,
+        availableForOnlineClasses: availableForOnlineClasses === 'true' || availableForOnlineClasses === true,
+        availableForOfflineClasses: availableForOfflineClasses === 'true' || availableForOfflineClasses === true,
+        preferredLanguages: parsedPreferredLanguages,
+        documents,
+        registrationStatus: 'pending',
+        verificationStatus: 'pending',
+      }, client);
     });
 
     res.status(201).json({
@@ -253,20 +319,7 @@ export const registerTeacher = async (req: Request, res: Response) => {
       },
     });
   } catch (error: any) {
-    console.error('Teacher registration error:', error);
-
-    // Handle Mongoose validation errors
-    if (error.name === 'ValidationError') {
-      const messages = Object.values(error.errors).map((err: any) => err.message);
-      return res.status(400).json({ message: messages.join(', ') });
-    }
-
-    // Handle duplicate key errors
-    if (error.code === 11000) {
-      return res.status(400).json({ message: 'Email already registered' });
-    }
-
-    res.status(500).json({ message: error.message || 'Registration failed. Please try again.' });
+    registrationError(res, error, 'Teacher');
   }
 };
 
@@ -294,14 +347,24 @@ export const registerSchool = async (req: Request, res: Response) => {
       password,
     } = req.body;
 
+    validate([
+      [Boolean(name), 'School name is required'],
+      [Boolean(code), 'School code is required'],
+      [Boolean(email) && EMAIL_RE.test(email), 'Please provide a valid email'],
+      [optional(principalPhone, MOBILE_RE), 'Please provide a valid 10-digit mobile number'],
+      [optional(principalEmail, EMAIL_RE), 'Please provide a valid email'],
+    ]);
+    const schoolCode = String(code).trim().toUpperCase();
+    const schoolEmail = String(email).trim().toLowerCase();
+
     // Check if school code already exists
-    const existingSchool = await School.findOne({ code });
+    const [existingSchool] = await query('SELECT 1 FROM schools WHERE code = $1', [schoolCode]);
     if (existingSchool) {
       return res.status(400).json({ message: 'School code already registered' });
     }
 
     // Check if email already exists
-    const existingEmail = await School.findOne({ email });
+    const [existingEmail] = await query('SELECT 1 FROM schools WHERE email = $1', [schoolEmail]);
     if (existingEmail) {
       return res.status(400).json({ message: 'Email already registered' });
     }
@@ -317,40 +380,44 @@ export const registerSchool = async (req: Request, res: Response) => {
       if (files.principalIdProof) documents.principalIdProof = files.principalIdProof[0].path;
     }
 
-    // Create admin user for school
-    const user = await User.create({
-      name: principal || name,
-      email: principalEmail || email,
-      password,
-      role: 'admin',
-      phone: principalPhone || phone,
-      isActive: true,
-    });
+    const school = await withTransaction(async (client) => {
+      // Create school profile
+      const school = await Schools.insert({
+        name,
+        code: schoolCode,
+        address,
+        city,
+        state,
+        pincode,
+        phone,
+        email: schoolEmail,
+        principal,
+        principalPhone,
+        principalEmail: principalEmail ? String(principalEmail).trim().toLowerCase() : undefined,
+        website,
+        established: established || undefined,
+        boardAffiliation,
+        totalStrength: totalStrength || undefined,
+        documents,
+        registrationStatus: 'pending',
+      }, client);
 
-    // Create school profile
-    const school = await School.create({
-      name,
-      code,
-      address,
-      city,
-      state,
-      pincode,
-      phone,
-      email,
-      principal,
-      principalPhone,
-      principalEmail,
-      website,
-      established,
-      boardAffiliation,
-      totalStrength,
-      documents,
-      registrationStatus: 'pending',
-    });
+      // Create admin user for school
+      await createUser(
+        {
+          name: principal || name,
+          email: principalEmail || email,
+          password,
+          role: 'admin',
+          phone: principalPhone || phone,
+          schoolId: school._id,
+          isActive: true,
+        },
+        client
+      );
 
-    // Update user's schoolId
-    user.schoolId = school._id as any;
-    await user.save();
+      return school;
+    });
 
     res.status(201).json({
       message: 'School registration successful',
@@ -362,23 +429,7 @@ export const registerSchool = async (req: Request, res: Response) => {
       },
     });
   } catch (error: any) {
-    console.error('School registration error:', error);
-
-    // Handle Mongoose validation errors
-    if (error.name === 'ValidationError') {
-      const messages = Object.values(error.errors).map((err: any) => err.message);
-      return res.status(400).json({ message: messages.join(', ') });
-    }
-
-    // Handle duplicate key errors
-    if (error.code === 11000) {
-      if (error.message.includes('code')) {
-        return res.status(400).json({ message: 'School code already registered' });
-      }
-      return res.status(400).json({ message: 'Email already registered' });
-    }
-
-    res.status(500).json({ message: error.message || 'Registration failed. Please try again.' });
+    registrationError(res, error, 'School');
   }
 };
 
@@ -410,54 +461,56 @@ export const bulkUploadStudents = async (req: Request, res: Response) => {
             const studentData = students[i];
 
             // Check if user already exists
-            const existingUser = await User.findOne({ email: studentData.email });
+            const existingUser = await findUserByEmail(studentData.email);
             if (existingUser) {
               errors.push({ row: i + 1, error: 'Email already exists', data: studentData });
               errorCount++;
               continue;
             }
 
-            // Create user account
-            const user = await User.create({
-              name: studentData.studentName,
-              email: studentData.email,
-              password: studentData.password || 'defaultPassword123',
-              role: 'student',
-              phone: studentData.parentMobileNumber,
-              isActive: true,
-            });
+            await withTransaction(async (client) => {
+              // Create user account
+              const user = await createUser({
+                name: studentData.studentName,
+                email: studentData.email,
+                password: studentData.password || 'defaultPassword123',
+                role: 'student',
+                phone: studentData.parentMobileNumber,
+                isActive: true,
+              }, client);
 
-            // Create student profile
-            await Student.create({
-              userId: user._id,
-              courseAppliedFor: studentData.courseAppliedFor,
-              studentName: studentData.studentName,
-              dateOfBirth: new Date(studentData.dateOfBirth),
-              gender: studentData.gender,
-              schoolDetails: studentData.schoolDetails,
-              parentDetails: {
-                name: studentData.parentName,
-                mobileNumber: studentData.parentMobileNumber,
-                email: studentData.parentEmail,
-              },
-              addressDetails: {
-                addressLine1: studentData.addressLine1,
-                addressLine2: studentData.addressLine2,
-                city: studentData.city,
-                state: studentData.state,
-                pincode: studentData.pincode,
-                country: studentData.country || 'India',
-              },
-              admissionDetails: {
-                academicYear: studentData.academicYear,
-                classStandard: studentData.classStandard,
-                section: studentData.section,
-                admissionType: studentData.admissionType,
-                transportNeeded: studentData.transportNeeded === 'true' || studentData.transportNeeded === 'yes',
-                hostelNeeded: studentData.hostelNeeded === 'true' || studentData.hostelNeeded === 'yes',
-                mediumOfInstruction: studentData.mediumOfInstruction,
-              },
-              registrationStatus: 'approved',
+              // Create student profile
+              await Students.insert({
+                userId: user._id,
+                courseAppliedFor: studentData.courseAppliedFor,
+                studentName: studentData.studentName,
+                dateOfBirth: new Date(studentData.dateOfBirth),
+                gender: studentData.gender,
+                schoolDetails: studentData.schoolDetails,
+                parentDetails: {
+                  name: studentData.parentName,
+                  mobileNumber: studentData.parentMobileNumber,
+                  email: studentData.parentEmail,
+                },
+                addressDetails: {
+                  addressLine1: studentData.addressLine1,
+                  addressLine2: studentData.addressLine2,
+                  city: studentData.city,
+                  state: studentData.state,
+                  pincode: studentData.pincode,
+                  country: studentData.country || 'India',
+                },
+                admissionDetails: {
+                  academicYear: studentData.academicYear,
+                  classStandard: studentData.classStandard,
+                  section: studentData.section,
+                  admissionType: studentData.admissionType,
+                  transportNeeded: studentData.transportNeeded === 'true' || studentData.transportNeeded === 'yes',
+                  hostelNeeded: studentData.hostelNeeded === 'true' || studentData.hostelNeeded === 'yes',
+                  mediumOfInstruction: studentData.mediumOfInstruction,
+                },
+                registrationStatus: 'approved',
+              }, client);
             });
 
             successCount++;

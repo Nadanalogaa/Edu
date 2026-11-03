@@ -28,3 +28,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Uploaded documents (kept on the edu-uploads volume in production)
+backend/uploads/
