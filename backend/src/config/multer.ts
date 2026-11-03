@@ -58,10 +58,13 @@ const fileFilter = (req: any, file: Express.Multer.File, cb: multer.FileFilterCa
     'text/csv'
   ];
 
-  if (allowedMimeTypes.includes(file.mimetype)) {
+  // Some browsers and phones send spreadsheets as application/octet-stream, so
+  // the file extension is accepted too
+  const allowedExtensions = ['.jpg', '.jpeg', '.png', '.pdf', '.xls', '.xlsx', '.csv'];
+  if (allowedMimeTypes.includes(file.mimetype) || allowedExtensions.includes(path.extname(file.originalname).toLowerCase())) {
     cb(null, true);
   } else {
-    cb(new Error('Invalid file type. Only JPEG, PNG, PDF, Excel, and CSV files are allowed.'));
+    cb(Object.assign(new Error('Invalid file type. Only JPEG, PNG, PDF, Excel, and CSV files are allowed.'), { statusCode: 400 }));
   }
 };
 

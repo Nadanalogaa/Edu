@@ -14,6 +14,7 @@ import adminRoutes from './routes/admin';
 import schoolRoutes from './routes/school';
 import ownerRoutes from './routes/owner';
 import syllabusRoutes from './routes/syllabus';
+import assessmentRoutes from './routes/assessments';
 
 // Load environment variables (before modules that read them, e.g. the database pool)
 dotenv.config();
@@ -92,6 +93,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/school', schoolRoutes);
 app.use('/api/owner', ownerRoutes);
 app.use('/api/syllabus', syllabusRoutes);
+app.use('/api/assessments', assessmentRoutes);
 
 // In the Docker image the built frontend sits next to the backend and is served
 // from the same origin, so the app needs no separate frontend host.

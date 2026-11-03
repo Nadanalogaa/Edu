@@ -146,6 +146,39 @@ export const migrations: Migration[] = [
         WHERE email = 'student@school.com' AND role = 'student' AND admission_number IS NULL;
     `,
   },
+  {
+    version: 4,
+    name: 'class-wise assessments: questions and tests linked to the syllabus',
+    sql: `
+      -- Any syllabus subject (Tamil, Social Science, ...), not only the four NEET subjects
+      ALTER TABLE questions DROP CONSTRAINT IF EXISTS questions_subject_check;
+      ALTER TABLE questions ADD COLUMN board TEXT CHECK (board IN ('state_board', 'cbse'));
+      ALTER TABLE questions ADD COLUMN class_grade INTEGER CHECK (class_grade BETWEEN 6 AND 12);
+      ALTER TABLE questions ADD COLUMN subject_id UUID REFERENCES subjects(id) ON DELETE SET NULL;
+      ALTER TABLE questions ADD COLUMN chapter_id UUID REFERENCES chapters(id) ON DELETE SET NULL;
+      CREATE INDEX questions_syllabus_idx ON questions (subject_id, chapter_id) WHERE is_active;
+
+      ALTER TABLE uploaded_files DROP CONSTRAINT IF EXISTS uploaded_files_subject_check;
+      ALTER TABLE uploaded_files ALTER COLUMN exam_type SET DEFAULT 'Both';
+      ALTER TABLE uploaded_files ADD COLUMN subject_id UUID REFERENCES subjects(id) ON DELETE SET NULL;
+      ALTER TABLE uploaded_files ADD COLUMN class_grade INTEGER;
+
+      -- A class assessment: for one class (optionally some sections), one subject
+      ALTER TABLE tests ALTER COLUMN exam_type SET DEFAULT 'Both';
+      ALTER TABLE tests ADD COLUMN board TEXT CHECK (board IN ('state_board', 'cbse'));
+      ALTER TABLE tests ADD COLUMN class_grade INTEGER CHECK (class_grade BETWEEN 6 AND 12);
+      ALTER TABLE tests ADD COLUMN subject_id UUID REFERENCES subjects(id) ON DELETE SET NULL;
+      ALTER TABLE tests ADD COLUMN chapter_ids UUID[] NOT NULL DEFAULT '{}';
+      -- Empty = every section of the class
+      ALTER TABLE tests ADD COLUMN sections TEXT[] NOT NULL DEFAULT '{}';
+      -- Ready-made (owner) test this school copied, if any
+      ALTER TABLE tests ADD COLUMN copied_from UUID REFERENCES tests(id) ON DELETE SET NULL;
+      CREATE INDEX tests_class_idx ON tests (school_id, class_grade) WHERE is_active;
+
+      -- Answers saved while the test is in progress (scored on submit)
+      CREATE INDEX attempts_test_idx ON student_attempts (test_id, status);
+    `,
+  },
 ];
 
 export const runMigrations = async (client: PoolClient) => {

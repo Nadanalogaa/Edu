@@ -7,6 +7,11 @@ import { Tests, populateTests } from '../models/Test';
 import { pick, isUuid } from '../db/table';
 import { query, withTransaction } from '../config/database';
 import { AuthRequest } from '../middleware/auth';
+import { Subjects } from '../models/Syllabus';
+import { questionsInOrder } from '../models/Question';
+import {
+  attemptEndsAt, isAssignedTo, lockAttempt, scoreAttempt, studentQuestion, testState, SUBMIT_GRACE_MS,
+} from '../utils/assessments';
 
 // @desc    Start a new test attempt
 // @route   POST /api/student/attempts/start
@@ -16,7 +21,8 @@ export const startAttempt = async (req: AuthRequest, res: Response) => {
     const { testId, questionIds, totalMarks } = req.body;
 
     const test = isUuid(testId) ? await Tests.findById(testId) : null;
-    if (!test || !test.isActive || (test.schoolId && test.schoolId !== req.user.schoolId)) {
+    // Class assessments are started through /student/assessments/:id/start (time window, one attempt)
+    if (!test || !test.isActive || test.classGrade || (test.schoolId && test.schoolId !== req.user.schoolId)) {
       return res.status(404).json({
         success: false,
         message: 'Test not found',
@@ -47,114 +53,34 @@ export const startAttempt = async (req: AuthRequest, res: Response) => {
   }
 };
 
-// @desc    Submit test attempt
+// @desc    Submit test attempt (once; scored against every question of the test)
 // @route   POST /api/student/attempts/:id/submit
 // @access  Private (Student)
 export const submitAttempt = async (req: AuthRequest, res: Response) => {
   try {
     const { answers, timeTaken } = req.body;
 
-    const attempt = await StudentAttempts.findById(req.params.id);
+    const result = await withTransaction(async (client) => {
+      const attempt = isUuid(req.params.id) ? await lockAttempt(client, req.params.id) : null;
+      if (!attempt || attempt.studentId !== req.user._id) return { status: 404, message: 'Attempt not found' };
+      if (attempt.status !== 'in-progress') return { status: 409, message: 'This test has already been submitted' };
 
-    if (!attempt) {
-      return res.status(404).json({
-        success: false,
-        message: 'Attempt not found',
-      });
-    }
-
-    // Verify ownership
-    if (attempt.studentId !== req.user._id) {
-      return res.status(403).json({
-        success: false,
-        message: 'Not authorized',
-      });
-    }
-
-    // Calculate results
-    let correctAnswers = 0;
-    let wrongAnswers = 0;
-    let skippedAnswers = 0;
-    let marksObtained = 0;
-
-    const processedAnswers = [];
-    const mistakes = [];
-    const questions = await Questions.findByIds(answers.map((a: any) => a.questionId));
-
-    for (const answer of answers) {
-      const question = questions.get(String(answer.questionId));
-
-      if (!question) continue;
-
-      const isCorrect = answer.selectedAnswer === question.correctAnswer;
-      const marks = isCorrect ? question.marks : 0;
-
-      if (answer.selectedAnswer === -1) {
-        skippedAnswers++;
-      } else if (isCorrect) {
-        correctAnswers++;
-        marksObtained += marks;
-      } else {
-        wrongAnswers++;
-        // Add to mistake book
-        mistakes.push({
-          questionId: question._id,
-          selectedAnswer: answer.selectedAnswer,
-          correctAnswer: question.correctAnswer,
-        });
+      const test = await Tests.findById(attempt.testId);
+      if (!test) return { status: 404, message: 'Test not found' };
+      if (test.classGrade && Date.now() > attemptEndsAt(attempt, test).getTime() + SUBMIT_GRACE_MS) {
+        // Too late: score what was saved before time ran out
+        return { scored: await scoreAttempt(client, attempt, test, [], test.duration * 60), late: true };
       }
-
-      processedAnswers.push({
-        questionId: question._id,
-        selectedAnswer: answer.selectedAnswer,
-        isCorrect,
-        marksObtained: marks,
-        timeTaken: answer.timeTaken || 0,
-      });
-    }
-
-    const percentage = (marksObtained / attempt.totalMarks) * 100;
-    const coinsEarned = Math.floor(marksObtained / 4); // 1 coin per 4 marks
-
-    const updatedAttempt = await withTransaction(async (client) => {
-      const updated = await StudentAttempts.updateById(
-        attempt._id,
-        {
-          answers: processedAnswers,
-          correctAnswers,
-          wrongAnswers,
-          skippedAnswers,
-          marksObtained,
-          percentage,
-          timeTaken,
-          endTime: new Date(),
-          status: 'completed',
-        },
-        client
-      );
-
-      // Add mistakes to mistake book
-      for (const mistake of mistakes) {
-        await MistakeBook.insert({ studentId: req.user._id, attemptId: attempt._id, ...mistake }, client);
-      }
-
-      // Update student stats
-      await query(
-        'UPDATE users SET total_points = total_points + $1, coins = coins + $2, updated_at = now() WHERE id = $3',
-        [marksObtained, coinsEarned, req.user._id],
-        client
-      );
-
-      return updated;
+      return { scored: await scoreAttempt(client, attempt, test, Array.isArray(answers) ? answers : [], timeTaken) };
     });
 
+    if ('status' in result) {
+      return res.status(result.status).json({ success: false, message: result.message });
+    }
     res.status(200).json({
       success: true,
-      message: 'Test submitted successfully',
-      data: {
-        attempt: updatedAttempt,
-        coinsEarned,
-      },
+      message: result.late ? 'Time was over; your saved answers were submitted' : 'Test submitted successfully',
+      data: result.scored,
     });
   } catch (error: any) {
     console.error('Submit attempt error:', error);
@@ -418,7 +344,11 @@ export const getSharedTests = async (req: AuthRequest, res: Response) => {
 
     res.status(200).json({
       success: true,
-      data: await populateTests(tests, { creatorFields: ['name'], withQuestions: true }),
+      // Students never receive correct answers or explanations before submitting
+      data: (await populateTests(tests, { creatorFields: ['name'], withQuestions: true })).map((t) => ({
+        ...t,
+        questions: t.questions.map(studentQuestion),
+      })),
     });
   } catch (error: any) {
     console.error('Get shared tests error:', error);
@@ -426,5 +356,221 @@ export const getSharedTests = async (req: AuthRequest, res: Response) => {
       success: false,
       message: error.message || 'Error fetching shared tests',
     });
+  }
+};
+
+// ------------------------------------------------------- class assessments
+
+/** The student's latest attempt at a test (a completed one wins). */
+const latestAttempt = async (studentId: string, testId: string, client?: any) => {
+  const [row] = await query(
+    `SELECT * FROM student_attempts WHERE student_id = $1 AND test_id = $2
+     ORDER BY (status = 'completed') DESC, created_at DESC LIMIT 1`,
+    [studentId, testId],
+    client
+  );
+  return StudentAttempts.toDoc(row);
+};
+
+// @desc    Class assessments for the student's class and section, with status
+// @route   GET /api/student/assessments
+export const listAssessments = async (req: AuthRequest, res: Response) => {
+  try {
+    const student = req.user;
+    if (!student.classGrade) {
+      return res.status(200).json({ success: true, data: [] });
+    }
+    const tests = await Tests.select(
+      `SELECT * FROM tests
+       WHERE is_active AND is_published AND school_id = $1 AND class_grade = $2
+         AND (cardinality(sections) = 0 OR $3::text = ANY(sections))
+       ORDER BY COALESCE(start_time, created_at) DESC`,
+      [student.schoolId, student.classGrade, student.section || null]
+    );
+    const subjects = await Subjects.findByIds(tests.map((t) => t.subjectId).filter(Boolean));
+    const attempts = tests.length
+      ? await StudentAttempts.select(
+          `SELECT DISTINCT ON (test_id) * FROM student_attempts
+           WHERE student_id = $1 AND test_id = ANY($2::uuid[])
+           ORDER BY test_id, (status = 'completed') DESC, created_at DESC`,
+          [student._id, tests.map((t) => t._id)]
+        )
+      : [];
+    const byTest = new Map(attempts.map((a) => [a.testId, a]));
+    const now = new Date();
+
+    const data = tests.map((t) => {
+      const attempt = byTest.get(t._id);
+      const state = testState(t, now);
+      let status: string;
+      if (attempt?.status === 'completed') status = 'completed';
+      else if (attempt?.status === 'in-progress' && state === 'open') status = 'in-progress';
+      else if (state === 'upcoming') status = 'upcoming';
+      else if (state === 'closed') status = 'missed';
+      else status = 'available';
+      const subject = subjects.get(t.subjectId);
+      return {
+        _id: t._id,
+        title: t.title,
+        description: t.description,
+        subjectName: subject?.nameEn || t.subjects?.[0],
+        subjectNameTa: subject?.nameTa,
+        questionCount: t.questions.length,
+        totalMarks: t.totalMarks,
+        duration: t.duration,
+        startTime: t.startTime,
+        endTime: t.endTime,
+        status,
+        attempt: attempt && {
+          _id: attempt._id,
+          status: attempt.status,
+          marksObtained: attempt.status === 'completed' ? attempt.marksObtained : undefined,
+          percentage: attempt.status === 'completed' ? attempt.percentage : undefined,
+          submittedAt: attempt.endTime,
+        },
+      };
+    });
+
+    res.status(200).json({ success: true, data });
+  } catch (error: any) {
+    console.error('List assessments error:', error);
+    res.status(500).json({ success: false, message: error.message || 'Error fetching tests' });
+  }
+};
+
+// @desc    Start (or resume) a class assessment; questions come without answers
+// @route   POST /api/student/assessments/:id/start
+export const startAssessment = async (req: AuthRequest, res: Response) => {
+  try {
+    const test = isUuid(req.params.id) ? await Tests.findById(req.params.id) : null;
+    if (!test || !isAssignedTo(test, req.user)) {
+      return res.status(404).json({ success: false, message: 'Test not found' });
+    }
+
+    const result = await withTransaction(async (client) => {
+      // One student, one attempt: lock the student's row so two taps cannot start two
+      await query('SELECT id FROM users WHERE id = $1 FOR UPDATE', [req.user._id], client);
+      let attempt = await latestAttempt(req.user._id, test._id, client);
+
+      if (attempt?.status === 'completed') return { status: 409, message: 'You have already submitted this test', attemptId: attempt._id };
+      if (attempt?.status === 'in-progress' && Date.now() > attemptEndsAt(attempt, test).getTime() + SUBMIT_GRACE_MS) {
+        const scored = await scoreAttempt(client, attempt, test, [], test.duration * 60);
+        return { status: 409, message: 'Time is over for this test; your saved answers were submitted', attemptId: scored.attempt._id };
+      }
+      if (!attempt) {
+        const state = testState(test);
+        if (state === 'upcoming') return { status: 403, message: 'This test has not started yet' };
+        if (state === 'closed') return { status: 403, message: 'This test is closed' };
+        attempt = await StudentAttempts.insert(
+          {
+            studentId: req.user._id,
+            testId: test._id,
+            answers: [],
+            totalQuestions: test.questions.length,
+            totalMarks: test.totalMarks,
+            startTime: new Date(),
+            status: 'in-progress',
+          },
+          client
+        );
+      }
+      return { attempt };
+    });
+
+    if ('status' in result) {
+      return res.status(result.status).json({ success: false, message: result.message, attemptId: result.attemptId });
+    }
+
+    const { attempt } = result;
+    const subject = test.subjectId ? await Subjects.findById(test.subjectId) : null;
+    res.status(200).json({
+      success: true,
+      data: {
+        attempt: {
+          _id: attempt._id,
+          startTime: attempt.startTime,
+          endsAt: attemptEndsAt(attempt, test),
+          serverTime: new Date(),
+          answers: (attempt.answers || []).map((a: any) => ({ questionId: a.questionId, selectedAnswer: a.selectedAnswer })),
+        },
+        test: {
+          _id: test._id,
+          title: test.title,
+          subjectName: subject?.nameEn,
+          subjectNameTa: subject?.nameTa,
+          duration: test.duration,
+          totalMarks: test.totalMarks,
+          questions: (await questionsInOrder(test.questions)).map(studentQuestion),
+        },
+      },
+    });
+  } catch (error: any) {
+    console.error('Start assessment error:', error);
+    res.status(500).json({ success: false, message: error.message || 'Error starting test' });
+  }
+};
+
+// @desc    Save answers while the test is in progress (not scored yet)
+// @route   PUT /api/student/attempts/:id/progress
+export const saveProgress = async (req: AuthRequest, res: Response) => {
+  try {
+    const answers = (Array.isArray(req.body.answers) ? req.body.answers : [])
+      .filter((a: any) => isUuid(a?.questionId))
+      .map((a: any) => ({
+        questionId: a.questionId,
+        selectedAnswer: Number.isInteger(a.selectedAnswer) && a.selectedAnswer >= 0 && a.selectedAnswer <= 3 ? a.selectedAnswer : -1,
+      }));
+    const [row] = await query(
+      `UPDATE student_attempts SET answers = $1, updated_at = now()
+       WHERE id = $2 AND student_id = $3 AND status = 'in-progress' RETURNING id`,
+      [JSON.stringify(answers), isUuid(req.params.id) ? req.params.id : null, req.user._id]
+    );
+    if (!row) return res.status(409).json({ success: false, message: 'This test is no longer in progress' });
+    res.status(200).json({ success: true, saved: answers.length });
+  } catch (error: any) {
+    console.error('Save progress error:', error);
+    res.status(500).json({ success: false, message: error.message || 'Error saving answers' });
+  }
+};
+
+// @desc    A submitted attempt with correct answers and explanations
+// @route   GET /api/student/attempts/:id/review
+export const reviewAttempt = async (req: AuthRequest, res: Response) => {
+  try {
+    const attempt = await StudentAttempts.findById(req.params.id);
+    if (!attempt || attempt.studentId !== req.user._id) {
+      return res.status(404).json({ success: false, message: 'Attempt not found' });
+    }
+    if (attempt.status !== 'completed') {
+      return res.status(409).json({ success: false, message: 'Answers are shown after you submit the test' });
+    }
+    const test = await Tests.findById(attempt.testId);
+    const questions = await questionsInOrder(test?.questions || attempt.answers.map((a: any) => a.questionId));
+    const answers = new Map(attempt.answers.map((a: any) => [a.questionId, a]));
+    const subject = test?.subjectId ? await Subjects.findById(test.subjectId) : null;
+
+    res.status(200).json({
+      success: true,
+      data: {
+        attempt: pick(attempt, ['marksObtained', 'totalMarks', 'percentage', 'correctAnswers', 'wrongAnswers', 'skippedAnswers', 'timeTaken', 'endTime']),
+        test: test && { _id: test._id, title: test.title, subjectName: subject?.nameEn, subjectNameTa: subject?.nameTa },
+        questions: questions.map((q) => {
+          const a: any = answers.get(q._id);
+          return {
+            _id: q._id,
+            question: q.question,
+            options: q.options,
+            explanation: q.explanation,
+            correctAnswer: q.correctAnswer,
+            marks: q.marks,
+            selectedAnswer: a ? a.selectedAnswer : -1,
+            isCorrect: Boolean(a?.isCorrect),
+          };
+        }),
+      },
+    });
+  } catch (error: any) {
+    console.error('Review attempt error:', error);
+    res.status(500).json({ success: false, message: error.message || 'Error loading answers' });
   }
 };

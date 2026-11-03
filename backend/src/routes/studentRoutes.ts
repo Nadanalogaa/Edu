@@ -7,6 +7,10 @@ import {
   getMistakes,
   markMistakeReviewed,
   getSharedTests,
+  listAssessments,
+  startAssessment,
+  saveProgress,
+  reviewAttempt,
 } from '../controllers/studentController';
 import { protect, authorize } from '../middleware/auth';
 
@@ -23,5 +27,11 @@ router.get('/analytics', getAnalytics);
 router.get('/mistakes', getMistakes);
 router.put('/mistakes/:id/review', markMistakeReviewed);
 router.get('/tests', getSharedTests);
+
+// Class assessments
+router.get('/assessments', listAssessments);
+router.post('/assessments/:id/start', startAssessment);
+router.put('/attempts/:id/progress', saveProgress);
+router.get('/attempts/:id/review', reviewAttempt);
 
 export default router;

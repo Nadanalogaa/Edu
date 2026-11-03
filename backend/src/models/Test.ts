@@ -5,7 +5,8 @@ import { questionsInOrder } from './Question';
 export const Tests = new Table('tests', [
   'title', 'description', 'createdBy', 'schoolId', 'type', 'examType', 'subjects', 'duration',
   'totalMarks', 'questions', 'startTime', 'endTime', 'isPublished', 'isActive',
-  'sharedWithStudents', 'sharedWithGrades', 'sharedAt',
+  'sharedWithStudents', 'sharedWithGrades', 'sharedAt', 'board', 'classGrade', 'subjectId', 'chapterIds',
+  'sections', 'copiedFrom',
 ]);
 
 /**

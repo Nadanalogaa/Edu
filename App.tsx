@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import type { Role } from './types';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
-import TeacherDashboard from './components/dashboards/TeacherDashboard';
 import StudentDashboard from './components/dashboards/StudentDashboard';
 import Login from './components/Login';
 import LandingPage from './components/landing/LandingPage';
@@ -31,6 +30,9 @@ import OwnerOverview from './components/owner/OwnerOverview';
 import SchoolsManager from './components/owner/SchoolsManager';
 import SyllabusManager from './components/owner/SyllabusManager';
 import ChangePasswordModal from './components/common/ChangePasswordModal';
+import QuestionBankScreen from './components/assessments/QuestionBankScreen';
+import TestsScreen from './components/assessments/TestsScreen';
+import MyTests from './components/student/MyTests';
 import { boardLabel, classLabel } from './components/common/ui';
 import {
     SunIcon, MoonIcon, LayoutDashboardIcon, UsersIcon, UserIcon, LogOutIcon,
@@ -189,6 +191,7 @@ const DashboardLayout: React.FC = () => {
   const navConfig: Record<Role, { label: string; icon: React.ReactNode; view: string }[]> = {
     student: [
       { label: t('dashboard'), icon: <LayoutDashboardIcon className="w-5 h-5" />, view: 'dashboard' },
+      { label: language === 'ta' ? 'என் தேர்வுகள்' : 'My Tests', icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'my-tests' },
       { label: t('practiceMode'), icon: <PenSquareIcon className="w-5 h-5" />, view: 'practice' },
       { label: t('takeAnExam'), icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'exam' },
       { label: t('dailyChallenge'), icon: <FileTextIcon className="w-5 h-5" />, view: 'daily-challenge' },
@@ -197,20 +200,19 @@ const DashboardLayout: React.FC = () => {
       { label: t('liveClasses'), icon: <UsersIcon className="w-5 h-5" />, view: 'classes' },
     ],
     teacher: [
-      { label: t('dashboard'), icon: <LayoutDashboardIcon className="w-5 h-5" />, view: 'dashboard' },
-      { label: t('myStudents'), icon: <GraduationCapIcon className="w-5 h-5" />, view: 'students' },
-      { label: t('createTest'), icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'create-test' },
-      { label: t('questionBankNav'), icon: <BookOpenIcon className="w-5 h-5" />, view: 'q-bank' },
-      { label: t('analytics'), icon: <UsersIcon className="w-5 h-5" />, view: 'analytics' },
+      { label: 'Tests', icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'dashboard' },
+      { label: t('questionBank'), icon: <BookOpenIcon className="w-5 h-5" />, view: 'question-bank' },
     ],
     admin: [
       { label: t('dashboard'), icon: <LayoutDashboardIcon className="w-5 h-5" />, view: 'dashboard' },
       { label: t('manageStudents'), icon: <GraduationCapIcon className="w-5 h-5" />, view: 'students' },
       { label: t('manageTeachers'), icon: <UsersIcon className="w-5 h-5" />, view: 'teachers' },
       { label: 'School Admins', icon: <UserIcon className="w-5 h-5" />, view: 'admins' },
+      { label: 'Tests', icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'tests' },
       { label: t('questionBank'), icon: <BookOpenIcon className="w-5 h-5" />, view: 'question-bank' },
-      { label: t('createTest'), icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'create-test' },
-      { label: 'Test Management', icon: <FileTextIcon className="w-5 h-5" />, view: 'test-management' },
+      { label: 'NEET/JEE questions', icon: <FileTextIcon className="w-5 h-5" />, view: 'neet-questions' },
+      { label: 'NEET/JEE create test', icon: <PenSquareIcon className="w-5 h-5" />, view: 'create-test' },
+      { label: 'NEET/JEE tests', icon: <FileTextIcon className="w-5 h-5" />, view: 'test-management' },
       { label: t('dailyChallenge'), icon: <PenSquareIcon className="w-5 h-5" />, view: 'daily-challenge' },
     ],
     owner: [
@@ -218,6 +220,8 @@ const DashboardLayout: React.FC = () => {
       { label: 'Schools', icon: <SchoolIcon className="w-5 h-5" />, view: 'schools' },
       { label: 'Syllabus', icon: <BookOpenIcon className="w-5 h-5" />, view: 'syllabus' },
       { label: 'Question bank', icon: <FileTextIcon className="w-5 h-5" />, view: 'question-bank' },
+      { label: 'Ready-made tests', icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'tests' },
+      { label: 'NEET/JEE questions', icon: <PenSquareIcon className="w-5 h-5" />, view: 'neet-questions' },
     ],
   };
 
@@ -236,6 +240,10 @@ const DashboardLayout: React.FC = () => {
         case 'syllabus':
           return <SyllabusManager />;
         case 'question-bank':
+          return <QuestionBankScreen />;
+        case 'tests':
+          return <TestsScreen />;
+        case 'neet-questions':
           return <QuestionBank />;
         default:
           return <OwnerOverview onNavigate={handleNavClick} />;
@@ -253,6 +261,10 @@ const DashboardLayout: React.FC = () => {
         case 'admins':
           return <PeopleManager key="admins" role="admin" />;
         case 'question-bank':
+          return <QuestionBankScreen />;
+        case 'tests':
+          return <TestsScreen />;
+        case 'neet-questions':
           return <QuestionBank />;
         case 'create-test':
           return <TestCreation />;
@@ -266,13 +278,15 @@ const DashboardLayout: React.FC = () => {
     }
 
     if (currentUser.role === 'teacher') {
-      return <TeacherDashboard />;
+      return activeView === 'question-bank' ? <QuestionBankScreen /> : <TestsScreen />;
     }
 
     if (currentUser.role === 'student') {
       switch (activeView) {
         case 'dashboard':
           return <StudentDashboard />;
+        case 'my-tests':
+          return <MyTests />;
         case 'practice':
           return <PracticeModeNew />;
         case 'exam':
