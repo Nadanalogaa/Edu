@@ -43,10 +43,10 @@ const featureCards = [
 const Features: React.FC = () => {
     const { t } = useLanguage();
     const stats = [
-        { value: '10,000+', label: t('landing.featureStats.practiceQuestions'), color: 'text-indigo-600 dark:text-indigo-400' },
-        { value: '5,000+', label: t('landing.featureStats.activeStudents'), color: 'text-emerald-600 dark:text-emerald-400' },
-        { value: '98%', label: t('landing.featureStats.successRate'), color: 'text-orange-600 dark:text-orange-400' },
-        { value: '24/7', label: t('landing.featureStats.expertSupport'), color: 'text-purple-600 dark:text-purple-400' },
+        { value: '6–12', label: t('landing.featureStats.practiceQuestions'), color: 'text-indigo-600 dark:text-indigo-400' },
+        { value: '2', label: t('landing.featureStats.activeStudents'), color: 'text-emerald-600 dark:text-emerald-400' },
+        { value: '2', label: t('landing.featureStats.successRate'), color: 'text-orange-600 dark:text-orange-400' },
+        { value: 'Excel', label: t('landing.featureStats.expertSupport'), color: 'text-purple-600 dark:text-purple-400' },
     ];
 
     return (

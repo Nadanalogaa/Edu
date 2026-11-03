@@ -23,7 +23,7 @@ export const translations = {
   en: {
     // Landing Page
     appTitle: 'EduCore',
-    appTagline: 'Master NEET & JEE with AI-Powered Learning',
+    appTagline: 'Class assessments for State Board & CBSE schools, 6th–12th',
     getStarted: 'Get Started',
     login: 'Login',
     register: 'Register',
@@ -31,164 +31,159 @@ export const translations = {
     aboutUs: 'About Us',
     contactUs: 'Contact Us',
     landing: {
-      nav: {
-        home: 'Home',
-        tagline: 'NEET & JEE Excellence',
+      "nav": {
+        "home": "Home",
+        "tagline": "School assessments · 6th–12th"
       },
-      hero: {
-        slides: {
-          slide1: {
-            title: 'Transform Your Dreams into Reality',
-            subtitle: 'Join thousands of students achieving NEET & JEE success',
-            description:
-              "Personalized learning paths, AI-powered analytics, and expert guidance to help you crack India's toughest exams",
-            cta: 'Start Your Journey',
+      "hero": {
+        "slides": {
+          "slide1": {
+            "title": "Every class. Every test. One clear picture.",
+            "subtitle": "Online assessments for Tamil Nadu schools, 6th to 12th",
+            "description": "Tamil Nadu State Board (Matriculation) and CBSE syllabus, chapter by chapter, in Tamil and English.",
+            "cta": "Register your school"
           },
-          slide2: {
-            title: 'Master NEET with Confidence',
-            subtitle: 'Your pathway to becoming a doctor starts here',
-            description: 'Comprehensive Biology, Chemistry, and Physics preparation with bilingual support (English & Tamil)',
-            cta: 'Explore NEET Prep',
+          "slide2": {
+            "title": "Tests in minutes, marked automatically",
+            "subtitle": "Pick the class, section and chapters",
+            "description": "Teachers build tests from a ready question bank or their own Excel files. Students write them on any phone; results are instant.",
+            "cta": "See how it works"
           },
-          slide3: {
-            title: 'Conquer JEE with Excellence',
-            subtitle: 'Engineering dreams made possible',
-            description: 'Advanced Mathematics, Physics, and Chemistry courses designed by IIT experts',
-            cta: 'Start JEE Prep',
+          "slide3": {
+            "title": "Know who needs help, before the exam",
+            "subtitle": "Reports for principals and teachers",
+            "description": "Class, section, subject and chapter reports, weekly trends and a list of students who need attention.",
+            "cta": "Register your school"
           },
-          slide4: {
-            title: 'Learn from the Best, Become the Best',
-            subtitle: 'Expert faculty with years of experience',
-            description: 'Live classes, personalized doubt-solving, and 24/7 support to ensure your success',
-            cta: 'Meet Our Teachers',
+          "slide4": {
+            "title": "Built for students, in Tamil and English",
+            "subtitle": "Sign in with the school code and admission number",
+            "description": "No email needed. Timed tests that survive a dropped connection, answers explained after submitting, and a personal progress page.",
+            "cta": "Student sign in"
           },
-          slide5: {
-            title: 'Your Medical Career Awaits',
-            subtitle: 'From student to doctor - we guide you all the way',
-            description: 'Track your progress, identify weak areas, and improve with our intelligent mistake book system',
-            cta: 'Begin Today',
-          },
-        },
+          "slide5": {
+            "title": "NEET & JEE practice for 11th and 12th",
+            "subtitle": "Entrance preparation alongside the school syllabus",
+            "description": "Physics, Chemistry, Biology and Maths practice with explanations, plus a mistake book for revision.",
+            "cta": "Begin today"
+          }
+        }
       },
-      registration: {
-        title: 'Ready to Start Your Journey?',
-        subtitle: 'Choose your path and join thousands of successful students',
-        cards: {
-          student: {
-            title: 'Student Registration',
-            description: 'Individual students preparing for NEET or JEE exams',
-            bullets: {
-              one: 'Choose NEET or JEE track',
-              two: 'Personalized learning dashboard',
-              three: 'Track progress & analytics',
-              four: 'Bilingual support (English & Tamil)',
+      "registration": {
+        "title": "Get started",
+        "subtitle": "Schools get their own space; students and teachers join with the school code",
+        "cards": {
+          "student": {
+            "title": "Students",
+            "description": "Join your school with the code your school gives you",
+            "bullets": {
+              "one": "Sign in with school code + admission number",
+              "two": "Class tests with instant results",
+              "three": "Your progress, subject by subject",
+              "four": "Tamil & English"
             },
-            cta: 'Register as Student',
+            "cta": "Register as Student"
           },
-          teacher: {
-            title: 'Teacher Onboarding',
-            description: 'Experienced educators can share expertise and mentor students',
-            bullets: {
-              one: 'Submit qualifications & documents',
-              two: 'Create & manage tests',
-              three: 'Conduct live classes',
-              four: 'Monitor student performance',
+          "teacher": {
+            "title": "Teachers",
+            "description": "Join your school to create tests and follow your classes",
+            "bullets": {
+              "one": "Question bank by chapter",
+              "two": "Create tests for a class or section",
+              "three": "Results the moment students submit",
+              "four": "Excel upload for questions"
             },
-            cta: 'Register as Teacher',
+            "cta": "Register as Teacher"
           },
-          school: {
-            title: 'School Registration',
-            description: 'Bulk registration for schools & institutions',
-            bullets: {
-              one: 'Upload multiple students via CSV/Excel',
-              two: 'Batch account creation',
-              three: 'Centralized management',
-              four: 'Download CSV template',
+          "school": {
+            "title": "Schools",
+            "description": "A licence based on your number of students",
+            "bullets": {
+              "one": "State Board or CBSE, 6th–12th",
+              "two": "Import students from Excel",
+              "three": "Reports for the principal",
+              "four": "Your school's data stays private"
             },
-            cta: 'Register School',
-          },
+            "cta": "Register School"
+          }
+        }
+      },
+      "about": {
+        "title": "About EduCore",
+        "paragraph1": "EduCore helps Tamil Nadu schools run regular class assessments from 6th to 12th, for both the State Board (Matriculation) and CBSE syllabus.",
+        "paragraph2": "Questions and tests are organised by class, subject and chapter, in Tamil and English. Students write tests online; teachers and principals see results and trends straight away, down to the chapter that needs teaching again.",
+        "paragraph3": "Students of 11th and 12th also get NEET and JEE practice alongside the school syllabus.",
+        "stats": {
+          "successRate": "Classes covered",
+          "students": "Boards: State & CBSE",
+          "questions": "Languages",
+          "support": "NEET/JEE practice"
+        }
+      },
+      "featuresSection": {
+        "title": "What schools get",
+        "subtitle": "Assessments, reports and practice for 6th to 12th, in one place"
+      },
+      "features": {
+        "personalizedTitle": "Class-wise assessments",
+        "personalizedDescription": "Tests for every class from 6th to 12th, by subject and chapter, for State Board and CBSE.",
+        "questionBankTitle": "Question bank in Tamil & English",
+        "questionBankDescription": "Ready-made questions plus your teachers' own, uploaded from Excel.",
+        "mistakeBookTitle": "Mistake book",
+        "mistakeBookDescription": "Every wrong answer is kept with the right answer and its explanation for revision.",
+        "liveClassesTitle": "Reports for principals",
+        "liveClassesDescription": "Class, section, subject and chapter reports, and the students who need attention.",
+        "mockTestsTitle": "Timed online tests",
+        "mockTestsDescription": "Tests time themselves, keep answers if the connection drops, and are marked instantly.",
+        "gamifiedTitle": "NEET & JEE practice",
+        "gamifiedDescription": "Extra practice for 11th and 12th students preparing for entrance exams."
+      },
+      "featureStats": {
+        "practiceQuestions": "Classes",
+        "activeStudents": "Boards",
+        "successRate": "Languages",
+        "expertSupport": "Student & question import"
+      },
+      "contact": {
+        "title": "Get in touch",
+        "subtitle": "Want EduCore for your school? Tell us about it.",
+        "form": {
+          "fullNameLabel": "Full Name",
+          "fullNamePlaceholder": "Your name",
+          "emailLabel": "Email Address",
+          "emailPlaceholder": "you@example.com",
+          "subjectLabel": "School",
+          "subjectPlaceholder": "School name and city",
+          "messageLabel": "Message",
+          "messagePlaceholder": "Number of students, board, questions…",
+          "submit": "Send Message"
+        }
+      },
+      "footer": {
+        "description": "Online class assessments, reports and NEET/JEE practice for Tamil Nadu schools, 6th to 12th.",
+        "programsTitle": "What we offer",
+        "programs": {
+          "neet": "Class tests 6th–12th",
+          "jee": "State Board & CBSE",
+          "mock": "School reports",
+          "live": "NEET & JEE practice",
+          "doubt": "Tamil & English"
         },
+        "contactTitle": "Contact Us",
+        "location": "Tamil Nadu, India",
+        "email": "support@eduintelligence.com",
+        "phone": "+91 1800-XXX-XXXX (Toll Free)",
+        "rights": "EduCore. All rights reserved.",
+        "privacy": "Privacy Policy",
+        "terms": "Terms of Service",
+        "refund": "Refund Policy"
       },
-      about: {
-        title: 'About Educational Intelligence',
-        paragraph1:
-          'We are dedicated to empowering students across Tamil Nadu to achieve their dreams of becoming doctors and engineers. Our platform combines cutting-edge technology with expert pedagogy to provide personalized, effective exam preparation.',
-        paragraph2:
-          'With support for both English and Tamil, we ensure that language is never a barrier to quality education. Our intelligent analytics, adaptive learning paths, and comprehensive question bank make exam preparation efficient and effective.',
-        paragraph3:
-          'Join thousands of successful students who have cracked NEET and JEE with our guidance. Your journey to success starts here.',
-        stats: {
-          successRate: 'Success Rate',
-          students: 'Students',
-          questions: 'Questions',
-          support: 'Support',
-        },
-      },
-      featuresSection: {
-        title: 'Why Choose Educational Intelligence?',
-        subtitle: 'Everything you need to succeed in NEET & JEE exams, all in one intelligent platform',
-      },
-      features: {
-        personalizedTitle: 'Personalized Learning',
-        personalizedDescription: 'AI-powered adaptive learning paths tailored to your strengths and weaknesses',
-        questionBankTitle: 'Comprehensive Question Bank',
-        questionBankDescription: '10,000+ NEET & JEE questions in English and Tamil with detailed solutions',
-        mistakeBookTitle: 'Intelligent Mistake Book',
-        mistakeBookDescription: 'Automatic tracking of errors with personalized revision recommendations',
-        liveClassesTitle: 'Live Classes & Doubt Solving',
-        liveClassesDescription: 'Interactive sessions with expert teachers and instant doubt resolution',
-        mockTestsTitle: 'Mock Tests & Analytics',
-        mockTestsDescription: 'Simulated exam environment with detailed performance analytics',
-        gamifiedTitle: 'Gamified Learning',
-        gamifiedDescription: 'Earn coins, maintain streaks, and compete with peers for motivation',
-      },
-      featureStats: {
-        practiceQuestions: 'Practice Questions',
-        activeStudents: 'Active Students',
-        successRate: 'Success Rate',
-        expertSupport: 'Expert Support',
-      },
-      contact: {
-        title: 'Get in Touch',
-        subtitle: "Have questions? We're here to help!",
-        form: {
-          fullNameLabel: 'Full Name',
-          fullNamePlaceholder: 'Your name',
-          emailLabel: 'Email Address',
-          emailPlaceholder: 'you@example.com',
-          subjectLabel: 'Subject',
-          subjectPlaceholder: 'How can we help?',
-          messageLabel: 'Message',
-          messagePlaceholder: 'Your message...',
-          submit: 'Send Message',
-        },
-      },
-      footer: {
-        description:
-          'Empowering students across Tamil Nadu to achieve their dreams of becoming doctors and engineers through intelligent, personalized learning.',
-        programsTitle: 'Programs',
-        programs: {
-          neet: 'NEET Preparation',
-          jee: 'JEE Preparation',
-          mock: 'Mock Tests',
-          live: 'Live Classes',
-          doubt: 'Doubt Solving',
-        },
-        contactTitle: 'Contact Us',
-        location: 'Tamil Nadu, India',
-        email: 'support@eduintelligence.com',
-        phone: '+91 1800-XXX-XXXX (Toll Free)',
-        rights: 'Educational Intelligence. All rights reserved.',
-        privacy: 'Privacy Policy',
-        terms: 'Terms of Service',
-        refund: 'Refund Policy',
-      },
-      registrationLanding: {
-        title: 'Welcome to Educational Intelligence',
-        subtitle: 'Choose your registration type to get started',
-        alreadyHaveAccount: 'Already have an account?',
-        signIn: 'Sign In',
-      },
+      "registrationLanding": {
+        "title": "Welcome to EduCore",
+        "subtitle": "Who is registering?",
+        "alreadyHaveAccount": "Already have an account?",
+        "signIn": "Sign In"
+      }
     },
     dashboards: {
       adminTitle: 'Admin Dashboard',
@@ -648,7 +643,7 @@ export const translations = {
   ta: {
     // Landing Page
     appTitle: 'EduCore',
-    appTagline: 'AI-ஆல் இயக்கப்படும் கற்றலுடன் NEET & JEE-ஐ வெல்லுங்கள்',
+    appTagline: 'மாநில வாரியம் & CBSE பள்ளிகளுக்கான வகுப்பு மதிப்பீடுகள், 6–12',
     getStarted: 'தொடங்குங்கள்',
     login: 'உள்நுழைய',
     register: 'பதிவு செய்ய',
@@ -656,164 +651,159 @@ export const translations = {
     aboutUs: 'எங்களை பற்றி',
     contactUs: 'எங்களை தொடர்பு கொள்ள',
     landing: {
-      nav: {
-        home: 'முகப்பு',
-        tagline: 'NEET & JEE சிறப்பு',
+      "nav": {
+        "home": "முகப்பு",
+        "tagline": "பள்ளி மதிப்பீடுகள் · 6–12 வகுப்புகள்"
       },
-      hero: {
-        slides: {
-          slide1: {
-            title: 'உங்கள் கனவுகளை நனவாக்குங்கள்',
-            subtitle: 'NEET & JEE வெற்றியை பெற்ற ஆயிரக்கணக்கான மாணவர்களில் நீங்களும் இணைந்திடுங்கள்',
-            description:
-              'இந்தியாவின் கடினமான தேர்வுகளை வெல்ல தனிப்பயன் கற்றல் பாதைகள், AI பகுப்பாய்வு மற்றும் நிபுணர் வழிகாட்டுதல்',
-            cta: 'உங்கள் பயணத்தை தொடங்குங்கள்',
+      "hero": {
+        "slides": {
+          "slide1": {
+            "title": "ஒவ்வொரு வகுப்பு. ஒவ்வொரு தேர்வு. ஒரே தெளிவான பார்வை.",
+            "subtitle": "தமிழ்நாட்டுப் பள்ளிகளுக்கான இணையவழி மதிப்பீடுகள், 6 முதல் 12 ஆம் வகுப்பு வரை",
+            "description": "தமிழ்நாடு மாநில வாரியம் (மெட்ரிகுலேஷன்) மற்றும் CBSE பாடத்திட்டம், பாடம் வாரியாக, தமிழிலும் ஆங்கிலத்திலும்.",
+            "cta": "உங்கள் பள்ளியைப் பதிவு செய்யுங்கள்"
           },
-          slide2: {
-            title: 'நம்பிக்கையுடன் NEET-ஐ கற்றிடுங்கள்',
-            subtitle: 'மருத்துவராகும் பாதை இங்கிருந்தே தொடங்குகிறது',
-            description: 'ஆங்கிலம்  மற்றும் தமிழ் உயிரியல், வேதியல் , இயற்பியல் என முழுமையான தயாரிப்பு',
-            cta: 'NEET தயாரியை ஆராயுங்கள்',
+          "slide2": {
+            "title": "நிமிடங்களில் தேர்வு, தானாகத் திருத்தம்",
+            "subtitle": "வகுப்பு, பிரிவு, பாடங்களைத் தேர்ந்தெடுங்கள்",
+            "description": "ஆசிரியர்கள் தயாரான வினா வங்கியிலிருந்தோ தங்கள் Excel கோப்புகளிலிருந்தோ தேர்வுகளை உருவாக்கலாம். மாணவர்கள் எந்த கைபேசியிலும் எழுதலாம்; முடிவுகள் உடனே.",
+            "cta": "எப்படி வேலை செய்கிறது"
           },
-          slide3: {
-            title: 'JEE-யை எளிதாக வெல்லுங்கள்',
-            subtitle: 'பொறியியல் கனவுகள் இங்கு சாத்தியமாகின்றன',
-            description: 'நிபுணர்கள் வடிவமைத்த மேம்பட்ட கணிதம், இயற்பியல், வேதியியல் பாடத்திட்டங்கள்.',
-            cta: 'JEE தயாரியை தொடங்குங்கள்',
+          "slide3": {
+            "title": "தேர்வுக்கு முன்பே உதவி தேவைப்படுபவரை அறியுங்கள்",
+            "subtitle": "தலைமையாசிரியர்களுக்கும் ஆசிரியர்களுக்கும் அறிக்கைகள்",
+            "description": "வகுப்பு, பிரிவு, பாடம், பாடப்பகுதி வாரியான அறிக்கைகள், வாராந்திரப் போக்குகள், கவனம் தேவைப்படும் மாணவர் பட்டியல்.",
+            "cta": "உங்கள் பள்ளியைப் பதிவு செய்யுங்கள்"
           },
-          slide4: {
-            title: 'மேலானவர்களிடம் கற்று மேன்மை அடையுங்கள்...',
-            subtitle: 'பல வருட அனுபவம் கொண்ட நிபுணத்துவம் வாய்ந்த ஆசிரியர்கள்',
-            description: 'நேரலை வகுப்புகள், தனிப்பட்ட ஐயங்களைத் தீர்த்தல் மற்றும் உங்கள் வெற்றிக்கான ஆதரவைப் பெற...',
-            cta: 'எங்கள் ஆசிரியர்களை சந்தியுங்கள்',
+          "slide4": {
+            "title": "மாணவர்களுக்காக, தமிழிலும் ஆங்கிலத்திலும்",
+            "subtitle": "பள்ளிக் குறியீடு மற்றும் சேர்க்கை எண்ணுடன் உள்நுழையுங்கள்",
+            "description": "மின்னஞ்சல் தேவையில்லை. இணைப்பு துண்டிக்கப்பட்டாலும் தொடரும் நேரத் தேர்வுகள், சமர்ப்பித்த பின் விடை விளக்கம், சொந்த முன்னேற்றப் பக்கம்.",
+            "cta": "மாணவர் உள்நுழைவு"
           },
-          slide5: {
-            title: 'மருத்துவப் பயணம் உங்களுக்காக காத்திருக்கிறது',
-            subtitle: 'மாணவர் முதல் மருத்துவராகும் வரை ஒவ்வொரு வழியிலும் நாங்கள் உங்களுடன்..',
-            description: 'நுண்ணறிவு பிழைப்புத்தகத்தின் மூலம் கற்றல் முன்னேற்றத்தைக் கண்காணித்து உங்கள் குறை ஆற்றலை சிறப்பாக்குங்கள்',
-            cta: 'இன்று தொடங்குங்கள்',
-          },
-        },
+          "slide5": {
+            "title": "11, 12 ஆம் வகுப்புக்கு NEET & JEE பயிற்சி",
+            "subtitle": "பள்ளிப் பாடத்துடன் நுழைவுத் தேர்வுத் தயாரிப்பு",
+            "description": "இயற்பியல், வேதியியல், உயிரியல், கணிதம் பயிற்சி விளக்கங்களுடன், திருப்புதலுக்கான தவறுப் புத்தகமும்.",
+            "cta": "இன்றே தொடங்குங்கள்"
+          }
+        }
       },
-      registration: {
-        title: 'உங்கள் பயணத்தை தொடங்கத் தயாரா?',
-        subtitle: 'வெற்றி கண்ட மாணவர்களுடன் சேர உங்கள் பாதையைத் தேர்ந்தெடுக்கவும்',
-        cards: {
-          student: {
-            title: 'மாணவர் பதிவு',
-            description: 'NEET அல்லது JEE தேர்வுக்கு தயாராகும் தனிநபர் மாணவர்கள்',
-            bullets: {
-              one: 'NEET அல்லது JEE பாதையைத் தேர்வுசெய்க',
-              two: 'தனிப்பயன் கற்றல் பலகை',
-              three: 'முன்னேற்றம் மற்றும் பகுப்பாய்வை கண்காணிக்கவும்',
-              four: 'இருமொழி ஆதரவு (ஆங்கிலம் & தமிழ்)',
+      "registration": {
+        "title": "தொடங்குங்கள்",
+        "subtitle": "பள்ளிகளுக்கு தனி இடம்; மாணவர்களும் ஆசிரியர்களும் பள்ளிக் குறியீட்டுடன் இணைகிறார்கள்",
+        "cards": {
+          "student": {
+            "title": "மாணவர்கள்",
+            "description": "உங்கள் பள்ளி தரும் குறியீட்டுடன் இணையுங்கள்",
+            "bullets": {
+              "one": "பள்ளிக் குறியீடு + சேர்க்கை எண்ணுடன் உள்நுழைவு",
+              "two": "உடனடி முடிவுகளுடன் வகுப்புத் தேர்வுகள்",
+              "three": "பாடவாரியாக உங்கள் முன்னேற்றம்",
+              "four": "தமிழ் & ஆங்கிலம்"
             },
-            cta: 'மாணவராக பதிவு செய்யுங்கள்',
+            "cta": "மாணவராகப் பதிவு செய்ய"
           },
-          teacher: {
-            title: 'ஆசிரியர் இணைவு',
-            description: 'அனுபவமுள்ள ஆசிரியர்கள் தங்கள் நிபுணத்துவத்தைப் பகிரலாம்',
-            bullets: {
-              one: 'தகுதிகள் மற்றும் ஆவணங்களை சமர்ப்பிக்கவும்',
-              two: 'தேர்வுகளை உருவாக்கி நிர்வகிக்கவும்',
-              three: 'நேரலை வகுப்புகளை நடத்தவும்',
-              four: 'மாணவர் செயல்திறனை கண்காணிக்கவும்',
+          "teacher": {
+            "title": "ஆசிரியர்கள்",
+            "description": "தேர்வுகளை உருவாக்கி வகுப்புகளைக் கண்காணிக்க உங்கள் பள்ளியுடன் இணையுங்கள்",
+            "bullets": {
+              "one": "பாடப்பகுதி வாரியான வினா வங்கி",
+              "two": "வகுப்பு அல்லது பிரிவுக்குத் தேர்வுகள்",
+              "three": "மாணவர்கள் சமர்ப்பித்ததும் முடிவுகள்",
+              "four": "வினாக்களை Excel-இல் பதிவேற்றம்"
             },
-            cta: 'ஆசிரியராக பதிவு செய்யுங்கள்',
+            "cta": "ஆசிரியராகப் பதிவு செய்ய"
           },
-          school: {
-            title: 'பள்ளி பதிவு',
-            description: 'பள்ளிகள் மற்றும் நிறுவனங்களுக்கு மொத்த பதிவு',
-            bullets: {
-              one: 'CSV/Excel மூலம் பல மாணவர்களைப் பதிவேற்றவும்',
-              two: 'தொகுதி கணக்கு உருவாக்கம்',
-              three: 'மையக நிர்வகிப்பு',
-              four: 'CSV வார்ப்புருவை பதிவிறக்கவும்',
+          "school": {
+            "title": "பள்ளிகள்",
+            "description": "மாணவர் எண்ணிக்கையின் அடிப்படையில் உரிமம்",
+            "bullets": {
+              "one": "மாநில வாரியம் அல்லது CBSE, 6–12",
+              "two": "Excel-இலிருந்து மாணவர்களை இறக்குமதி",
+              "three": "தலைமையாசிரியருக்கான அறிக்கைகள்",
+              "four": "உங்கள் பள்ளித் தரவு தனிப்பட்டது"
             },
-            cta: 'பள்ளியை பதிவு செய்யுங்கள்',
-          },
+            "cta": "பள்ளியைப் பதிவு செய்ய"
+          }
+        }
+      },
+      "about": {
+        "title": "EduCore பற்றி",
+        "paragraph1": "EduCore தமிழ்நாட்டுப் பள்ளிகள் 6 முதல் 12 ஆம் வகுப்பு வரை மாநில வாரியம் (மெட்ரிகுலேஷன்) மற்றும் CBSE பாடத்திட்டங்களுக்கு வழக்கமான வகுப்பு மதிப்பீடுகளை நடத்த உதவுகிறது.",
+        "paragraph2": "வினாக்களும் தேர்வுகளும் வகுப்பு, பாடம், பாடப்பகுதி வாரியாக தமிழிலும் ஆங்கிலத்திலும் அமைக்கப்பட்டுள்ளன. மாணவர்கள் இணையத்தில் தேர்வு எழுதுகிறார்கள்; ஆசிரியர்களும் தலைமையாசிரியர்களும் முடிவுகளையும் போக்குகளையும் உடனே பார்க்கிறார்கள், மீண்டும் கற்பிக்க வேண்டிய பாடப்பகுதி வரை.",
+        "paragraph3": "11, 12 ஆம் வகுப்பு மாணவர்களுக்கு பள்ளிப் பாடத்துடன் NEET மற்றும் JEE பயிற்சியும் உண்டு.",
+        "stats": {
+          "successRate": "வகுப்புகள்",
+          "students": "வாரியங்கள்: மாநில & CBSE",
+          "questions": "மொழிகள்",
+          "support": "NEET/JEE பயிற்சி"
+        }
+      },
+      "featuresSection": {
+        "title": "பள்ளிகளுக்கு என்ன கிடைக்கும்",
+        "subtitle": "6 முதல் 12 வரை மதிப்பீடுகள், அறிக்கைகள், பயிற்சி — ஒரே இடத்தில்"
+      },
+      "features": {
+        "personalizedTitle": "வகுப்பு வாரியான மதிப்பீடுகள்",
+        "personalizedDescription": "6 முதல் 12 வரை ஒவ்வொரு வகுப்புக்கும், பாடம் மற்றும் பாடப்பகுதி வாரியாக, மாநில வாரியம் மற்றும் CBSE.",
+        "questionBankTitle": "தமிழ் & ஆங்கில வினா வங்கி",
+        "questionBankDescription": "தயாரான வினாக்களுடன் உங்கள் ஆசிரியர்களின் சொந்த வினாக்கள், Excel-இலிருந்து பதிவேற்றம்.",
+        "mistakeBookTitle": "தவறுப் புத்தகம்",
+        "mistakeBookDescription": "ஒவ்வொரு தவறான விடையும் சரியான விடை மற்றும் விளக்கத்துடன் திருப்புதலுக்காகச் சேமிக்கப்படுகிறது.",
+        "liveClassesTitle": "தலைமையாசிரியர்களுக்கு அறிக்கைகள்",
+        "liveClassesDescription": "வகுப்பு, பிரிவு, பாடம், பாடப்பகுதி அறிக்கைகள் மற்றும் கவனம் தேவைப்படும் மாணவர்கள்.",
+        "mockTestsTitle": "நேரக் கட்டுப்பாட்டுடன் இணையத் தேர்வுகள்",
+        "mockTestsDescription": "தேர்வுகள் தானாக நேரம் கணக்கிடும், இணைப்பு துண்டித்தாலும் விடைகளைக் காக்கும், உடனே திருத்தப்படும்.",
+        "gamifiedTitle": "NEET & JEE பயிற்சி",
+        "gamifiedDescription": "நுழைவுத் தேர்வுக்குத் தயாராகும் 11, 12 ஆம் வகுப்பு மாணவர்களுக்கு கூடுதல் பயிற்சி."
+      },
+      "featureStats": {
+        "practiceQuestions": "வகுப்புகள்",
+        "activeStudents": "வாரியங்கள்",
+        "successRate": "மொழிகள்",
+        "expertSupport": "மாணவர் & வினா இறக்குமதி"
+      },
+      "contact": {
+        "title": "தொடர்பு கொள்ளுங்கள்",
+        "subtitle": "உங்கள் பள்ளிக்கு EduCore வேண்டுமா? எங்களிடம் சொல்லுங்கள்.",
+        "form": {
+          "fullNameLabel": "முழுப் பெயர்",
+          "fullNamePlaceholder": "உங்கள் பெயர்",
+          "emailLabel": "மின்னஞ்சல் முகவரி",
+          "emailPlaceholder": "you@example.com",
+          "subjectLabel": "பள்ளி",
+          "subjectPlaceholder": "பள்ளியின் பெயர் மற்றும் ஊர்",
+          "messageLabel": "செய்தி",
+          "messagePlaceholder": "மாணவர் எண்ணிக்கை, வாரியம், கேள்விகள்…",
+          "submit": "செய்தி அனுப்பு"
+        }
+      },
+      "footer": {
+        "description": "தமிழ்நாட்டுப் பள்ளிகளுக்கு இணையவழி வகுப்பு மதிப்பீடுகள், அறிக்கைகள் மற்றும் NEET/JEE பயிற்சி, 6 முதல் 12 வரை.",
+        "programsTitle": "நாங்கள் வழங்குவது",
+        "programs": {
+          "neet": "வகுப்புத் தேர்வுகள் 6–12",
+          "jee": "மாநில வாரியம் & CBSE",
+          "mock": "பள்ளி அறிக்கைகள்",
+          "live": "NEET & JEE பயிற்சி",
+          "doubt": "தமிழ் & ஆங்கிலம்"
         },
+        "contactTitle": "எங்களைத் தொடர்பு கொள்ள",
+        "location": "தமிழ்நாடு, இந்தியா",
+        "email": "support@eduintelligence.com",
+        "phone": "+91 1800-XXX-XXXX (கட்டணமில்லா)",
+        "rights": "EduCore. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
+        "privacy": "தனியுரிமைக் கொள்கை",
+        "terms": "சேவை விதிமுறைகள்",
+        "refund": "பணத்திருப்பக் கொள்கை"
       },
-      about: {
-        title: 'Educational Intelligence பற்றி',
-        paragraph1:
-          'தமிழ்நாட்டின் மாணவர்கள் மருத்துவராகவும் பொறியாளராகவும் ஆகும் கனவுகளை நிஜமாக்க நாங்கள் அர்ப்பணிக்கப்பட்டுள்ளோம். முன்னேற்றுத் தொழில்நுட்பமும் நிபுணர் கற்பித்தலும் இணைந்து தனிப்பயன், விளைவான தேர்வு தயாரியை வழங்குகிறது.',
-        paragraph2:
-          'ஆங்கிலம் மற்றும் தமிழ் ஆதரவுடன் தரமான கல்விக்கு மொழி ஒருபோதும் தடையல்ல. நமது நுண்ணறிவு பகுப்பாய்வுகள், தழுவிய கற்றல் பாதைகள் மற்றும் விரிவான கேள்வி வங்கி ஆகியவை தயாரியை சிறப்பாக மாற்றுகின்றன.',
-        paragraph3:
-          'எங்களின் வழிகாட்டுதலுடன் NEET மற்றும் JEE-ஐ வென்ற ஆயிரக்கணக்கான மாணவர்களில் நீங்களும் சேருங்கள். உங்கள் வெற்றிப் பயணம் இங்கிருந்து தொடங்குகிறது.',
-        stats: {
-          successRate: 'வெற்றி விகிதம்',
-          students: 'மாணவர்கள்',
-          questions: 'கேள்விகள்',
-          support: 'ஆதரவு',
-        },
-      },
-      featuresSection: {
-        title: 'ஏன் Educational Intelligence?',
-        subtitle: 'NEET & JEE வெற்றிக்கான அனைத்து அம்சங்களும் ஒரே நுண்ணறிவு தளத்தில்',
-      },
-      features: {
-        personalizedTitle: 'தனிப்பயன் கற்றல்',
-        personalizedDescription: 'உங்கள் பலம் மற்றும் பலவீனங்களுக்கு ஏற்ப AI தழுவிய கற்றல் பாதைகள்',
-        questionBankTitle: 'முழுமையான கேள்வி வங்கி',
-        questionBankDescription: 'ஆங்கிலம் மற்றும் தமிழில் 10,000+ NEET & JEE கேள்விகள் மற்றும் விரிவான விளக்கங்கள்',
-        mistakeBookTitle: 'நுண்ணறிவு தவறு புத்தகம்',
-        mistakeBookDescription: 'தவறுகளை தானாகப் பதிவு செய்து தனிப்பயன் மறுபார்வை பரிந்துரைகள் வழங்குகிறது',
-        liveClassesTitle: 'நேரலை வகுப்புகள் & சந்தேக தீர்வு',
-        liveClassesDescription: 'நிபுணர் ஆசிரியர்களுடன் தொடர்பு கொண்டு உடனடி சந்தேக தீர்வுகள்',
-        mockTestsTitle: 'மாதிரித் தேர்வுகள் & பகுப்பாய்வு',
-        mockTestsDescription: 'தேர்வு சூழலை ஒத்திருக்கும் சோதனைகள் மற்றும் விரிவான செயல்திறன் பகுப்பாய்வு',
-        gamifiedTitle: 'விளையாட்டாக்கப்பட்ட கற்றல்',
-        gamifiedDescription: 'நாணயங்களைப் பெறுங்கள், தொடர்களை பராமரிக்கவும், சக மாணவர்களுடன் போட்டியிடுங்கள்',
-      },
-      featureStats: {
-        practiceQuestions: 'பயிற்சி கேள்விகள்',
-        activeStudents: 'செயலில் உள்ள மாணவர்கள்',
-        successRate: 'வெற்றி விகிதம்',
-        expertSupport: 'நிபுணர் ஆதரவு',
-      },
-      contact: {
-        title: 'எங்களை தொடர்பு கொள்ளுங்கள்',
-        subtitle: 'சந்தேகங்கள் உள்ளனவா? உதவ தயாராக உள்ளோம்!',
-        form: {
-          fullNameLabel: 'முழு பெயர்',
-          fullNamePlaceholder: 'உங்கள் பெயர்',
-          emailLabel: 'மின்னஞ்சல் முகவரி',
-          emailPlaceholder: 'you@example.com',
-          subjectLabel: 'பொருள்',
-          subjectPlaceholder: 'எப்படி உதவலாம்?',
-          messageLabel: 'செய்தி',
-          messagePlaceholder: 'உங்கள் செய்தி...',
-          submit: 'செய்தியை அனுப்புங்கள்',
-        },
-      },
-      footer: {
-        description:
-          'தமிழ்நாட்டில் உள்ள மாணவர்கள் மருத்துவராகவும் பொறியாளராகவும் ஆகும் கனவுகளை தனிப்பயன் நுண்ணறிவு கற்றலால் நாங்கள் வலுப்படுத்துகிறோம்.',
-        programsTitle: 'பயிற்சி திட்டங்கள்',
-        programs: {
-          neet: 'NEET தயாரிப்பு',
-          jee: 'JEE தயாரிப்பு',
-          mock: 'மாதிரித் தேர்வுகள்',
-          live: 'நேரலை வகுப்புகள்',
-          doubt: 'சந்தேக தீர்வு',
-        },
-        contactTitle: 'எங்களை தொடர்பு கொள்ள',
-        location: 'தமிழ்நாடு, இந்தியா',
-        email: 'support@eduintelligence.com',
-        phone: '+91 1800-XXX-XXXX (Toll Free)',
-        rights: 'Educational Intelligence. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.',
-        privacy: 'தனியுரிமைக் கொள்கை',
-        terms: 'சேவை விதிமுறைகள்',
-        refund: 'பணவழங்கும் கொள்கை',
-      },
-      registrationLanding: {
-        title: 'Educational Intelligence-க்கு வரவேற்கிறோம்',
-        subtitle: 'தொடங்க உங்கள் பதிவு வகையைத் தேர்ந்தெடுக்கவும்',
-        alreadyHaveAccount: 'ஏற்கெனவே கணக்கா உள்ளது?',
-        signIn: 'உள்நுழைய',
-      },
+      "registrationLanding": {
+        "title": "EduCore-க்கு வரவேற்கிறோம்",
+        "subtitle": "யார் பதிவு செய்கிறீர்கள்?",
+        "alreadyHaveAccount": "ஏற்கனவே கணக்கு உள்ளதா?",
+        "signIn": "உள்நுழைய"
+      }
     },
     dashboards: {
       adminTitle: 'நிர்வாகி கட்டுப்பாட்டு பலகை',

@@ -34,10 +34,10 @@ const LandingPage: React.FC = () => {
     ];
 
     const aboutStats = [
-        { value: '98%', label: t('landing.about.stats.successRate'), color: 'text-indigo-600 dark:text-indigo-400', bg: 'bg-indigo-50 dark:bg-indigo-900/20' },
-        { value: '5000+', label: t('landing.about.stats.students'), color: 'text-emerald-600 dark:text-emerald-400', bg: 'bg-emerald-50 dark:bg-emerald-900/20' },
-        { value: '10000+', label: t('landing.about.stats.questions'), color: 'text-orange-600 dark:text-orange-400', bg: 'bg-orange-50 dark:bg-orange-900/20' },
-        { value: '24/7', label: t('landing.about.stats.support'), color: 'text-purple-600 dark:text-purple-400', bg: 'bg-purple-50 dark:bg-purple-900/20' },
+        { value: '6–12', label: t('landing.about.stats.successRate'), color: 'text-indigo-600 dark:text-indigo-400', bg: 'bg-indigo-50 dark:bg-indigo-900/20' },
+        { value: '2', label: t('landing.about.stats.students'), color: 'text-emerald-600 dark:text-emerald-400', bg: 'bg-emerald-50 dark:bg-emerald-900/20' },
+        { value: '2', label: t('landing.about.stats.questions'), color: 'text-orange-600 dark:text-orange-400', bg: 'bg-orange-50 dark:bg-orange-900/20' },
+        { value: '11–12', label: t('landing.about.stats.support'), color: 'text-purple-600 dark:text-purple-400', bg: 'bg-purple-50 dark:bg-purple-900/20' },
     ];
 
     const bulletKeys = ['one', 'two', 'three', 'four'];
@@ -169,8 +169,8 @@ const LandingPage: React.FC = () => {
                                         </div>
                                     </div>
                                     <div>
-                                        <p className="text-sm text-slate-500 dark:text-slate-400">Success Rate</p>
-                                        <p className="text-2xl font-bold text-slate-900 dark:text-white">98%</p>
+                                        <p className="text-sm text-slate-500 dark:text-slate-400">{t('landing.featureStats.practiceQuestions')}</p>
+                                        <p className="text-2xl font-bold text-slate-900 dark:text-white">6–12</p>
                                     </div>
                                 </div>
                             </div>

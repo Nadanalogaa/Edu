@@ -13,6 +13,7 @@ import {
   reviewAttempt,
 } from '../controllers/studentController';
 import { myProgress } from '../controllers/reportsController';
+import { practiceOptions, practiceQuestions } from '../controllers/practiceController';
 import { protect, authorize } from '../middleware/auth';
 
 const router = express.Router();
@@ -35,5 +36,7 @@ router.post('/assessments/:id/start', startAssessment);
 router.put('/attempts/:id/progress', saveProgress);
 router.get('/attempts/:id/review', reviewAttempt);
 router.get('/progress', myProgress);
+router.get('/practice/options', practiceOptions);
+router.get('/practice/questions', practiceQuestions);
 
 export default router;

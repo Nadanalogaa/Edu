@@ -1,29 +1,21 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import type { Role } from './types';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
-import StudentDashboard from './components/dashboards/StudentDashboard';
 import Login from './components/Login';
-import LandingPage from './components/landing/LandingPage';
-import RegistrationLanding from './components/landing/RegistrationLanding';
-import StudentRegistrationForm from './components/registration/StudentRegistrationForm';
-import TeacherRegistrationForm from './components/registration/TeacherRegistrationForm';
-import SchoolRegistrationForm from './components/registration/SchoolRegistrationForm';
-import PracticeModeNew from './components/student/PracticeModeNew';
-import ExamModeNew from './components/student/ExamModeNew';
-import MistakeBook from './components/student/MistakeBook';
-import LiveClassesView from './components/student/LiveClassesView';
-import DailyChallengeContainer from './components/student/DailyChallengeContainer';
-import Shorts from './components/student/Shorts';
-import QuestionBank from './components/admin/QuestionBank';
-import TestCreation from './components/admin/TestCreation';
-import DailyChallengeCreation from './components/admin/DailyChallengeCreation';
-import TestManagement from './components/admin/TestManagement';
 import LanguageSelector from './components/LanguageSelector';
-import TNSchoolsPage from './pages/TNSchoolsPage';
 import GamificationStats from './components/GamificationStats';
 import api from './services/api';
+
+// Pages most users never open are loaded on demand, so students download less
+const LandingPage = lazy(() => import('./components/landing/LandingPage'));
+const RegistrationLanding = lazy(() => import('./components/landing/RegistrationLanding'));
+const StudentRegistrationForm = lazy(() => import('./components/registration/StudentRegistrationForm'));
+const TeacherRegistrationForm = lazy(() => import('./components/registration/TeacherRegistrationForm'));
+const SchoolRegistrationForm = lazy(() => import('./components/registration/SchoolRegistrationForm'));
+const QuestionBank = lazy(() => import('./components/admin/QuestionBank'));
+const TNSchoolsPage = lazy(() => import('./pages/TNSchoolsPage'));
 import SchoolOverview from './components/school/SchoolOverview';
 import PeopleManager from './components/school/PeopleManager';
 import OwnerOverview from './components/owner/OwnerOverview';
@@ -33,12 +25,15 @@ import ChangePasswordModal from './components/common/ChangePasswordModal';
 import QuestionBankScreen from './components/assessments/QuestionBankScreen';
 import TestsScreen from './components/assessments/TestsScreen';
 import MyTests from './components/student/MyTests';
+import StudentHome from './components/student/StudentHome';
+import Practice from './components/student/Practice';
+import Mistakes from './components/student/Mistakes';
 import ReportsScreen from './components/reports/ReportsScreen';
 import StudentReport from './components/reports/StudentReport';
 import { boardLabel, classLabel } from './components/common/ui';
 import {
     SunIcon, MoonIcon, LayoutDashboardIcon, UsersIcon, UserIcon, LogOutIcon,
-    SchoolIcon, FileTextIcon, ClipboardCheckIcon, GraduationCapIcon, PenSquareIcon, BookOpenIcon, VideoIcon,
+    SchoolIcon, FileTextIcon, ClipboardCheckIcon, GraduationCapIcon, PenSquareIcon, BookOpenIcon,
     MenuIcon, XIcon, KeyIcon, TrendingUpIcon
 } from './components/icons';
 
@@ -192,15 +187,11 @@ const DashboardLayout: React.FC = () => {
 
   const navConfig: Record<Role, { label: string; icon: React.ReactNode; view: string }[]> = {
     student: [
-      { label: t('dashboard'), icon: <LayoutDashboardIcon className="w-5 h-5" />, view: 'dashboard' },
+      { label: language === 'ta' ? 'முகப்பு' : 'Home', icon: <LayoutDashboardIcon className="w-5 h-5" />, view: 'dashboard' },
       { label: language === 'ta' ? 'என் தேர்வுகள்' : 'My Tests', icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'my-tests' },
+      { label: language === 'ta' ? 'பயிற்சி' : 'Practice', icon: <PenSquareIcon className="w-5 h-5" />, view: 'practice' },
       { label: language === 'ta' ? 'என் முன்னேற்றம்' : 'My Progress', icon: <TrendingUpIcon className="w-5 h-5" />, view: 'progress' },
-      { label: t('practiceMode'), icon: <PenSquareIcon className="w-5 h-5" />, view: 'practice' },
-      { label: t('takeAnExam'), icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'exam' },
-      { label: t('dailyChallenge'), icon: <FileTextIcon className="w-5 h-5" />, view: 'daily-challenge' },
-      { label: language === 'ta' ? 'குறும்படங்கள்' : 'Shorts', icon: <VideoIcon className="w-5 h-5" />, view: 'shorts' },
-      { label: t('mistakeBook'), icon: <BookOpenIcon className="w-5 h-5" />, view: 'mistakes' },
-      { label: t('liveClasses'), icon: <UsersIcon className="w-5 h-5" />, view: 'classes' },
+      { label: language === 'ta' ? 'தவறுப் புத்தகம்' : 'Mistake Book', icon: <BookOpenIcon className="w-5 h-5" />, view: 'mistakes' },
     ],
     teacher: [
       { label: 'Tests', icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'dashboard' },
@@ -215,10 +206,6 @@ const DashboardLayout: React.FC = () => {
       { label: 'Tests', icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'tests' },
       { label: 'Reports', icon: <TrendingUpIcon className="w-5 h-5" />, view: 'reports' },
       { label: t('questionBank'), icon: <BookOpenIcon className="w-5 h-5" />, view: 'question-bank' },
-      { label: 'NEET/JEE questions', icon: <FileTextIcon className="w-5 h-5" />, view: 'neet-questions' },
-      { label: 'NEET/JEE create test', icon: <PenSquareIcon className="w-5 h-5" />, view: 'create-test' },
-      { label: 'NEET/JEE tests', icon: <FileTextIcon className="w-5 h-5" />, view: 'test-management' },
-      { label: t('dailyChallenge'), icon: <PenSquareIcon className="w-5 h-5" />, view: 'daily-challenge' },
     ],
     owner: [
       { label: t('dashboard'), icon: <LayoutDashboardIcon className="w-5 h-5" />, view: 'dashboard' },
@@ -271,14 +258,6 @@ const DashboardLayout: React.FC = () => {
           return <TestsScreen />;
         case 'reports':
           return <ReportsScreen />;
-        case 'neet-questions':
-          return <QuestionBank />;
-        case 'create-test':
-          return <TestCreation />;
-        case 'test-management':
-          return <TestManagement />;
-        case 'daily-challenge':
-          return <DailyChallengeCreation />;
         default:
           return <SchoolOverview onNavigate={handleNavClick} />;
       }
@@ -292,26 +271,16 @@ const DashboardLayout: React.FC = () => {
 
     if (currentUser.role === 'student') {
       switch (activeView) {
-        case 'dashboard':
-          return <StudentDashboard />;
         case 'my-tests':
           return <MyTests />;
+        case 'practice':
+          return <Practice />;
         case 'progress':
           return <StudentReport />;
-        case 'practice':
-          return <PracticeModeNew />;
-        case 'exam':
-          return <ExamModeNew />;
-        case 'daily-challenge':
-          return <DailyChallengeContainer />;
-        case 'shorts':
-          return <Shorts />;
         case 'mistakes':
-          return <MistakeBook />;
-        case 'classes':
-          return <LiveClassesView />;
+          return <Mistakes />;
         default:
-          return <StudentDashboard />;
+          return <StudentHome onNavigate={handleNavClick} />;
       }
     }
 
@@ -378,22 +347,6 @@ const DashboardLayout: React.FC = () => {
            ))}
         </nav>
 
-        {/* Bottom — Doctor image (desktop only) */}
-        <div className="flex-shrink-0">
-            {currentUser.role === 'student' && (
-              <div className="hidden lg:block">
-                <div className="relative w-full h-44 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-inner bg-slate-100">
-                  <img
-                    src="/female-doctor.jpg"
-                    alt="Indian doctor"
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-slate-900/10 to-transparent pointer-events-none" />
-                </div>
-              </div>
-            )}
-        </div>
       </aside>
 
       <main className="flex-1 overflow-y-auto w-full">
@@ -467,7 +420,7 @@ const DashboardLayout: React.FC = () => {
         {/* Main Content */}
         <div className="p-3 sm:p-6 lg:p-10">
           <div className="max-w-7xl mx-auto">
-            {renderContent()}
+            <Suspense fallback={<PageLoading />}>{renderContent()}</Suspense>
           </div>
         </div>
       </main>
@@ -497,8 +450,15 @@ const LoginRoute: React.FC = () => {
   return <Login />;
 };
 
+const PageLoading: React.FC = () => (
+  <div className="flex items-center justify-center min-h-[50vh]">
+    <div className="h-10 w-10 animate-spin rounded-full border-4 border-indigo-600 border-t-transparent" />
+  </div>
+);
+
 const AppContent: React.FC = () => {
   return (
+    <Suspense fallback={<PageLoading />}>
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<LoginRoute />} />
@@ -517,6 +477,7 @@ const AppContent: React.FC = () => {
       />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
+    </Suspense>
   );
 };
 

@@ -107,7 +107,7 @@ const HeroCarousel: React.FC = () => {
                                         {/* Badge */}
                                         <div className={`inline-flex items-center px-5 py-2 mb-6 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-full border border-indigo-200 shadow-sm`}>
                                             <span className={`text-sm font-bold bg-gradient-to-r ${slide.textGradient} bg-clip-text text-transparent`}>
-                                                NEET & JEE Excellence
+                                                {t('landing.nav.tagline')}
                                             </span>
                                         </div>
 
@@ -145,16 +145,16 @@ const HeroCarousel: React.FC = () => {
                                         {/* Stats Cards */}
                                         <div className="grid grid-cols-3 gap-4">
                                             <div className="bg-white rounded-xl p-4 shadow-md border border-slate-200">
-                                                <div className={`text-3xl font-black bg-gradient-to-r ${slide.textGradient} bg-clip-text text-transparent`}>98%</div>
-                                                <div className="text-sm text-slate-600 font-semibold">Success Rate</div>
+                                                <div className={`text-3xl font-black bg-gradient-to-r ${slide.textGradient} bg-clip-text text-transparent`}>6–12</div>
+                                                <div className="text-sm text-slate-600 font-semibold">{t('landing.featureStats.practiceQuestions')}</div>
                                             </div>
                                             <div className="bg-white rounded-xl p-4 shadow-md border border-slate-200">
-                                                <div className={`text-3xl font-black bg-gradient-to-r ${slide.textGradient} bg-clip-text text-transparent`}>5000+</div>
-                                                <div className="text-sm text-slate-600 font-semibold">Students</div>
+                                                <div className={`text-3xl font-black bg-gradient-to-r ${slide.textGradient} bg-clip-text text-transparent`}>2</div>
+                                                <div className="text-sm text-slate-600 font-semibold">{t('landing.featureStats.activeStudents')}</div>
                                             </div>
                                             <div className="bg-white rounded-xl p-4 shadow-md border border-slate-200">
-                                                <div className={`text-3xl font-black bg-gradient-to-r ${slide.textGradient} bg-clip-text text-transparent`}>10K+</div>
-                                                <div className="text-sm text-slate-600 font-semibold">Questions</div>
+                                                <div className={`text-3xl font-black bg-gradient-to-r ${slide.textGradient} bg-clip-text text-transparent`}>2</div>
+                                                <div className="text-sm text-slate-600 font-semibold">{t('landing.featureStats.successRate')}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -178,7 +178,7 @@ const HeroCarousel: React.FC = () => {
                                         {/* Badge */}
                                         <div className={`inline-flex items-center px-4 py-2 mb-4 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-full border border-indigo-200 shadow-sm`}>
                                             <span className={`text-xs font-bold bg-gradient-to-r ${slide.textGradient} bg-clip-text text-transparent`}>
-                                                NEET & JEE Excellence
+                                                {t('landing.nav.tagline')}
                                             </span>
                                         </div>
 
@@ -216,16 +216,16 @@ const HeroCarousel: React.FC = () => {
                                         {/* Stats Cards */}
                                         <div className="grid grid-cols-3 gap-2 sm:gap-3">
                                             <div className="bg-white rounded-lg p-2 sm:p-3 shadow-md border border-slate-200">
-                                                <div className={`text-base sm:text-xl font-black bg-gradient-to-r ${slide.textGradient} bg-clip-text text-transparent`}>98%</div>
-                                                <div className="text-[10px] sm:text-xs text-slate-600 font-semibold">Success</div>
+                                                <div className={`text-base sm:text-xl font-black bg-gradient-to-r ${slide.textGradient} bg-clip-text text-transparent`}>6–12</div>
+                                                <div className="text-[10px] sm:text-xs text-slate-600 font-semibold">{t('landing.featureStats.practiceQuestions')}</div>
                                             </div>
                                             <div className="bg-white rounded-lg p-2 sm:p-3 shadow-md border border-slate-200">
-                                                <div className={`text-base sm:text-xl font-black bg-gradient-to-r ${slide.textGradient} bg-clip-text text-transparent`}>5000+</div>
-                                                <div className="text-[10px] sm:text-xs text-slate-600 font-semibold">Students</div>
+                                                <div className={`text-base sm:text-xl font-black bg-gradient-to-r ${slide.textGradient} bg-clip-text text-transparent`}>2</div>
+                                                <div className="text-[10px] sm:text-xs text-slate-600 font-semibold">{t('landing.featureStats.activeStudents')}</div>
                                             </div>
                                             <div className="bg-white rounded-lg p-2 sm:p-3 shadow-md border border-slate-200">
-                                                <div className={`text-base sm:text-xl font-black bg-gradient-to-r ${slide.textGradient} bg-clip-text text-transparent`}>10K+</div>
-                                                <div className="text-[10px] sm:text-xs text-slate-600 font-semibold">Questions</div>
+                                                <div className={`text-base sm:text-xl font-black bg-gradient-to-r ${slide.textGradient} bg-clip-text text-transparent`}>2</div>
+                                                <div className="text-[10px] sm:text-xs text-slate-600 font-semibold">{t('landing.featureStats.successRate')}</div>
                                             </div>
                                         </div>
                                     </div>

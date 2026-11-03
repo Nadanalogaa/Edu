@@ -65,6 +65,19 @@ To ship new code later: push to `main`, then Portainer → `edu-app` → **Pull 
 
 Database changes are applied automatically when the app starts (see `backend/src/db/migrations.ts`).
 
+## 9th standard demo for showing schools
+
+Owner dashboard → **Set up / reset demo** creates two demo schools with 24 students in 9th A/B,
+five weeks of test results and one test open now. All demo passwords are `demo1234`:
+
+| | State Board | CBSE |
+|---|---|---|
+| School admin | demo.admin.sb@educore.demo | demo.admin.cbse@educore.demo |
+| Teacher | demo.teacher.sb@educore.demo | demo.teacher.cbse@educore.demo |
+| Student (Student tab) | school code `DEMOSB9`, admission no. `9A01`–`9A12`, `9B01`–`9B12` | school code `DEMOCBSE9`, same numbers |
+
+Pressing the button again resets only the demo schools.
+
 ## Demo accounts (when `SEED_DEMO_DATA=true` and the database was empty)
 
 | Role | Email | Password |
