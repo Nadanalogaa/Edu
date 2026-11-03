@@ -22,8 +22,8 @@ const Navbar: React.FC = () => {
                     {/* Logo */}
                     <div className="flex items-center space-x-3">
                             <img
-                                src="/logo.png"
-                                alt="Education Intelligence Logo"
+                                src="/logo.svg"
+                                alt="EduCore Logo"
                                 className="w-10 h-10 sm:w-12 sm:h-12"
                             />
                             <div className="flex flex-col">

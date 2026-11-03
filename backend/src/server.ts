@@ -61,7 +61,7 @@ if (process.env.NODE_ENV === 'development') {
 app.get('/api', (req, res) => {
   res.json({
     success: true,
-    message: 'Education Intelligence API',
+    message: 'EduCore API',
     version: '1.0.0',
   });
 });

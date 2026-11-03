@@ -290,8 +290,8 @@ const DashboardLayout: React.FC = () => {
         <div className="flex-shrink-0 flex items-center justify-between mb-6">
             <div className="flex items-center">
               <img
-                src="/logo.png"
-                alt="Education Intelligence Logo"
+                src="/logo.svg"
+                alt="EduCore Logo"
                 className="w-10 h-10 lg:w-12 lg:h-12"
               />
               <div className="ml-3 flex flex-col">
