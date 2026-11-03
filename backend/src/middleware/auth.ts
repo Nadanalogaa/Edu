@@ -1,9 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../utils/jwt';
 import { Users } from '../models/User';
+import { Schools } from '../models/School';
+import { schoolBlockReason } from '../utils/tenancy';
 
 export interface AuthRequest extends Request {
   user?: any;
+  school?: any;
 }
 
 export const protect = async (req: AuthRequest, res: Response, next: NextFunction) => {
@@ -43,8 +46,19 @@ export const protect = async (req: AuthRequest, res: Response, next: NextFunctio
         });
       }
 
+      // A school that is pending, inactive or expired locks out all its users
+      const school = user.schoolId ? await Schools.findById(user.schoolId) : null;
+      const blocked = user.role === 'owner' ? null : schoolBlockReason(school);
+      if (blocked) {
+        return res.status(403).json({
+          success: false,
+          message: blocked,
+        });
+      }
+
       // Attach user to request
       req.user = user;
+      req.school = school;
       next();
     } catch (error) {
       return res.status(401).json({

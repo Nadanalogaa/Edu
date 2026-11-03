@@ -7,13 +7,33 @@ import { UploadedFiles } from '../models/UploadedFile';
 import { Users } from '../models/User';
 import { isUuid, pick, Doc } from '../db/table';
 import { query } from '../config/database';
+import { visibleTo, ownedBy, contentSchoolId, canChange } from '../utils/tenancy';
 import fs from 'fs';
 
-/** Active questions among the given ids. */
-const activeQuestions = (ids: string[]) =>
-  Questions.select('SELECT * FROM questions WHERE id = ANY($1::uuid[]) AND is_active = true', [
-    ids.filter(isUuid),
-  ]);
+/** Active questions among the given ids that the user's school can use. */
+const activeQuestions = (user: any, ids: string[]) => {
+  const params: any[] = [ids.filter(isUuid)];
+  return Questions.select(
+    `SELECT * FROM questions WHERE id = ANY($1::uuid[]) AND is_active = true AND ${visibleTo(user, params)}`,
+    params
+  );
+};
+
+/** A test the user may manage (their school's, or the shared ones for the owner). */
+const findOwnTest = async (user: any, id: string) => {
+  const test = await Tests.findById(id);
+  return test && canChange(user, test) ? test : null;
+};
+
+/** Content is always stored for a school (or the shared bank for the owner). */
+const requireSchool = (req: Request, res: Response) => {
+  const user = (req as any).user;
+  if (user.role !== 'owner' && !user.schoolId) {
+    res.status(403).json({ success: false, message: 'Your account is not linked to a school' });
+    return false;
+  }
+  return true;
+};
 
 const populateChallenge = async (challenge: Doc | null) =>
   challenge && { ...challenge, questionIds: await questionsInOrder(challenge.questionIds) };
@@ -100,13 +120,16 @@ export const uploadQuestions = async (req: Request, res: Response) => {
       });
     }
 
-    const userId = (req as any).user?.id;
+    const user = (req as any).user;
+    const userId = user?.id;
     if (!userId) {
       return res.status(401).json({
         success: false,
         message: 'User not authenticated',
       });
     }
+    if (!requireSchool(req, res)) return;
+    const schoolId = contentSchoolId(user);
 
     // Get examType and subject from form data
     const formExamType = req.body.examType as 'NEET' | 'JEE' | 'Both';
@@ -182,6 +205,7 @@ export const uploadQuestions = async (req: Request, res: Response) => {
           examType: 'NEET' as const,
           isActive: true,
           createdBy: userId,
+          schoolId,
         };
 
         questions.push(question);
@@ -200,9 +224,12 @@ export const uploadQuestions = async (req: Request, res: Response) => {
 
     // Get all existing external IDs in one query
     const externalIds = questions.map(q => q.externalId).filter(Boolean);
+    // Duplicates are looked for in the same bank (this school's, or the shared one)
+    const ownParams: any[] = [externalIds];
+    const ownBank = ownedBy(user, ownParams);
     const existingQuestions = await Questions.select(
-      'SELECT id, external_id, is_active FROM questions WHERE external_id = ANY($1::int[])',
-      [externalIds]
+      `SELECT id, external_id, is_active FROM questions WHERE external_id = ANY($1::int[]) AND ${ownBank}`,
+      ownParams
     );
     const existingIds = new Set(existingQuestions.map(q => q.externalId));
 
@@ -256,8 +283,8 @@ export const uploadQuestions = async (req: Request, res: Response) => {
 
     // Fetch all questions by their externalIds to get database IDs
     const allQuestions = await Questions.select(
-      'SELECT id, external_id FROM questions WHERE external_id = ANY($1::int[]) AND is_active = true',
-      [externalIds]
+      `SELECT id, external_id FROM questions WHERE external_id = ANY($1::int[]) AND is_active = true AND ${ownBank}`,
+      ownParams
     );
 
     // Create a map of externalId -> _id for fast lookup
@@ -291,6 +318,7 @@ export const uploadQuestions = async (req: Request, res: Response) => {
         uploadedBy: userId,
         uploadDate: new Date(),
         isActive: true,
+        schoolId,
       });
       console.log(`Created file metadata record for ${filename} - ${examType} - ${subject} - ${allQuestionIds.length} questions`);
     } catch (error: any) {
@@ -362,7 +390,7 @@ export const getQuestions = async (req: Request, res: Response) => {
       const questionIds = (ids as string).split(',');
 
       // Fetch all questions without sorting
-      const fetchedQuestions = await activeQuestions(questionIds);
+      const fetchedQuestions = await activeQuestions((req as any).user, questionIds);
 
       // Create a map of _id -> question for fast lookup
       const idToQuestion = new Map();
@@ -385,6 +413,7 @@ export const getQuestions = async (req: Request, res: Response) => {
       // Otherwise use filters with normal sorting
       const params: any[] = [];
       const where = ['is_active = true'];
+      where.push(visibleTo((req as any).user, params));
       const add = (column: string, value: any) => {
         params.push(value);
         where.push(`${column} = $${params.length}`);
@@ -435,7 +464,10 @@ export const deleteQuestion = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    const question = await Questions.updateById(id, { isActive: false });
+    const existing = await Questions.findById(id);
+    const question = existing && canChange((req as any).user, existing)
+      ? await Questions.updateById(existing._id, { isActive: false })
+      : null;
 
     if (!question) {
       return res.status(404).json({
@@ -495,9 +527,10 @@ export const updateQuestionProperties = async (req: Request, res: Response) => {
       sets.push(`marks = $${params.length}`);
     }
 
+    const ownBank = ownedBy((req as any).user, params);
     const updated = await query(
       `UPDATE questions SET ${sets.join(', ')}, updated_at = now()
-       WHERE id = ANY($1::uuid[]) AND is_active = true RETURNING id`,
+       WHERE id = ANY($1::uuid[]) AND is_active = true AND ${ownBank} RETURNING id`,
       params
     );
 
@@ -533,6 +566,7 @@ export const getUploadedFiles = async (req: Request, res: Response) => {
 
     const params: any[] = [];
     const where = ['is_active = true'];
+    where.push(ownedBy((req as any).user, params));
     if (examType) {
       params.push(examType);
       where.push(`exam_type = $${params.length}`);
@@ -584,7 +618,8 @@ export const deleteUploadedFile = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     // Find the file record
-    const file = await UploadedFiles.findById(id);
+    const found = await UploadedFiles.findById(id);
+    const file = found && canChange((req as any).user, found) ? found : null;
 
     if (!file) {
       return res.status(404).json({
@@ -624,13 +659,15 @@ export const deleteUploadedFile = async (req: Request, res: Response) => {
  */
 export const createTest = async (req: Request, res: Response) => {
   try {
-    const userId = (req as any).user?.id;
+    const user = (req as any).user;
+    const userId = user?.id;
     if (!userId) {
       return res.status(401).json({
         success: false,
         message: 'User not authenticated',
       });
     }
+    if (!requireSchool(req, res)) return;
 
     const {
       title,
@@ -654,7 +691,7 @@ export const createTest = async (req: Request, res: Response) => {
     }
 
     // Validate questions exist
-    const questions = await activeQuestions(questionIds);
+    const questions = await activeQuestions(user, questionIds);
     if (questions.length !== questionIds.length) {
       return res.status(400).json({
         success: false,
@@ -669,6 +706,7 @@ export const createTest = async (req: Request, res: Response) => {
       title,
       description,
       createdBy: userId,
+      schoolId: contentSchoolId(user),
       type,
       examType,
       subjects: Array.isArray(subjects) ? subjects : [subjects],
@@ -709,6 +747,7 @@ export const getTests = async (req: Request, res: Response) => {
 
     const params: any[] = [];
     const where = ['is_active = true'];
+    where.push(ownedBy((req as any).user, params));
     const add = (column: string, value: any) => {
       params.push(value);
       where.push(`${column} = $${params.length}`);
@@ -758,7 +797,7 @@ export const getTestById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    const test = await Tests.findById(id);
+    const test = await findOwnTest((req as any).user, id);
 
     if (!test) {
       return res.status(404).json({
@@ -789,11 +828,19 @@ export const getTestById = async (req: Request, res: Response) => {
 export const updateTest = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const updates = req.body;
+    const user = (req as any).user;
+    const { schoolId, createdBy, ...updates } = req.body;
+
+    if (!(await findOwnTest(user, id))) {
+      return res.status(404).json({
+        success: false,
+        message: 'Test not found',
+      });
+    }
 
     // If questionIds are being updated, recalculate total marks
     if (updates.questionIds) {
-      const questions = await activeQuestions(updates.questionIds);
+      const questions = await activeQuestions(user, updates.questionIds);
       if (questions.length !== updates.questionIds.length) {
         return res.status(400).json({
           success: false,
@@ -838,7 +885,8 @@ export const deleteTest = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    const test = await Tests.updateById(id, { isActive: false });
+    const own = await findOwnTest((req as any).user, id);
+    const test = own && (await Tests.updateById(own._id, { isActive: false }));
 
     if (!test) {
       return res.status(404).json({
@@ -868,6 +916,8 @@ export const deleteTest = async (req: Request, res: Response) => {
 export const createDailyChallenge = async (req: Request, res: Response) => {
   try {
     const { date, subject, count = 15, reward = 50 } = req.body;
+    const user = (req as any).user;
+    if (!requireSchool(req, res)) return;
 
     if (!date || !subject) {
       return res.status(400).json({
@@ -880,9 +930,11 @@ export const createDailyChallenge = async (req: Request, res: Response) => {
     const challengeDate = new Date(date);
     challengeDate.setHours(0, 0, 0, 0);
 
-    const [existing] = await query('SELECT id FROM daily_challenges WHERE date = $1', [
-      localDateString(challengeDate),
-    ]);
+    const existingParams: any[] = [localDateString(challengeDate)];
+    const [existing] = await query(
+      `SELECT id FROM daily_challenges WHERE date = $1 AND ${ownedBy(user, existingParams)}`,
+      existingParams
+    );
     if (existing) {
       return res.status(400).json({
         success: false,
@@ -891,9 +943,11 @@ export const createDailyChallenge = async (req: Request, res: Response) => {
     }
 
     // Get random questions for the subject
+    const questionParams: any[] = [subject, count];
     const questions = await Questions.select(
-      'SELECT * FROM questions WHERE subject = $1 AND is_active = true ORDER BY random() LIMIT $2',
-      [subject, count]
+      `SELECT * FROM questions WHERE subject = $1 AND is_active = true AND ${visibleTo(user, questionParams)}
+       ORDER BY random() LIMIT $2`,
+      questionParams
     );
 
     if (questions.length < count) {
@@ -908,6 +962,7 @@ export const createDailyChallenge = async (req: Request, res: Response) => {
       questionIds: questions.map(q => q._id),
       reward,
       isActive: true,
+      schoolId: contentSchoolId(user),
     });
 
     const populatedChallenge = await populateChallenge(challenge);
@@ -935,9 +990,10 @@ export const getTodayChallenge = async (req: Request, res: Response) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
+    const params: any[] = [localDateString(today)];
     const [row] = await DailyChallenges.select(
-      'SELECT * FROM daily_challenges WHERE date = $1 AND is_active = true',
-      [localDateString(today)]
+      `SELECT * FROM daily_challenges WHERE date = $1 AND is_active = true AND ${ownedBy((req as any).user, params)}`,
+      params
     );
     const challenge = await populateChallenge(row);
 
@@ -978,13 +1034,26 @@ export const shareTest = async (req: Request, res: Response) => {
       });
     }
 
+    const user = (req as any).user;
+    if (!(await findOwnTest(user, id))) {
+      return res.status(404).json({
+        success: false,
+        message: 'Test not found',
+      });
+    }
+
     // Update sharing information
     const sharing: Record<string, any> = {
       sharedAt: new Date(),
       isPublished: true, // Automatically publish when sharing
     };
     if (studentIds && studentIds.length > 0) {
-      sharing.sharedWithStudents = studentIds.filter(isUuid);
+      // Only this school's students
+      const own = await query(
+        "SELECT id FROM users WHERE id = ANY($1::uuid[]) AND role = 'student' AND school_id = $2",
+        [studentIds.filter(isUuid), user.schoolId]
+      );
+      sharing.sharedWithStudents = own.map(row => row.id);
     }
     if (grades && grades.length > 0) {
       sharing.sharedWithGrades = grades;
@@ -1019,14 +1088,19 @@ export const shareTest = async (req: Request, res: Response) => {
 export const getShareOptions = async (req: Request, res: Response) => {
   try {
     // Get all unique grades from students
+    // Only this school's students
+    const schoolId = (req as any).user.schoolId;
     const gradeRows = await query(
-      "SELECT DISTINCT grade FROM users WHERE role = 'student' AND is_active = true ORDER BY grade"
+      "SELECT DISTINCT grade FROM users WHERE role = 'student' AND is_active = true AND school_id = $1 ORDER BY grade",
+      [schoolId]
     );
     const grades = gradeRows.map(row => row.grade);
 
     // Get all students
     const students = await Users.select(
-      "SELECT id, name, email, grade FROM users WHERE role = 'student' AND is_active = true ORDER BY grade, name"
+      `SELECT id, name, email, grade, class_grade, section FROM users
+       WHERE role = 'student' AND is_active = true AND school_id = $1 ORDER BY class_grade, section, name`,
+      [schoolId]
     );
 
     return res.status(200).json({

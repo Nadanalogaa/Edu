@@ -5,7 +5,8 @@ export const Schools = new Table(
   [
     'name', 'code', 'address', 'city', 'state', 'pincode', 'phone', 'email', 'principal',
     'principalPhone', 'principalEmail', 'website', 'established', 'boardAffiliation',
-    'totalStrength', 'documents', 'registrationStatus', 'registrationDate', 'isActive',
+    'totalStrength', 'documents', 'registrationStatus', 'registrationDate', 'isActive', 'board',
+    'studentLimit', 'subscriptionExpiresAt', 'notes',
   ],
   ['documents']
 );

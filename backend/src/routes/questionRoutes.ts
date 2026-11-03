@@ -17,8 +17,8 @@ router.get('/random', protect, getRandomQuestions);
 router.get('/topics/:subject', protect, getTopicsBySubject);
 router.get('/:id', protect, getQuestionById);
 
-router.post('/', protect, authorize('teacher', 'admin'), createQuestion);
-router.put('/:id', protect, authorize('teacher', 'admin'), updateQuestion);
-router.delete('/:id', protect, authorize('admin'), deleteQuestion);
+router.post('/', protect, authorize('teacher', 'admin', 'owner'), createQuestion);
+router.put('/:id', protect, authorize('teacher', 'admin', 'owner'), updateQuestion);
+router.delete('/:id', protect, authorize('admin', 'owner'), deleteQuestion);
 
 export default router;

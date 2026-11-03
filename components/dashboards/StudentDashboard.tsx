@@ -202,13 +202,13 @@ const StudentDashboard: React.FC = () => {
                 const entry = subjectMap.get(date) || {};
 
                 // Check which subjects are in this attempt and aggregate
-                if (attempt.testId.subjects.includes('Physics')) {
+                if (attempt.testId?.subjects?.includes('Physics')) {
                     entry.Physics = attempt.percentage;
                 }
-                if (attempt.testId.subjects.includes('Chemistry')) {
+                if (attempt.testId?.subjects?.includes('Chemistry')) {
                     entry.Chemistry = attempt.percentage;
                 }
-                if (attempt.testId.subjects.includes('Biology')) {
+                if (attempt.testId?.subjects?.includes('Biology')) {
                     entry.Biology = attempt.percentage;
                 }
 
@@ -223,7 +223,7 @@ const StudentDashboard: React.FC = () => {
 
         // Filter attempts that include the selected subject
         const subjectAttempts = attempts.filter(
-            (attempt) => attempt.testId.subjects.includes(activeSubjectTab)
+            (attempt) => attempt.testId?.subjects?.includes(activeSubjectTab)
         );
 
         return subjectAttempts.slice(0, 10).reverse().map((attempt, index) => ({

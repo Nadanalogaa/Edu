@@ -15,7 +15,8 @@ export const startAttempt = async (req: AuthRequest, res: Response) => {
   try {
     const { testId, questionIds, totalMarks } = req.body;
 
-    if (!isUuid(testId) || !(await Tests.findById(testId))) {
+    const test = isUuid(testId) ? await Tests.findById(testId) : null;
+    if (!test || !test.isActive || (test.schoolId && test.schoolId !== req.user.schoolId)) {
       return res.status(404).json({
         success: false,
         message: 'Test not found',
@@ -187,7 +188,7 @@ export const getMyAttempts = async (req: AuthRequest, res: Response) => {
     const tests = await Tests.findByIds(attempts.map((a) => a.testId));
     const data = attempts.map((a) => ({
       ...a,
-      testId: pick(tests.get(a.testId), ['title', 'type', 'examType', 'duration']),
+      testId: pick(tests.get(a.testId), ['title', 'type', 'examType', 'duration', 'subjects']),
     }));
 
     const [{ total }] = await query(`SELECT count(*)::int AS total FROM student_attempts ${where}`, params);
@@ -409,10 +410,10 @@ export const getSharedTests = async (req: AuthRequest, res: Response) => {
     // Find tests shared with this student or, if they have one, their grade
     const tests = await Tests.select(
       `SELECT * FROM tests
-       WHERE is_active = true AND is_published = true
+       WHERE is_active = true AND is_published = true AND school_id = $3
          AND ($1::uuid = ANY(shared_with_students) OR ($2::text IS NOT NULL AND $2::text = ANY(shared_with_grades)))
        ORDER BY shared_at DESC NULLS LAST`,
-      [studentId, student.grade || null]
+      [studentId, student.grade || null, student.schoolId]
     );
 
     res.status(200).json({

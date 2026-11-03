@@ -17,6 +17,9 @@ const schoolData = {
   phone: '+91 44 12345678',
   email: 'info@tnmodelschool.edu',
   principal: 'Dr. Rajesh Kumar',
+  board: 'state_board',
+  studentLimit: 100,
+  registrationStatus: 'approved',
   isActive: true,
 };
 
@@ -45,6 +48,8 @@ const getUsersData = (schoolId: string) => [
     role: 'student',
     schoolId,
     grade: '12th',
+    classGrade: 12,
+    section: 'A',
     coins: 100,
     streak: 5,
     totalPoints: 250,

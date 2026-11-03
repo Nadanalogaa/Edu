@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import type { Role } from './types';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
-import AdminDashboard from './components/dashboards/AdminDashboard';
 import TeacherDashboard from './components/dashboards/TeacherDashboard';
 import StudentDashboard from './components/dashboards/StudentDashboard';
 import Login from './components/Login';
@@ -26,10 +25,17 @@ import LanguageSelector from './components/LanguageSelector';
 import TNSchoolsPage from './pages/TNSchoolsPage';
 import GamificationStats from './components/GamificationStats';
 import api from './services/api';
+import SchoolOverview from './components/school/SchoolOverview';
+import PeopleManager from './components/school/PeopleManager';
+import OwnerOverview from './components/owner/OwnerOverview';
+import SchoolsManager from './components/owner/SchoolsManager';
+import SyllabusManager from './components/owner/SyllabusManager';
+import ChangePasswordModal from './components/common/ChangePasswordModal';
+import { boardLabel, classLabel } from './components/common/ui';
 import {
     SunIcon, MoonIcon, LayoutDashboardIcon, UsersIcon, UserIcon, LogOutIcon,
-    SchoolIcon, FileTextIcon, ClipboardCheckIcon, GraduationCapIcon, PenSquareIcon, BookOpenIcon, StethoscopeIcon, VideoIcon,
-    MenuIcon, XIcon
+    SchoolIcon, FileTextIcon, ClipboardCheckIcon, GraduationCapIcon, PenSquareIcon, BookOpenIcon, VideoIcon,
+    MenuIcon, XIcon, KeyIcon
 } from './components/icons';
 
 const NavItem: React.FC<{
@@ -103,6 +109,7 @@ const DashboardLayout: React.FC = () => {
   const [streak, setStreak] = useState(0);
   const [coins, setCoins] = useState(0);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [showChangePassword, setShowChangePassword] = useState(false);
 
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -198,24 +205,50 @@ const DashboardLayout: React.FC = () => {
     ],
     admin: [
       { label: t('dashboard'), icon: <LayoutDashboardIcon className="w-5 h-5" />, view: 'dashboard' },
+      { label: t('manageStudents'), icon: <GraduationCapIcon className="w-5 h-5" />, view: 'students' },
+      { label: t('manageTeachers'), icon: <UsersIcon className="w-5 h-5" />, view: 'teachers' },
       { label: t('questionBank'), icon: <BookOpenIcon className="w-5 h-5" />, view: 'question-bank' },
       { label: t('createTest'), icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'create-test' },
       { label: 'Test Management', icon: <FileTextIcon className="w-5 h-5" />, view: 'test-management' },
       { label: t('dailyChallenge'), icon: <PenSquareIcon className="w-5 h-5" />, view: 'daily-challenge' },
-      { label: t('manageSchools'), icon: <SchoolIcon className="w-5 h-5" />, view: 'schools' },
-      { label: t('manageTeachers'), icon: <UsersIcon className="w-5 h-5" />, view: 'teachers' },
-      { label: t('manageStudents'), icon: <GraduationCapIcon className="w-5 h-5" />, view: 'students' },
-      { label: t('reports'), icon: <FileTextIcon className="w-5 h-5" />, view: 'reports' },
+    ],
+    owner: [
+      { label: t('dashboard'), icon: <LayoutDashboardIcon className="w-5 h-5" />, view: 'dashboard' },
+      { label: 'Schools', icon: <SchoolIcon className="w-5 h-5" />, view: 'schools' },
+      { label: 'Syllabus', icon: <BookOpenIcon className="w-5 h-5" />, view: 'syllabus' },
+      { label: 'Question bank', icon: <FileTextIcon className="w-5 h-5" />, view: 'question-bank' },
     ],
   };
+
+  function handleNavClick(view: string) {
+    setActiveView(view);
+    setIsSidebarOpen(false);
+  }
 
   const renderContent = () => {
     if (!currentUser) return null;
 
+    if (currentUser.role === 'owner') {
+      switch (activeView) {
+        case 'schools':
+          return <SchoolsManager />;
+        case 'syllabus':
+          return <SyllabusManager />;
+        case 'question-bank':
+          return <QuestionBank />;
+        default:
+          return <OwnerOverview onNavigate={handleNavClick} />;
+      }
+    }
+
     if (currentUser.role === 'admin') {
       switch (activeView) {
         case 'dashboard':
-          return <AdminDashboard />;
+          return <SchoolOverview onNavigate={handleNavClick} />;
+        case 'students':
+          return <PeopleManager key="students" role="student" />;
+        case 'teachers':
+          return <PeopleManager key="teachers" role="teacher" />;
         case 'question-bank':
           return <QuestionBank />;
         case 'create-test':
@@ -225,7 +258,7 @@ const DashboardLayout: React.FC = () => {
         case 'daily-challenge':
           return <DailyChallengeCreation />;
         default:
-          return <AdminDashboard />;
+          return <SchoolOverview onNavigate={handleNavClick} />;
       }
     }
 
@@ -258,11 +291,6 @@ const DashboardLayout: React.FC = () => {
   };
 
   if (!currentUser) return null;
-
-  const handleNavClick = (view: string) => {
-    setActiveView(view);
-    setIsSidebarOpen(false);
-  };
 
   return (
     <div className="flex h-screen bg-slate-100 dark:bg-slate-900 font-sans">
@@ -356,15 +384,16 @@ const DashboardLayout: React.FC = () => {
 
             {currentUser.role === 'student' ? (
               <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
-                <StethoscopeIcon className="hidden sm:block w-7 h-7 text-indigo-500 flex-shrink-0" />
+                <GraduationCapIcon className="hidden sm:block w-7 h-7 text-indigo-500 flex-shrink-0" />
                 <div className="min-w-0">
                   <h1 className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100 truncate">
-                    <span className="hidden sm:inline">{language === 'ta' ? 'வருக எதிர்கால மருத்துவர், ' : 'Welcome Future Doctor, '}</span>
-                    <span className="sm:hidden">{language === 'ta' ? 'வருக, ' : 'Hi, '}</span>
+                    {language === 'ta' ? 'வருக, ' : 'Welcome, '}
                     <span className="text-indigo-600 dark:text-indigo-400">{currentUser.name}</span>!
                   </h1>
                   <p className="hidden sm:block text-xs text-slate-500 dark:text-slate-400 truncate">
-                    {language === 'ta' ? 'இன்று உங்கள் தேர்வுகளை வெல்லலாம்! தொடங்குவோம்.' : "Ready to conquer your exams today? Let's get started."}
+                    {currentUser.classGrade
+                      ? `${language === 'ta' ? 'வகுப்பு' : 'Class'} ${classLabel(currentUser.classGrade, currentUser.section)} · ${boardLabel(currentUser.board)}${currentUser.schoolName ? ` · ${currentUser.schoolName}` : ''}`
+                      : language === 'ta' ? 'இன்று உங்கள் தேர்வுகளை வெல்லலாம்! தொடங்குவோம்.' : "Ready to conquer your exams today? Let's get started."}
                   </p>
                 </div>
               </div>
@@ -373,7 +402,10 @@ const DashboardLayout: React.FC = () => {
                 <UserIcon className="w-8 h-8 p-1.5 text-slate-700 dark:text-slate-200 bg-slate-200 dark:bg-slate-700 rounded-full flex-shrink-0" />
                 <div className="min-w-0">
                   <p className="text-sm font-semibold text-slate-800 dark:text-slate-100 truncate">{currentUser.name}</p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 capitalize">{currentUser.role}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
+                    {currentUser.role === 'owner' ? 'Owner' : currentUser.role === 'admin' ? 'School admin' : 'Teacher'}
+                    {currentUser.schoolName ? ` · ${currentUser.schoolName}` : ''}
+                  </p>
                 </div>
               </div>
             )}
@@ -384,6 +416,14 @@ const DashboardLayout: React.FC = () => {
               <LanguageSelector />
               <ThemeToggle theme={theme} setTheme={handleSetTheme} />
               <button
+                onClick={() => setShowChangePassword(true)}
+                aria-label="Change password"
+                title="Change password"
+                className="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+              >
+                <KeyIcon className="w-5 h-5" />
+              </button>
+              <button
                 onClick={logout}
                 aria-label="Logout"
                 className="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
@@ -393,6 +433,8 @@ const DashboardLayout: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {showChangePassword && <ChangePasswordModal onClose={() => setShowChangePassword(false)} />}
 
         {/* Main Content */}
         <div className="p-3 sm:p-6 lg:p-10">

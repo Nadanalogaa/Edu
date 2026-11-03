@@ -22,9 +22,10 @@ import { protect, authorize } from '../middleware/auth';
 
 const router = express.Router();
 
-// All admin routes require authentication and admin role
+// All admin routes require authentication and the admin role. The owner uses
+// them too, for the shared question bank and tests every school can use.
 router.use(protect);
-router.use(authorize('admin'));
+router.use(authorize('admin', 'owner'));
 
 // Question Management
 router.post('/questions/upload', uploadQuestionFile, uploadQuestions);

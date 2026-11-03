@@ -1,69 +1,9 @@
 import { Request, Response } from 'express';
-import { Users, createUser, findUserByEmail, comparePassword } from '../models/User';
+import { Users, findUserByEmail, comparePassword, hashPassword } from '../models/User';
 import { Schools } from '../models/School';
+import { schoolBlockReason } from '../utils/tenancy';
 import { generateToken } from '../utils/jwt';
 import { AuthRequest } from '../middleware/auth';
-
-// @desc    Register user
-// @route   POST /api/auth/register
-// @access  Public
-export const register = async (req: Request, res: Response) => {
-  try {
-    const { name, email, password, role, schoolId, grade, phone } = req.body;
-
-    // Check if user already exists
-    const userExists = await findUserByEmail(email);
-
-    if (userExists) {
-      return res.status(400).json({
-        success: false,
-        message: 'User already exists with this email',
-      });
-    }
-
-    // Create user
-    const user = await createUser({
-      name,
-      email,
-      password,
-      role,
-      schoolId,
-      grade,
-      phone,
-    });
-
-    // Generate token
-    const token = generateToken({
-      id: user._id,
-      email: user.email,
-      role: user.role,
-    });
-
-    res.status(201).json({
-      success: true,
-      message: 'User registered successfully',
-      data: {
-        user: {
-          id: user._id,
-          name: user.name,
-          email: user.email,
-          role: user.role,
-          schoolId: user.schoolId,
-          grade: user.grade,
-          language: user.language,
-          theme: user.theme,
-        },
-        token,
-      },
-    });
-  } catch (error: any) {
-    console.error('Registration error:', error);
-    res.status(error.status || 500).json({
-      success: false,
-      message: error.message || 'Error registering user',
-    });
-  }
-};
 
 // @desc    Login user
 // @route   POST /api/auth/login
@@ -90,14 +30,6 @@ export const login = async (req: Request, res: Response) => {
       });
     }
 
-    // Check if user is active
-    if (!user.isActive) {
-      return res.status(401).json({
-        success: false,
-        message: 'Your account has been deactivated',
-      });
-    }
-
     // Check password
     const isPasswordMatch = await comparePassword(password, user.password);
 
@@ -105,6 +37,24 @@ export const login = async (req: Request, res: Response) => {
       return res.status(401).json({
         success: false,
         message: 'Invalid credentials',
+      });
+    }
+
+    // Check if user is active (self-registered users wait for their school's approval)
+    if (!user.isActive) {
+      return res.status(401).json({
+        success: false,
+        message: 'Your account is not active yet. Please ask your school to approve it.',
+      });
+    }
+
+    // Check the school is approved, active and paid up
+    const school = user.schoolId ? await Schools.findById(user.schoolId) : null;
+    const blocked = user.role === 'owner' ? null : schoolBlockReason(school);
+    if (blocked) {
+      return res.status(403).json({
+        success: false,
+        message: blocked,
       });
     }
 
@@ -153,6 +103,10 @@ export const login = async (req: Request, res: Response) => {
           role: user.role,
           schoolId: user.schoolId,
           grade: user.grade,
+          classGrade: user.classGrade,
+          section: user.section,
+          board: school?.board,
+          schoolName: school?.name,
           language: user.language,
           theme: user.theme,
           coins: user.coins,
@@ -178,7 +132,10 @@ export const getMe = async (req: AuthRequest, res: Response) => {
   try {
     const user = await Users.findById(req.user._id);
     if (user?.schoolId) {
-      user.schoolId = await Schools.findById(user.schoolId);
+      const school = await Schools.findById(user.schoolId);
+      user.schoolId = school;
+      user.board = school?.board;
+      user.schoolName = school?.name;
     }
 
     res.status(200).json({
@@ -227,6 +184,49 @@ export const updateProfile = async (req: AuthRequest, res: Response) => {
     res.status(500).json({
       success: false,
       message: error.message || 'Error updating profile',
+    });
+  }
+};
+
+// @desc    Change own password
+// @route   PUT /api/auth/password
+// @access  Private
+export const changePassword = async (req: AuthRequest, res: Response) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please provide your current and new password',
+      });
+    }
+    if (String(newPassword).length < 6) {
+      return res.status(400).json({
+        success: false,
+        message: 'New password must be at least 6 characters',
+      });
+    }
+
+    const user = await findUserByEmail(req.user.email, { withPassword: true });
+    if (!user || !(await comparePassword(currentPassword, user.password))) {
+      return res.status(400).json({
+        success: false,
+        message: 'Current password is incorrect',
+      });
+    }
+
+    await Users.updateById(user._id, { password: await hashPassword(newPassword) });
+
+    res.status(200).json({
+      success: true,
+      message: 'Password changed successfully',
+    });
+  } catch (error: any) {
+    console.error('Change password error:', error);
+    res.status(500).json({
+      success: false,
+      message: error.message || 'Error changing password',
     });
   }
 };

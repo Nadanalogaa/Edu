@@ -11,12 +11,16 @@ import questionRoutes from './routes/questionRoutes';
 import studentRoutes from './routes/studentRoutes';
 import registrationRoutes from './routes/registration';
 import adminRoutes from './routes/admin';
+import schoolRoutes from './routes/school';
+import ownerRoutes from './routes/owner';
+import syllabusRoutes from './routes/syllabus';
 
 // Load environment variables (before modules that read them, e.g. the database pool)
 dotenv.config();
 
 import connectDB from './config/database';
 import { seedIfEmpty } from './utils/seed';
+import { ensureOwner } from './utils/owner';
 
 // Initialize Express app
 const app: Application = express();
@@ -26,21 +30,24 @@ const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:3001',
   process.env.FRONTEND_URL || '',
-];
+].filter(Boolean);
 
+// Cross-site browser requests are allowed only from the frontend URLs above.
+// Same-site requests (the app served by this server, on any host name) and
+// non-browser clients are always allowed; other sites just get no CORS headers.
 app.use(
-  cors({
-    origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps or curl requests)
-      if (!origin) return callback(null, true);
-
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    credentials: true,
+  cors((req, callback) => {
+    const origin = req.headers.origin;
+    let sameSite = false;
+    try {
+      sameSite = Boolean(origin) && new URL(origin as string).host === req.headers.host;
+    } catch {
+      // Origin "null" (sandboxed pages) is not same-site
+    }
+    callback(null, {
+      origin: !origin || sameSite || allowedOrigins.includes(origin),
+      credentials: true,
+    });
   })
 );
 app.use(express.json());
@@ -82,6 +89,9 @@ app.use('/api/questions', questionRoutes);
 app.use('/api/student', studentRoutes);
 app.use('/api/registration', registrationRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/school', schoolRoutes);
+app.use('/api/owner', ownerRoutes);
+app.use('/api/syllabus', syllabusRoutes);
 
 // In the Docker image the built frontend sits next to the backend and is served
 // from the same origin, so the app needs no separate frontend host.
@@ -106,6 +116,7 @@ const start = async () => {
   if (process.env.SEED_DEMO_DATA === 'true') {
     await seedIfEmpty();
   }
+  await ensureOwner();
 
   app.listen(PORT, () => {
     console.log(`Server is running in ${process.env.NODE_ENV} mode on port ${PORT}`);

@@ -1,7 +1,7 @@
 import { Table } from '../db/table';
 
 export const DailyChallenges = new Table('daily_challenges', [
-  'date', 'questionIds', 'reward', 'completedBy', 'isActive',
+  'date', 'questionIds', 'reward', 'completedBy', 'isActive', 'schoolId',
 ]);
 
 /** Server-local calendar date as YYYY-MM-DD (the MongoDB version stored local midnight). */

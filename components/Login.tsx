@@ -34,7 +34,7 @@ const Login: React.FC = () => {
                         <LayoutDashboardIcon className="w-8 h-8 text-white" />
                     </div>
                     <h1 className="text-3xl font-bold text-slate-800 dark:text-slate-100">
-                        Educational Intelligence
+                        EduCore
                     </h1>
                     <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
                         Please sign in to continue

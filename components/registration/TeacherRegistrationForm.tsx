@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../../services/api';
 
 interface Qualification {
   degree: string;
@@ -18,6 +18,7 @@ interface Experience {
 }
 
 interface TeacherFormData {
+  schoolCode: string;
   teacherName: string;
   dateOfBirth: string;
   gender: 'male' | 'female' | 'other' | '';
@@ -51,6 +52,7 @@ const TeacherRegistrationForm: React.FC = () => {
     dateOfBirth: '',
     gender: '',
     mobileNumber: '',
+    schoolCode: '',
     email: '',
     password: '',
     alternatePhone: '',
@@ -148,6 +150,10 @@ const TeacherRegistrationForm: React.FC = () => {
 
     switch (activeTab) {
       case 0: // Basic Details
+        if (!formData.schoolCode.trim()) {
+          setError('School code is required. Please ask your school for it.');
+          return false;
+        }
         if (!formData.teacherName.trim()) {
           setError('Teacher name is required');
           return false;
@@ -202,10 +208,6 @@ const TeacherRegistrationForm: React.FC = () => {
           setError('Subjects teaching are required');
           return false;
         }
-        if (!formData.coursesPreparing.trim()) {
-          setError('Courses preparing for are required');
-          return false;
-        }
         break;
     }
     return true;
@@ -245,7 +247,7 @@ const TeacherRegistrationForm: React.FC = () => {
       submitData.append('experience', JSON.stringify(experiences));
       submitData.append('subjectsTeaching', JSON.stringify(formData.subjectsTeaching.split(',').map(s => s.trim())));
       submitData.append('specialization', JSON.stringify(formData.specialization.split(',').map(s => s.trim()).filter(s => s)));
-      submitData.append('coursesPreparing', JSON.stringify(formData.coursesPreparing.split(',').map(s => s.trim())));
+      submitData.append('coursesPreparing', JSON.stringify(formData.coursesPreparing.split(',').map(s => s.trim().toUpperCase()).filter(s => s)));
       submitData.append('preferredLanguages', JSON.stringify(formData.preferredLanguages.split(',').map(s => s.trim())));
 
       // Append files
@@ -266,8 +268,8 @@ const TeacherRegistrationForm: React.FC = () => {
         });
       }
 
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/registration/teacher`,
+      const response = await api.post(
+        '/registration/teacher',
         submitData,
         {
           headers: {
@@ -276,10 +278,7 @@ const TeacherRegistrationForm: React.FC = () => {
         }
       );
 
-      setSuccessMessage('Registration successful! Your application is pending approval.');
-      setTimeout(() => {
-        window.location.href = '/login';
-      }, 2000);
+      setSuccessMessage(response.data.message || 'Registration received. Your school will approve your account before you can sign in.');
     } catch (err: any) {
       console.error('Registration error:', err);
       setError(err.response?.data?.message || 'Registration failed. Please try again.');
@@ -329,6 +328,21 @@ const TeacherRegistrationForm: React.FC = () => {
             {/* Tab 0: Basic Details */}
             {activeTab === 0 && (
               <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                    School Code *
+                  </label>
+                  <input
+                    type="text"
+                    name="schoolCode"
+                    value={formData.schoolCode}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="Ask your school office for this code"
+                    className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-teal-500 dark:bg-slate-700 dark:text-white"
+                  />
+                </div>
+
                 <div>
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
                     Teacher Name *
@@ -695,7 +709,7 @@ const TeacherRegistrationForm: React.FC = () => {
                     value={formData.subjectsTeaching}
                     onChange={handleInputChange}
                     required
-                    placeholder="e.g., Physics, Chemistry, Mathematics"
+                    placeholder="e.g., Maths, Science, Tamil"
                     className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-teal-500 dark:bg-slate-700 dark:text-white"
                   />
                 </div>
@@ -716,14 +730,13 @@ const TeacherRegistrationForm: React.FC = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                    Courses Preparing * (comma separated: NEET, JEE)
+                    NEET / JEE coaching (optional, comma separated)
                   </label>
                   <input
                     type="text"
                     name="coursesPreparing"
                     value={formData.coursesPreparing}
                     onChange={handleInputChange}
-                    required
                     placeholder="e.g., NEET, JEE"
                     className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-teal-500 dark:bg-slate-700 dark:text-white"
                   />

@@ -4,8 +4,8 @@ import { Students } from '../models/Student';
 import { Teachers } from '../models/Teacher';
 import { Schools } from '../models/School';
 import { query, withTransaction } from '../config/database';
-import fs from 'fs';
-import csvParser from 'csv-parser';
+import { schoolBlockReason } from '../utils/tenancy';
+import { isBoard } from '../models/Syllabus';
 
 const MOBILE_RE = /^[0-9]{10}$/;
 const PINCODE_RE = /^[0-9]{6}$/;
@@ -22,6 +22,24 @@ const validate = (rules: Array<[boolean, string]>) => {
   if (messages.length) throw new ValidationError(messages.join(', '));
 };
 const optional = (value: any, re: RegExp) => !value || re.test(String(value));
+
+/** Class 6-12 from "9", "9th", "IX"-free inputs; null if not a valid class. */
+export const parseClassGrade = (value: any): number | null => {
+  const match = String(value ?? '').trim().match(/^(\d{1,2})(st|nd|rd|th)?$/i);
+  const grade = match ? Number(match[1]) : NaN;
+  return grade >= 6 && grade <= 12 ? grade : null;
+};
+
+/** The school a student or teacher is joining, by the code the school gives them. */
+const findJoinableSchool = async (schoolCode: any) => {
+  const code = String(schoolCode || '').trim().toUpperCase();
+  if (!code) throw new ValidationError('School code is required. Please ask your school for it.');
+  const [row] = await query('SELECT * FROM schools WHERE code = $1', [code]);
+  const school = Schools.toDoc(row);
+  if (!school) throw new ValidationError('No school found with this school code');
+  if (schoolBlockReason(school)) throw new ValidationError('This school is not accepting registrations right now');
+  return school;
+};
 
 /** Maps database and validation errors to the 400 responses the forms expect. */
 const registrationError = (res: Response, error: any, label: string) => {
@@ -82,10 +100,14 @@ export const registerStudent = async (req: Request, res: Response) => {
       // User credentials
       email,
       password,
+      // The school the student studies in
+      schoolCode,
     } = req.body;
 
+    const classGrade = parseClassGrade(classStandard);
     validate([
       [Boolean(email) && EMAIL_RE.test(email), 'Please provide a valid email'],
+      [!courseAppliedFor || ['NEET', 'JEE'].includes(courseAppliedFor), 'Course must be NEET or JEE'],
       [Boolean(parentName), 'Parent name is required'],
       [MOBILE_RE.test(String(parentMobileNumber || '')), 'Please provide a valid 10-digit mobile number'],
       [optional(parentEmail, EMAIL_RE), 'Please provide a valid email'],
@@ -95,10 +117,12 @@ export const registerStudent = async (req: Request, res: Response) => {
       [Boolean(state), 'State is required'],
       [PINCODE_RE.test(String(pincode || '')), 'Please provide a valid 6-digit pincode'],
       [Boolean(academicYear), 'Academic year is required'],
-      [Boolean(classStandard), 'Class/Standard is required'],
+      [classGrade !== null, 'Class must be between 6th and 12th'],
       [Boolean(admissionType), 'Admission type is required'],
       [Boolean(mediumOfInstruction), 'Medium of instruction is required'],
     ]);
+
+    const school = await findJoinableSchool(schoolCode);
 
     // Check if user already exists
     const existingUser = await findUserByEmail(email);
@@ -129,18 +153,23 @@ export const registerStudent = async (req: Request, res: Response) => {
           password,
           role: 'student',
           phone: parentMobileNumber,
-          isActive: true,
+          schoolId: school._id,
+          classGrade,
+          grade: `${classGrade}th`,
+          section: section ? String(section).trim().toUpperCase() : undefined,
+          // Active once the school approves (and has a free seat)
+          isActive: false,
         },
         client
       );
 
       const student = await Students.insert({
         userId: user._id,
-        courseAppliedFor,
+        courseAppliedFor: courseAppliedFor || null,
         studentName,
         dateOfBirth,
         gender,
-        schoolDetails,
+        schoolDetails: schoolDetails || school.name,
         parentDetails: {
           name: parentName,
           mobileNumber: parentMobileNumber,
@@ -172,7 +201,7 @@ export const registerStudent = async (req: Request, res: Response) => {
     });
 
     res.status(201).json({
-      message: 'Student registration successful',
+      message: `Registration received. ${school.name} will approve your account before you can sign in.`,
       student: {
         id: student._id,
         name: student.studentName,
@@ -219,7 +248,11 @@ export const registerTeacher = async (req: Request, res: Response) => {
       availableForOnlineClasses,
       availableForOfflineClasses,
       preferredLanguages,
+      // The school the teacher works in
+      schoolCode,
     } = req.body;
+
+    const school = await findJoinableSchool(schoolCode);
 
     // Check if user already exists
     const existingUser = await findUserByEmail(email);
@@ -262,7 +295,10 @@ export const registerTeacher = async (req: Request, res: Response) => {
       [PINCODE_RE.test(String(pincode || '')), 'Please provide a valid 6-digit pincode'],
       [Array.isArray(parsedQualifications) && parsedQualifications.length > 0, 'At least one qualification is required'],
       [Array.isArray(parsedSubjectsTeaching) && parsedSubjectsTeaching.length > 0, 'Subjects teaching are required'],
-      [Array.isArray(parsedCoursesPreparing) && parsedCoursesPreparing.length > 0, 'Courses preparing for are required'],
+      [
+        !parsedCoursesPreparing || (Array.isArray(parsedCoursesPreparing) && parsedCoursesPreparing.every((c: any) => ['NEET', 'JEE'].includes(c))),
+        'Courses must be NEET or JEE',
+      ],
     ]);
 
     // Create user account and teacher profile together
@@ -274,7 +310,9 @@ export const registerTeacher = async (req: Request, res: Response) => {
           password,
           role: 'teacher',
           phone: mobileNumber,
-          isActive: true,
+          schoolId: school._id,
+          // Active once the school approves
+          isActive: false,
         },
         client
       );
@@ -298,7 +336,7 @@ export const registerTeacher = async (req: Request, res: Response) => {
         totalExperience: totalExperience || 0,
         subjectsTeaching: parsedSubjectsTeaching,
         specialization: parsedSpecialization || [],
-        coursesPreparing: parsedCoursesPreparing,
+        coursesPreparing: parsedCoursesPreparing || [],
         availableForOnlineClasses: availableForOnlineClasses === 'true' || availableForOnlineClasses === true,
         availableForOfflineClasses: availableForOfflineClasses === 'true' || availableForOfflineClasses === true,
         preferredLanguages: parsedPreferredLanguages,
@@ -309,7 +347,7 @@ export const registerTeacher = async (req: Request, res: Response) => {
     });
 
     res.status(201).json({
-      message: 'Teacher registration successful',
+      message: `Registration received. ${school.name} will approve your account before you can sign in.`,
       teacher: {
         id: teacher._id,
         name: teacher.teacherName,
@@ -345,9 +383,11 @@ export const registerSchool = async (req: Request, res: Response) => {
       boardAffiliation,
       totalStrength,
       password,
+      board,
     } = req.body;
 
     validate([
+      [isBoard(board), 'Please choose the board: Tamil Nadu State Board or CBSE'],
       [Boolean(name), 'School name is required'],
       [Boolean(code), 'School code is required'],
       [Boolean(email) && EMAIL_RE.test(email), 'Please provide a valid email'],
@@ -399,6 +439,7 @@ export const registerSchool = async (req: Request, res: Response) => {
         boardAffiliation,
         totalStrength: totalStrength || undefined,
         documents,
+        board,
         registrationStatus: 'pending',
       }, client);
 
@@ -420,7 +461,7 @@ export const registerSchool = async (req: Request, res: Response) => {
     });
 
     res.status(201).json({
-      message: 'School registration successful',
+      message: 'School registration received. You can sign in once it is approved.',
       school: {
         id: school._id,
         name: school.name,
@@ -430,114 +471,5 @@ export const registerSchool = async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     registrationError(res, error, 'School');
-  }
-};
-
-// @desc    Bulk upload students via CSV/Excel
-// @route   POST /api/registration/school/bulk-upload
-// @access  Protected (School Admin)
-export const bulkUploadStudents = async (req: Request, res: Response) => {
-  try {
-    if (!req.file) {
-      return res.status(400).json({ message: 'Please upload a CSV or Excel file' });
-    }
-
-    const filePath = req.file.path;
-    const students: any[] = [];
-    const errors: any[] = [];
-
-    // Parse CSV file
-    fs.createReadStream(filePath)
-      .pipe(csvParser())
-      .on('data', (row) => {
-        students.push(row);
-      })
-      .on('end', async () => {
-        let successCount = 0;
-        let errorCount = 0;
-
-        for (let i = 0; i < students.length; i++) {
-          try {
-            const studentData = students[i];
-
-            // Check if user already exists
-            const existingUser = await findUserByEmail(studentData.email);
-            if (existingUser) {
-              errors.push({ row: i + 1, error: 'Email already exists', data: studentData });
-              errorCount++;
-              continue;
-            }
-
-            await withTransaction(async (client) => {
-              // Create user account
-              const user = await createUser({
-                name: studentData.studentName,
-                email: studentData.email,
-                password: studentData.password || 'defaultPassword123',
-                role: 'student',
-                phone: studentData.parentMobileNumber,
-                isActive: true,
-              }, client);
-
-              // Create student profile
-              await Students.insert({
-                userId: user._id,
-                courseAppliedFor: studentData.courseAppliedFor,
-                studentName: studentData.studentName,
-                dateOfBirth: new Date(studentData.dateOfBirth),
-                gender: studentData.gender,
-                schoolDetails: studentData.schoolDetails,
-                parentDetails: {
-                  name: studentData.parentName,
-                  mobileNumber: studentData.parentMobileNumber,
-                  email: studentData.parentEmail,
-                },
-                addressDetails: {
-                  addressLine1: studentData.addressLine1,
-                  addressLine2: studentData.addressLine2,
-                  city: studentData.city,
-                  state: studentData.state,
-                  pincode: studentData.pincode,
-                  country: studentData.country || 'India',
-                },
-                admissionDetails: {
-                  academicYear: studentData.academicYear,
-                  classStandard: studentData.classStandard,
-                  section: studentData.section,
-                  admissionType: studentData.admissionType,
-                  transportNeeded: studentData.transportNeeded === 'true' || studentData.transportNeeded === 'yes',
-                  hostelNeeded: studentData.hostelNeeded === 'true' || studentData.hostelNeeded === 'yes',
-                  mediumOfInstruction: studentData.mediumOfInstruction,
-                },
-                registrationStatus: 'approved',
-              }, client);
-            });
-
-            successCount++;
-          } catch (error: any) {
-            errors.push({ row: i + 1, error: error.message, data: students[i] });
-            errorCount++;
-          }
-        }
-
-        // Delete uploaded file after processing
-        fs.unlinkSync(filePath);
-
-        res.status(200).json({
-          message: 'Bulk upload completed',
-          summary: {
-            total: students.length,
-            success: successCount,
-            errors: errorCount,
-          },
-          errors: errors.length > 0 ? errors : undefined,
-        });
-      })
-      .on('error', (error) => {
-        res.status(500).json({ message: 'Error processing file', error: error.message });
-      });
-  } catch (error: any) {
-    console.error('Bulk upload error:', error);
-    res.status(500).json({ message: 'Bulk upload failed', error: error.message });
   }
 };

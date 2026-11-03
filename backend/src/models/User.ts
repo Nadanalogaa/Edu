@@ -6,7 +6,8 @@ export const Users = new Table(
   'users',
   [
     'name', 'email', 'password', 'role', 'schoolId', 'grade', 'phone', 'language', 'theme',
-    'profileImage', 'isActive', 'coins', 'streak', 'lastActivityDate', 'totalPoints',
+    'profileImage', 'isActive', 'coins', 'streak', 'lastActivityDate', 'totalPoints', 'classGrade',
+    'section',
   ],
   [],
   ['password'] // never returned unless asked for

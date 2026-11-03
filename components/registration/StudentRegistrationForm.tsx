@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../../services/api';
 
 interface StudentFormData {
   // Basic Details
@@ -7,7 +7,7 @@ interface StudentFormData {
   studentName: string;
   dateOfBirth: string;
   gender: 'male' | 'female' | 'other' | '';
-  schoolDetails: string;
+  schoolCode: string;
   email: string;
   password: string;
 
@@ -46,7 +46,7 @@ const StudentRegistrationForm: React.FC = () => {
     studentName: '',
     dateOfBirth: '',
     gender: '',
-    schoolDetails: '',
+    schoolCode: '',
     email: '',
     password: '',
     parentName: '',
@@ -105,8 +105,8 @@ const StudentRegistrationForm: React.FC = () => {
 
     switch (activeTab) {
       case 0: // Basic Details
-        if (!formData.courseAppliedFor) {
-          setError('Please select a course (NEET or JEE)');
+        if (!formData.schoolCode.trim()) {
+          setError('School code is required. Please ask your school for it.');
           return false;
         }
         if (!formData.studentName.trim()) {
@@ -167,8 +167,8 @@ const StudentRegistrationForm: React.FC = () => {
           setError('Academic year is required');
           return false;
         }
-        if (!formData.classStandard.trim()) {
-          setError('Class/Standard is required');
+        if (!formData.classStandard) {
+          setError('Please select your class');
           return false;
         }
         if (!formData.admissionType) {
@@ -220,8 +220,8 @@ const StudentRegistrationForm: React.FC = () => {
         }
       });
 
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/registration/student`,
+      const response = await api.post(
+        '/registration/student',
         submitData,
         {
           headers: {
@@ -230,10 +230,7 @@ const StudentRegistrationForm: React.FC = () => {
         }
       );
 
-      setSuccessMessage('Registration successful! Your application is pending approval.');
-      setTimeout(() => {
-        window.location.href = '/login';
-      }, 2000);
+      setSuccessMessage(response.data.message || 'Registration received. Your school will approve your account before you can sign in.');
     } catch (err: any) {
       console.error('Registration error:', err);
       setError(err.response?.data?.message || 'Registration failed. Please try again.');
@@ -285,16 +282,15 @@ const StudentRegistrationForm: React.FC = () => {
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                    Course Applying For *
+                    NEET / JEE coaching (optional)
                   </label>
                   <select
                     name="courseAppliedFor"
                     value={formData.courseAppliedFor}
                     onChange={handleInputChange}
-                    required
                     className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:text-white"
                   >
-                    <option value="">Select Course</option>
+                    <option value="">Not now</option>
                     <option value="NEET">NEET</option>
                     <option value="JEE">JEE</option>
                   </select>
@@ -377,13 +373,15 @@ const StudentRegistrationForm: React.FC = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                    School Details
+                    School Code *
                   </label>
                   <input
                     type="text"
-                    name="schoolDetails"
-                    value={formData.schoolDetails}
+                    name="schoolCode"
+                    value={formData.schoolCode}
                     onChange={handleInputChange}
+                    required
+                    placeholder="Ask your school office for this code"
                     className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:text-white"
                   />
                 </div>
@@ -569,27 +567,30 @@ const StudentRegistrationForm: React.FC = () => {
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
                     Class / Standard *
                   </label>
-                  <input
-                    type="text"
+                  <select
                     name="classStandard"
                     value={formData.classStandard}
                     onChange={handleInputChange}
                     required
-                    placeholder="e.g., 11th, 12th"
                     className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:text-white"
-                  />
+                  >
+                    <option value="">Select class</option>
+                    {[6, 7, 8, 9, 10, 11, 12].map((grade) => (
+                      <option key={grade} value={grade}>{grade}th</option>
+                    ))}
+                  </select>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                    Section / Batch
+                    Section
                   </label>
                   <input
                     type="text"
                     name="section"
                     value={formData.section}
                     onChange={handleInputChange}
-                    placeholder="e.g., A, B, Batch 1"
+                    placeholder="e.g., A, B"
                     className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:text-white"
                   />
                 </div>

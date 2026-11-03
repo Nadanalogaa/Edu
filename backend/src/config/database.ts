@@ -1,5 +1,9 @@
-import { Pool, PoolClient, QueryResultRow } from 'pg';
-import { schemaSql } from '../db/schema';
+import { Pool, PoolClient, QueryResultRow, types } from 'pg';
+import { runMigrations } from '../db/migrations';
+
+// Return DATE columns as 'YYYY-MM-DD' strings. As JS Dates they would be local
+// midnight, which turns into the previous day once serialised to UTC JSON.
+types.setTypeParser(1082, (value: string) => value);
 
 // DATABASE_URL example: postgresql://edu_user:password@edu-db:5432/education
 // Set DATABASE_SSL=true for a managed database that requires TLS; the database
@@ -40,7 +44,7 @@ export const withTransaction = async <T>(fn: (client: PoolClient) => Promise<T>)
   }
 };
 
-// Connects (retrying while the database container starts) and applies the schema.
+// Connects (retrying while the database container starts) and applies pending migrations.
 const connectDB = async (): Promise<void> => {
   if (!process.env.DATABASE_URL) {
     console.error('DATABASE_URL is not defined in environment variables');
@@ -50,8 +54,13 @@ const connectDB = async (): Promise<void> => {
   const attempts = 10;
   for (let attempt = 1; attempt <= attempts; attempt++) {
     try {
-      const [info] = await query('SELECT current_database() AS db, version() AS version');
-      await pool.query(schemaSql);
+      const [info] = await query('SELECT current_database() AS db');
+      const client = await pool.connect();
+      try {
+        await runMigrations(client);
+      } finally {
+        client.release();
+      }
       console.log(`PostgreSQL connected: ${info.db}`);
       return;
     } catch (error: any) {

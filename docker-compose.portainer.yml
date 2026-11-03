@@ -4,7 +4,8 @@
 #   URL: https://github.com/Nadanalogaa/Edu   reference: refs/heads/main
 #   Compose path: docker-compose.portainer.yml
 #   Environment variables: POSTGRES_PASSWORD (same as the edu-db stack),
-#   JWT_SECRET, CLIENT_URL; optional SEED_DEMO_DATA, GEMINI_API_KEY, PROXY_NETWORK.
+#   JWT_SECRET, CLIENT_URL, OWNER_EMAIL, OWNER_PASSWORD; optional SEED_DEMO_DATA,
+#   GEMINI_API_KEY, PROXY_NETWORK.
 # Requires the edu-db stack (deploy/edu-db-stack.yml) to be running first.
 services:
   app:
@@ -32,6 +33,11 @@ services:
       FRONTEND_URL: ${CLIENT_URL:-https://edu.nadanaloga.com}
       # true = add the demo school, users and questions if the database is empty
       SEED_DEMO_DATA: ${SEED_DEMO_DATA:-false}
+      # The platform owner's login, created on startup if no owner exists yet.
+      # Changing these later does not change an existing owner (use Change password).
+      OWNER_EMAIL: ${OWNER_EMAIL:-}
+      OWNER_PASSWORD: ${OWNER_PASSWORD:-}
+      OWNER_NAME: ${OWNER_NAME:-Owner}
     volumes:
       # Registration documents and uploaded question files. Without this volume
       # every redeploy would delete them.

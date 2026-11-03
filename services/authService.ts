@@ -5,23 +5,17 @@ export interface LoginCredentials {
   password: string;
 }
 
-export interface RegisterData {
-  name: string;
-  email: string;
-  password: string;
-  role: 'student' | 'teacher' | 'admin';
-  schoolId?: string;
-  grade?: string;
-  phone?: string;
-}
-
 export interface User {
   id: string;
   name: string;
   email: string;
-  role: 'student' | 'teacher' | 'admin';
+  role: 'owner' | 'admin' | 'teacher' | 'student';
   schoolId?: string;
+  schoolName?: string;
+  board?: 'state_board' | 'cbse';
   grade?: string;
+  classGrade?: number;
+  section?: string;
   phone?: string;
   language: 'en' | 'ta';
   theme: 'light' | 'dark';
@@ -53,21 +47,6 @@ const authService = {
    */
   login: async (credentials: LoginCredentials): Promise<AuthResponse> => {
     const response = await api.post<AuthResponse>('/auth/login', credentials);
-
-    // Store token and user data in localStorage
-    if (response.data.success && response.data.data.token) {
-      localStorage.setItem('token', response.data.data.token);
-      localStorage.setItem('user', JSON.stringify(response.data.data.user));
-    }
-
-    return response.data;
-  },
-
-  /**
-   * Register new user
-   */
-  register: async (data: RegisterData): Promise<AuthResponse> => {
-    const response = await api.post<AuthResponse>('/auth/register', data);
 
     // Store token and user data in localStorage
     if (response.data.success && response.data.data.token) {

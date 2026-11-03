@@ -34,6 +34,8 @@ The app creates its tables itself on startup.
    | `JWT_SECRET` | a new random secret (e.g. `openssl rand -hex 32`) |
    | `CLIENT_URL` | `https://edu.nadanaloga.com` |
    | `SEED_DEMO_DATA` | `true` for the first deploy (adds the demo accounts only if the database is empty) |
+   | `OWNER_EMAIL` | your own email: the owner login that manages all schools |
+   | `OWNER_PASSWORD` | a strong password for it (used only to create the owner the first time) |
    | `PROXY_NETWORK` | only if Nginx Proxy Manager is on a network other than `nadanaloga-main-network` |
    | `GEMINI_API_KEY` | optional, for AI features |
 
@@ -51,6 +53,16 @@ To ship new code later: push to `main`, then Portainer → `edu-app` → **Pull 
    - Turn on **Block Common Exploits** and **Websockets Support**.
    - SSL tab: request a new Let's Encrypt certificate, with **Force SSL** and **HTTP/2** on.
 3. Open https://edu.nadanaloga.com and check https://edu.nadanaloga.com/api/health.
+
+## Logins and roles
+
+| Role | What they do |
+|---|---|
+| Owner | Approves schools, sets each school's board, student limit and subscription end date, manages the syllabus and the shared question bank. Created from `OWNER_EMAIL` / `OWNER_PASSWORD`. |
+| School admin | Adds, approves and deactivates the school's students and teachers (only active students count towards the limit), creates tests. |
+| Teacher / student | Register themselves with the school code; they can sign in after the school admin approves them. |
+
+Database changes are applied automatically when the app starts (see `backend/src/db/migrations.ts`).
 
 ## Demo accounts (when `SEED_DEMO_DATA=true` and the database was empty)
 

@@ -2,11 +2,15 @@ import { Response } from 'express';
 import { Questions } from '../models/Question';
 import { query } from '../config/database';
 import { AuthRequest } from '../middleware/auth';
+import { visibleTo, contentSchoolId, canRead, canChange } from '../utils/tenancy';
 
-/** Filters shared by the list and random endpoints. */
-const questionFilters = (filters: { subject?: any; topic?: any; difficulty?: any; examType?: any }) => {
+/** Filters shared by the list and random endpoints (only questions the user's school can see). */
+const questionFilters = (
+  user: any,
+  filters: { subject?: any; topic?: any; difficulty?: any; examType?: any }
+) => {
   const params: any[] = [];
-  const where = ['is_active = true'];
+  const where = ['is_active = true', visibleTo(user, params)];
   const add = (column: string, value: any) => {
     params.push(value);
     where.push(`${column} = $${params.length}`);
@@ -30,7 +34,7 @@ export const getQuestions = async (req: AuthRequest, res: Response) => {
   try {
     const { subject, topic, difficulty, examType, limit = 10, page = 1 } = req.query;
 
-    const { where, params } = questionFilters({ subject, topic, difficulty, examType });
+    const { where, params } = questionFilters(req.user, { subject, topic, difficulty, examType });
 
     const skip = (Number(page) - 1) * Number(limit);
 
@@ -65,7 +69,7 @@ export const getRandomQuestions = async (req: AuthRequest, res: Response) => {
   try {
     const { subject, topic, difficulty, count = 10, examType } = req.query;
 
-    const { where, params } = questionFilters({ subject, topic, difficulty, examType });
+    const { where, params } = questionFilters(req.user, { subject, topic, difficulty, examType });
 
     const questions = await Questions.select(
       `SELECT * FROM questions ${where} ORDER BY random() LIMIT $${params.length + 1}`,
@@ -93,7 +97,7 @@ export const getQuestionById = async (req: AuthRequest, res: Response) => {
   try {
     const question = await Questions.findById(req.params.id);
 
-    if (!question) {
+    if (!question || !canRead(req.user, question)) {
       return res.status(404).json({
         success: false,
         message: 'Question not found',
@@ -120,9 +124,10 @@ export const getTopicsBySubject = async (req: AuthRequest, res: Response) => {
   try {
     const { subject } = req.params;
 
+    const params: any[] = [subject];
     const rows = await query(
-      'SELECT DISTINCT topic FROM questions WHERE subject = $1 AND is_active = true ORDER BY topic',
-      [subject]
+      `SELECT DISTINCT topic FROM questions WHERE subject = $1 AND is_active = true AND ${visibleTo(req.user, params)} ORDER BY topic`,
+      params
     );
     const topics = rows.map((row) => row.topic);
 
@@ -144,7 +149,15 @@ export const getTopicsBySubject = async (req: AuthRequest, res: Response) => {
 // @access  Private (Teacher, Admin)
 export const createQuestion = async (req: AuthRequest, res: Response) => {
   try {
-    const question = await Questions.insert(req.body);
+    const schoolId = contentSchoolId(req.user);
+    if (req.user.role !== 'owner' && !schoolId) {
+      return res.status(403).json({
+        success: false,
+        message: 'Your account is not linked to a school',
+      });
+    }
+
+    const question = await Questions.insert({ ...req.body, schoolId, createdBy: req.user._id });
 
     res.status(201).json({
       success: true,
@@ -165,7 +178,16 @@ export const createQuestion = async (req: AuthRequest, res: Response) => {
 // @access  Private (Teacher, Admin)
 export const updateQuestion = async (req: AuthRequest, res: Response) => {
   try {
-    const question = await Questions.updateById(req.params.id, req.body);
+    const existing = await Questions.findById(req.params.id);
+    if (!existing || !canChange(req.user, existing)) {
+      return res.status(404).json({
+        success: false,
+        message: 'Question not found',
+      });
+    }
+
+    const { schoolId, createdBy, ...updates } = req.body;
+    const question = await Questions.updateById(existing._id, updates);
 
     if (!question) {
       return res.status(404).json({
@@ -193,7 +215,10 @@ export const updateQuestion = async (req: AuthRequest, res: Response) => {
 // @access  Private (Admin)
 export const deleteQuestion = async (req: AuthRequest, res: Response) => {
   try {
-    const question = await Questions.updateById(req.params.id, { isActive: false });
+    const existing = await Questions.findById(req.params.id);
+    const question = existing && canChange(req.user, existing)
+      ? await Questions.updateById(existing._id, { isActive: false })
+      : null;
 
     if (!question) {
       return res.status(404).json({
