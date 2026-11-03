@@ -5,7 +5,7 @@ export { default as studentService } from './studentService';
 export { default as questionService } from './questionService';
 
 // Export types
-export type { LoginCredentials, RegisterData, User, AuthResponse } from './authService';
+export type { LoginCredentials, User, AuthResponse } from './authService';
 export type {
   StartAttemptData,
   SubmitAnswer,

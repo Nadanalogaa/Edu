@@ -207,6 +207,7 @@ const DashboardLayout: React.FC = () => {
       { label: t('dashboard'), icon: <LayoutDashboardIcon className="w-5 h-5" />, view: 'dashboard' },
       { label: t('manageStudents'), icon: <GraduationCapIcon className="w-5 h-5" />, view: 'students' },
       { label: t('manageTeachers'), icon: <UsersIcon className="w-5 h-5" />, view: 'teachers' },
+      { label: 'School Admins', icon: <UserIcon className="w-5 h-5" />, view: 'admins' },
       { label: t('questionBank'), icon: <BookOpenIcon className="w-5 h-5" />, view: 'question-bank' },
       { label: t('createTest'), icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'create-test' },
       { label: 'Test Management', icon: <FileTextIcon className="w-5 h-5" />, view: 'test-management' },
@@ -249,6 +250,8 @@ const DashboardLayout: React.FC = () => {
           return <PeopleManager key="students" role="student" />;
         case 'teachers':
           return <PeopleManager key="teachers" role="teacher" />;
+        case 'admins':
+          return <PeopleManager key="admins" role="admin" />;
         case 'question-bank':
           return <QuestionBank />;
         case 'create-test':

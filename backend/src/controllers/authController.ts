@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Users, findUserByEmail, comparePassword, hashPassword } from '../models/User';
+import { Users, findUserByEmail, findStudentByAdmission, findUserWithPassword, comparePassword, hashPassword } from '../models/User';
 import { Schools } from '../models/School';
 import { schoolBlockReason } from '../utils/tenancy';
 import { generateToken } from '../utils/jwt';
@@ -10,18 +10,23 @@ import { AuthRequest } from '../middleware/auth';
 // @access  Public
 export const login = async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, schoolCode, admissionNumber } = req.body;
+    const byAdmission = Boolean(schoolCode || admissionNumber);
 
-    // Validate input
-    if (!email || !password) {
+    // Validate input: staff sign in with email, students with school code + admission number
+    if (!password || (byAdmission ? !schoolCode || !admissionNumber : !email)) {
       return res.status(400).json({
         success: false,
-        message: 'Please provide email and password',
+        message: byAdmission
+          ? 'Please provide school code, admission number and password'
+          : 'Please provide email and password',
       });
     }
 
     // Check for user (include password for comparison)
-    let user = await findUserByEmail(email, { withPassword: true });
+    let user = byAdmission
+      ? await findStudentByAdmission(schoolCode, admissionNumber, { withPassword: true })
+      : await findUserByEmail(email, { withPassword: true });
 
     if (!user) {
       return res.status(401).json({
@@ -105,6 +110,7 @@ export const login = async (req: Request, res: Response) => {
           grade: user.grade,
           classGrade: user.classGrade,
           section: user.section,
+          admissionNumber: user.admissionNumber,
           board: school?.board,
           schoolName: school?.name,
           language: user.language,
@@ -208,7 +214,7 @@ export const changePassword = async (req: AuthRequest, res: Response) => {
       });
     }
 
-    const user = await findUserByEmail(req.user.email, { withPassword: true });
+    const user = await findUserWithPassword(req.user._id);
     if (!user || !(await comparePassword(currentPassword, user.password))) {
       return res.status(400).json({
         success: false,

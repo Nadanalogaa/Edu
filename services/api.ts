@@ -37,14 +37,16 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
-    // Handle 401 Unauthorized - Token expired or invalid
-    if (error.response?.status === 401) {
+    // Handle 401 Unauthorized - Token expired or invalid. A failed sign-in is
+    // also a 401; the login form shows that error itself, so no redirect then.
+    const isLoginRequest = error.config?.url?.includes('/auth/login');
+    if (error.response?.status === 401 && !isLoginRequest) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
 
-      // Redirect to login if not already there
-      if (window.location.pathname !== '/') {
-        window.location.href = '/';
+      // Send the user to sign in again
+      if (window.location.pathname !== '/login') {
+        window.location.href = '/login';
       }
     }
 

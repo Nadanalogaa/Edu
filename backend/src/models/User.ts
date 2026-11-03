@@ -7,7 +7,7 @@ export const Users = new Table(
   [
     'name', 'email', 'password', 'role', 'schoolId', 'grade', 'phone', 'language', 'theme',
     'profileImage', 'isActive', 'coins', 'streak', 'lastActivityDate', 'totalPoints', 'classGrade',
-    'section',
+    'section', 'admissionNumber',
   ],
   [],
   ['password'] // never returned unless asked for
@@ -25,11 +25,27 @@ export const createUser = async (data: Record<string, any>, client?: Queryable):
   return Users.insert(
     {
       ...data,
-      email: String(data.email || '').trim().toLowerCase(),
+      email: data.email ? String(data.email).trim().toLowerCase() : null,
+      admissionNumber: data.admissionNumber ? String(data.admissionNumber).trim() : null,
       password: await hashPassword(data.password),
     },
     client
   );
+};
+
+/** A student by their school's code and admission number (case-insensitive). */
+export const findStudentByAdmission = async (schoolCode: string, admissionNumber: string, { withPassword = false } = {}) => {
+  const [row] = await query(
+    `SELECT u.* FROM users u JOIN schools s ON s.id = u.school_id
+     WHERE s.code = upper($1) AND upper(u.admission_number) = upper($2)`,
+    [String(schoolCode || '').trim(), String(admissionNumber || '').trim()]
+  );
+  return Users.toDoc(row, { withHidden: withPassword });
+};
+
+export const findUserWithPassword = async (id: string) => {
+  const [row] = await query('SELECT * FROM users WHERE id = $1', [id]);
+  return Users.toDoc(row, { withHidden: true });
 };
 
 export const findUserByEmail = async (email: string, { withPassword = false } = {}) => {

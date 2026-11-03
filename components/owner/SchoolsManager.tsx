@@ -56,9 +56,9 @@ const SchoolsManager: React.FC = () => {
     return () => clearTimeout(timer);
   }, [load, filters.search]);
 
-  const done = (message: string) => {
+  const done = (message: string, credentials?: { login: string; password: string }[]) => {
     setModal(null);
-    setNotice(message);
+    setNotice(credentials?.length ? `${message} Login: ${credentials[0].login} · Password: ${credentials[0].password} (shown only now)` : message);
     setError('');
     load();
   };
@@ -160,7 +160,7 @@ const SchoolsManager: React.FC = () => {
       {modal?.kind === 'password' && modal.school?.admins?.[0] && (
         <ResetPassword
           path={`/owner/schools/${modal.school._id}/reset-admin-password`}
-          person={modal.school.admins[0]}
+          person={{ name: modal.school.admins[0].name, login: modal.school.admins[0].email }}
           extraBody={{ adminId: modal.school.admins[0]._id }}
           onClose={() => setModal(null)}
           onDone={done}

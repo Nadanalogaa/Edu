@@ -5,6 +5,7 @@ import { Users, createUser, findUserByEmail, hashPassword } from '../models/User
 import { isBoard } from '../models/Syllabus';
 import { query, withTransaction } from '../config/database';
 import { HttpError } from '../utils/tenancy';
+import { randomInt } from 'crypto';
 
 // The owner (platform owner) manages schools as customers: approves them, sets
 // their board, paid student limit and subscription end date.
@@ -200,8 +201,14 @@ export const updateSchool = async (req: AuthRequest, res: Response) => {
 // @route   POST /api/owner/schools/:id/reset-admin-password
 export const resetSchoolAdminPassword = async (req: AuthRequest, res: Response) => {
   try {
-    const { adminId, password } = req.body;
-    if (!password || String(password).length < 6) throw new HttpError(400, 'Password must be at least 6 characters');
+    const { adminId } = req.body;
+    let password = String(req.body.password || '').trim();
+    if (password && password.length < 6) throw new HttpError(400, 'Password must be at least 6 characters');
+    const generated = !password;
+    if (generated) {
+      const chars = 'abcdefghjkmnpqrstuvwxyz23456789';
+      password = Array.from({ length: 10 }, () => chars[randomInt(chars.length)]).join('');
+    }
 
     const admin = adminId ? await Users.findById(adminId) : null;
     if (!admin || admin.role !== 'admin' || admin.schoolId !== req.params.id) {
@@ -209,7 +216,11 @@ export const resetSchoolAdminPassword = async (req: AuthRequest, res: Response) 
     }
 
     await Users.updateById(admin._id, { password: await hashPassword(password) });
-    res.status(200).json({ success: true, message: `Password reset for ${admin.email}` });
+    res.status(200).json({
+      success: true,
+      message: `Password reset for ${admin.email}`,
+      ...(generated && { generatedPassword: password }),
+    });
   } catch (error: any) {
     sendError(res, error, 'Reset school admin password');
   }

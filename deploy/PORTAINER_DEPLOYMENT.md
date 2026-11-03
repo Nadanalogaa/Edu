@@ -58,9 +58,10 @@ To ship new code later: push to `main`, then Portainer → `edu-app` → **Pull 
 
 | Role | What they do |
 |---|---|
-| Owner | Approves schools, sets each school's board, student limit and subscription end date, manages the syllabus and the shared question bank. Created from `OWNER_EMAIL` / `OWNER_PASSWORD`. |
-| School admin | Adds, approves and deactivates the school's students and teachers (only active students count towards the limit), creates tests. |
-| Teacher / student | Register themselves with the school code; they can sign in after the school admin approves them. |
+| Owner | Creates schools with their admin login (or approves self-registered ones), sets each school's board, student limit and subscription end date, manages the syllabus and the shared question bank. Created from `OWNER_EMAIL` / `OWNER_PASSWORD`. |
+| School admin | Adds students one by one or imports them from Excel, adds teachers and more school admins, resets passwords, adds the school's own questions, creates tests. Only active students count towards the limit. Signs in with email. |
+| Student | Signs in with the **school code + admission number + password** (no email needed). |
+| Teacher | Signs in with email. Teachers and students can also register themselves with the school code and sign in after the school admin approves them. |
 
 Database changes are applied automatically when the app starts (see `backend/src/db/migrations.ts`).
 
@@ -70,7 +71,7 @@ Database changes are applied automatically when the app starts (see `backend/src
 |---|---|---|
 | Admin | admin@school.com | admin123 |
 | Teacher | teacher@school.com | teacher123 |
-| Student | student@school.com | student123 |
+| Student | school code `TNMS001`, admission no. `S001` (or student@school.com) | student123 |
 
 These passwords are public. Change them, or deactivate the accounts, before real students use the site.
 

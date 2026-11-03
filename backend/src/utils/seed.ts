@@ -50,6 +50,7 @@ const getUsersData = (schoolId: string) => [
     grade: '12th',
     classGrade: 12,
     section: 'A',
+    admissionNumber: 'S001',
     coins: 100,
     streak: 5,
     totalPoints: 250,

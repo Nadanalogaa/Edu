@@ -1,7 +1,10 @@
 import api from './api';
 
+/** Staff sign in with email; students with their school code and admission number. */
 export interface LoginCredentials {
-  email: string;
+  email?: string;
+  schoolCode?: string;
+  admissionNumber?: string;
   password: string;
 }
 
@@ -16,6 +19,7 @@ export interface User {
   grade?: string;
   classGrade?: number;
   section?: string;
+  admissionNumber?: string;
   phone?: string;
   language: 'en' | 'ta';
   theme: 'light' | 'dark';

@@ -130,6 +130,22 @@ export const migrations: Migration[] = [
       ${subjectSeedSql()}
     `,
   },
+  {
+    version: 3,
+    name: 'students sign in with school code + admission number',
+    sql: `
+      -- Students added by their school may have no email
+      ALTER TABLE users ALTER COLUMN email DROP NOT NULL;
+      ALTER TABLE users ADD COLUMN admission_number TEXT;
+      CREATE UNIQUE INDEX users_school_admission_idx
+        ON users (school_id, upper(admission_number)) WHERE admission_number IS NOT NULL;
+      ALTER TABLE users ADD CONSTRAINT users_login_check
+        CHECK (email IS NOT NULL OR admission_number IS NOT NULL);
+      -- The demo student can also sign in as TNMS001 / S001
+      UPDATE users SET admission_number = 'S001'
+        WHERE email = 'student@school.com' AND role = 'student' AND admission_number IS NULL;
+    `,
+  },
 ];
 
 export const runMigrations = async (client: PoolClient) => {
