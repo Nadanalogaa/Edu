@@ -5,6 +5,7 @@ import {
   createSchool,
   updateSchool,
   resetSchoolAdminPassword,
+  setupDemo,
 } from '../controllers/ownerController';
 import { protect, authorize } from '../middleware/auth';
 
@@ -19,5 +20,6 @@ router.get('/schools', listSchools);
 router.post('/schools', createSchool);
 router.patch('/schools/:id', updateSchool);
 router.post('/schools/:id/reset-admin-password', resetSchoolAdminPassword);
+router.post('/demo', setupDemo);
 
 export default router;

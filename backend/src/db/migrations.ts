@@ -1,5 +1,6 @@
 import { PoolClient } from 'pg';
 import { schemaSql } from './schema';
+import { class9ContentSql } from './content/class9';
 
 // Database changes, applied in order on startup. Each runs once (recorded in
 // schema_migrations) inside a transaction. Never edit a migration that has been
@@ -178,6 +179,11 @@ export const migrations: Migration[] = [
       -- Answers saved while the test is in progress (scored on submit)
       CREATE INDEX attempts_test_idx ON student_attempts (test_id, status);
     `,
+  },
+  {
+    version: 5,
+    name: '9th standard chapters and sample questions (shared bank)',
+    sql: class9ContentSql(),
   },
 ];
 

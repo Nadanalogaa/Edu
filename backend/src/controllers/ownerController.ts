@@ -6,6 +6,7 @@ import { isBoard } from '../models/Syllabus';
 import { query, withTransaction } from '../config/database';
 import { HttpError } from '../utils/tenancy';
 import { randomInt } from 'crypto';
+import { setupDemoSchools } from '../utils/demo';
 
 // The owner (platform owner) manages schools as customers: approves them, sets
 // their board, paid student limit and subscription end date.
@@ -223,5 +224,16 @@ export const resetSchoolAdminPassword = async (req: AuthRequest, res: Response) 
     });
   } catch (error: any) {
     sendError(res, error, 'Reset school admin password');
+  }
+};
+
+// @desc    Create or reset the 9th standard demo schools (one per board) with sample results
+// @route   POST /api/owner/demo
+export const setupDemo = async (req: AuthRequest, res: Response) => {
+  try {
+    const demos = await setupDemoSchools();
+    res.status(200).json({ success: true, message: 'Demo schools are ready', data: demos });
+  } catch (error: any) {
+    sendError(res, error, 'Set up demo');
   }
 };

@@ -33,11 +33,13 @@ import ChangePasswordModal from './components/common/ChangePasswordModal';
 import QuestionBankScreen from './components/assessments/QuestionBankScreen';
 import TestsScreen from './components/assessments/TestsScreen';
 import MyTests from './components/student/MyTests';
+import ReportsScreen from './components/reports/ReportsScreen';
+import StudentReport from './components/reports/StudentReport';
 import { boardLabel, classLabel } from './components/common/ui';
 import {
     SunIcon, MoonIcon, LayoutDashboardIcon, UsersIcon, UserIcon, LogOutIcon,
     SchoolIcon, FileTextIcon, ClipboardCheckIcon, GraduationCapIcon, PenSquareIcon, BookOpenIcon, VideoIcon,
-    MenuIcon, XIcon, KeyIcon
+    MenuIcon, XIcon, KeyIcon, TrendingUpIcon
 } from './components/icons';
 
 const NavItem: React.FC<{
@@ -192,6 +194,7 @@ const DashboardLayout: React.FC = () => {
     student: [
       { label: t('dashboard'), icon: <LayoutDashboardIcon className="w-5 h-5" />, view: 'dashboard' },
       { label: language === 'ta' ? 'என் தேர்வுகள்' : 'My Tests', icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'my-tests' },
+      { label: language === 'ta' ? 'என் முன்னேற்றம்' : 'My Progress', icon: <TrendingUpIcon className="w-5 h-5" />, view: 'progress' },
       { label: t('practiceMode'), icon: <PenSquareIcon className="w-5 h-5" />, view: 'practice' },
       { label: t('takeAnExam'), icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'exam' },
       { label: t('dailyChallenge'), icon: <FileTextIcon className="w-5 h-5" />, view: 'daily-challenge' },
@@ -201,6 +204,7 @@ const DashboardLayout: React.FC = () => {
     ],
     teacher: [
       { label: 'Tests', icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'dashboard' },
+      { label: 'Reports', icon: <TrendingUpIcon className="w-5 h-5" />, view: 'reports' },
       { label: t('questionBank'), icon: <BookOpenIcon className="w-5 h-5" />, view: 'question-bank' },
     ],
     admin: [
@@ -209,6 +213,7 @@ const DashboardLayout: React.FC = () => {
       { label: t('manageTeachers'), icon: <UsersIcon className="w-5 h-5" />, view: 'teachers' },
       { label: 'School Admins', icon: <UserIcon className="w-5 h-5" />, view: 'admins' },
       { label: 'Tests', icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'tests' },
+      { label: 'Reports', icon: <TrendingUpIcon className="w-5 h-5" />, view: 'reports' },
       { label: t('questionBank'), icon: <BookOpenIcon className="w-5 h-5" />, view: 'question-bank' },
       { label: 'NEET/JEE questions', icon: <FileTextIcon className="w-5 h-5" />, view: 'neet-questions' },
       { label: 'NEET/JEE create test', icon: <PenSquareIcon className="w-5 h-5" />, view: 'create-test' },
@@ -264,6 +269,8 @@ const DashboardLayout: React.FC = () => {
           return <QuestionBankScreen />;
         case 'tests':
           return <TestsScreen />;
+        case 'reports':
+          return <ReportsScreen />;
         case 'neet-questions':
           return <QuestionBank />;
         case 'create-test':
@@ -278,7 +285,9 @@ const DashboardLayout: React.FC = () => {
     }
 
     if (currentUser.role === 'teacher') {
-      return activeView === 'question-bank' ? <QuestionBankScreen /> : <TestsScreen />;
+      if (activeView === 'question-bank') return <QuestionBankScreen />;
+      if (activeView === 'reports') return <ReportsScreen />;
+      return <TestsScreen />;
     }
 
     if (currentUser.role === 'student') {
@@ -287,6 +296,8 @@ const DashboardLayout: React.FC = () => {
           return <StudentDashboard />;
         case 'my-tests':
           return <MyTests />;
+        case 'progress':
+          return <StudentReport />;
         case 'practice':
           return <PracticeModeNew />;
         case 'exam':

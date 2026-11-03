@@ -12,6 +12,7 @@ import {
   saveProgress,
   reviewAttempt,
 } from '../controllers/studentController';
+import { myProgress } from '../controllers/reportsController';
 import { protect, authorize } from '../middleware/auth';
 
 const router = express.Router();
@@ -33,5 +34,6 @@ router.get('/assessments', listAssessments);
 router.post('/assessments/:id/start', startAssessment);
 router.put('/attempts/:id/progress', saveProgress);
 router.get('/attempts/:id/review', reviewAttempt);
+router.get('/progress', myProgress);
 
 export default router;
