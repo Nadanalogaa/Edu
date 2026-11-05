@@ -5,6 +5,7 @@ import { CHAPTERS_9_SB, QUESTIONS_9_SB } from './content/class9StateBoard';
 import { CHAPTERS_9_CBSE, QUESTIONS_9_CBSE } from './content/class9Cbse';
 import { bankChapterSql } from './content/sb9';
 import { FLUIDS_QUESTIONS } from './content/sb9/science03Fluids';
+import { SB9_BANK } from './content/sb9/chapters';
 
 // Database changes, applied in order on startup. Each runs once (recorded in
 // schema_migrations) inside a transaction. Never edit a migration that has been
@@ -203,6 +204,11 @@ export const migrations: Migration[] = [
       ALTER TABLE questions ADD COLUMN source TEXT;
       ${bankChapterSql('state_board', 9, 'science', 3, FLUIDS_QUESTIONS)}
     `,
+  },
+  {
+    version: 8,
+    name: 'State Board 9th Science and Maths textbook question bank (every chapter)',
+    sql: SB9_BANK.map((c) => bankChapterSql('state_board', 9, c.subject, c.chapter, c.questions)).join('\n'),
   },
 ];
 

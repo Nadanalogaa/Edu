@@ -14,7 +14,8 @@ const TEXT = {
     question: 'Question', of: 'of', correct: 'Correct!', wrong: 'Not quite. The correct answer is', explanation: 'Explanation', next: 'Next question',
     finish: 'See my score', score: 'You got', outOf: 'out of', again: 'Practise again', change: 'Choose another chapter', noQuestions: 'No questions available here right now.',
     neetHint: 'Entrance exam practice for 11th and 12th.', pickTrack: 'Exam', pickSubject: 'Subject',
-    level: 'Level', levels: { '': 'All', easy: 'Easy', medium: 'Medium', hard: 'Hard' } as Record<string, string>,
+    level: 'Level', levels: { '': 'All levels', easy: 'Easy', medium: 'Medium', hard: 'Hard' } as Record<string, string>,
+    howMany: 'How many questions', all: 'All', time: 'Time', timeTaken: 'Time taken', perQuestion: 'per question',
   },
   ta: {
     title: 'பயிற்சி', subtitle: 'எந்தப் பாடப்பகுதியையும் விரும்பும் அளவு பயிற்சி செய்யுங்கள். இவை மதிப்பெண்ணுக்கானவை அல்ல.', school: 'என் பாடங்கள்', neet: 'NEET / JEE',
@@ -22,13 +23,17 @@ const TEXT = {
     question: 'கேள்வி', of: '/', correct: 'சரி!', wrong: 'தவறு. சரியான விடை', explanation: 'விளக்கம்', next: 'அடுத்த கேள்வி',
     finish: 'என் மதிப்பெண்', score: 'நீங்கள் பெற்றது', outOf: 'இல்', again: 'மீண்டும் பயிற்சி', change: 'வேறு பாடப்பகுதி', noQuestions: 'இப்போது இங்கே கேள்விகள் இல்லை.',
     neetHint: '11, 12 ஆம் வகுப்புக்கான நுழைவுத் தேர்வுப் பயிற்சி.', pickTrack: 'தேர்வு', pickSubject: 'பாடம்',
-    level: 'நிலை', levels: { '': 'அனைத்தும்', easy: 'எளிது', medium: 'நடுத்தரம்', hard: 'கடினம்' } as Record<string, string>,
+    level: 'நிலை', levels: { '': 'எல்லா நிலைகளும்', easy: 'எளிது', medium: 'நடுத்தரம்', hard: 'கடினம்' } as Record<string, string>,
+    howMany: 'எத்தனை கேள்விகள்', all: 'அனைத்தும்', time: 'நேரம்', timeTaken: 'எடுத்த நேரம்', perQuestion: 'ஒரு கேள்விக்கு',
   },
 };
 
 const LETTERS = ['A', 'B', 'C', 'D'];
 const pick = (ta: boolean, v: { en: string; ta: string }) => (ta && v?.ta ? v.ta : v?.en);
 const pickOpt = (ta: boolean, o: { en: string[]; ta: string[] }, i: number) => (ta && o.ta?.[i] ? o.ta[i] : o.en[i]);
+const LEVELS = ['', 'easy', 'medium', 'hard'];
+const COUNTS = [10, 20, 30];
+const clock = (seconds: number) => `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
 
 const Practice: React.FC = () => {
   const { language } = useLanguage();
@@ -41,7 +46,9 @@ const Practice: React.FC = () => {
   const [track, setTrack] = useState<'NEET' | 'JEE'>('NEET');
   const [neetSubject, setNeetSubject] = useState('');
   const [difficulty, setDifficulty] = useState('');
-  const [session, setSession] = useState<{ questions: any[]; index: number; picked: (number | null)[] } | null>(null);
+  const [count, setCount] = useState<number | 'all'>(10);
+  const [session, setSession] = useState<{ questions: any[]; index: number; picked: (number | null)[]; startedAt: number; endedAt?: number } | null>(null);
+  const [now, setNow] = useState(Date.now());
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -56,6 +63,14 @@ const Practice: React.FC = () => {
       .catch((err) => setError(apiError(err)));
   }, []);
 
+  // Ticking clock while a practice is running
+  const running = !!session && !session.endedAt;
+  useEffect(() => {
+    if (!running) return;
+    const timer = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(timer);
+  }, [running]);
+
   const start = async () => {
     setLoading(true);
     setError('');
@@ -63,11 +78,14 @@ const Practice: React.FC = () => {
       const params = {
         ...(mode === 'neet' ? { track, subject: neetSubject } : { subjectId, chapterId: chapterId || undefined }),
         difficulty: difficulty || undefined,
-        count: 10,
+        count,
       };
       const res = await api.get('/student/practice/questions', { params });
       if (!res.data.data.length) setError(t.noQuestions);
-      else setSession({ questions: res.data.data, index: 0, picked: res.data.data.map(() => null) });
+      else {
+        setNow(Date.now());
+        setSession({ questions: res.data.data, index: 0, picked: res.data.data.map(() => null), startedAt: Date.now() });
+      }
     } catch (err) {
       setError(apiError(err));
     } finally {
@@ -79,6 +97,7 @@ const Practice: React.FC = () => {
 
   if (session) {
     const done = session.index >= session.questions.length;
+    const elapsed = Math.round(((session.endedAt || now) - session.startedAt) / 1000);
     if (done) {
       const score = session.questions.filter((q, i) => session.picked[i] === q.correctAnswer).length;
       return (
@@ -91,6 +110,9 @@ const Practice: React.FC = () => {
                 {' '}
                 {t.outOf} {session.questions.length}
               </span>
+            </p>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
+              ⏱ {t.timeTaken}: <b>{clock(elapsed)}</b> ({clock(Math.round(elapsed / session.questions.length))} {t.perQuestion})
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               <Button onClick={start} disabled={loading}>
@@ -118,10 +140,19 @@ const Practice: React.FC = () => {
     return (
       <div className="max-w-2xl mx-auto space-y-4">
         <Panel>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
-            {t.question} {session.index + 1} {t.of} {session.questions.length}
-            {q.topic && ` · ${q.topic}`}
-          </p>
+          <div className="flex items-start justify-between gap-3">
+            <p className="text-sm text-slate-500 dark:text-slate-400">
+              {t.question} {session.index + 1} {t.of} {session.questions.length}
+              {q.topic && ` · ${q.topic}`}
+              {q.difficulty && ` · ${t.levels[q.difficulty] || q.difficulty}`}
+            </p>
+            <span className="flex-shrink-0 px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-700 text-sm font-mono text-slate-700 dark:text-slate-200" aria-label={t.time}>
+              ⏱ {clock(elapsed)}
+            </span>
+          </div>
+          <div className="mt-2 h-1.5 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden">
+            <div className="h-full bg-indigo-500" style={{ width: `${(session.index / session.questions.length) * 100}%` }} />
+          </div>
           <h2 className="mt-2 text-lg font-semibold text-slate-800 dark:text-slate-100 whitespace-pre-line">{pick(ta, q.question)}</h2>
           <QuestionImage src={q.imageUrl} />
           <div className="mt-4 space-y-2" role="radiogroup">
@@ -171,7 +202,11 @@ const Practice: React.FC = () => {
                 </p>
               )}
               <div className="flex justify-end">
-                <Button onClick={() => setSession({ ...session, index: session.index + 1 })}>
+                <Button
+                  onClick={() =>
+                    setSession({ ...session, index: session.index + 1, endedAt: session.index === session.questions.length - 1 ? Date.now() : undefined })
+                  }
+                >
                   {session.index === session.questions.length - 1 ? t.finish : t.next}
                 </Button>
               </div>
@@ -184,6 +219,11 @@ const Practice: React.FC = () => {
 
   const subject = options.subjects.find((s: any) => s.subjectId === subjectId);
   const neetRow = options.neet?.find((s: any) => s.subject === neetSubject);
+  // Questions available for the chosen level
+  const available = (row: any) => (difficulty ? row?.byLevel?.[difficulty] ?? 0 : row?.questions ?? 0);
+  const chosenRow = chapterId ? subject?.chapters.find((c: any) => c.chapterId === chapterId) : subject;
+  const pillClass = (on: boolean) =>
+    `px-4 py-1.5 rounded-full text-sm font-medium border-2 ${on ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300' : 'border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200'}`;
 
   return (
     <div className="space-y-4">
@@ -209,6 +249,20 @@ const Practice: React.FC = () => {
           ))}
         </div>
       )}
+
+      <Panel>
+        <fieldset>
+          <legend className="mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">{t.level}</legend>
+          <div className="flex flex-wrap gap-2">
+            {LEVELS.map((level) => (
+              <button key={level || 'all'} type="button" aria-pressed={difficulty === level} onClick={() => setDifficulty(level)} className={pillClass(difficulty === level)}>
+                {t.levels[level]}
+                {mode === 'school' && subject && <span className="ml-1 text-xs opacity-70">({level ? subject.byLevel?.[level] ?? 0 : subject.questions})</span>}
+              </button>
+            ))}
+          </div>
+        </fieldset>
+      </Panel>
 
       {mode === 'school' ? (
         options.subjects.length === 0 ? (
@@ -236,16 +290,16 @@ const Practice: React.FC = () => {
             </div>
             {subject && (
               <ul className="mt-4 space-y-1">
-                {[{ chapterId: '', number: null, nameEn: t.allChapters, nameTa: t.allChapters, questions: subject.questions }, ...subject.chapters].map((c: any) => (
+                {[{ chapterId: '', number: null, nameEn: t.allChapters, nameTa: t.allChapters, questions: subject.questions, byLevel: subject.byLevel }, ...subject.chapters].map((c: any) => (
                   <li key={c.chapterId || 'all'}>
-                    <label className={`flex items-center justify-between gap-3 px-3 py-2 rounded-lg text-sm cursor-pointer ${c.questions ? '' : 'opacity-50'} ${chapterId === c.chapterId ? 'bg-indigo-50 dark:bg-indigo-500/20' : 'hover:bg-slate-50 dark:hover:bg-slate-700/40'}`}>
+                    <label className={`flex items-center justify-between gap-3 px-3 py-2 rounded-lg text-sm cursor-pointer ${available(c) ? '' : 'opacity-50'} ${chapterId === c.chapterId ? 'bg-indigo-50 dark:bg-indigo-500/20' : 'hover:bg-slate-50 dark:hover:bg-slate-700/40'}`}>
                       <span className="flex items-center gap-2 text-slate-700 dark:text-slate-200">
-                        <input type="radio" name="chapter" disabled={!c.questions} checked={chapterId === c.chapterId} onChange={() => setChapterId(c.chapterId)} />
+                        <input type="radio" name="chapter" disabled={!available(c)} checked={chapterId === c.chapterId} onChange={() => setChapterId(c.chapterId)} />
                         {c.number ? `${c.number}. ` : ''}
                         {ta && c.nameTa ? c.nameTa : c.nameEn}
                       </span>
-                      <span className="text-xs text-slate-500">
-                        {c.questions} {t.questions}
+                      <span className="text-xs text-slate-500 whitespace-nowrap">
+                        {available(c)} {t.questions}
                       </span>
                     </label>
                   </li>
@@ -253,23 +307,25 @@ const Practice: React.FC = () => {
               </ul>
             )}
             <fieldset className="mt-4">
-              <legend className="mb-1 text-sm font-medium text-slate-700 dark:text-slate-300">{t.level}</legend>
+              <legend className="mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">{t.howMany}</legend>
               <div className="flex flex-wrap gap-2">
-                {['', 'easy', 'medium', 'hard'].map((level) => (
-                  <button
-                    key={level || 'all'}
-                    type="button"
-                    aria-pressed={difficulty === level}
-                    onClick={() => setDifficulty(level)}
-                    className={`px-4 py-1.5 rounded-full text-sm font-medium border-2 ${difficulty === level ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300' : 'border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200'}`}
-                  >
-                    {t.levels[level]}
+                {COUNTS.filter((n) => n < available(chosenRow)).map((n) => (
+                  <button key={n} type="button" aria-pressed={count === n} onClick={() => setCount(n)} className={pillClass(count === n)}>
+                    {n}
                   </button>
                 ))}
+                <button
+                  type="button"
+                  aria-pressed={count === 'all' || available(chosenRow) <= Number(count)}
+                  onClick={() => setCount('all')}
+                  className={pillClass(count === 'all' || available(chosenRow) <= Number(count))}
+                >
+                  {t.all} ({available(chosenRow)})
+                </button>
               </div>
             </fieldset>
             <div className="mt-4">
-              <Button disabled={loading || !subjectId} onClick={start}>
+              <Button disabled={loading || !subjectId || !available(chosenRow)} onClick={start}>
                 {t.start}
               </Button>
             </div>
@@ -300,22 +356,6 @@ const Practice: React.FC = () => {
               </div>
             </fieldset>
           </div>
-          <fieldset className="mt-4">
-              <legend className="mb-1 text-sm font-medium text-slate-700 dark:text-slate-300">{t.level}</legend>
-              <div className="flex flex-wrap gap-2">
-                {['', 'easy', 'medium', 'hard'].map((level) => (
-                  <button
-                    key={level || 'all'}
-                    type="button"
-                    aria-pressed={difficulty === level}
-                    onClick={() => setDifficulty(level)}
-                    className={`px-4 py-1.5 rounded-full text-sm font-medium border-2 ${difficulty === level ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300' : 'border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200'}`}
-                  >
-                    {t.levels[level]}
-                  </button>
-                ))}
-              </div>
-            </fieldset>
           <div className="mt-4">
             <Button disabled={loading || !neetRow || !(track === 'NEET' ? neetRow.neet : neetRow.jee)} onClick={start}>
               {t.start}

@@ -1,4 +1,4 @@
-import { BankQuestion } from './science03Fluids';
+import { BankQuestion, AR_EN } from './types';
 
 // Loads textbook question-bank chapters into the shared bank. Options are
 // shuffled per question with a fixed seed (so every build gives the same
@@ -26,7 +26,8 @@ const permutation = (seedText: string) => {
   return order;
 };
 
-const isAssertionReason = (q: BankQuestion) => q.en.options[0].startsWith('Both assertion and reason');
+// Only the standard option set keeps its order; any other options are shuffled
+const isAssertionReason = (q: BankQuestion) => q.en.options.every((o, i) => o === AR_EN[i]);
 
 export const shuffled = (q: BankQuestion) => {
   if (isAssertionReason(q)) return { optionsEn: q.en.options, optionsTa: q.ta.options, answer: q.answer };

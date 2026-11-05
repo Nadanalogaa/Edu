@@ -1,0 +1,73 @@
+// Every chapter of the TN State Board 9th textbook question bank (Science and Maths).
+import { BankQuestion } from './types';
+import { QUESTIONS as maths01SetLanguageQ } from './maths01SetLanguage';
+import { QUESTIONS as maths02RealNumbersQ } from './maths02RealNumbers';
+import { QUESTIONS as maths03AlgebraQ } from './maths03Algebra';
+import { QUESTIONS as maths04GeometryQ } from './maths04Geometry';
+import { QUESTIONS as maths05CoordinateGeometryQ } from './maths05CoordinateGeometry';
+import { QUESTIONS as maths06TrigonometryQ } from './maths06Trigonometry';
+import { QUESTIONS as maths07MensurationQ } from './maths07Mensuration';
+import { QUESTIONS as maths08StatisticsQ } from './maths08Statistics';
+import { QUESTIONS as maths09ProbabilityQ } from './maths09Probability';
+import { QUESTIONS as science01MeasurementQ } from './science01Measurement';
+import { QUESTIONS as science02MotionQ } from './science02Motion';
+import { FLUIDS_QUESTIONS as science03FluidsQ } from './science03Fluids';
+import { QUESTIONS as science04ElectricityQ } from './science04Electricity';
+import { QUESTIONS as science05MagnetismQ } from './science05Magnetism';
+import { QUESTIONS as science06LightQ } from './science06Light';
+import { QUESTIONS as science07HeatQ } from './science07Heat';
+import { QUESTIONS as science08SoundQ } from './science08Sound';
+import { QUESTIONS as science09UniverseQ } from './science09Universe';
+import { QUESTIONS as science10MatterQ } from './science10Matter';
+import { QUESTIONS as science11AtomicStructureQ } from './science11AtomicStructure';
+import { QUESTIONS as science12PeriodicClassificationQ } from './science12PeriodicClassification';
+import { QUESTIONS as science13ChemicalBondingQ } from './science13ChemicalBonding';
+import { QUESTIONS as science14AcidsBasesSaltsQ } from './science14AcidsBasesSalts';
+import { QUESTIONS as science15CarbonQ } from './science15Carbon';
+import { QUESTIONS as science16AppliedChemistryQ } from './science16AppliedChemistry';
+import { QUESTIONS as science17AnimalKingdomQ } from './science17AnimalKingdom';
+import { QUESTIONS as science18TissuesQ } from './science18Tissues';
+import { QUESTIONS as science19PlantPhysiologyQ } from './science19PlantPhysiology';
+import { QUESTIONS as science20OrganSystemsQ } from './science20OrganSystems';
+import { QUESTIONS as science21NutritionQ } from './science21Nutrition';
+import { QUESTIONS as science22MicrobesQ } from './science22Microbes';
+import { QUESTIONS as science23EconomicBiologyQ } from './science23EconomicBiology';
+import { QUESTIONS as science24EnvironmentQ } from './science24Environment';
+import { QUESTIONS as science25VisualCommunicationQ } from './science25VisualCommunication';
+
+export const SB9_BANK: { subject: 'science' | 'maths'; chapter: number; questions: BankQuestion[] }[] = [
+  { subject: 'maths', chapter: 1, questions: maths01SetLanguageQ },
+  { subject: 'maths', chapter: 2, questions: maths02RealNumbersQ },
+  { subject: 'maths', chapter: 3, questions: maths03AlgebraQ },
+  { subject: 'maths', chapter: 4, questions: maths04GeometryQ },
+  { subject: 'maths', chapter: 5, questions: maths05CoordinateGeometryQ },
+  { subject: 'maths', chapter: 6, questions: maths06TrigonometryQ },
+  { subject: 'maths', chapter: 7, questions: maths07MensurationQ },
+  { subject: 'maths', chapter: 8, questions: maths08StatisticsQ },
+  { subject: 'maths', chapter: 9, questions: maths09ProbabilityQ },
+  { subject: 'science', chapter: 1, questions: science01MeasurementQ },
+  { subject: 'science', chapter: 2, questions: science02MotionQ },
+  { subject: 'science', chapter: 3, questions: science03FluidsQ },
+  { subject: 'science', chapter: 4, questions: science04ElectricityQ },
+  { subject: 'science', chapter: 5, questions: science05MagnetismQ },
+  { subject: 'science', chapter: 6, questions: science06LightQ },
+  { subject: 'science', chapter: 7, questions: science07HeatQ },
+  { subject: 'science', chapter: 8, questions: science08SoundQ },
+  { subject: 'science', chapter: 9, questions: science09UniverseQ },
+  { subject: 'science', chapter: 10, questions: science10MatterQ },
+  { subject: 'science', chapter: 11, questions: science11AtomicStructureQ },
+  { subject: 'science', chapter: 12, questions: science12PeriodicClassificationQ },
+  { subject: 'science', chapter: 13, questions: science13ChemicalBondingQ },
+  { subject: 'science', chapter: 14, questions: science14AcidsBasesSaltsQ },
+  { subject: 'science', chapter: 15, questions: science15CarbonQ },
+  { subject: 'science', chapter: 16, questions: science16AppliedChemistryQ },
+  { subject: 'science', chapter: 17, questions: science17AnimalKingdomQ },
+  { subject: 'science', chapter: 18, questions: science18TissuesQ },
+  { subject: 'science', chapter: 19, questions: science19PlantPhysiologyQ },
+  { subject: 'science', chapter: 20, questions: science20OrganSystemsQ },
+  { subject: 'science', chapter: 21, questions: science21NutritionQ },
+  { subject: 'science', chapter: 22, questions: science22MicrobesQ },
+  { subject: 'science', chapter: 23, questions: science23EconomicBiologyQ },
+  { subject: 'science', chapter: 24, questions: science24EnvironmentQ },
+  { subject: 'science', chapter: 25, questions: science25VisualCommunicationQ },
+];

@@ -45,7 +45,10 @@ export const practiceOptions = async (req: AuthRequest, res: Response) => {
       const boardParam = params.length;
       const rows = await query(
         `SELECT s.id AS subject_id, s.name_en AS subject_en, s.name_ta AS subject_ta, s.sort_order,
-                c.id AS chapter_id, c.number, c.name_en, c.name_ta, count(q.id)::int AS questions
+                c.id AS chapter_id, c.number, c.name_en, c.name_ta, count(q.id)::int AS questions,
+                count(q.id) FILTER (WHERE q.difficulty = 'easy')::int AS easy,
+                count(q.id) FILTER (WHERE q.difficulty = 'medium')::int AS medium,
+                count(q.id) FILTER (WHERE q.difficulty = 'hard')::int AS hard
          FROM subjects s
          JOIN chapters c ON c.subject_id = s.id AND c.is_active
          LEFT JOIN questions q ON q.chapter_id = c.id AND ${condition}
@@ -57,11 +60,18 @@ export const practiceOptions = async (req: AuthRequest, res: Response) => {
       const bySubject = new Map<string, any>();
       for (const r of rows) {
         if (!bySubject.has(r.subject_id)) {
-          bySubject.set(r.subject_id, { subjectId: r.subject_id, nameEn: r.subject_en, nameTa: r.subject_ta, questions: 0, chapters: [] });
+          bySubject.set(r.subject_id, {
+            subjectId: r.subject_id, nameEn: r.subject_en, nameTa: r.subject_ta, questions: 0,
+            byLevel: { easy: 0, medium: 0, hard: 0 }, chapters: [],
+          });
         }
         const subject = bySubject.get(r.subject_id);
         subject.questions += r.questions;
-        subject.chapters.push({ chapterId: r.chapter_id, number: r.number, nameEn: r.name_en, nameTa: r.name_ta, questions: r.questions });
+        for (const level of ['easy', 'medium', 'hard']) subject.byLevel[level] += r[level];
+        subject.chapters.push({
+          chapterId: r.chapter_id, number: r.number, nameEn: r.name_en, nameTa: r.name_ta, questions: r.questions,
+          byLevel: { easy: r.easy, medium: r.medium, hard: r.hard },
+        });
       }
       subjects = [...bySubject.values()].filter((s) => s.questions > 0);
     }
@@ -94,7 +104,8 @@ export const practiceOptions = async (req: AuthRequest, res: Response) => {
 export const practiceQuestions = async (req: AuthRequest, res: Response) => {
   try {
     const student = req.user;
-    const count = Math.min(30, Math.max(1, Number(req.query.count) || 10));
+    // count=all (or a big number) gives every matching question, up to 300
+    const count = req.query.count === 'all' ? 300 : Math.min(300, Math.max(1, Number(req.query.count) || 10));
     const params: any[] = [];
     const where = [practisable(student, params)];
     const { subjectId, chapterId, track, subject, difficulty } = req.query;
@@ -128,7 +139,9 @@ export const practiceQuestions = async (req: AuthRequest, res: Response) => {
 
     params.push(count);
     const questions = await Questions.select(
-      `SELECT q.* FROM questions q WHERE ${where.join(' AND ')} ORDER BY random() LIMIT $${params.length}`,
+      // A random pick, then easy first and hard last
+      `SELECT * FROM (SELECT q.* FROM questions q WHERE ${where.join(' AND ')} ORDER BY random() LIMIT $${params.length}) q
+       ORDER BY CASE q.difficulty WHEN 'easy' THEN 1 WHEN 'medium' THEN 2 ELSE 3 END, random()`,
       params
     );
     res.status(200).json({
