@@ -237,6 +237,13 @@ const setupOne = async (client: PoolClient, demo: (typeof DEMOS)[number], passwo
   if (subjectByCode.has('science')) await assign(scienceId, 9, 'A', 'science');
 
   await seedPractice(client, rand, students, questions, now);
+  // Fixed mistakes come back for a check a week after they were fixed
+  await query(
+    `UPDATE mistake_book SET recheck_at = reviewed_at + interval '7 days'
+     WHERE is_reviewed AND recheck_at IS NULL AND student_id = ANY($1::uuid[])`,
+    [students.map((s) => s.id)],
+    client
+  );
 
   await query(
     `UPDATE users u SET total_points = s.points, coins = s.points / 4

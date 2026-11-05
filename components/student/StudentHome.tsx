@@ -17,6 +17,7 @@ const TEXT = {
     noPractice: 'Not started', streak: (n: number) => `${n}-day practice streak`, startStreak: 'Practise today to start a streak',
     nextStep: 'Your next step', testOpen: (t: string) => `“${t}” is open now`, testOpenHint: 'Finish it before it closes.',
     weak: (c: string) => `Practise ${c}`, weakHint: (v: number) => `Your score here is ${v}%. A few minutes of practice will help.`,
+    recheck: (n: number) => `Check ${n} mistake${n === 1 ? '' : 's'} you fixed last week`, recheckHint: 'Show you still remember them.',
     revise: (n: number) => `Revise ${n} mistake${n === 1 ? '' : 's'}`, reviseHint: 'Answer them correctly to clear your Mistake Book.',
     begin: 'Start practising', beginHint: 'Pick a subject, a level and go. Every answer is saved.', go: 'Go',
     week: 'This week', weekHint: (a: number, acc: number | null) => `${a} answers${acc != null ? ` · ${acc}% correct` : ''}`, noWeek: 'No practice yet this week.',
@@ -33,6 +34,7 @@ const TEXT = {
     noPractice: 'இன்னும் தொடங்கவில்லை', streak: (n: number) => `${n} நாள் தொடர் பயிற்சி`, startStreak: 'இன்று பயிற்சி செய்து தொடரைத் தொடங்குங்கள்',
     nextStep: 'உங்கள் அடுத்த படி', testOpen: (t: string) => `“${t}” இப்போது திறந்துள்ளது`, testOpenHint: 'மூடுவதற்கு முன் முடியுங்கள்.',
     weak: (c: string) => `${c} பயிற்சி செய்யுங்கள்`, weakHint: (v: number) => `இங்கே உங்கள் மதிப்பெண் ${v}%. சிறிது பயிற்சி உதவும்.`,
+    recheck: (n: number) => `கடந்த வாரம் சரியாக்கிய ${n} தவறுகளைச் சரிபார்க்கவும்`, recheckHint: 'இன்னும் நினைவிருக்கிறதா என்று காட்டுங்கள்.',
     revise: (n: number) => `${n} தவறுகளைத் திருப்புங்கள்`, reviseHint: 'சரியாக விடையளித்தால் தவறுப் புத்தகத்திலிருந்து நீங்கும்.',
     begin: 'பயிற்சியைத் தொடங்குங்கள்', beginHint: 'பாடம், நிலையைத் தேர்ந்தெடுத்துத் தொடங்குங்கள்.', go: 'செல்',
     week: 'இந்த வாரம்', weekHint: (a: number, acc: number | null) => `${a} விடைகள்${acc != null ? ` · ${acc}% சரி` : ''}`, noWeek: 'இந்த வாரம் இன்னும் பயிற்சி இல்லை.',
@@ -85,6 +87,7 @@ const StudentHome: React.FC<{ onNavigate: (view: string) => void }> = ({ onNavig
   const name = (en: string, taName?: string) => (ta && taName ? taName : en);
   const weakest = progress.weakChapters?.[0];
   const openMistakes = summary.mistakes?.open || 0;
+  const dueMistakes = summary.mistakes?.due || 0;
   const weekAnswers = summary.days.reduce((a: number, d: any) => a + d.answers, 0);
   const weekCorrect = summary.days.reduce((a: number, d: any) => a + d.correct, 0);
   const weekMax = Math.max(1, ...summary.days.map((d: any) => d.answers));
@@ -92,6 +95,8 @@ const StudentHome: React.FC<{ onNavigate: (view: string) => void }> = ({ onNavig
   // The single most useful thing to do now
   const step = todo.length
     ? { icon: '📝', title: t.testOpen(todo[0].title), hint: t.testOpenHint, view: 'my-tests' }
+    : dueMistakes
+      ? { icon: '🔁', title: t.recheck(dueMistakes), hint: t.recheckHint, view: 'mistakes' }
     : weakest
       ? { icon: '🎯', title: t.weak(`${weakest.number}. ${name(weakest.nameEn, weakest.nameTa)}`), hint: t.weakHint(weakest.accuracy), view: 'practice' }
       : openMistakes

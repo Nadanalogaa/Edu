@@ -15,6 +15,7 @@ import {
   updateTest,
   deleteTest,
   testResults,
+  myClasses,
 } from '../controllers/assessmentController';
 import { getSections } from '../controllers/schoolController';
 import { uploadQuestionFile } from '../config/multer';
@@ -27,6 +28,7 @@ const router = express.Router();
 router.use(protect);
 router.use(authorize('admin', 'teacher', 'owner'));
 
+router.get('/my-classes', myClasses);
 router.get('/questions', listQuestions);
 router.get('/questions/counts', questionCounts);
 router.get('/questions/template', questionTemplate);

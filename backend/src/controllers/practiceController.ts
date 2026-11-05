@@ -5,7 +5,7 @@ import { Questions } from '../models/Question';
 import { Subjects } from '../models/Syllabus';
 import { isUuid } from '../db/table';
 import { textbookFor } from '../utils/textbook';
-import { recordMistake, fixMistake } from '../utils/mistakes';
+import { recordMistake, fixMistake, DUE_SQL } from '../utils/mistakes';
 
 // Self-practice for students: questions of their own class and board (the
 // shared bank and their school's), and for 11th-12th the NEET/JEE bank.
@@ -205,8 +205,8 @@ export const practiceQuestions = async (req: AuthRequest, res: Response) => {
       mp.push(count);
       const rows = await Questions.select(
         `SELECT q.* FROM mistake_book m JOIN questions q ON q.id = m.question_id
-         WHERE m.student_id = $1 AND NOT m.is_reviewed AND q.is_active AND (q.school_id IS NULL OR q.school_id = $2)${filter}
-         ORDER BY random() LIMIT $${mp.length}`,
+         WHERE m.student_id = $1 AND (NOT m.is_reviewed OR ${DUE_SQL}) AND q.is_active AND (q.school_id IS NULL OR q.school_id = $2)${filter}
+         ORDER BY ${DUE_SQL} DESC, random() LIMIT $${mp.length}`,
         mp
       );
       return res.status(200).json({ success: true, data: rows.map((q) => practiceView(q, 'retry')) });
@@ -279,7 +279,7 @@ export const recordPracticeAnswer = async (req: AuthRequest, res: Response) => {
       `SELECT q.id, q.correct_answer FROM questions q
        WHERE q.id = $${qParam} AND (
          (${condition})
-         OR EXISTS (SELECT 1 FROM mistake_book m WHERE m.question_id = q.id AND m.student_id = $${params.length} AND NOT m.is_reviewed)
+         OR EXISTS (SELECT 1 FROM mistake_book m WHERE m.question_id = q.id AND m.student_id = $${params.length} AND (NOT m.is_reviewed OR ${DUE_SQL}))
        )`,
       params
     );
@@ -343,8 +343,9 @@ export const practiceSummary = async (req: AuthRequest, res: Response) => {
       cursor.setDate(cursor.getDate() - 1);
     }
     const [mistakes] = await query(
-      `SELECT count(*) FILTER (WHERE NOT is_reviewed)::int AS open, count(*) FILTER (WHERE fixed_in IS NOT NULL)::int AS fixed
-       FROM mistake_book WHERE student_id = $1`,
+      `SELECT count(*) FILTER (WHERE NOT m.is_reviewed)::int AS open, count(*) FILTER (WHERE m.fixed_in IS NOT NULL)::int AS fixed,
+              count(*) FILTER (WHERE ${DUE_SQL})::int AS due
+       FROM mistake_book m WHERE m.student_id = $1`,
       [userId]
     );
     res.status(200).json({

@@ -5,7 +5,7 @@ import {
   getMyAttempts,
   getAnalytics,
   getMistakes,
-  markMistakeReviewed,
+  checkMistake,
   getSharedTests,
   listAssessments,
   startAssessment,
@@ -27,7 +27,7 @@ router.post('/attempts/:id/submit', submitAttempt);
 router.get('/attempts', getMyAttempts);
 router.get('/analytics', getAnalytics);
 router.get('/mistakes', getMistakes);
-router.put('/mistakes/:id/review', markMistakeReviewed);
+router.post('/mistakes/:id/check', checkMistake);
 router.get('/tests', getSharedTests);
 
 // Class assessments

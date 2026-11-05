@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import api from '../../services/api';
 import { useLanguage } from '../../context/LanguageContext';
 import { Alert, Spinner, Button, apiError, formatDate } from '../common/ui';
@@ -7,31 +7,51 @@ import { TextbookButton } from '../common/TextbookViewer';
 import PracticeRunner from './PracticeRunner';
 
 // Every question the student got wrong, in class tests and in practice, with
-// the right answer, the explanation and the textbook page. Students practise
-// their mistakes here; answering one correctly (in practice or a test) marks it fixed.
+// the right answer, the explanation and the textbook page. Answering one
+// correctly (in practice, a test, or "I understand it now", which asks it once
+// more with the options reshuffled) marks it fixed. A week later each fixed
+// mistake comes back once as a check: still right = remembered, wrong = back to revise.
 
 const TEXT = {
   en: {
-    title: 'Mistake Book', subtitle: 'Every question you got wrong in tests and practice. Study them and practise until you get them right.',
+    title: 'Mistake Book', subtitle: 'Every question you got wrong in tests and practice. Study each one, then answer it again to clear it. Cleared ones come back once a week later for a quick check.',
     toRevise: 'To revise', fromTests: 'From tests', fromPractice: 'From practice', fixed: 'Fixed',
     practise: 'Practise my mistakes', practiseHint: 'Questions you got wrong, one by one. Answer correctly to clear them.', practiseSubject: 'in {s}',
-    status: { open: 'To revise', done: 'Understood', all: 'All' } as Record<string, string>,
+    status: { open: 'To revise', due: '🔁 Check again', done: 'Understood', all: 'All' } as Record<string, string>,
     source: { '': 'All', test: '📝 Tests', practice: '🎯 Practice' } as Record<string, string>,
     allSubjects: 'All subjects', none: 'No mistakes here. Keep it up!', noneOpen: 'Nothing to revise. Great job! 🎉',
     yours: 'Your answer', correct: 'Correct answer', explanation: 'Why', markDone: 'I understand it now', more: 'Show more',
-    test: 'Test', practice: 'Practice', wrongTimes: 'Wrong {n}×', fixedIn: { practice: '✓ Fixed in practice', test: '✓ Fixed in a test', hand: '✓ Understood' } as Record<string, string>,
+    test: 'Test', practice: 'Practice', wrongTimes: 'Wrong {n}×', fixedIn: { practice: '✓ Fixed in practice', test: '✓ Fixed in a test', check: '✓ Understood and checked', hand: '✓ Understood' } as Record<string, string>,
     levels: { easy: 'Easy', medium: 'Medium', hard: 'Hard' } as Record<string, string>, back: 'Back to Mistake Book',
+    dueTitle: (n: number) => `🔁 ${n} question${n === 1 ? '' : 's'} to check again`, dueHint: 'You fixed these a week ago. Do you still remember them?', checkNow: 'Check now',
+    checkPrompt: 'Prove it: answer once more. The options are in a new order.', checkAgain: 'Check again', cancel: 'Cancel',
+    result: {
+      fixed: '✓ Right! Cleared from your Mistake Book. It will come back once in a week to check.',
+      stillOpen: '✗ Not yet. It stays in your Mistake Book. Read the explanation and the textbook page, then try again.',
+      remembered: '🧠 You remembered it! Well done.',
+      reopened: '✗ Forgotten. It is back in "To revise".',
+    } as Record<string, string>,
+    ok: 'OK', checkOn: (d: string) => `Check again on ${d}`, rememberedLabel: '🧠 Remembered a week later', forgotLabel: 'Forgotten after a week',
   },
   ta: {
-    title: 'தவறுப் புத்தகம்', subtitle: 'தேர்வுகளிலும் பயிற்சியிலும் தவறிய எல்லாக் கேள்விகளும். படித்து, சரியாகும் வரை பயிற்சி செய்யுங்கள்.',
+    title: 'தவறுப் புத்தகம்', subtitle: 'தேர்வுகளிலும் பயிற்சியிலும் தவறிய எல்லாக் கேள்விகளும். ஒவ்வொன்றையும் படித்து, மீண்டும் சரியாக விடையளித்து நீக்குங்கள். நீக்கியவை ஒரு வாரம் கழித்து ஒருமுறை சரிபார்க்க வரும்.',
     toRevise: 'திருப்புதலுக்கு', fromTests: 'தேர்வுகளிலிருந்து', fromPractice: 'பயிற்சியிலிருந்து', fixed: 'சரியாக்கியவை',
     practise: 'என் தவறுகளைப் பயிற்சி செய்', practiseHint: 'தவறிய கேள்விகள் ஒவ்வொன்றாக. சரியாக விடையளித்தால் நீங்கும்.', practiseSubject: '{s} இல்',
-    status: { open: 'திருப்புதலுக்கு', done: 'புரிந்தவை', all: 'அனைத்தும்' } as Record<string, string>,
+    status: { open: 'திருப்புதலுக்கு', due: '🔁 மீண்டும் சரிபார்', done: 'புரிந்தவை', all: 'அனைத்தும்' } as Record<string, string>,
     source: { '': 'அனைத்தும்', test: '📝 தேர்வுகள்', practice: '🎯 பயிற்சி' } as Record<string, string>,
     allSubjects: 'எல்லா பாடங்களும்', none: 'இங்கே தவறுகள் இல்லை. தொடருங்கள்!', noneOpen: 'திருப்ப வேண்டியவை இல்லை. அருமை! 🎉',
     yours: 'உங்கள் விடை', correct: 'சரியான விடை', explanation: 'ஏன்', markDone: 'இப்போது புரிந்தது', more: 'மேலும் காட்டு',
-    test: 'தேர்வு', practice: 'பயிற்சி', wrongTimes: '{n} முறை தவறு', fixedIn: { practice: '✓ பயிற்சியில் சரியாக்கப்பட்டது', test: '✓ தேர்வில் சரியாக்கப்பட்டது', hand: '✓ புரிந்தது' } as Record<string, string>,
+    test: 'தேர்வு', practice: 'பயிற்சி', wrongTimes: '{n} முறை தவறு', fixedIn: { practice: '✓ பயிற்சியில் சரியாக்கப்பட்டது', test: '✓ தேர்வில் சரியாக்கப்பட்டது', check: '✓ புரிந்து சரிபார்க்கப்பட்டது', hand: '✓ புரிந்தது' } as Record<string, string>,
     levels: { easy: 'எளிது', medium: 'நடுத்தரம்', hard: 'கடினம்' } as Record<string, string>, back: 'தவறுப் புத்தகத்துக்குத் திரும்பு',
+    dueTitle: (n: number) => `🔁 மீண்டும் சரிபார்க்க ${n} கேள்விகள்`, dueHint: 'ஒரு வாரம் முன்பு இவற்றைச் சரியாக்கினீர்கள். இன்னும் நினைவிருக்கிறதா?', checkNow: 'இப்போது சரிபார்',
+    checkPrompt: 'மீண்டும் ஒருமுறை விடையளியுங்கள். விடைகள் புதிய வரிசையில் உள்ளன.', checkAgain: 'மீண்டும் சரிபார்', cancel: 'ரத்து',
+    result: {
+      fixed: '✓ சரி! தவறுப் புத்தகத்திலிருந்து நீக்கப்பட்டது. ஒரு வாரம் கழித்து ஒருமுறை சரிபார்க்க மீண்டும் வரும்.',
+      stillOpen: '✗ இன்னும் இல்லை. தவறுப் புத்தகத்திலேயே இருக்கும். விளக்கத்தையும் பாடநூல் பக்கத்தையும் படித்து மீண்டும் முயலுங்கள்.',
+      remembered: '🧠 நினைவில் வைத்திருக்கிறீர்கள்! அருமை.',
+      reopened: '✗ மறந்துவிட்டது. மீண்டும் "திருப்புதலுக்கு" பகுதியில் சேர்ந்தது.',
+    } as Record<string, string>,
+    ok: 'சரி', checkOn: (d: string) => `${d} அன்று மீண்டும் சரிபார்க்க`, rememberedLabel: '🧠 ஒரு வாரம் கழித்தும் நினைவில்', forgotLabel: 'ஒரு வாரத்தில் மறந்தது',
   },
 };
 
@@ -54,6 +74,84 @@ const Segmented: React.FC<{ value: string; options: [string, string][]; onChange
   </div>
 );
 
+/**
+ * Asks a Mistake Book question once more with the options in a new order; the
+ * server checks the answer. Used for "I understand it now" and the week-later check.
+ */
+const CheckQuestion: React.FC<{ mistake: any; t: (typeof TEXT)['en']; ta: boolean; onCancel?: () => void; onDone: () => void }> = ({ mistake, t, ta, onCancel, onDone }) => {
+  const q = mistake.question;
+  // order[shown position] = stored position
+  const order = useMemo(() => [0, 1, 2, 3].filter((i) => q.options.en[i] !== undefined).sort(() => Math.random() - 0.5), [q]);
+  const [picked, setPicked] = useState<number | null>(null);
+  const [answer, setAnswer] = useState<{ correct: boolean; correctAnswer: number; result: string } | null>(null);
+  const [error, setError] = useState('');
+  const optionText = (i: number) => (ta && q.options.ta?.[i] ? q.options.ta[i] : q.options.en[i]);
+
+  const choose = async (shown: number) => {
+    if (answer || picked !== null) return;
+    setPicked(shown);
+    try {
+      const res = await api.post(`/student/mistakes/${mistake._id}/check`, { selectedAnswer: order[shown] });
+      setAnswer(res.data.data);
+    } catch (err) {
+      setPicked(null);
+      setError(apiError(err));
+    }
+  };
+
+  return (
+    <div className="mt-3 rounded-2xl border-2 border-indigo-200 dark:border-indigo-500/40 bg-indigo-50/60 dark:bg-indigo-500/10 p-3 sm:p-4">
+      {!answer && <p className="text-sm font-semibold text-indigo-800 dark:text-indigo-200">{t.checkPrompt}</p>}
+      <div className="mt-2 grid sm:grid-cols-2 gap-2">
+        {order.map((stored, shown) => {
+          const isRight = answer && stored === answer.correctAnswer;
+          const isPicked = picked === shown;
+          const tone = answer
+            ? isRight
+              ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-900 dark:text-emerald-200'
+              : isPicked
+                ? 'border-rose-400 bg-rose-50 dark:bg-rose-900/30 text-rose-800 dark:text-rose-200'
+                : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 opacity-70'
+            : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-indigo-400';
+          return (
+            <button key={stored} type="button" disabled={!!answer || picked !== null} onClick={() => choose(shown)}
+              className={`text-left px-3 py-2.5 rounded-xl border-2 text-sm font-medium flex gap-2 ${tone}`}>
+              <span className="font-bold">{LETTERS[shown]}.</span>
+              <span>{optionText(stored)}</span>
+              {answer && isRight && <span className="ml-auto">✓</span>}
+              {answer && isPicked && !isRight && <span className="ml-auto">✗</span>}
+            </button>
+          );
+        })}
+      </div>
+      {error && <div className="mt-2"><Alert>{error}</Alert></div>}
+      {answer ? (
+        <div className="mt-3 space-y-2">
+          <p className={`text-sm font-semibold ${answer.correct ? 'text-emerald-700 dark:text-emerald-300' : 'text-rose-700 dark:text-rose-300'}`}>{t.result[answer.result]}</p>
+          {!answer.correct && (ta && q.explanation?.ta ? q.explanation.ta : q.explanation?.en) && (
+            <p className="text-sm text-slate-600 dark:text-slate-300">
+              <b>💡 {t.explanation}:</b> {ta && q.explanation?.ta ? q.explanation.ta : q.explanation.en}
+            </p>
+          )}
+          <div className="flex justify-end">
+            <Button size="sm" onClick={onDone}>
+              {t.ok}
+            </Button>
+          </div>
+        </div>
+      ) : (
+        onCancel && (
+          <div className="mt-2 flex justify-end">
+            <Button size="sm" variant="ghost" onClick={onCancel}>
+              {t.cancel}
+            </Button>
+          </div>
+        )
+      )}
+    </div>
+  );
+};
+
 const Mistakes: React.FC<{ onOpenPractice?: () => void }> = () => {
   const { language } = useLanguage();
   const ta = language === 'ta';
@@ -67,6 +165,7 @@ const Mistakes: React.FC<{ onOpenPractice?: () => void }> = () => {
   const [session, setSession] = useState<{ questions: any[]; key: number } | null>(null);
   const [starting, setStarting] = useState(false);
   const [reload, setReload] = useState(0);
+  const [checking, setChecking] = useState<string | null>(null);
 
   useEffect(() => {
     if (session) return;
@@ -80,7 +179,9 @@ const Mistakes: React.FC<{ onOpenPractice?: () => void }> = () => {
   const option = (q: any, i: number) => (i >= 0 ? `${LETTERS[i]}. ${ta && q.options.ta?.[i] ? q.options.ta[i] : q.options.en[i]}` : '—');
   const subjectName = (s: any) => (ta && s?.nameTa ? s.nameTa : s?.nameEn);
   const chosenSubject = data?.subjects.find((s) => s.subjectId === subjectId);
-  const openHere = subjectId ? chosenSubject?.open || 0 : data?.summary.open || 0;
+  // Practise my mistakes also brings the ones due for their week-later check
+  const openHere = subjectId ? (chosenSubject?.open || 0) + (chosenSubject?.due || 0) : (data?.summary.open || 0) + (data?.summary.due || 0);
+  const due = data?.summary.due || 0;
 
   const practise = async () => {
     setStarting(true);
@@ -95,13 +196,9 @@ const Mistakes: React.FC<{ onOpenPractice?: () => void }> = () => {
     }
   };
 
-  const markDone = async (id: string) => {
-    try {
-      await api.put(`/student/mistakes/${id}/review`, {});
-      setReload((n) => n + 1);
-    } catch (err) {
-      setError(apiError(err));
-    }
+  const checked = () => {
+    setChecking(null);
+    setReload((n) => n + 1);
   };
 
   if (session) {
@@ -147,6 +244,17 @@ const Mistakes: React.FC<{ onOpenPractice?: () => void }> = () => {
         ))}
       </div>
 
+      {/* Fixed mistakes due for their week-later check */}
+      {due > 0 && status !== 'due' && (
+        <div className="rounded-3xl p-4 sm:p-5 border-2 border-amber-300 dark:border-amber-600/60 bg-amber-50 dark:bg-amber-900/20 flex flex-wrap items-center gap-3">
+          <div className="flex-1 min-w-[12rem]">
+            <p className="text-lg font-bold text-amber-900 dark:text-amber-200">{t.dueTitle(due)}</p>
+            <p className="text-sm text-amber-800 dark:text-amber-300">{t.dueHint}</p>
+          </div>
+          <Button onClick={() => { setStatus('due'); setLimit(PAGE); }}>{t.checkNow}</Button>
+        </div>
+      )}
+
       {/* Practise my mistakes */}
       <div className="rounded-3xl p-4 sm:p-5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white flex flex-wrap items-center gap-4">
         <div className="flex-1 min-w-[12rem]">
@@ -165,7 +273,7 @@ const Mistakes: React.FC<{ onOpenPractice?: () => void }> = () => {
       {/* Filters */}
       <div className="space-y-3">
         <div className="flex flex-wrap gap-2">
-          <Segmented label="Status" value={status} onChange={(v) => { setStatus(v); setLimit(PAGE); }} options={(['open', 'done', 'all'] as const).map((v) => [v, t.status[v]])} />
+          <Segmented label="Status" value={status} onChange={(v) => { setStatus(v); setLimit(PAGE); }} options={(due > 0 || status === 'due' ? (['open', 'due', 'done', 'all'] as const) : (['open', 'done', 'all'] as const)).map((v): [string, string] => [v, v === 'due' ? `${t.status.due} (${due})` : t.status[v]])} />
           <Segmented label="Source" value={source} onChange={(v) => { setSource(v); setLimit(PAGE); }} options={(['', 'test', 'practice'] as const).map((v) => [v, t.source[v]])} />
         </div>
         {!!data?.subjects.length && (
@@ -184,12 +292,14 @@ const Mistakes: React.FC<{ onOpenPractice?: () => void }> = () => {
         <Spinner />
       ) : data.items.length === 0 ? (
         <div className="rounded-3xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-10 text-center text-slate-500 dark:text-slate-400">
-          {status === 'open' ? t.noneOpen : t.none}
+          {status === 'open' || status === 'due' ? t.noneOpen : t.none}
         </div>
       ) : (
         <div className="space-y-3">
           {data.items.map((m) => {
             const q = m.question;
+            // A due check, or "I understand it now": ask again without showing the answer first
+            const asking = m.due || checking === m._id;
             return (
               <article key={m._id} className={`rounded-3xl bg-white dark:bg-slate-800 border p-4 sm:p-5 ${m.isReviewed ? 'border-emerald-200 dark:border-emerald-900' : 'border-slate-200 dark:border-slate-700'}`}>
                 <div className="flex flex-wrap items-center gap-2 text-xs">
@@ -205,6 +315,10 @@ const Mistakes: React.FC<{ onOpenPractice?: () => void }> = () => {
                 </div>
                 <p className="mt-2 text-base font-semibold text-slate-800 dark:text-slate-100 whitespace-pre-line">{text(q.question)}</p>
                 <QuestionImage src={q.imageUrl} />
+                {asking ? (
+                  <CheckQuestion key={m._id + reload} mistake={m} t={t} ta={ta} onCancel={m.due ? undefined : () => setChecking(null)} onDone={checked} />
+                ) : (
+                <>
                 <div className="mt-3 grid sm:grid-cols-2 gap-2 text-sm">
                   <p className="px-3 py-2 rounded-xl bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300">
                     ✗ {t.yours}: {option(q, m.selectedAnswer)}
@@ -218,14 +332,25 @@ const Mistakes: React.FC<{ onOpenPractice?: () => void }> = () => {
                     <b>💡 {t.explanation}:</b> {text(q.explanation)}
                   </p>
                 )}
+                </>
+                )}
                 <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
                   <TextbookButton textbook={q.textbook} subject={ta && q.subjectTa ? q.subjectTa : q.subject} />
                   {m.isReviewed ? (
-                    <span className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">{t.fixedIn[m.fixedIn || 'hand']}</span>
+                    !m.due && (
+                      <span className="text-right text-sm font-semibold text-emerald-700 dark:text-emerald-400">
+                        {t.fixedIn[m.fixedIn || 'hand']}
+                        <span className="block text-xs font-medium text-slate-500 dark:text-slate-400">
+                          {m.recheckedAt ? (m.recheckPassed ? t.rememberedLabel : t.forgotLabel) : m.recheckAt ? t.checkOn(formatDate(m.recheckAt)) : ''}
+                        </span>
+                      </span>
+                    )
                   ) : (
-                    <Button size="sm" variant="secondary" onClick={() => markDone(m._id)}>
-                      {t.markDone}
-                    </Button>
+                    !asking && (
+                      <Button size="sm" variant="secondary" onClick={() => setChecking(m._id)}>
+                        {t.markDone}
+                      </Button>
+                    )
                   )}
                 </div>
               </article>

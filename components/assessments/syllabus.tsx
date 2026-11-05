@@ -120,3 +120,48 @@ export const downloadFromApi = async (path: string, filename: string) => {
   a.click();
   URL.revokeObjectURL(url);
 };
+
+/** A class/section/subject a teacher looks after; NULL = all. */
+export interface MyClass {
+  classGrade: number | null;
+  section: string | null;
+  subjectId: string | null;
+}
+
+/**
+ * The signed-in teacher's classes: undefined while loading, null when there is
+ * no limit (admins, owner, whole-school teachers), otherwise the list.
+ */
+export const useMyClasses = () => {
+  const [classes, setClasses] = useState<MyClass[] | null | undefined>(undefined);
+  useEffect(() => {
+    let cancelled = false;
+    api
+      .get('/assessments/my-classes')
+      .then((res) => !cancelled && setClasses(res.data.data))
+      .catch(() => !cancelled && setClasses(null));
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+  return classes;
+};
+
+const fits = (c: MyClass, classGrade: number | '', subjectId?: string) =>
+  (!c.classGrade || c.classGrade === classGrade) && (!subjectId || !c.subjectId || c.subjectId === subjectId);
+
+/** Classes the teacher may set tests for. */
+export const allowedGrades = (mine: MyClass[] | null | undefined, all: number[]) =>
+  !mine ? all : mine.some((c) => !c.classGrade) ? all : all.filter((g) => mine.some((c) => c.classGrade === g));
+
+/** May the teacher set tests in this subject of this class? */
+export const canSetSubject = (mine: MyClass[] | null | undefined, classGrade: number | '', subjectId: string) =>
+  !mine || mine.some((c) => fits(c, classGrade, subjectId));
+
+/** Sections the teacher may choose for a class and subject; null = any section (including "all sections"). */
+export const allowedSections = (mine: MyClass[] | null | undefined, classGrade: number | '', subjectId: string) => {
+  if (!mine) return null;
+  const matching = mine.filter((c) => fits(c, classGrade, subjectId) && (!c.subjectId || !subjectId || c.subjectId === subjectId));
+  if (!matching.length || matching.some((c) => !c.section)) return null;
+  return [...new Set(matching.map((c) => c.section!))].sort();
+};

@@ -485,6 +485,17 @@ const teacherSections = async (req: AuthRequest, classGrade: number, subjectId: 
   return sections;
 };
 
+// @desc    The classes, sections and subjects the signed-in teacher looks after (null = no limit)
+// @route   GET /api/assessments/my-classes
+export const myClasses = async (req: AuthRequest, res: Response) => {
+  try {
+    const scope = req.user.role === 'teacher' ? await staffScopeOf(req) : null;
+    res.status(200).json({ success: true, data: scope && !coversAll(scope) ? scope : null, assigned: scope === null || scope.length > 0 });
+  } catch (error: any) {
+    sendError(res, error, 'My classes');
+  }
+};
+
 // @desc    Class assessments of the school (owner: ready-made tests)
 // @route   GET /api/assessments/tests
 export const listTests = async (req: AuthRequest, res: Response) => {

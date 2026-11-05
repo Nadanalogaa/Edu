@@ -5,7 +5,7 @@ import {
   PageHeader, Panel, Button, Field, TextInput, SelectInput, Badge, Alert, Modal, Spinner, EmptyState, Table, StatTile,
   apiError, CLASS_GRADES, formatDate,
 } from '../common/ui';
-import { useSubjects, useChapters, chapterLabel, OPTION_LETTERS } from './syllabus';
+import { useSubjects, useChapters, chapterLabel, OPTION_LETTERS, useMyClasses, allowedGrades, canSetSubject, allowedSections } from './syllabus';
 
 interface TestRow {
   _id: string;
@@ -13,6 +13,7 @@ interface TestRow {
   description?: string;
   classGrade: number;
   sections: string[];
+  subjectId?: string;
   subjectName: string;
   questionCount: number;
   totalMarks: number;
@@ -51,6 +52,7 @@ const classAndSections = (t: TestRow) => `${t.classGrade}th${t.sections?.length 
 const TestsScreen: React.FC = () => {
   const { currentUser } = useAuth();
   const isOwner = currentUser?.role === 'owner';
+  const myClasses = useMyClasses();
   const [tab, setTab] = useState<'ours' | 'ready'>('ours');
   const [board, setBoard] = useState('state_board');
   const [classGrade, setClassGrade] = useState<number | ''>('');
@@ -145,13 +147,17 @@ const TestsScreen: React.FC = () => {
         )}
         <SelectInput aria-label="Class" className="!w-auto" value={classGrade} onChange={(e) => setClassGrade(e.target.value ? Number(e.target.value) : '')}>
           <option value="">All classes</option>
-          {CLASS_GRADES.map((g) => (
+          {allowedGrades(myClasses, CLASS_GRADES).map((g) => (
             <option key={g} value={g}>
               {g}th
             </option>
           ))}
         </SelectInput>
       </div>
+
+      {myClasses && myClasses.length === 0 && (
+        <Alert tone="info">No classes are assigned to you yet, so you cannot set tests. Ask your school admin to assign your classes on the Teachers page.</Alert>
+      )}
 
       <Panel>
         {!tests ? (
@@ -162,7 +168,7 @@ const TestsScreen: React.FC = () => {
           </EmptyState>
         ) : (
           <Table head={tab === 'ready' || isOwner ? ['Test', 'Class', 'Questions', 'Duration', ''] : ['Test', 'Class', 'When', 'Status', 'Finished', '']}>
-            {tests.map((t) => (
+            {tests.filter((t) => tab !== 'ready' || canSetSubject(myClasses, t.classGrade, t.subjectId || '')).map((t) => (
               <tr key={t._id}>
                 <td className="px-4 py-3 min-w-[12rem]">
                   <p className="font-medium text-slate-800 dark:text-slate-100">{t.title}</p>
@@ -254,32 +260,48 @@ const useSections = (classGrade: number | '', enabled: boolean) => {
   return sections;
 };
 
-const SectionPicker: React.FC<{ classGrade: number | ''; value: string[]; onChange: (v: string[]) => void; canList?: boolean }> = ({
+/** `allowed`: the only sections a teacher may pick (they then cannot choose "All sections"). */
+const SectionPicker: React.FC<{ classGrade: number | ''; value: string[]; onChange: (v: string[]) => void; canList?: boolean; allowed?: string[] | null }> = ({
   classGrade,
   value,
   onChange,
   canList,
+  allowed,
 }) => {
   const sections = useSections(classGrade, Boolean(canList));
-  const named = sections.filter((s) => s.section);
+  const named = sections.filter((s) => s.section && (!allowed || allowed.includes(s.section)));
+  // A teacher of some sections only: start with all of theirs ticked
+  useEffect(() => {
+    if (allowed && (value.length === 0 || value.some((v) => !allowed.includes(v)))) onChange(allowed);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allowed?.join(',')]);
   const total = sections.reduce((sum, s) => sum + s.students, 0);
   const toggle = (s: string) => onChange(value.includes(s) ? value.filter((x) => x !== s) : [...value, s]);
   return (
     <fieldset>
       <legend className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Sections</legend>
       <div className="flex flex-wrap gap-3 text-sm text-slate-700 dark:text-slate-300">
-        <label className="flex items-center gap-1.5">
-          <input type="checkbox" checked={value.length === 0} onChange={() => onChange([])} className="rounded" />
-          All sections{canList && classGrade ? ` (${total} students)` : ''}
-        </label>
+        {!allowed && (
+          <label className="flex items-center gap-1.5">
+            <input type="checkbox" checked={value.length === 0} onChange={() => onChange([])} className="rounded" />
+            All sections{canList && classGrade ? ` (${total} students)` : ''}
+          </label>
+        )}
         {named.map((s) => (
           <label key={s.section} className="flex items-center gap-1.5">
-            <input type="checkbox" checked={value.includes(s.section!)} onChange={() => toggle(s.section!)} className="rounded" />
+            <input
+              type="checkbox"
+              checked={value.includes(s.section!)}
+              // A teacher keeps at least one of their sections
+              onChange={() => (!allowed || !(value.length === 1 && value[0] === s.section) ? toggle(s.section!) : undefined)}
+              className="rounded"
+            />
             {s.section} ({s.students})
           </label>
         ))}
         {canList && classGrade && named.length === 0 && <span className="text-xs text-slate-500">No sections set for this class.</span>}
       </div>
+      {allowed && <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Only your sections are shown.</p>}
     </fieldset>
   );
 };
@@ -306,7 +328,12 @@ const CreateTest: React.FC<{ isOwner: boolean; board: string; onClose: () => voi
   const [chosen, setChosen] = useState<string[]>([]);
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
-  const subjects = useSubjects(form.classGrade, isOwner ? board : undefined);
+  const myClasses = useMyClasses();
+  const allSubjects = useSubjects(form.classGrade, isOwner ? board : undefined);
+  // Teachers only see the classes and subjects they are assigned
+  const subjects = allSubjects.filter((s) => canSetSubject(myClasses, form.classGrade, s._id));
+  const grades = allowedGrades(myClasses, CLASS_GRADES);
+  const sectionChoices = useMemo(() => allowedSections(myClasses, form.classGrade, form.subjectId), [myClasses, form.classGrade, form.subjectId]);
   const chapters = useChapters(form.subjectId);
   const set = (patch: Partial<typeof form>) => setForm((f) => ({ ...f, ...patch }));
 
@@ -392,7 +419,7 @@ const CreateTest: React.FC<{ isOwner: boolean; board: string; onClose: () => voi
           <Field label="Class">
             <SelectInput required value={form.classGrade} onChange={(e) => set({ classGrade: e.target.value ? Number(e.target.value) : '', subjectId: '', chapterIds: [], sections: [] })}>
               <option value="">Select class</option>
-              {CLASS_GRADES.map((g) => (
+              {grades.map((g) => (
                 <option key={g} value={g}>
                   {g}th
                 </option>
@@ -410,7 +437,7 @@ const CreateTest: React.FC<{ isOwner: boolean; board: string; onClose: () => voi
             </SelectInput>
           </Field>
         </div>
-        {!isOwner && <SectionPicker classGrade={form.classGrade} value={form.sections} onChange={(sections) => set({ sections })} canList />}
+        {!isOwner && <SectionPicker classGrade={form.classGrade} value={form.sections} onChange={(sections) => set({ sections })} canList allowed={sectionChoices} />}
 
         {form.subjectId && (
           <fieldset>
@@ -523,6 +550,8 @@ const CreateTest: React.FC<{ isOwner: boolean; board: string; onClose: () => voi
 /** Edit a school test's schedule/sections, or use a ready-made test for the school. */
 const ScheduleTest: React.FC<{ test: TestRow; mode: 'schedule' | 'use'; onClose: () => void; onDone: (message: string) => void }> = ({ test, mode, onClose, onDone }) => {
   const { currentUser } = useAuth();
+  const myClasses = useMyClasses();
+  const sectionChoices = useMemo(() => allowedSections(myClasses, test.classGrade, test.subjectId || ''), [myClasses, test.classGrade, test.subjectId]);
   const [form, setForm] = useState({
     title: test.title,
     sections: mode === 'schedule' ? test.sections || [] : ([] as string[]),
@@ -562,7 +591,7 @@ const ScheduleTest: React.FC<{ test: TestRow; mode: 'schedule' | 'use'; onClose:
         <Field label="Title">
           <TextInput required value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} />
         </Field>
-        <SectionPicker classGrade={test.classGrade} value={form.sections} onChange={(sections) => setForm({ ...form, sections })} canList />
+        <SectionPicker classGrade={test.classGrade} value={form.sections} onChange={(sections) => setForm({ ...form, sections })} canList allowed={sectionChoices} />
         <Field label="Duration (minutes)">
           <TextInput type="number" min={1} max={300} required value={form.duration} onChange={(e) => setForm({ ...form, duration: e.target.value })} />
         </Field>

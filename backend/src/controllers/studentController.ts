@@ -1,6 +1,5 @@
 import { Response } from 'express';
 import { StudentAttempts } from '../models/StudentAttempt';
-import { MistakeBook } from '../models/MistakeBook';
 import { Questions } from '../models/Question';
 import { Users } from '../models/User';
 import { Tests, populateTests } from '../models/Test';
@@ -10,6 +9,7 @@ import { AuthRequest } from '../middleware/auth';
 import { Subjects } from '../models/Syllabus';
 import { questionsInOrder } from '../models/Question';
 import { textbookFor } from '../utils/textbook';
+import { DUE_SQL, fixMistake, recordMistake } from '../utils/mistakes';
 import {
   attemptEndsAt, isAssignedTo, lockAttempt, scoreAttempt, studentQuestion, testState, SUBMIT_GRACE_MS,
 } from '../utils/assessments';
@@ -240,7 +240,8 @@ export const getMistakes = async (req: AuthRequest, res: Response) => {
     const params: any[] = [req.user._id];
     const where = ['m.student_id = $1'];
     const state = status || (isReviewed === undefined ? 'all' : isReviewed === 'true' ? 'done' : 'open');
-    if (state !== 'all') where.push(state === 'done' ? 'm.is_reviewed' : 'NOT m.is_reviewed');
+    if (state === 'due') where.push(DUE_SQL);
+    else if (state !== 'all') where.push(state === 'done' ? 'm.is_reviewed' : 'NOT m.is_reviewed');
     if (source === 'test' || source === 'practice') {
       params.push(source);
       where.push(`m.source = $${params.length}`);
@@ -254,7 +255,7 @@ export const getMistakes = async (req: AuthRequest, res: Response) => {
 
     const rows = await query(
       `SELECT m.id AS mistake_id, m.selected_answer, m.is_reviewed, m.reviewed_at, m.source AS mistake_source, m.wrong_count,
-              m.fixed_in, m.created_at AS mistake_created, m.updated_at AS mistake_updated, t.title AS test_title,
+              m.fixed_in, m.recheck_at, m.rechecked_at, m.recheck_passed, ${DUE_SQL} AS due, m.created_at AS mistake_created, m.updated_at AS mistake_updated, t.title AS test_title,
               c.name_en AS chapter_en, c.name_ta AS chapter_ta, s.name_ta AS subject_ta, q.*
        FROM mistake_book m
        JOIN questions q ON q.id = m.question_id
@@ -263,7 +264,7 @@ export const getMistakes = async (req: AuthRequest, res: Response) => {
        LEFT JOIN student_attempts a ON a.id = m.attempt_id
        LEFT JOIN tests t ON t.id = a.test_id
        WHERE ${where.join(' AND ')}
-       ORDER BY m.is_reviewed, m.updated_at DESC
+       ORDER BY ${DUE_SQL} DESC, m.is_reviewed, m.updated_at DESC
        LIMIT ${take} OFFSET ${skip}`,
       params
     );
@@ -272,12 +273,15 @@ export const getMistakes = async (req: AuthRequest, res: Response) => {
               count(*) FILTER (WHERE NOT m.is_reviewed AND m.source = 'test')::int AS open_tests,
               count(*) FILTER (WHERE NOT m.is_reviewed AND m.source = 'practice')::int AS open_practice,
               count(*) FILTER (WHERE m.is_reviewed)::int AS done,
-              count(*) FILTER (WHERE m.fixed_in IS NOT NULL)::int AS fixed
+              count(*) FILTER (WHERE m.fixed_in IS NOT NULL)::int AS fixed,
+              count(*) FILTER (WHERE ${DUE_SQL})::int AS due,
+              count(*) FILTER (WHERE m.recheck_passed)::int AS remembered
        FROM mistake_book m WHERE m.student_id = $1`,
       [req.user._id]
     );
     const subjects = await query(
-      `SELECT s.id AS subject_id, s.name_en, s.name_ta, count(*) FILTER (WHERE NOT m.is_reviewed)::int AS open
+      `SELECT s.id AS subject_id, s.name_en, s.name_ta, count(*) FILTER (WHERE NOT m.is_reviewed)::int AS open,
+              count(*) FILTER (WHERE ${DUE_SQL})::int AS due
        FROM mistake_book m JOIN questions q ON q.id = m.question_id JOIN subjects s ON s.id = q.subject_id
        WHERE m.student_id = $1 GROUP BY s.id, s.name_en, s.name_ta, s.sort_order ORDER BY s.sort_order`,
       [req.user._id]
@@ -291,6 +295,10 @@ export const getMistakes = async (req: AuthRequest, res: Response) => {
       isReviewed: r.is_reviewed,
       reviewedAt: r.reviewed_at,
       fixedIn: r.fixed_in,
+      due: r.due,
+      recheckAt: r.recheck_at,
+      recheckedAt: r.rechecked_at,
+      recheckPassed: r.recheck_passed,
       wrongCount: r.wrong_count,
       createdAt: r.mistake_created,
       updatedAt: r.mistake_updated,
@@ -316,8 +324,9 @@ export const getMistakes = async (req: AuthRequest, res: Response) => {
       count: data.length,
       summary: {
         open: summary.open, openTests: summary.open_tests, openPractice: summary.open_practice, done: summary.done, fixed: summary.fixed,
+        due: summary.due, remembered: summary.remembered,
       },
-      subjects: subjects.map((s) => ({ subjectId: s.subject_id, nameEn: s.name_en, nameTa: s.name_ta, open: s.open })),
+      subjects: subjects.map((s) => ({ subjectId: s.subject_id, nameEn: s.name_en, nameTa: s.name_ta, open: s.open, due: s.due })),
       data,
     });
   } catch (error: any) {
@@ -329,39 +338,47 @@ export const getMistakes = async (req: AuthRequest, res: Response) => {
   }
 };
 
-// @desc    Mark mistake as reviewed
-// @route   PUT /api/student/mistakes/:id/review
+// @desc    "I understand it now" and the week-later check: answer the question once more.
+//          Open mistake: right = fixed, wrong = stays (one more wrong answer).
+//          Fixed and due again: right = remembered, wrong = back to "to fix".
+// @route   POST /api/student/mistakes/:id/check  { selectedAnswer }  (stored option order)
 // @access  Private (Student)
-export const markMistakeReviewed = async (req: AuthRequest, res: Response) => {
+export const checkMistake = async (req: AuthRequest, res: Response) => {
   try {
-    const { notes } = req.body;
-
-    const existing = await MistakeBook.findById(req.params.id);
-
-    if (!existing || existing.studentId !== req.user._id) {
-      return res.status(404).json({
-        success: false,
-        message: 'Mistake not found',
-      });
+    const { selectedAnswer } = req.body || {};
+    if (!isUuid(req.params.id) || !Number.isInteger(selectedAnswer) || selectedAnswer < 0 || selectedAnswer > 3) {
+      return res.status(400).json({ success: false, message: 'selectedAnswer is required' });
     }
+    const [m] = await query(
+      `SELECT m.*, q.correct_answer AS answer, ${DUE_SQL} AS due FROM mistake_book m JOIN questions q ON q.id = m.question_id
+       WHERE m.id = $1 AND m.student_id = $2`,
+      [req.params.id, req.user._id]
+    );
+    if (!m) return res.status(404).json({ success: false, message: 'Mistake not found' });
+    if (m.is_reviewed && !m.due) return res.status(409).json({ success: false, message: 'This mistake is already fixed' });
 
-    const mistake = await MistakeBook.updateById(existing._id, {
-      isReviewed: true,
-      reviewedAt: new Date(),
-      ...(notes && { notes }),
-    });
-
-    res.status(200).json({
-      success: true,
-      message: 'Mistake marked as reviewed',
-      data: mistake,
-    });
+    const correct = selectedAnswer === m.answer;
+    await query('INSERT INTO practice_log (user_id, question_id, correct) VALUES ($1, $2, $3)', [req.user._id, m.question_id, correct]);
+    let result: 'fixed' | 'stillOpen' | 'remembered' | 'reopened';
+    if (!m.is_reviewed) {
+      if (correct) {
+        await fixMistake(req.user._id, m.question_id, 'check');
+        result = 'fixed';
+      } else {
+        await query('UPDATE mistake_book SET wrong_count = wrong_count + 1, selected_answer = $2, updated_at = now() WHERE id = $1', [m.id, selectedAnswer]);
+        result = 'stillOpen';
+      }
+    } else if (correct) {
+      await fixMistake(req.user._id, m.question_id, 'check');
+      result = 'remembered';
+    } else {
+      await recordMistake({ studentId: req.user._id, questionId: m.question_id, selectedAnswer, correctAnswer: m.answer, source: m.source });
+      result = 'reopened';
+    }
+    res.status(200).json({ success: true, data: { correct, correctAnswer: m.answer, result } });
   } catch (error: any) {
-    console.error('Mark mistake reviewed error:', error);
-    res.status(500).json({
-      success: false,
-      message: error.message || 'Error marking mistake as reviewed',
-    });
+    console.error('Check mistake error:', error);
+    res.status(500).json({ success: false, message: error.message || 'Error checking the answer' });
   }
 };
 

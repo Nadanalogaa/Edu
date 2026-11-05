@@ -293,6 +293,18 @@ export const migrations: Migration[] = [
       CREATE INDEX mistake_book_question_open_idx ON mistake_book (question_id) WHERE NOT is_reviewed;
     `,
   },
+  {
+    version: 14,
+    name: 'mistake book: fixed mistakes come back once a week later as a check',
+    sql: `
+      -- When a fixed mistake is due to be checked again, when it was, and whether the student still knew it
+      ALTER TABLE mistake_book ADD COLUMN recheck_at TIMESTAMPTZ;
+      ALTER TABLE mistake_book ADD COLUMN rechecked_at TIMESTAMPTZ;
+      ALTER TABLE mistake_book ADD COLUMN recheck_passed BOOLEAN;
+      UPDATE mistake_book SET recheck_at = COALESCE(reviewed_at, updated_at) + interval '7 days' WHERE is_reviewed;
+      CREATE INDEX mistake_book_recheck_idx ON mistake_book (student_id, recheck_at) WHERE is_reviewed AND rechecked_at IS NULL;
+    `,
+  },
 ];
 
 export const runMigrations = async (client: PoolClient) => {
