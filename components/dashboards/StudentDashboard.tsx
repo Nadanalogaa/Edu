@@ -134,7 +134,12 @@ const StudentDashboard: React.FC = () => {
                 }
 
                 if (mistakesRes.data.success) {
-                    setMistakes(mistakesRes.data.data);
+                    // The Mistake Book API returns `question`; this screen reads `questionId`
+                    setMistakes(
+                        mistakesRes.data.data
+                            .map((m: any) => (m.question ? { ...m, correctAnswer: m.question.correctAnswer, questionId: { ...m.question, questionText: m.question.question } } : m))
+                            .filter((m: any) => m.questionId)
+                    );
                 }
             } catch (error: any) {
                 console.error('Error fetching dashboard data:', error);

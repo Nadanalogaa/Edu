@@ -41,6 +41,7 @@ import ReportsScreen from './components/reports/ReportsScreen';
 import StudentReport from './components/reports/StudentReport';
 import { boardLabel, classLabel } from './components/common/ui';
 import InstallApp from './components/common/InstallApp';
+import ScreenErrorBoundary from './components/common/ScreenErrorBoundary';
 import {
     SunIcon, MoonIcon, LayoutDashboardIcon, UsersIcon, UserIcon, LogOutIcon,
     SchoolIcon, FileTextIcon, ClipboardCheckIcon, GraduationCapIcon, PenSquareIcon, BookOpenIcon, VideoIcon, StethoscopeIcon,
@@ -545,7 +546,9 @@ const DashboardLayout: React.FC = () => {
         {/* Main Content */}
         <div className="px-3 pt-3 pb-[calc(5.5rem+env(safe-area-inset-bottom))] sm:px-5 sm:pt-4 lg:px-8 lg:py-5">
           <div className="max-w-7xl mx-auto">
-            <Suspense fallback={<PageLoading />}>{renderContent()}</Suspense>
+            <ScreenErrorBoundary resetKey={activeView}>
+              <Suspense fallback={<PageLoading />}>{renderContent()}</Suspense>
+            </ScreenErrorBoundary>
           </div>
         </div>
       </main>
