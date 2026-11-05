@@ -36,12 +36,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise II.3, p. 89', answer: 0,
     en: { q: 'Liquids and gases are generally _____ conductors of heat.', options: ['poor', 'good', 'excellent', 'perfect'], explanation: 'Liquids and gases conduct heat only very slowly; they are poor (bad) conductors.' },
-    ta: { q: 'திரவங்களும், வாயுக்களும் _____ முறையில் வெப்பத்தைக் கடத்தும்.', options: ['குறைவான', 'சிறந்த', 'மிகச் சிறந்த', 'முழுமையான'], explanation: 'திரவங்களும் வாயுக்களும் மிக மெதுவாகவே வெப்பத்தைக் கடத்தும்; அவை அரிதிற் கடத்திகள்.' },
+    ta: { q: 'திரவங்களும், வாயுக்களும் பொதுவாக வெப்பத்தை _____ கடத்தும்.', options: ['குறைவாக (அரிதாக)', 'நன்றாக', 'மிகச் சிறப்பாக', 'முழுமையாக'], explanation: 'திரவங்களும் வாயுக்களும் மிக மெதுவாகவே வெப்பத்தைக் கடத்தும்; அவை அரிதிற் கடத்திகள்.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise II.4, p. 89', answer: 0,
     en: { q: 'The fixed temperature at which matter changes state from solid to liquid is called _____.', options: ['melting point', 'boiling point', 'freezing point', 'condensation point'], explanation: 'The temperature at which a solid changes to liquid is its melting point (0 °C for ice).' },
-    ta: { q: 'வெப்பநிலை மாறாமல் பொருளொன்று திட நிலையில் இருந்து திரவ நிலைக்கு மாறும் வெப்பநிலையை _____ என்கிறோம்.', options: ['உருகுநிலை', 'கொதிநிலை', 'உறைநிலை', 'குளிர்தல் நிலை'], explanation: 'திடப்பொருள் திரவமாக மாறும் வெப்பநிலை அதன் உருகுநிலை (பனிக்கட்டிக்கு 0 °C).' },
+    ta: { q: 'பொருளொன்று திட நிலையில் இருந்து திரவ நிலைக்கு மாறும் நிலையான வெப்பநிலையை _____ என்கிறோம்.', options: ['உருகுநிலை', 'கொதிநிலை', 'உறைநிலை', 'ஒடுக்க நிலை'], explanation: 'திடப்பொருள் திரவமாக மாறும் வெப்பநிலை அதன் உருகுநிலை (பனிக்கட்டிக்கு 0 °C).' },
   },
   {
     difficulty: 'easy', source: 'Book exercise IV.1, p. 89', answer: 0,
@@ -132,12 +132,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise IV.6, p. 89', answer: 0,
     en: { q: 'Specific heat capacity of a substance is the amount of heat required to raise the temperature of', options: ['1 kg of the substance by 1 K', 'the whole body by 1 K', '1 kg of the substance until it melts', '1 g of water by 100 °C'], explanation: 'Specific heat capacity C = Q/(mΔT): heat per kilogram per kelvin; unit J kg⁻¹ K⁻¹.' },
-    ta: { q: 'ஒரு பொருளின் தன் வெப்ப ஏற்புத் திறன் என்பது எதன் வெப்பநிலையை உயர்த்தத் தேவையான வெப்ப ஆற்றல்?', options: ['1 கிகி பொருளின் வெப்பநிலையை 1 K', 'முழுப் பொருளின் வெப்பநிலையை 1 K', '1 கிகி பொருள் உருகும் வரை', '1 கி நீரின் வெப்பநிலையை 100 °C'], explanation: 'தன் வெப்ப ஏற்புத் திறன் C = Q/(mΔT): ஓரலகு நிறைக்கு, ஓரலகு வெப்பநிலைக்குத் தேவையான வெப்பம்; அலகு J கிகி⁻¹ K⁻¹.' },
+    ta: { q: 'ஒரு பொருளின் தன் வெப்ப ஏற்புத் திறன் என்பது _____ உயர்த்தத் தேவையான வெப்ப ஆற்றல்.', options: ['1 கிகி பொருளின் வெப்பநிலையை 1 K', 'முழுப் பொருளின் வெப்பநிலையை 1 K', '1 கிகி பொருள் உருகும் வரை அதன் வெப்பநிலையை', '1 கி நீரின் வெப்பநிலையை 100 °C'], explanation: 'தன் வெப்ப ஏற்புத் திறன் C = Q/(mΔT): ஓரலகு நிறைக்கு, ஓரலகு வெப்பநிலைக்குத் தேவையான வெப்பம்; அலகு J கிகி⁻¹ K⁻¹.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise IV.7, p. 89', answer: 0,
     en: { q: 'Thermal capacity (heat capacity) of a body is the heat needed to raise the temperature of', options: ['the entire body by 1 °C', '1 kg of the body by 1 °C', '1 g of the body by 1 °C', 'the body from 0 °C to 100 °C'], explanation: 'Heat capacity C′ = Q/ΔT refers to the whole mass of the body, not unit mass.' },
-    ta: { q: 'ஒரு பொருளின் வெப்ப ஏற்புத் திறன் என்பது எதன் வெப்பநிலையை உயர்த்தத் தேவையான வெப்பம்?', options: ['முழுப் பொருளின் வெப்பநிலையை 1 °C', '1 கிகி பொருளின் வெப்பநிலையை 1 °C', '1 கி பொருளின் வெப்பநிலையை 1 °C', 'பொருளை 0 °C முதல் 100 °C வரை'], explanation: 'வெப்ப ஏற்புத் திறன் C′ = Q/ΔT; இது ஓரலகு நிறைக்கு அல்ல, முழுப் பொருளுக்குரியது.' },
+    ta: { q: 'ஒரு பொருளின் வெப்ப ஏற்புத் திறன் என்பது _____ உயர்த்தத் தேவையான வெப்ப ஆற்றல்.', options: ['முழுப் பொருளின் வெப்பநிலையை 1 °C', '1 கிகி பொருளின் வெப்பநிலையை 1 °C', '1 கி பொருளின் வெப்பநிலையை 1 °C', 'பொருளின் வெப்பநிலையை 0 °C இலிருந்து 100 °C வரை'], explanation: 'வெப்ப ஏற்புத் திறன் C′ = Q/ΔT; இது ஓரலகு நிறைக்கு அல்ல, முழுப் பொருளுக்குரியது.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise IV.8, p. 89', answer: 0,
@@ -213,7 +213,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise III.1, p. 89', answer: 0,
     en: { q: 'Assertion: Food can be cooked faster in vessels with a copper bottom.\nReason: Copper is the best conductor of heat.', options: AR_EN, explanation: 'Copper conducts heat very well (best among common metals in the activity), so heat reaches the food quickly; the reason explains the assertion.' },
-    ta: { q: 'கூற்று: தாமிரப் பகுதியை அடிப்பகுதியாகக் கொண்ட பாத்திரங்கள் மூலம் விரைவாக சமைக்கலாம்.\nகாரணம்: தாமிரம் ஒரு எளிதிற் கடத்தி.', options: AR_TA, explanation: 'தாமிரம் வெப்பத்தைச் சிறப்பாகக் கடத்துவதால் வெப்பம் உணவை விரைவாக அடைகிறது; காரணம் கூற்றை விளக்குகிறது.' },
+    ta: { q: 'கூற்று: தாமிரப் பகுதியை அடிப்பகுதியாகக் கொண்ட பாத்திரங்கள் மூலம் விரைவாக சமைக்கலாம்.\nகாரணம்: தாமிரம் மிகச் சிறந்த எளிதிற் கடத்தி.', options: AR_TA, explanation: 'தாமிரம் வெப்பத்தைச் சிறப்பாகக் கடத்துவதால் வெப்பம் உணவை விரைவாக அடைகிறது; காரணம் கூற்றை விளக்குகிறது.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise III.2, p. 89', answer: 1,
@@ -223,7 +223,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise III.3, p. 89', answer: 2,
     en: { q: 'Assertion: When water is heated up to 100 °C, there is no rise in temperature until all the water gets converted into water vapour.\nReason: Boiling point of water is 10 °C.', options: AR_EN, explanation: 'The heat supplied at 100 °C is used as latent heat of vaporisation, so the assertion is true; the boiling point of water is 100 °C, not 10 °C.' },
-    ta: { q: 'கூற்று: வெப்பநிலை 100 °C எட்டியவுடன் வெப்பநிலை மேலும் மாறாமல் நீர் நீராவியாக மாறுகிறது.\nகாரணம்: நீரின் கொதிநிலை 10 °C.', options: AR_TA, explanation: '100 °C இல் அளிக்கப்படும் வெப்பம் ஆவியாதலின் உள்ளுறை வெப்பமாகப் பயன்படுவதால் கூற்று சரி; நீரின் கொதிநிலை 100 °C, 10 °C அல்ல.' },
+    ta: { q: 'கூற்று: நீர் 100 °C வரை வெப்பப்படுத்தப்பட்ட பின், நீர் முழுவதும் நீராவியாக மாறும் வரை வெப்பநிலை மேலும் உயர்வதில்லை.\nகாரணம்: நீரின் கொதிநிலை 10 °C.', options: AR_TA, explanation: '100 °C இல் அளிக்கப்படும் வெப்பம் ஆவியாதலின் உள்ளுறை வெப்பமாகப் பயன்படுவதால் கூற்று சரி; நீரின் கொதிநிலை 100 °C, 10 °C அல்ல.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise VI.1, p. 89', answer: 0,

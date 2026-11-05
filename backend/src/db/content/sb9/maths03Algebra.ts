@@ -22,7 +22,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise 3.1 Q1, p. 87', answer: 0,
     en: { q: 'Which of the following expressions is a polynomial?', options: ['x²(x − 1)', '1/x² + 3x − 4', '(1/x)(x + 5)', 'm² − ∛m + 7m − 10'], explanation: 'x²(x − 1) = x³ − x² has only whole-number powers; the others contain negative or fractional powers.' },
-    ta: { q: 'கீழ்க்காண்பனவற்றில் எது பல்லுறுப்புக் கோவை?', options: ['x²(x − 1)', '1/x² + 3x − 4', '(1/x)(x + 5)', 'm² − ∛m + 7m − 10'], explanation: 'x²(x − 1) = x³ − x² இல் முழு எண் அடுக்குகள் மட்டுமே; மற்றவற்றில் குறை அல்லது பின்ன அடுக்குகள் உள்ளன.' },
+    ta: { q: 'பின்வரும் கோவைகளில் எது பல்லுறுப்புக் கோவை ஆகும்?', options: ['x²(x − 1)', '1/x² + 3x − 4', '(1/x)(x + 5)', 'm² − ∛m + 7m − 10'], explanation: 'x²(x − 1) = x³ − x² இல் முழு எண் அடுக்குகள் மட்டுமே; மற்றவற்றில் குறை அல்லது பின்ன அடுக்குகள் உள்ளன.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise 3.1 Q2(i), p. 87', answer: 0,
@@ -32,7 +32,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise 3.1 Q2(iii), p. 87', answer: 0,
     en: { q: 'In πx² − x + 2, the coefficients of x² and x are', options: ['π and −1', 'π and 1', '1 and −1', 'π and 2'], explanation: 'x² is multiplied by π and x by −1.' },
-    ta: { q: 'πx² − x + 2 இல் x², x இன் கெழுக்கள்', options: ['π, −1', 'π, 1', '1, −1', 'π, 2'], explanation: 'x² இன் கெழு π, x இன் கெழு −1.' },
+    ta: { q: 'πx² − x + 2 இல் x², x இன் கெழுக்கள்', options: ['π மற்றும் −1', 'π மற்றும் 1', '1 மற்றும் −1', 'π மற்றும் 2'], explanation: 'x² இன் கெழு π, x இன் கெழு −1.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise 3.1 Q3(i), p. 87', answer: 0,
@@ -62,7 +62,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise 3.15 Q17, p. 135', answer: 0,
     en: { q: 'The degree of a (non-zero) constant polynomial is', options: ['0', '1', '2', '3'], explanation: 'A constant such as 7 = 7x⁰ has degree zero.' },
-    ta: { q: 'மாறிலிக் கோவையின் படி', options: ['0', '1', '2', '3'], explanation: '7 = 7x⁰ போன்ற மாறிலியின் படி பூச்சியம்.' },
+    ta: { q: '(பூச்சியமற்ற) மாறிலிக் கோவையின் படி', options: ['0', '1', '2', '3'], explanation: '7 = 7x⁰ போன்ற மாறிலியின் படி பூச்சியம்.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise 3.15 Q2, p. 134', answer: 0,
@@ -92,7 +92,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise 3.2 Q4, p. 91', answer: 0,
     en: { q: 'The root of the polynomial equation 10x + 9 = 0 is', options: ['−9/10', '9/10', '−10/9', '10/9'], explanation: '10x = −9, so x = −9/10.' },
-    ta: { q: '10x + 9 = 0 என்ற சமன்பாட்டின் மூலம்', options: ['−9/10', '9/10', '−10/9', '10/9'], explanation: '10x = −9; x = −9/10.' },
+    ta: { q: '10x + 9 = 0 என்ற பல்லுறுப்புக் கோவைச் சமன்பாட்டின் மூலம்', options: ['−9/10', '9/10', '−10/9', '10/9'], explanation: '10x = −9; x = −9/10.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise 3.2 Q1, p. 91', answer: 0,
@@ -102,7 +102,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§3.2.2, p. 91', answer: 0,
     en: { q: 'Which statement is correct?', options: ['A non-zero constant polynomial has no zero.', 'Every polynomial has 0 as a zero.', 'A linear polynomial has two zeros.', 'The zero of a polynomial must be an integer.'], explanation: 'p(x) = 5 is never 0, so it has no zero; a zero can be any real number.' },
-    ta: { q: 'சரியான கூற்று எது?', options: ['பூச்சியமற்ற மாறிலிப் பல்லுறுப்புக் கோவைக்குப் பூச்சியம் இல்லை.', 'ஒவ்வொரு பல்லுறுப்புக் கோவைக்கும் 0 ஒரு பூச்சியம்.', 'ஒருபடிப் பல்லுறுப்புக் கோவைக்கு இரண்டு பூச்சியங்கள்.', 'பல்லுறுப்புக் கோவையின் பூச்சியம் ஒரு முழுக்களாக இருக்க வேண்டும்.'], explanation: 'p(x) = 5 எப்போதும் 0 ஆகாது; எனவே பூச்சியம் இல்லை. பூச்சியம் எந்த மெய்யெண்ணாகவும் இருக்கலாம்.' },
+    ta: { q: 'சரியான கூற்று எது?', options: ['பூச்சியமற்ற மாறிலிப் பல்லுறுப்புக் கோவைக்குப் பூச்சியம் இல்லை.', 'ஒவ்வொரு பல்லுறுப்புக் கோவைக்கும் 0 ஒரு பூச்சியம்.', 'ஒருபடிப் பல்லுறுப்புக் கோவைக்கு இரண்டு பூச்சியங்கள்.', 'பல்லுறுப்புக் கோவையின் பூச்சியம் முழுக்களில் ஒன்றாகவே இருக்க வேண்டும்.'], explanation: 'p(x) = 5 எப்போதும் 0 ஆகாது; எனவே பூச்சியம் இல்லை. பூச்சியம் எந்த மெய்யெண்ணாகவும் இருக்கலாம்.' },
   },
   {
     difficulty: 'easy', source: '§3.3, p. 92', answer: 0,
@@ -172,17 +172,17 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise 3.15 Q21, p. 135', answer: 0,
     en: { q: 'If (2, 3) is a solution of 2x + 3y = k, then k is', options: ['13', '12', '6', '0'], explanation: '2(2) + 3(3) = 4 + 9 = 13.' },
-    ta: { q: '2x + 3y = k என்பதன் தீர்வு (2, 3) எனில் k =', options: ['13', '12', '6', '0'], explanation: '2(2) + 3(3) = 13.' },
+    ta: { q: '2x + 3y = k என்பதன் தீர்வு (2, 3) எனில் k =', options: ['13', '12', '6', '0'], explanation: '2(2) + 3(3) = 4 + 9 = 13.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise 3.15 Q18, p. 135', answer: 0,
     en: { q: 'If x = 2, y = −2 is a solution of 2x + 3y = m, then m is', options: ['−2', '2', '10', '0'], explanation: '2(2) + 3(−2) = 4 − 6 = −2.' },
-    ta: { q: '2x + 3y = m க்கு x = 2, y = −2 ஒரு தீர்வு எனில் m =', options: ['−2', '2', '10', '0'], explanation: '2(2) + 3(−2) = −2.' },
+    ta: { q: '2x + 3y = m க்கு x = 2, y = −2 ஒரு தீர்வு எனில் m =', options: ['−2', '2', '10', '0'], explanation: '2(2) + 3(−2) = 4 − 6 = −2.' },
   },
   {
     difficulty: 'easy', source: '§3.8.2, p. 125', answer: 0,
     en: { q: 'A system of linear equations that has no solution (the lines never meet) is called', options: ['inconsistent', 'consistent', 'dependent', 'identical'], explanation: 'One solution or infinitely many – consistent; no solution – inconsistent.' },
-    ta: { q: 'தீர்வு இல்லாத (கோடுகள் சந்திக்காத) நேரிய சமன்பாட்டுத் தொகுப்பு', options: ['ஒருங்கமைவு அற்றது', 'ஒருங்கமைவு உடையது', 'சார்புடையது', 'ஒன்றின் மேல் ஒன்றானது'], explanation: 'ஒரு தீர்வு அல்லது எண்ணற்ற தீர்வுகள் – ஒருங்கமைவு உடையது; தீர்வு இல்லை – ஒருங்கமைவு அற்றது.' },
+    ta: { q: 'தீர்வு இல்லாத (கோடுகள் சந்திக்காத) நேரிய சமன்பாட்டுத் தொகுப்பு', options: ['ஒருங்கமைவற்றது', 'ஒருங்கமைவுடையது', 'சார்புடையது', 'ஒன்றியது'], explanation: 'ஒரே ஒரு தீர்வு அல்லது எண்ணற்ற தீர்வுகள் – ஒருங்கமைவுடையது; தீர்வு இல்லை – ஒருங்கமைவற்றது.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise 3.15 Q25, p. 135', answer: 0,
@@ -213,17 +213,17 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book example 3.1, p. 83', answer: 0,
     en: { q: 'The degree of the polynomial 6ab⁸ + 5a²b³c² − 7ab + 4b²c + 2 is', options: ['9', '8', '7', '2'], explanation: 'Degrees of the terms: 1 + 8 = 9, 2 + 3 + 2 = 7, 2, 3, 0. The highest is 9.' },
-    ta: { q: '6ab⁸ + 5a²b³c² − 7ab + 4b²c + 2 என்ற பல்லுறுப்புக் கோவையின் படி', options: ['9', '8', '7', '2'], explanation: 'உறுப்புகளின் படிகள்: 9, 7, 2, 3, 0. மிக உயர்ந்தது 9.' },
+    ta: { q: '6ab⁸ + 5a²b³c² − 7ab + 4b²c + 2 என்ற பல்லுறுப்புக் கோவையின் படி', options: ['9', '8', '7', '2'], explanation: 'ஒவ்வோர் உறுப்பின் படி: 1 + 8 = 9, 2 + 3 + 2 = 7, 2, 3, 0. மிக உயர்ந்த படி 9.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.1 Q4(i), p. 87', answer: 0,
     en: { q: 'x − 9 + √7x³ + 6x² in standard (descending) form is', options: ['√7x³ + 6x² + x − 9', '−9 + x + 6x² + √7x³', '6x² + √7x³ + x − 9', '√7x³ + x + 6x² − 9'], explanation: 'Arrange the terms in decreasing powers of x: x³, x², x, constant.' },
-    ta: { q: 'x − 9 + √7x³ + 6x² இன் திட்ட வடிவம் (இறங்கு வரிசை)', options: ['√7x³ + 6x² + x − 9', '−9 + x + 6x² + √7x³', '6x² + √7x³ + x − 9', '√7x³ + x + 6x² − 9'], explanation: 'x இன் அடுக்குகள் இறங்கும்படி: x³, x², x, மாறிலி.' },
+    ta: { q: 'x − 9 + √7x³ + 6x² ஐத் திட்ட வடிவில் (இறங்கு வரிசையில்) எழுதினால்', options: ['√7x³ + 6x² + x − 9', '−9 + x + 6x² + √7x³', '6x² + √7x³ + x − 9', '√7x³ + x + 6x² − 9'], explanation: 'x இன் அடுக்குகள் இறங்கும்படி: x³, x², x, மாறிலி.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.1 Q5(i), p. 87', answer: 0,
     en: { q: 'If p(x) = 6x² − 7x + 2 and q(x) = 6x³ − 7x + 15, then p(x) + q(x) is', options: ['6x³ + 6x² − 14x + 17', '12x³ − 14x + 17', '6x³ + 6x² − 7x + 17', '6x³ + 6x² + 14x + 17'], explanation: 'Add like terms: 6x³ + 6x² + (−7 − 7)x + (2 + 15). Degree 3.' },
-    ta: { q: 'p(x) = 6x² − 7x + 2, q(x) = 6x³ − 7x + 15 எனில் p(x) + q(x) =', options: ['6x³ + 6x² − 14x + 17', '12x³ − 14x + 17', '6x³ + 6x² − 7x + 17', '6x³ + 6x² + 14x + 17'], explanation: 'ஒத்த உறுப்புகளைக் கூட்ட: 6x³ + 6x² − 14x + 17; படி 3.' },
+    ta: { q: 'p(x) = 6x² − 7x + 2, q(x) = 6x³ − 7x + 15 எனில் p(x) + q(x) =', options: ['6x³ + 6x² − 14x + 17', '12x³ − 14x + 17', '6x³ + 6x² − 7x + 17', '6x³ + 6x² + 14x + 17'], explanation: 'ஒத்த உறுப்புகளைக் கூட்ட: 6x³ + 6x² + (−7 − 7)x + (2 + 15) = 6x³ + 6x² − 14x + 17; படி 3.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.1 Q6(i), p. 87', answer: 0,
@@ -233,12 +233,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 3.1 Q7, p. 88', answer: 0,
     en: { q: 'What should be added to 2x³ + 6x² − 5x + 8 to get 3x³ − 2x² + 6x + 15?', options: ['x³ − 8x² + 11x + 7', '5x³ + 4x² + x + 23', 'x³ + 8x² − 11x − 7', 'x³ − 8x² + x + 7'], explanation: '(3x³ − 2x² + 6x + 15) − (2x³ + 6x² − 5x + 8) = x³ − 8x² + 11x + 7.' },
-    ta: { q: '3x³ − 2x² + 6x + 15 ஐப் பெற 2x³ + 6x² − 5x + 8 உடன் எதைக் கூட்ட வேண்டும்?', options: ['x³ − 8x² + 11x + 7', '5x³ + 4x² + x + 23', 'x³ + 8x² − 11x − 7', 'x³ − 8x² + x + 7'], explanation: '(3x³ − 2x² + 6x + 15) − (2x³ + 6x² − 5x + 8) = x³ − 8x² + 11x + 7.' },
+    ta: { q: '2x³ + 6x² − 5x + 8 உடன் எந்தப் பல்லுறுப்புக் கோவையைக் கூட்ட 3x³ − 2x² + 6x + 15 கிடைக்கும்?', options: ['x³ − 8x² + 11x + 7', '5x³ + 4x² + x + 23', 'x³ + 8x² − 11x − 7', 'x³ − 8x² + x + 7'], explanation: '(3x³ − 2x² + 6x + 15) − (2x³ + 6x² − 5x + 8) = x³ − 8x² + 11x + 7.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.1 Q8, p. 88', answer: 0,
     en: { q: 'What must be subtracted from 2x⁴ + 4x² − 3x + 7 to get 3x³ − x² + 2x + 1?', options: ['2x⁴ − 3x³ + 5x² − 5x + 6', '2x⁴ + 3x³ + 3x² − x + 8', '−2x⁴ + 3x³ − 5x² + 5x − 6', '2x⁴ − 3x³ + 3x² − 5x + 6'], explanation: '(2x⁴ + 4x² − 3x + 7) − (3x³ − x² + 2x + 1) = 2x⁴ − 3x³ + 5x² − 5x + 6.' },
-    ta: { q: '3x³ − x² + 2x + 1 ஐப் பெற 2x⁴ + 4x² − 3x + 7 இலிருந்து எதைக் கழிக்க வேண்டும்?', options: ['2x⁴ − 3x³ + 5x² − 5x + 6', '2x⁴ + 3x³ + 3x² − x + 8', '−2x⁴ + 3x³ − 5x² + 5x − 6', '2x⁴ − 3x³ + 3x² − 5x + 6'], explanation: '(2x⁴ + 4x² − 3x + 7) − (3x³ − x² + 2x + 1) = 2x⁴ − 3x³ + 5x² − 5x + 6.' },
+    ta: { q: '2x⁴ + 4x² − 3x + 7 இலிருந்து எந்தப் பல்லுறுப்புக் கோவையைக் கழிக்க 3x³ − x² + 2x + 1 கிடைக்கும்?', options: ['2x⁴ − 3x³ + 5x² − 5x + 6', '2x⁴ + 3x³ + 3x² − x + 8', '−2x⁴ + 3x³ − 5x² + 5x − 6', '2x⁴ − 3x³ + 3x² − 5x + 6'], explanation: '(2x⁴ + 4x² − 3x + 7) − (3x³ − x² + 2x + 1) = 2x⁴ − 3x³ + 5x² − 5x + 6.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.1 Q9(ii), p. 88', answer: 0,
@@ -253,12 +253,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 3.1 Q10, p. 88', answer: 0,
     en: { q: 'A chocolate costs ₹(x + y) and Amir buys (x + y) chocolates. If x = 10 and y = 5, the amount paid is', options: ['₹225', '₹125', '₹150', '₹30'], explanation: 'Amount = (x + y)² = x² + 2xy + y² = 15² = 225.' },
-    ta: { q: 'ஒரு சாக்லேட்டின் விலை ₹(x + y); அமீர் (x + y) சாக்லேட்டுகள் வாங்கினார். x = 10, y = 5 எனில் அவர் செலுத்திய தொகை', options: ['₹225', '₹125', '₹150', '₹30'], explanation: 'தொகை = (x + y)² = 15² = 225.' },
+    ta: { q: 'ஓர் இனிப்பின் விலை ₹(x + y). அமீர் (x + y) இனிப்புகளை வாங்கினார். x = 10, y = 5 எனில் அமீர் கொடுத்த தொகை', options: ['₹225', '₹125', '₹150', '₹30'], explanation: 'தொகை = (x + y)² = x² + 2xy + y² = 15² = 225.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.1 Q11, p. 88', answer: 0,
     en: { q: 'The length of a rectangle is (3x + 2) units and its breadth is (3x − 2) units. Its area when x = 20 is', options: ['3596 sq. units', '3604 sq. units', '3600 sq. units', '240 sq. units'], explanation: 'Area = 9x² − 4 = 9(400) − 4 = 3596.' },
-    ta: { q: 'ஒரு செவ்வகத்தின் நீளம் (3x + 2) அலகுகள், அகலம் (3x − 2) அலகுகள். x = 20 எனில் பரப்பளவு', options: ['3596 ச. அலகுகள்', '3604 ச. அலகுகள்', '3600 ச. அலகுகள்', '240 ச. அலகுகள்'], explanation: 'பரப்பளவு = 9x² − 4 = 3600 − 4 = 3596.' },
+    ta: { q: 'ஒரு செவ்வகத்தின் நீளம் (3x + 2) அலகுகள், அகலம் (3x − 2) அலகுகள். x = 20 எனில் பரப்பளவு', options: ['3596 ச. அலகுகள்', '3604 ச. அலகுகள்', '3600 ச. அலகுகள்', '240 ச. அலகுகள்'], explanation: 'பரப்பளவு = 9x² − 4 = 9(400) − 4 = 3596.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.1 Q12, p. 88', answer: 0,
@@ -268,7 +268,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 3.15 Q6, p. 134', answer: 0,
     en: { q: 'The sum of p(x) = x³ − x² − 2 and q(x) = x² − 3x + 1 is', options: ['x³ − 3x − 1', 'x³ + 2x² − 1', 'x³ − 2x² − 3x', 'x³ − 2x² + 3x − 1'], explanation: 'The x² terms cancel: x³ − 3x + (−2 + 1) = x³ − 3x − 1.' },
-    ta: { q: 'p(x) = x³ − x² − 2, q(x) = x² − 3x + 1 ஆகியவற்றின் கூடுதல்', options: ['x³ − 3x − 1', 'x³ + 2x² − 1', 'x³ − 2x² − 3x', 'x³ − 2x² + 3x − 1'], explanation: 'x² உறுப்புகள் நீங்குகின்றன: x³ − 3x − 1.' },
+    ta: { q: 'p(x) = x³ − x² − 2, q(x) = x² − 3x + 1 ஆகியவற்றின் கூடுதல்', options: ['x³ − 3x − 1', 'x³ + 2x² − 1', 'x³ − 2x² − 3x', 'x³ − 2x² + 3x − 1'], explanation: 'x² உறுப்புகள் நீங்குகின்றன: x³ − 3x + (−2 + 1) = x³ − 3x − 1.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.15 Q7, p. 134', answer: 0,
@@ -278,12 +278,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book example 3.7, p. 90', answer: 0,
     en: { q: 'The zeros of f(x) = x² − 4x + 3 are', options: ['1 and 3', '−1 and −3', '1 and −3', '2 and 3'], explanation: 'f(1) = 1 − 4 + 3 = 0 and f(3) = 9 − 12 + 3 = 0.' },
-    ta: { q: 'f(x) = x² − 4x + 3 இன் பூச்சியங்கள்', options: ['1, 3', '−1, −3', '1, −3', '2, 3'], explanation: 'f(1) = 0, f(3) = 0.' },
+    ta: { q: 'f(x) = x² − 4x + 3 இன் பூச்சியங்கள்', options: ['1, 3', '−1, −3', '1, −3', '2, 3'], explanation: 'f(1) = 1 − 4 + 3 = 0, f(3) = 9 − 12 + 3 = 0.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.2 Q2, p. 91', answer: 0,
     en: { q: 'If p(x) = x² − 2√2x + 1, then p(2√2) is', options: ['1', '0', '9', '17'], explanation: 'p(2√2) = 8 − 2√2(2√2) + 1 = 8 − 8 + 1 = 1.' },
-    ta: { q: 'p(x) = x² − 2√2x + 1 எனில் p(2√2) =', options: ['1', '0', '9', '17'], explanation: 'p(2√2) = 8 − 8 + 1 = 1.' },
+    ta: { q: 'p(x) = x² − 2√2x + 1 எனில் p(2√2) =', options: ['1', '0', '9', '17'], explanation: 'p(2√2) = 8 − 2√2(2√2) + 1 = 8 − 8 + 1 = 1.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.2 Q1, p. 91', answer: 0,
@@ -298,12 +298,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 3.2 Q6(ii), p. 92', answer: 0, imageUrl: `${IMG}/graph-fig3-11.png`,
     en: { q: 'The number of zeros of the polynomial whose graph is shown is', options: ['3', '2', '1', '4'], explanation: 'The curve cuts the X-axis at three points, so the polynomial has 3 zeros.' },
-    ta: { q: 'வரைபடம் காட்டப்பட்டுள்ள பல்லுறுப்புக் கோவையின் பூச்சியங்களின் எண்ணிக்கை', options: ['3', '2', '1', '4'], explanation: 'வளைவரை X அச்சை மூன்று புள்ளிகளில் வெட்டுகிறது; எனவே 3 பூச்சியங்கள்.' },
+    ta: { q: 'படத்தில் உள்ள வரைபடத்தால் குறிக்கப்படும் பல்லுறுப்புக் கோவையின் பூச்சியங்களின் எண்ணிக்கை', options: ['3', '2', '1', '4'], explanation: 'வளைவரை X அச்சை மூன்று புள்ளிகளில் வெட்டுகிறது; எனவே 3 பூச்சியங்கள்.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.2 Q6(v), p. 92', answer: 0, imageUrl: `${IMG}/graph-fig3-14.png`,
     en: { q: 'From the graph shown, the number of zeros of the polynomial is', options: ['1', '2', '0', '3'], explanation: 'The curve only touches the X-axis at one point; the dot on the Y-axis is not a zero.' },
-    ta: { q: 'வரைபடம் காட்டப்பட்டுள்ள பல்லுறுப்புக் கோவையின் பூச்சியங்களின் எண்ணிக்கை', options: ['1', '2', '0', '3'], explanation: 'வளைவரை X அச்சை ஒரே ஒரு புள்ளியில் தொடுகிறது; Y அச்சில் உள்ள புள்ளி பூச்சியம் அல்ல.' },
+    ta: { q: 'படத்தில் உள்ள வரைபடத்திலிருந்து, பல்லுறுப்புக் கோவையின் பூச்சியங்களின் எண்ணிக்கை', options: ['1', '2', '0', '3'], explanation: 'வளைவரை X அச்சை ஒரே ஒரு புள்ளியில் தொடுகிறது; Y அச்சில் உள்ள புள்ளி பூச்சியம் அல்ல.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.2 Q6(iii), p. 92', answer: 0,
@@ -313,7 +313,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 3.3 Q1, p. 96', answer: 0,
     en: { q: 'Is p(x) = x³ − 5x² + 4x − 3 a multiple of g(x) = x − 2?', options: ['No, because p(2) = −7 ≠ 0', 'Yes, because p(2) = 0', 'No, because p(−2) ≠ 0', 'Yes, because p(−2) = 0'], explanation: 'p(2) = 8 − 20 + 8 − 3 = −7, so the remainder is not zero.' },
-    ta: { q: 'p(x) = x³ − 5x² + 4x − 3 என்பது g(x) = x − 2 இன் மடங்கா?', options: ['இல்லை; p(2) = −7 ≠ 0', 'ஆம்; p(2) = 0', 'இல்லை; p(−2) ≠ 0', 'ஆம்; p(−2) = 0'], explanation: 'p(2) = 8 − 20 + 8 − 3 = −7; மீதி பூச்சியம் அல்ல.' },
+    ta: { q: 'p(x) = x³ − 5x² + 4x − 3 என்ற பல்லுறுப்புக் கோவை g(x) = x − 2 என்ற பல்லுறுப்புக் கோவையின் மடங்கா?', options: ['இல்லை; p(2) = −7 ≠ 0', 'ஆம்; p(2) = 0', 'இல்லை; p(−2) ≠ 0', 'ஆம்; p(−2) = 0'], explanation: 'p(2) = 8 − 20 + 8 − 3 = −7; மீதி பூச்சியம் அல்ல.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.3 Q2(ii), p. 96', answer: 0,
@@ -333,47 +333,47 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 3.3 Q4, p. 96', answer: 0,
     en: { q: 'The remainder when x²⁰¹⁸ + 2018 is divided by x − 1 is', options: ['2019', '2018', '0', '2017'], explanation: 'p(1) = 1²⁰¹⁸ + 2018 = 2019.' },
-    ta: { q: 'x²⁰¹⁸ + 2018 ஐ x − 1 ஆல் வகுக்கக் கிடைக்கும் மீதி', options: ['2019', '2018', '0', '2017'], explanation: 'p(1) = 1 + 2018 = 2019.' },
+    ta: { q: 'x²⁰¹⁸ + 2018 ஐ x − 1 ஆல் வகுக்கக் கிடைக்கும் மீதி', options: ['2019', '2018', '0', '2017'], explanation: 'p(1) = 1²⁰¹⁸ + 2018 = 2019.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.15 Q4, p. 134', answer: 0,
     en: { q: 'If x⁵¹ + 51 is divided by x + 1, the remainder is', options: ['50', '0', '1', '49'], explanation: 'p(−1) = (−1)⁵¹ + 51 = −1 + 51 = 50.' },
-    ta: { q: 'x⁵¹ + 51 ஐ x + 1 ஆல் வகுக்கக் கிடைக்கும் மீதி', options: ['50', '0', '1', '49'], explanation: 'p(−1) = −1 + 51 = 50.' },
+    ta: { q: 'x⁵¹ + 51 ஐ x + 1 ஆல் வகுக்கக் கிடைக்கும் மீதி', options: ['50', '0', '1', '49'], explanation: 'p(−1) = (−1)⁵¹ + 51 = −1 + 51 = 50.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.3 Q5, p. 96', answer: 0,
     en: { q: 'For what value of k is p(x) = 2x³ − kx² + 3x + 10 exactly divisible by (x − 2)?', options: ['8', '−8', '4', '32'], explanation: 'p(2) = 16 − 4k + 6 + 10 = 32 − 4k = 0, so k = 8.' },
-    ta: { q: 'k இன் எந்த மதிப்பிற்கு p(x) = 2x³ − kx² + 3x + 10 ஆனது (x − 2) ஆல் மீதியின்றி வகுபடும்?', options: ['8', '−8', '4', '32'], explanation: 'p(2) = 32 − 4k = 0; k = 8.' },
+    ta: { q: 'k இன் எந்த மதிப்பிற்கு p(x) = 2x³ − kx² + 3x + 10 ஆனது (x − 2) ஆல் மீதியின்றி வகுபடும்?', options: ['8', '−8', '4', '32'], explanation: 'p(2) = 16 − 4k + 6 + 10 = 32 − 4k = 0; k = 8.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.15 Q1, p. 134', answer: 0,
     en: { q: 'If x³ + 6x² + kx + 6 is exactly divisible by (x + 2), then k is', options: ['11', '−6', '−7', '−8'], explanation: 'p(−2) = −8 + 24 − 2k + 6 = 22 − 2k = 0, so k = 11.' },
-    ta: { q: 'x³ + 6x² + kx + 6 என்பது (x + 2) ஆல் மீதியின்றி வகுபடும் எனில் k =', options: ['11', '−6', '−7', '−8'], explanation: 'p(−2) = 22 − 2k = 0; k = 11.' },
+    ta: { q: 'x³ + 6x² + kx + 6 என்பது (x + 2) ஆல் மீதியின்றி வகுபடும் எனில் k =', options: ['11', '−6', '−7', '−8'], explanation: 'p(−2) = −8 + 24 − 2k + 6 = 22 − 2k = 0; k = 11.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.3 Q7, p. 96', answer: 0,
     en: { q: 'Which of the following polynomials has (x − 1) as a factor?', options: ['x³ + 5x² − 10x + 4', 'x⁴ + 5x² − 5x + 1', 'x³ + x² + x + 1', 'x² + 1'], explanation: 'For x³ + 5x² − 10x + 4 the sum of coefficients is 1 + 5 − 10 + 4 = 0; for x⁴ + 5x² − 5x + 1 it is 2.' },
-    ta: { q: 'கீழ்க்காண்பனவற்றில் (x − 1) ஐக் காரணியாகக் கொண்டது எது?', options: ['x³ + 5x² − 10x + 4', 'x⁴ + 5x² − 5x + 1', 'x³ + x² + x + 1', 'x² + 1'], explanation: 'x³ + 5x² − 10x + 4 இன் கெழுக்களின் கூடுதல் 0; x⁴ + 5x² − 5x + 1 க்கு 2.' },
+    ta: { q: 'கீழ்க்காணும் பல்லுறுப்புக் கோவைகளில் (x − 1) ஐக் காரணியாகக் கொண்டது எது?', options: ['x³ + 5x² − 10x + 4', 'x⁴ + 5x² − 5x + 1', 'x³ + x² + x + 1', 'x² + 1'], explanation: 'x³ + 5x² − 10x + 4 இன் கெழுக்களின் கூடுதல் 1 + 5 − 10 + 4 = 0; x⁴ + 5x² − 5x + 1 க்கு அது 2.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.3 Q9, p. 97', answer: 0,
     en: { q: 'If (x + 3) is a factor of x³ − 3x² − mx + 24, then m is', options: ['10', '−10', '6', '30'], explanation: 'p(−3) = −27 − 27 + 3m + 24 = 3m − 30 = 0, so m = 10.' },
-    ta: { q: '(x + 3) என்பது x³ − 3x² − mx + 24 இன் காரணி எனில் m =', options: ['10', '−10', '6', '30'], explanation: 'p(−3) = 3m − 30 = 0; m = 10.' },
+    ta: { q: '(x + 3) என்பது x³ − 3x² − mx + 24 இன் காரணி எனில் m =', options: ['10', '−10', '6', '30'], explanation: 'p(−3) = −27 − 27 + 3m + 24 = 3m − 30 = 0; m = 10.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.3 Q11, p. 97', answer: 0,
     en: { q: 'If (x − 1) divides kx³ − 2x² + 25x − 26 without remainder, then k is', options: ['3', '−3', '1', '53'], explanation: 'p(1) = k − 2 + 25 − 26 = k − 3 = 0, so k = 3.' },
-    ta: { q: '(x − 1) ஆனது kx³ − 2x² + 25x − 26 ஐ மீதியின்றி வகுக்கும் எனில் k =', options: ['3', '−3', '1', '53'], explanation: 'p(1) = k − 3 = 0; k = 3.' },
+    ta: { q: '(x − 1) ஆனது kx³ − 2x² + 25x − 26 ஐ மீதியின்றி வகுக்கும் எனில் k =', options: ['3', '−3', '1', '53'], explanation: 'p(1) = k − 2 + 25 − 26 = k − 3 = 0; k = 3.' },
   },
   {
     difficulty: 'medium', source: 'Book example 3.15, p. 96', answer: 0,
     en: { q: 'If (x − 2) is a factor of 2x³ − 6x² + mx + 4, then m is', options: ['2', '−2', '4', '0'], explanation: 'p(2) = 16 − 24 + 2m + 4 = −4 + 2m = 0, so m = 2.' },
-    ta: { q: '(x − 2) என்பது 2x³ − 6x² + mx + 4 இன் காரணி எனில் m =', options: ['2', '−2', '4', '0'], explanation: 'p(2) = −4 + 2m = 0; m = 2.' },
+    ta: { q: '(x − 2) என்பது 2x³ − 6x² + mx + 4 இன் காரணி எனில் m =', options: ['2', '−2', '4', '0'], explanation: 'p(2) = 16 − 24 + 2m + 4 = −4 + 2m = 0; m = 2.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.3 Q12, p. 97', answer: 0,
     en: { q: 'Can (x + 2) and (x − 4) be the sides of a rectangle of area x² − 2x − 8?', options: ['Yes, since p(−2) = 0 and p(4) = 0', 'No, since p(2) ≠ 0', 'No, since p(−4) ≠ 0', 'Yes, since p(0) = −8'], explanation: 'Both are factors by the factor theorem, and (x + 2)(x − 4) = x² − 2x − 8.' },
-    ta: { q: 'x² − 2x − 8 பரப்பளவு கொண்ட செவ்வகத்தின் பக்கங்களாக (x + 2), (x − 4) இருக்க முடியுமா?', options: ['ஆம்; p(−2) = 0, p(4) = 0', 'இல்லை; p(2) ≠ 0', 'இல்லை; p(−4) ≠ 0', 'ஆம்; p(0) = −8'], explanation: 'காரணித் தேற்றப்படி இரண்டும் காரணிகள்; (x + 2)(x − 4) = x² − 2x − 8.' },
+    ta: { q: 'x² − 2x − 8 என்பது ஒரு செவ்வகத்தின் பரப்பு எனில், (x + 2) மற்றும் (x − 4) அதன் பக்கங்களாக இருக்க முடியுமா?', options: ['ஆம்; p(−2) = 0, p(4) = 0', 'இல்லை; p(2) ≠ 0', 'இல்லை; p(−4) ≠ 0', 'ஆம்; p(0) = −8'], explanation: 'காரணித் தேற்றப்படி இரண்டும் காரணிகள்; (x + 2)(x − 4) = x² − 2x − 8.' },
   },
   {
     difficulty: 'medium', source: 'Book example 3.11, p. 93', answer: 0,
@@ -403,12 +403,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 3.4 Q2(i), p. 101', answer: 0,
     en: { q: 'Without expanding, the coefficients of x², x and the constant term in (x + 5)(x + 6)(x + 7) are', options: ['18, 107, 210', '18, 210, 107', '210, 107, 18', '18, 77, 210'], explanation: 'a + b + c = 18, ab + bc + ca = 30 + 42 + 35 = 107, abc = 210.' },
-    ta: { q: 'விரிவாக்காமல், (x + 5)(x + 6)(x + 7) இல் x², x இன் கெழுக்கள் மற்றும் மாறிலி உறுப்பு', options: ['18, 107, 210', '18, 210, 107', '210, 107, 18', '18, 77, 210'], explanation: 'a + b + c = 18, ab + bc + ca = 107, abc = 210.' },
+    ta: { q: 'முழுவதும் விரிவாக்காமல், (x + 5)(x + 6)(x + 7) இல் x² இன் கெழு, x இன் கெழு மற்றும் மாறிலி உறுப்பு', options: ['18, 107, 210', '18, 210, 107', '210, 107, 18', '18, 77, 210'], explanation: 'a + b + c = 18, ab + bc + ca = 30 + 42 + 35 = 107, abc = 210.' },
   },
   {
     difficulty: 'medium', source: 'Book example 3.20, p. 99', answer: 0,
     en: { q: '(x + 5)(x + 6)(x + 4) =', options: ['x³ + 15x² + 74x + 120', 'x³ + 15x² + 120x + 74', 'x³ + 120x² + 74x + 15', 'x³ + 15x² + 54x + 120'], explanation: 'Sum = 15, sum of products in pairs = 30 + 24 + 20 = 74, product = 120.' },
-    ta: { q: '(x + 5)(x + 6)(x + 4) =', options: ['x³ + 15x² + 74x + 120', 'x³ + 15x² + 120x + 74', 'x³ + 120x² + 74x + 15', 'x³ + 15x² + 54x + 120'], explanation: 'கூடுதல் 15, இரண்டிரண்டாகப் பெருக்கல்களின் கூடுதல் 74, பெருக்கல் 120.' },
+    ta: { q: '(x + 5)(x + 6)(x + 4) =', options: ['x³ + 15x² + 74x + 120', 'x³ + 15x² + 120x + 74', 'x³ + 120x² + 74x + 15', 'x³ + 15x² + 54x + 120'], explanation: 'கூடுதல் 15, இரண்டிரண்டாக எடுத்த பெருக்கல்களின் கூடுதல் 30 + 24 + 20 = 74, பெருக்கல் 120.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.4 Q3, p. 101', answer: 0,
@@ -428,22 +428,22 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 3.4 Q5(i), p. 101', answer: 0,
     en: { q: 'Using identities, 98³ is', options: ['941192', '941292', '940192', '970299'], explanation: '(100 − 2)³ = 1000000 − 3(10000)(2) + 3(100)(4) − 8 = 1000000 − 60000 + 1200 − 8 = 941192.' },
-    ta: { q: 'முற்றொருமைகளைப் பயன்படுத்தி 98³ =', options: ['941192', '941292', '940192', '970299'], explanation: '(100 − 2)³ = 1000000 − 60000 + 1200 − 8 = 941192.' },
+    ta: { q: 'இயற்கணித முற்றொருமைகளைப் பயன்படுத்தி 98³ இன் மதிப்பு', options: ['941192', '941292', '940192', '970299'], explanation: '(100 − 2)³ = 1000000 − 3(10000)(2) + 3(100)(4) − 8 = 1000000 − 60000 + 1200 − 8 = 941192.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.4 Q6, p. 101', answer: 0,
     en: { q: 'If x + y + z = 9 and xy + yz + zx = 26, then x² + y² + z² is', options: ['29', '55', '81', '133'], explanation: 'x² + y² + z² = (x + y + z)² − 2(xy + yz + zx) = 81 − 52 = 29.' },
-    ta: { q: 'x + y + z = 9, xy + yz + zx = 26 எனில் x² + y² + z² =', options: ['29', '55', '81', '133'], explanation: '81 − 2(26) = 29.' },
+    ta: { q: 'x + y + z = 9, xy + yz + zx = 26 எனில் x² + y² + z² =', options: ['29', '55', '81', '133'], explanation: 'x² + y² + z² = (x + y + z)² − 2(xy + yz + zx) = 81 − 52 = 29.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.4 Q9, p. 101', answer: 0,
     en: { q: 'If a + 1/a = 6, then a³ + 1/a³ is', options: ['198', '216', '234', '180'], explanation: 'a³ + 1/a³ = (a + 1/a)³ − 3(a + 1/a) = 216 − 18 = 198.' },
-    ta: { q: 'a + 1/a = 6 எனில் a³ + 1/a³ =', options: ['198', '216', '234', '180'], explanation: '(a + 1/a)³ − 3(a + 1/a) = 216 − 18 = 198.' },
+    ta: { q: 'a + 1/a = 6 எனில் a³ + 1/a³ =', options: ['198', '216', '234', '180'], explanation: 'a³ + 1/a³ = (a + 1/a)³ − 3(a + 1/a) = 216 − 18 = 198.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.4 Q11, p. 101', answer: 0,
     en: { q: 'If (y − 1/y)³ = 27, then y³ − 1/y³ is', options: ['36', '27', '18', '30'], explanation: 'y − 1/y = 3, so y³ − 1/y³ = 27 + 3(3) = 36.' },
-    ta: { q: '(y − 1/y)³ = 27 எனில் y³ − 1/y³ =', options: ['36', '27', '18', '30'], explanation: 'y − 1/y = 3; y³ − 1/y³ = 27 + 9 = 36.' },
+    ta: { q: '(y − 1/y)³ = 27 எனில் y³ − 1/y³ =', options: ['36', '27', '18', '30'], explanation: 'y − 1/y = 3; y³ − 1/y³ = 27 + 3(3) = 36.' },
   },
   {
     difficulty: 'medium', source: 'Book example 3.23, p. 101', answer: 0,
@@ -483,7 +483,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book example 3.27, p. 105', answer: 0,
     en: { q: 'Factorise 2x² + 15x + 27.', options: ['(x + 3)(2x + 9)', '(x + 9)(2x + 3)', '(2x + 27)(x + 1)', '(x + 3)(2x − 9)'], explanation: 'ac = 54 = 6 × 9 and 6 + 9 = 15: 2x² + 6x + 9x + 27 = 2x(x + 3) + 9(x + 3).' },
-    ta: { q: '2x² + 15x + 27 ஐக் காரணிப்படுத்துக.', options: ['(x + 3)(2x + 9)', '(x + 9)(2x + 3)', '(2x + 27)(x + 1)', '(x + 3)(2x − 9)'], explanation: 'ac = 54 = 6 × 9, 6 + 9 = 15: 2x(x + 3) + 9(x + 3).' },
+    ta: { q: '2x² + 15x + 27 ஐக் காரணிப்படுத்துக.', options: ['(x + 3)(2x + 9)', '(x + 9)(2x + 3)', '(2x + 27)(x + 1)', '(x + 3)(2x − 9)'], explanation: 'ac = 54 = 6 × 9, 6 + 9 = 15: 2x² + 6x + 9x + 27 = 2x(x + 3) + 9(x + 3).' },
   },
   {
     difficulty: 'medium', source: 'Book example 3.30, p. 106', answer: 0,
@@ -508,7 +508,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 3.6 Q2(iii), p. 107', answer: 0,
     en: { q: 'Factorise 9 − 18x + 8x².', options: ['(2x − 3)(4x − 3)', '(2x + 3)(4x + 3)', '(8x − 3)(x − 3)', '(4x − 9)(2x − 1)'], explanation: '8x² − 18x + 9: ac = 72 = (−6)(−12), sum −18; 2x(4x − 3) − 3(4x − 3).' },
-    ta: { q: '9 − 18x + 8x² ஐக் காரணிப்படுத்துக.', options: ['(2x − 3)(4x − 3)', '(2x + 3)(4x + 3)', '(8x − 3)(x − 3)', '(4x − 9)(2x − 1)'], explanation: '8x² − 18x + 9: ac = 72 = (−6)(−12); 2x(4x − 3) − 3(4x − 3).' },
+    ta: { q: '9 − 18x + 8x² ஐக் காரணிப்படுத்துக.', options: ['(2x − 3)(4x − 3)', '(2x + 3)(4x + 3)', '(8x − 3)(x − 3)', '(4x − 9)(2x − 1)'], explanation: '8x² − 18x + 9: ac = 72 = (−6)(−12), கூடுதல் −18; 2x(4x − 3) − 3(4x − 3).' },
   },
   {
     difficulty: 'medium', source: 'Book example 3.31, p. 107', answer: 0,
@@ -523,17 +523,17 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 3.7 Q2, p. 111', answer: 0,
     en: { q: 'The area of a rectangle is x² + 7x + 12. If its breadth is (x + 3), its length is', options: ['x + 4', 'x + 3', 'x − 4', 'x + 9'], explanation: 'x² + 7x + 12 = (x + 3)(x + 4).' },
-    ta: { q: 'ஒரு செவ்வகத்தின் பரப்பளவு x² + 7x + 12. அகலம் (x + 3) எனில் நீளம்', options: ['x + 4', 'x + 3', 'x − 4', 'x + 9'], explanation: 'x² + 7x + 12 = (x + 3)(x + 4).' },
+    ta: { q: 'ஒரு செவ்வகத்தின் பரப்பு x² + 7x + 12. அதன் அகலம் (x + 3) எனில், அதன் நீளம்', options: ['x + 4', 'x + 3', 'x − 4', 'x + 9'], explanation: 'x² + 7x + 12 = (x + 3)(x + 4).' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.7 Q3, p. 111', answer: 0,
     en: { q: 'The base of a parallelogram is (5x + 4) and its area is 25x² − 16. Its height is', options: ['5x − 4', '5x + 4', '5x − 16', '25x − 4'], explanation: '25x² − 16 = (5x + 4)(5x − 4).' },
-    ta: { q: 'ஓர் இணைகரத்தின் அடிப்பக்கம் (5x + 4), பரப்பளவு 25x² − 16 எனில் அதன் உயரம்', options: ['5x − 4', '5x + 4', '5x − 16', '25x − 4'], explanation: '25x² − 16 = (5x + 4)(5x − 4).' },
+    ta: { q: 'ஓர் இணைகரத்தின் பரப்பு 25x² − 16. அதன் அடிப்பக்கம் (5x + 4) எனில், அதன் உயரம்', options: ['5x − 4', '5x + 4', '5x − 16', '25x − 4'], explanation: '25x² − 16 = (5x + 4)(5x − 4).' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.7 Q4, p. 111', answer: 0,
     en: { q: 'The sum of (x + 5) observations is (x³ + 125). The mean of the observations is', options: ['x² − 5x + 25', 'x² + 5x + 25', 'x² + 25', 'x − 5'], explanation: 'x³ + 125 = (x + 5)(x² − 5x + 25), so mean = sum ÷ number = x² − 5x + 25.' },
-    ta: { q: '(x + 5) தரவுகளின் கூடுதல் (x³ + 125) எனில் அவற்றின் சராசரி', options: ['x² − 5x + 25', 'x² + 5x + 25', 'x² + 25', 'x − 5'], explanation: 'x³ + 125 = (x + 5)(x² − 5x + 25); சராசரி = x² − 5x + 25.' },
+    ta: { q: '(x + 5) விவரங்களின் கூடுதல் (x³ + 125) எனில், விவரங்களின் சராசரி', options: ['x² − 5x + 25', 'x² + 5x + 25', 'x² + 25', 'x − 5'], explanation: 'x³ + 125 = (x + 5)(x² − 5x + 25); சராசரி = கூடுதல் ÷ எண்ணிக்கை = x² − 5x + 25.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.7 Q5(i), p. 111', answer: 0,
@@ -563,17 +563,17 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 3.8 Q1(v), p. 114', answer: 0,
     en: { q: 'Factorise x³ − 7x + 6.', options: ['(x − 1)(x − 2)(x + 3)', '(x + 1)(x + 2)(x − 3)', '(x − 1)(x + 2)(x − 3)', '(x − 1)(x − 3)(x + 2)'], explanation: 'Sum of coefficients 1 − 7 + 6 = 0, so (x − 1) is a factor; the quotient x² + x − 6 = (x − 2)(x + 3).' },
-    ta: { q: 'x³ − 7x + 6 ஐக் காரணிப்படுத்துக.', options: ['(x − 1)(x − 2)(x + 3)', '(x + 1)(x + 2)(x − 3)', '(x − 1)(x + 2)(x − 3)', '(x − 1)(x − 3)(x + 2)'], explanation: 'கெழுக்களின் கூடுதல் 0; (x − 1) காரணி; ஈவு x² + x − 6 = (x − 2)(x + 3).' },
+    ta: { q: 'x³ − 7x + 6 ஐக் காரணிப்படுத்துக.', options: ['(x − 1)(x − 2)(x + 3)', '(x + 1)(x + 2)(x − 3)', '(x − 1)(x + 2)(x − 3)', '(x − 1)(x − 3)(x + 2)'], explanation: 'கெழுக்களின் கூடுதல் 1 − 7 + 6 = 0; (x − 1) காரணி; ஈவு x² + x − 6 = (x − 2)(x + 3).' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.8 Q1(vi), p. 114', answer: 0,
     en: { q: 'Factorise x³ − 10x² − x + 10.', options: ['(x − 1)(x + 1)(x − 10)', '(x − 1)(x − 1)(x + 10)', '(x + 1)(x + 1)(x − 10)', '(x − 1)(x + 1)(x + 10)'], explanation: 'x²(x − 10) − 1(x − 10) = (x² − 1)(x − 10) = (x − 1)(x + 1)(x − 10).' },
-    ta: { q: 'x³ − 10x² − x + 10 ஐக் காரணிப்படுத்துக.', options: ['(x − 1)(x + 1)(x − 10)', '(x − 1)(x − 1)(x + 10)', '(x + 1)(x + 1)(x − 10)', '(x − 1)(x + 1)(x + 10)'], explanation: 'x²(x − 10) − 1(x − 10) = (x − 1)(x + 1)(x − 10).' },
+    ta: { q: 'x³ − 10x² − x + 10 ஐக் காரணிப்படுத்துக.', options: ['(x − 1)(x + 1)(x − 10)', '(x − 1)(x − 1)(x + 10)', '(x + 1)(x + 1)(x − 10)', '(x − 1)(x + 1)(x + 10)'], explanation: 'x²(x − 10) − 1(x − 10) = (x² − 1)(x − 10) = (x − 1)(x + 1)(x − 10).' },
   },
   {
     difficulty: 'medium', source: 'Book example 3.39, p. 112', answer: 0,
     en: { q: 'Factorise x³ + 13x² + 32x + 20.', options: ['(x + 1)(x + 2)(x + 10)', '(x + 1)(x + 4)(x + 5)', '(x − 1)(x − 2)(x − 10)', '(x + 2)(x + 2)(x + 5)'], explanation: 'Sum of even-power coefficients 13 + 20 = sum of odd-power coefficients 1 + 32, so (x + 1) is a factor; then x² + 12x + 20 = (x + 2)(x + 10).' },
-    ta: { q: 'x³ + 13x² + 32x + 20 ஐக் காரணிப்படுத்துக.', options: ['(x + 1)(x + 2)(x + 10)', '(x + 1)(x + 4)(x + 5)', '(x − 1)(x − 2)(x − 10)', '(x + 2)(x + 2)(x + 5)'], explanation: 'இரட்டை அடுக்குக் கெழுக்கள் 13 + 20 = ஒற்றை அடுக்குக் கெழுக்கள் 1 + 32; (x + 1) காரணி; x² + 12x + 20 = (x + 2)(x + 10).' },
+    ta: { q: 'x³ + 13x² + 32x + 20 ஐக் காரணிப்படுத்துக.', options: ['(x + 1)(x + 2)(x + 10)', '(x + 1)(x + 4)(x + 5)', '(x − 1)(x − 2)(x − 10)', '(x + 2)(x + 2)(x + 5)'], explanation: 'இரட்டைப்படை அடுக்கு உறுப்பின் கெழு மற்றும் மாறிலியின் கூடுதல் 13 + 20 = ஒற்றைப்படை அடுக்குகள் கொண்ட உறுப்புகளின் கெழுக்களின் கூடுதல் 1 + 32; எனவே (x + 1) காரணி; x² + 12x + 20 = (x + 2)(x + 10).' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.9 Q1(iii), p. 115', answer: 0,
@@ -623,7 +623,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 3.10 Q2(i), p. 124', answer: 0,
     en: { q: 'Solving graphically, the lines x + y = 7 and x − y = 3 meet at', options: ['(5, 2)', '(2, 5)', '(4, 3)', '(7, 0)'], explanation: 'Adding gives 2x = 10, x = 5, y = 2.' },
-    ta: { q: 'வரைபட முறையில் x + y = 7, x − y = 3 ஆகிய கோடுகள் சந்திக்கும் புள்ளி', options: ['(5, 2)', '(2, 5)', '(4, 3)', '(7, 0)'], explanation: 'கூட்ட 2x = 10; x = 5, y = 2.' },
+    ta: { q: 'வரைபட முறையில் x + y = 7, x − y = 3 ஆகிய கோடுகள் சந்திக்கும் புள்ளி', options: ['(5, 2)', '(2, 5)', '(4, 3)', '(7, 0)'], explanation: 'இரு சமன்பாடுகளையும் கூட்ட 2x = 10; x = 5, y = 2.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.10 Q2(iv), p. 124', answer: 0,
@@ -658,22 +658,22 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 3.11 Q1(i), p. 126', answer: 0,
     en: { q: 'Using substitution, the solution of 2x − 3y = 7 and 5x + y = 9 is', options: ['(2, −1)', '(−1, 2)', '(2, 1)', '(1, 4)'], explanation: 'y = 9 − 5x; 2x − 3(9 − 5x) = 7 gives 17x = 34, x = 2, y = −1.' },
-    ta: { q: 'பிரதியிடல் முறையில் 2x − 3y = 7, 5x + y = 9 இன் தீர்வு', options: ['(2, −1)', '(−1, 2)', '(2, 1)', '(1, 4)'], explanation: 'y = 9 − 5x; 17x = 34; x = 2, y = −1.' },
+    ta: { q: 'பிரதியிடல் முறையில் 2x − 3y = 7, 5x + y = 9 இன் தீர்வு', options: ['(2, −1)', '(−1, 2)', '(2, 1)', '(1, 4)'], explanation: 'y = 9 − 5x; 2x − 3(9 − 5x) = 7; 17x = 34; x = 2, y = −1.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.12 Q1(ii), p. 128', answer: 0,
     en: { q: 'By elimination, the solution of x − y = 5 and 3x + 2y = 25 is', options: ['(7, 2)', '(2, 7)', '(5, 0)', '(6, 1)'], explanation: '2(x − y) + (3x + 2y) = 10 + 25 gives 5x = 35, x = 7, y = 2.' },
-    ta: { q: 'நீக்கல் முறையில் x − y = 5, 3x + 2y = 25 இன் தீர்வு', options: ['(7, 2)', '(2, 7)', '(5, 0)', '(6, 1)'], explanation: '2(x − y) + (3x + 2y) = 35; 5x = 35; x = 7, y = 2.' },
+    ta: { q: 'நீக்கல் முறையில் x − y = 5, 3x + 2y = 25 இன் தீர்வு', options: ['(7, 2)', '(2, 7)', '(5, 0)', '(6, 1)'], explanation: '2(x − y) + (3x + 2y) = 10 + 25; 5x = 35; x = 7, y = 2.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.12 Q1(vi), p. 128', answer: 0,
     en: { q: 'The solution of 13x + 11y = 70 and 11x + 13y = 74 is', options: ['(2, 4)', '(4, 2)', '(3, 3)', '(1, 5)'], explanation: 'Adding: 24(x + y) = 144, x + y = 6; subtracting: 2(x − y) = −4, x − y = −2. So x = 2, y = 4.' },
-    ta: { q: '13x + 11y = 70, 11x + 13y = 74 இன் தீர்வு', options: ['(2, 4)', '(4, 2)', '(3, 3)', '(1, 5)'], explanation: 'கூட்ட x + y = 6; கழிக்க x − y = −2; எனவே x = 2, y = 4.' },
+    ta: { q: '13x + 11y = 70, 11x + 13y = 74 இன் தீர்வு', options: ['(2, 4)', '(4, 2)', '(3, 3)', '(1, 5)'], explanation: 'கூட்ட 24(x + y) = 144, x + y = 6; கழிக்க 2(x − y) = −4, x − y = −2; எனவே x = 2, y = 4.' },
   },
   {
     difficulty: 'medium', source: 'Book example 3.50, p. 127', answer: 0,
     en: { q: 'By elimination, the solution of 4a + 3b = 65 and a + 2b = 35 is', options: ['a = 5, b = 15', 'a = 15, b = 5', 'a = 5, b = 10', 'a = 10, b = 12.5'], explanation: '4 × (2) − (1): 5b = 75, so b = 15 and a = 35 − 30 = 5.' },
-    ta: { q: 'நீக்கல் முறையில் 4a + 3b = 65, a + 2b = 35 இன் தீர்வு', options: ['a = 5, b = 15', 'a = 15, b = 5', 'a = 5, b = 10', 'a = 10, b = 12.5'], explanation: '4 × (2) − (1): 5b = 75; b = 15; a = 5.' },
+    ta: { q: 'நீக்கல் முறையில் 4a + 3b = 65, a + 2b = 35 இன் தீர்வு', options: ['a = 5, b = 15', 'a = 15, b = 5', 'a = 5, b = 10', 'a = 10, b = 12.5'], explanation: '4 × (2) − (1): 5b = 75; b = 15; a = 35 − 30 = 5.' },
   },
   {
     difficulty: 'medium', source: 'Book example 3.52, p. 129', answer: 0,
@@ -693,22 +693,22 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 3.15 Q26, p. 136', answer: 0,
     en: { q: 'If a₁/a₂ ≠ b₁/b₂ for a₁x + b₁y + c₁ = 0 and a₂x + b₂y + c₂ = 0, the pair has', options: ['a unique solution', 'no solution', 'two solutions', 'infinitely many solutions'], explanation: 'Different ratios of coefficients mean the lines intersect at exactly one point.' },
-    ta: { q: 'a₁x + b₁y + c₁ = 0, a₂x + b₂y + c₂ = 0 இல் a₁/a₂ ≠ b₁/b₂ எனில் அச்சமன்பாடுகளுக்கு', options: ['ஒரு தீர்வு', 'தீர்வு இல்லை', 'இரண்டு தீர்வுகள்', 'எண்ணற்ற தீர்வுகள்'], explanation: 'கெழுக்களின் விகிதங்கள் வேறுபட்டால் கோடுகள் சரியாக ஒரு புள்ளியில் வெட்டும்.' },
+    ta: { q: 'a₁x + b₁y + c₁ = 0, a₂x + b₂y + c₂ = 0 இல் a₁/a₂ ≠ b₁/b₂ எனில் அச்சமன்பாடுகளுக்கு', options: ['ஒரே ஒரு தீர்வு', 'தீர்வு இல்லை', 'இரண்டு தீர்வுகள்', 'எண்ணற்ற தீர்வுகள்'], explanation: 'கெழுக்களின் விகிதங்கள் வேறுபட்டால் கோடுகள் சரியாக ஒரு புள்ளியில் வெட்டும்.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.15 Q27, p. 136', answer: 0,
     en: { q: 'If a₁/a₂ = b₁/b₂ ≠ c₁/c₂ for a₁x + b₁y + c₁ = 0 and a₂x + b₂y + c₂ = 0, the pair has', options: ['no solution', 'two solutions', 'infinitely many solutions', 'a unique solution'], explanation: 'Equal coefficient ratios with a different constant ratio give parallel lines.' },
-    ta: { q: 'a₁/a₂ = b₁/b₂ ≠ c₁/c₂ எனில் a₁x + b₁y + c₁ = 0, a₂x + b₂y + c₂ = 0 ஆகிய சமன்பாடுகளுக்கு', options: ['தீர்வு இல்லை', 'இரண்டு தீர்வுகள்', 'எண்ணற்ற தீர்வுகள்', 'ஒரு தீர்வு'], explanation: 'கெழு விகிதங்கள் சமம், மாறிலி விகிதம் வேறு எனில் இணை கோடுகள்.' },
+    ta: { q: 'a₁/a₂ = b₁/b₂ ≠ c₁/c₂ எனில் a₁x + b₁y + c₁ = 0, a₂x + b₂y + c₂ = 0 ஆகிய சமன்பாடுகளுக்கு', options: ['தீர்வு இல்லை', 'இரண்டு தீர்வுகள்', 'எண்ணற்ற தீர்வுகள்', 'ஒரே ஒரு தீர்வு'], explanation: 'கெழு விகிதங்கள் சமம், மாறிலி விகிதம் வேறு எனில் இணை கோடுகள்.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.15 Q22, p. 135', answer: 0,
     en: { q: 'Which condition does NOT give a linear equation ax + by + c = 0?', options: ['a = 0, b = 0', 'a ≠ 0, b = 0', 'a = 0, b ≠ 0', 'a ≠ 0, b ≠ 0'], explanation: 'If both a and b are zero, no variable is left, so it is not a linear equation.' },
-    ta: { q: 'ax + by + c = 0 என்ற சமன்பாட்டினை எந்த நிபந்தனை நிறைவு செய்யாது?', options: ['a = 0, b = 0', 'a ≠ 0, b = 0', 'a = 0, b ≠ 0', 'a ≠ 0, b ≠ 0'], explanation: 'a, b இரண்டும் பூச்சியம் எனில் மாறியே இல்லை; அது நேரிய சமன்பாடு அல்ல.' },
+    ta: { q: 'எந்த நிபந்தனையில் ax + by + c = 0 ஒரு நேரிய சமன்பாடாக அமையாது?', options: ['a = 0, b = 0', 'a ≠ 0, b = 0', 'a = 0, b ≠ 0', 'a ≠ 0, b ≠ 0'], explanation: 'a, b இரண்டும் பூச்சியம் எனில் மாறியே இல்லை; அது நேரிய சமன்பாடு அல்ல.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.15 Q23, p. 135', answer: 0,
     en: { q: 'Which of the following is NOT a linear equation in two variables?', options: ['0x + 0y + c = 0', 'ax + by + c = 0', '0x + by + c = 0', 'ax + 0y + c = 0'], explanation: 'With both coefficients zero, the equation has no variable at all.' },
-    ta: { q: 'கீழ்க்காண்பனவற்றில் எது நேரிய சமன்பாடு அல்ல?', options: ['0x + 0y + c = 0', 'ax + by + c = 0', '0x + by + c = 0', 'ax + 0y + c = 0'], explanation: 'இரு கெழுக்களும் பூச்சியம் எனில் சமன்பாட்டில் மாறியே இல்லை.' },
+    ta: { q: 'கீழ்க்காண்பனவற்றில் எது இரு மாறிகளில் அமைந்த நேரிய சமன்பாடு அல்ல?', options: ['0x + 0y + c = 0', 'ax + by + c = 0', '0x + by + c = 0', 'ax + 0y + c = 0'], explanation: 'இரு கெழுக்களும் பூச்சியம் எனில் சமன்பாட்டில் மாறியே இல்லை.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 3.15 Q12, p. 134', answer: 0,
@@ -729,12 +729,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise 3.15 Q24, p. 135', answer: 0,
     en: { q: 'The value of k for which 4x + 6y − 1 = 0 and 2x + ky − 7 = 0 represent parallel lines is', options: ['k = 3', 'k = 2', 'k = 4', 'k = −3'], explanation: 'Parallel lines need 4/2 = 6/k (≠ −1/−7), so k = 3.' },
-    ta: { q: '4x + 6y − 1 = 0, 2x + ky − 7 = 0 ஆகியவை இணை கோடுகளாக அமைய k இன் மதிப்பு', options: ['k = 3', 'k = 2', 'k = 4', 'k = −3'], explanation: 'இணை கோடுகளுக்கு 4/2 = 6/k; k = 3.' },
+    ta: { q: '4x + 6y − 1 = 0, 2x + ky − 7 = 0 ஆகியவை இணை கோடுகளாக அமைய k இன் மதிப்பு', options: ['k = 3', 'k = 2', 'k = 4', 'k = −3'], explanation: 'இணை கோடுகளுக்கு 4/2 = 6/k (≠ −1/−7); k = 3.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.3 Q6, p. 96', answer: 0,
     en: { q: '2x³ + ax² + 4x − 12 and x³ + x² − 2x + a leave the same remainder when divided by (x − 3). The value of a and the remainder are', options: ['a = −3, remainder 27', 'a = 3, remainder 33', 'a = −3, remainder 30', 'a = 3, remainder 27'], explanation: 'p(3) = 54 + 9a and q(3) = 30 + a; 54 + 9a = 30 + a gives a = −3, remainder 30 − 3 = 27.' },
-    ta: { q: '2x³ + ax² + 4x − 12, x³ + x² − 2x + a ஆகியவற்றை (x − 3) ஆல் வகுக்கும்போது ஒரே மீதி கிடைக்கிறது எனில் a இன் மதிப்பும் மீதியும்', options: ['a = −3, மீதி 27', 'a = 3, மீதி 33', 'a = −3, மீதி 30', 'a = 3, மீதி 27'], explanation: 'p(3) = 54 + 9a, q(3) = 30 + a; 54 + 9a = 30 + a; a = −3; மீதி 27.' },
+    ta: { q: '2x³ + ax² + 4x − 12, x³ + x² − 2x + a ஆகியவற்றை (x − 3) ஆல் வகுக்கும்போது ஒரே மீதி கிடைக்கிறது எனில் a இன் மதிப்பும் மீதியும்', options: ['a = −3, மீதி 27', 'a = 3, மீதி 33', 'a = −3, மீதி 30', 'a = 3, மீதி 27'], explanation: 'p(3) = 54 + 9a, q(3) = 30 + a; 54 + 9a = 30 + a எனவே a = −3; மீதி 30 − 3 = 27.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.3 Q10, p. 97', answer: 0,
@@ -749,42 +749,42 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise 3.4 Q3, p. 101', answer: 0,
     en: { q: 'If (x + a)(x + b)(x + c) = x³ + 14x² + 59x + 70, then a² + b² + c² is', options: ['78', '196', '137', '59'], explanation: 'a + b + c = 14 and ab + bc + ca = 59; a² + b² + c² = 196 − 118 = 78.' },
-    ta: { q: '(x + a)(x + b)(x + c) = x³ + 14x² + 59x + 70 எனில் a² + b² + c² =', options: ['78', '196', '137', '59'], explanation: 'a + b + c = 14, ab + bc + ca = 59; 196 − 118 = 78.' },
+    ta: { q: '(x + a)(x + b)(x + c) = x³ + 14x² + 59x + 70 எனில் a² + b² + c² =', options: ['78', '196', '137', '59'], explanation: 'a + b + c = 14, ab + bc + ca = 59; a² + b² + c² = 196 − 118 = 78.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.4 Q3, p. 101', answer: 0,
     en: { q: 'If (x + a)(x + b)(x + c) = x³ + 14x² + 59x + 70, then 1/a + 1/b + 1/c is', options: ['59/70', '14/70', '70/59', '14/59'], explanation: '1/a + 1/b + 1/c = (ab + bc + ca)/abc = 59/70.' },
-    ta: { q: '(x + a)(x + b)(x + c) = x³ + 14x² + 59x + 70 எனில் 1/a + 1/b + 1/c =', options: ['59/70', '14/70', '70/59', '14/59'], explanation: '(ab + bc + ca)/abc = 59/70.' },
+    ta: { q: '(x + a)(x + b)(x + c) = x³ + 14x² + 59x + 70 எனில் 1/a + 1/b + 1/c =', options: ['59/70', '14/70', '70/59', '14/59'], explanation: '1/a + 1/b + 1/c = (ab + bc + ca)/abc = 59/70.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.4 Q2(ii), p. 101', answer: 0,
     en: { q: 'Without expanding, the coefficients of x², x and the constant term in (2x + 3)(2x − 5)(2x − 6) are', options: ['−32, −6, 90', '−8, −3, 90', '−32, −54, 90', '32, −6, −90'], explanation: '(2x + a)(2x + b)(2x + c) = 8x³ + 4(a + b + c)x² + 2(ab + bc + ca)x + abc with a + b + c = −8, ab + bc + ca = −3, abc = 90.' },
-    ta: { q: 'விரிவாக்காமல், (2x + 3)(2x − 5)(2x − 6) இல் x², x இன் கெழுக்கள் மற்றும் மாறிலி உறுப்பு', options: ['−32, −6, 90', '−8, −3, 90', '−32, −54, 90', '32, −6, −90'], explanation: '8x³ + 4(a + b + c)x² + 2(ab + bc + ca)x + abc; a + b + c = −8, ab + bc + ca = −3, abc = 90.' },
+    ta: { q: 'முழுவதும் விரிவாக்காமல், (2x + 3)(2x − 5)(2x − 6) இல் x² இன் கெழு, x இன் கெழு மற்றும் மாறிலி உறுப்பு', options: ['−32, −6, 90', '−8, −3, 90', '−32, −54, 90', '32, −6, −90'], explanation: '(2x + a)(2x + b)(2x + c) = 8x³ + 4(a + b + c)x² + 2(ab + bc + ca)x + abc; a + b + c = −8, ab + bc + ca = −3, abc = 90.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.4 Q1(iv), p. 101', answer: 0,
     en: { q: '(3a + 1)(3a − 2)(3a + 4) =', options: ['27a³ + 27a² − 18a − 8', '27a³ + 27a² − 18a + 8', '27a³ + 9a² − 6a − 8', '27a³ + 27a² + 18a − 8'], explanation: '27a³ + 9a²(1 − 2 + 4) + 3a(−2 − 8 + 4) + (1)(−2)(4) = 27a³ + 27a² − 18a − 8.' },
-    ta: { q: '(3a + 1)(3a − 2)(3a + 4) =', options: ['27a³ + 27a² − 18a − 8', '27a³ + 27a² − 18a + 8', '27a³ + 9a² − 6a − 8', '27a³ + 27a² + 18a − 8'], explanation: '27a³ + 9a²(3) + 3a(−6) + (−8) = 27a³ + 27a² − 18a − 8.' },
+    ta: { q: '(3a + 1)(3a − 2)(3a + 4) =', options: ['27a³ + 27a² − 18a − 8', '27a³ + 27a² − 18a + 8', '27a³ + 9a² − 6a − 8', '27a³ + 27a² + 18a − 8'], explanation: '27a³ + 9a²(1 − 2 + 4) + 3a(−2 − 8 + 4) + (1)(−2)(4) = 27a³ + 27a² − 18a − 8.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.4 Q7, p. 101', answer: 0,
     en: { q: 'If 3a + 4b = 10 and ab = 2, then 27a³ + 64b³ is', options: ['280', '1000', '720', '640'], explanation: '27a³ + 64b³ = (3a + 4b)³ − 3(3a)(4b)(3a + 4b) = 1000 − 36(2)(10) = 280.' },
-    ta: { q: '3a + 4b = 10, ab = 2 எனில் 27a³ + 64b³ =', options: ['280', '1000', '720', '640'], explanation: '(3a + 4b)³ − 36ab(3a + 4b) = 1000 − 720 = 280.' },
+    ta: { q: '3a + 4b = 10, ab = 2 எனில் 27a³ + 64b³ =', options: ['280', '1000', '720', '640'], explanation: '27a³ + 64b³ = (3a + 4b)³ − 3(3a)(4b)(3a + 4b) = 1000 − 36(2)(10) = 280.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.4 Q8, p. 101', answer: 0,
     en: { q: 'If x − y = 5 and xy = 14, then x³ − y³ is', options: ['335', '125', '85', '210'], explanation: 'x³ − y³ = (x − y)³ + 3xy(x − y) = 125 + 210 = 335.' },
-    ta: { q: 'x − y = 5, xy = 14 எனில் x³ − y³ =', options: ['335', '125', '85', '210'], explanation: '(x − y)³ + 3xy(x − y) = 125 + 210 = 335.' },
+    ta: { q: 'x − y = 5, xy = 14 எனில் x³ − y³ =', options: ['335', '125', '85', '210'], explanation: 'x³ − y³ = (x − y)³ + 3xy(x − y) = 125 + 210 = 335.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.4 Q10, p. 101', answer: 0,
     en: { q: 'If x² + 1/x² = 23 (with x > 0), then x + 1/x and x³ + 1/x³ are', options: ['5 and 110', '5 and 125', '√23 and 110', '25 and 110'], explanation: '(x + 1/x)² = 23 + 2 = 25, so x + 1/x = 5; x³ + 1/x³ = 125 − 3(5) = 110.' },
-    ta: { q: 'x² + 1/x² = 23 (x > 0) எனில் x + 1/x, x³ + 1/x³ ஆகியவை', options: ['5, 110', '5, 125', '√23, 110', '25, 110'], explanation: '(x + 1/x)² = 25; x + 1/x = 5; x³ + 1/x³ = 125 − 15 = 110.' },
+    ta: { q: 'x² + 1/x² = 23 (x > 0) எனில் x + 1/x, x³ + 1/x³ ஆகியவை', options: ['5, 110', '5, 125', '√23, 110', '25, 110'], explanation: '(x + 1/x)² = 23 + 2 = 25; x + 1/x = 5; x³ + 1/x³ = 125 − 3(5) = 110.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.4 Q13(i), p. 102', answer: 0,
     en: { q: 'Using an identity, 7³ − 10³ + 3³ is', options: ['−630', '630', '0', '−370'], explanation: '7 + (−10) + 3 = 0, so the sum of cubes = 3(7)(−10)(3) = −630.' },
-    ta: { q: 'முற்றொருமையைப் பயன்படுத்தி 7³ − 10³ + 3³ =', options: ['−630', '630', '0', '−370'], explanation: '7 − 10 + 3 = 0; எனவே 3(7)(−10)(3) = −630.' },
+    ta: { q: 'முற்றொருமையைப் பயன்படுத்தி 7³ − 10³ + 3³ =', options: ['−630', '630', '0', '−370'], explanation: '7 + (−10) + 3 = 0; எனவே கனங்களின் கூடுதல் = 3(7)(−10)(3) = −630.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.4 Q13(ii), p. 102', answer: 0,
@@ -794,22 +794,22 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise 3.4 Q14, p. 102', answer: 0,
     en: { q: 'If 2x − 3y − 4z = 0, then 8x³ − 27y³ − 64z³ is', options: ['72xyz', '−72xyz', '36xyz', '0'], explanation: '2x + (−3y) + (−4z) = 0, so the sum of cubes = 3(2x)(−3y)(−4z) = 72xyz.' },
-    ta: { q: '2x − 3y − 4z = 0 எனில் 8x³ − 27y³ − 64z³ =', options: ['72xyz', '−72xyz', '36xyz', '0'], explanation: '2x + (−3y) + (−4z) = 0; எனவே 3(2x)(−3y)(−4z) = 72xyz.' },
+    ta: { q: '2x − 3y − 4z = 0 எனில் 8x³ − 27y³ − 64z³ =', options: ['72xyz', '−72xyz', '36xyz', '0'], explanation: '2x + (−3y) + (−4z) = 0; எனவே கனங்களின் கூடுதல் = 3(2x)(−3y)(−4z) = 72xyz.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.4 Q12(i), p. 102', answer: 0,
     en: { q: '(2a + 3b + 4c)(4a² + 9b² + 16c² − 6ab − 12bc − 8ca) =', options: ['8a³ + 27b³ + 64c³ − 72abc', '8a³ + 27b³ + 64c³', '(2a + 3b + 4c)³', '8a³ + 27b³ + 64c³ + 72abc'], explanation: '(x + y + z)(x² + y² + z² − xy − yz − zx) = x³ + y³ + z³ − 3xyz with x = 2a, y = 3b, z = 4c.' },
-    ta: { q: '(2a + 3b + 4c)(4a² + 9b² + 16c² − 6ab − 12bc − 8ca) =', options: ['8a³ + 27b³ + 64c³ − 72abc', '8a³ + 27b³ + 64c³', '(2a + 3b + 4c)³', '8a³ + 27b³ + 64c³ + 72abc'], explanation: 'x = 2a, y = 3b, z = 4c என x³ + y³ + z³ − 3xyz.' },
+    ta: { q: '(2a + 3b + 4c)(4a² + 9b² + 16c² − 6ab − 12bc − 8ca) =', options: ['8a³ + 27b³ + 64c³ − 72abc', '8a³ + 27b³ + 64c³', '(2a + 3b + 4c)³', '8a³ + 27b³ + 64c³ + 72abc'], explanation: 'x = 2a, y = 3b, z = 4c என (x + y + z)(x² + y² + z² − xy − yz − zx) = x³ + y³ + z³ − 3xyz.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.5 Q2(iv), p. 105', answer: 0,
     en: { q: 'Factorise m² + 1/m² − 23.', options: ['(m + 1/m + 5)(m + 1/m − 5)', '(m − 1/m + 5)(m − 1/m − 5)', '(m + 1/m − 23)(m + 1/m + 1)', '(m + 5)(m − 5)'], explanation: 'm² + 1/m² − 23 = (m + 1/m)² − 2 − 23 = (m + 1/m)² − 5².' },
-    ta: { q: 'm² + 1/m² − 23 ஐக் காரணிப்படுத்துக.', options: ['(m + 1/m + 5)(m + 1/m − 5)', '(m − 1/m + 5)(m − 1/m − 5)', '(m + 1/m − 23)(m + 1/m + 1)', '(m + 5)(m − 5)'], explanation: '(m + 1/m)² − 2 − 23 = (m + 1/m)² − 5².' },
+    ta: { q: 'm² + 1/m² − 23 ஐக் காரணிப்படுத்துக.', options: ['(m + 1/m + 5)(m + 1/m − 5)', '(m − 1/m + 5)(m − 1/m − 5)', '(m + 1/m − 23)(m + 1/m + 1)', '(m + 5)(m − 5)'], explanation: 'm² + 1/m² − 23 = (m + 1/m)² − 2 − 23 = (m + 1/m)² − 5².' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.5 Q2(iii), p. 105', answer: 0,
     en: { q: 'Factorise x⁵ − 16x.', options: ['x(x + 2)(x − 2)(x² + 4)', 'x(x² − 4)²', 'x(x − 2)⁴', 'x(x + 4)(x − 4)(x² + 2)'], explanation: 'x(x⁴ − 16) = x(x² + 4)(x² − 4) = x(x² + 4)(x + 2)(x − 2).' },
-    ta: { q: 'x⁵ − 16x ஐக் காரணிப்படுத்துக.', options: ['x(x + 2)(x − 2)(x² + 4)', 'x(x² − 4)²', 'x(x − 2)⁴', 'x(x + 4)(x − 4)(x² + 2)'], explanation: 'x(x⁴ − 16) = x(x² + 4)(x + 2)(x − 2).' },
+    ta: { q: 'x⁵ − 16x ஐக் காரணிப்படுத்துக.', options: ['x(x + 2)(x − 2)(x² + 4)', 'x(x² − 4)²', 'x(x − 2)⁴', 'x(x + 4)(x − 4)(x² + 2)'], explanation: 'x(x⁴ − 16) = x(x² + 4)(x² − 4) = x(x² + 4)(x + 2)(x − 2).' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.5 Q3(i), p. 105', answer: 0,
@@ -819,27 +819,27 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise 3.5 Q3(ii), p. 105', answer: 0,
     en: { q: 'Factorise 25x² + 4y² + 9z² − 20xy + 12yz − 30xz.', options: ['(−5x + 2y + 3z)²', '(5x + 2y + 3z)²', '(5x − 2y + 3z)²', '(5x + 2y − 3z)²'], explanation: 'The xy and xz terms are negative while yz is positive, so x has the opposite sign: (−5x + 2y + 3z)², i.e. (5x − 2y − 3z)².' },
-    ta: { q: '25x² + 4y² + 9z² − 20xy + 12yz − 30xz ஐக் காரணிப்படுத்துக.', options: ['(−5x + 2y + 3z)²', '(5x + 2y + 3z)²', '(5x − 2y + 3z)²', '(5x + 2y − 3z)²'], explanation: 'xy, xz உறுப்புகள் குறை, yz மிகை; எனவே x க்கு எதிர்க்குறி: (−5x + 2y + 3z)².' },
+    ta: { q: '25x² + 4y² + 9z² − 20xy + 12yz − 30xz ஐக் காரணிப்படுத்துக.', options: ['(−5x + 2y + 3z)²', '(5x + 2y + 3z)²', '(5x − 2y + 3z)²', '(5x + 2y − 3z)²'], explanation: 'xy, xz உறுப்புகள் குறை, yz மிகை; எனவே x க்கு எதிர்க்குறி: (−5x + 2y + 3z)², அதாவது (5x − 2y − 3z)².' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.5 Q4(iii), p. 105', answer: 0,
     en: { q: 'Factorise a⁶ − 64.', options: ['(a + 2)(a − 2)(a² + 2a + 4)(a² − 2a + 4)', '(a² − 4)(a⁴ + 16)', '(a − 2)⁶', '(a³ − 8)²'], explanation: 'a⁶ − 64 = (a³ + 8)(a³ − 8) = (a + 2)(a² − 2a + 4)(a − 2)(a² + 2a + 4).' },
-    ta: { q: 'a⁶ − 64 ஐக் காரணிப்படுத்துக.', options: ['(a + 2)(a − 2)(a² + 2a + 4)(a² − 2a + 4)', '(a² − 4)(a⁴ + 16)', '(a − 2)⁶', '(a³ − 8)²'], explanation: '(a³ + 8)(a³ − 8) = (a + 2)(a² − 2a + 4)(a − 2)(a² + 2a + 4).' },
+    ta: { q: 'a⁶ − 64 ஐக் காரணிப்படுத்துக.', options: ['(a + 2)(a − 2)(a² + 2a + 4)(a² − 2a + 4)', '(a² − 4)(a⁴ + 16)', '(a − 2)⁶', '(a³ − 8)²'], explanation: 'a⁶ − 64 = (a³ + 8)(a³ − 8) = (a + 2)(a² − 2a + 4)(a − 2)(a² + 2a + 4).' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.5 Q5(i), p. 105', answer: 0,
     en: { q: 'Factorise x³ + 8y³ + 6xy − 1.', options: ['(x + 2y − 1)(x² + 4y² + 1 − 2xy + x + 2y)', '(x + 2y + 1)(x² + 4y² + 1 − 2xy − x − 2y)', '(x + 2y − 1)³', '(x − 2y + 1)(x² + 4y² + 1 + 2xy)'], explanation: 'x³ + (2y)³ + (−1)³ − 3(x)(2y)(−1) fits a³ + b³ + c³ − 3abc = (a + b + c)(a² + b² + c² − ab − bc − ca).' },
-    ta: { q: 'x³ + 8y³ + 6xy − 1 ஐக் காரணிப்படுத்துக.', options: ['(x + 2y − 1)(x² + 4y² + 1 − 2xy + x + 2y)', '(x + 2y + 1)(x² + 4y² + 1 − 2xy − x − 2y)', '(x + 2y − 1)³', '(x − 2y + 1)(x² + 4y² + 1 + 2xy)'], explanation: 'a = x, b = 2y, c = −1 என a³ + b³ + c³ − 3abc = (a + b + c)(a² + b² + c² − ab − bc − ca).' },
+    ta: { q: 'x³ + 8y³ + 6xy − 1 ஐக் காரணிப்படுத்துக.', options: ['(x + 2y − 1)(x² + 4y² + 1 − 2xy + x + 2y)', '(x + 2y + 1)(x² + 4y² + 1 − 2xy − x − 2y)', '(x + 2y − 1)³', '(x − 2y + 1)(x² + 4y² + 1 + 2xy)'], explanation: 'x³ + (2y)³ + (−1)³ − 3(x)(2y)(−1); a = x, b = 2y, c = −1 என a³ + b³ + c³ − 3abc = (a + b + c)(a² + b² + c² − ab − bc − ca).' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.6 Q3(iii), p. 107', answer: 0,
     en: { q: 'Factorise √5a² + 2a − 3√5.', options: ['(a + √5)(√5a − 3)', '(a − √5)(√5a + 3)', '(√5a + 3)(a − 1)', '(a + 3)(√5a − √5)'], explanation: 'ac = √5 × (−3√5) = −15 = 5 × (−3), with 5 − 3 = 2: √5a² + 5a − 3a − 3√5 = √5a(a + √5) − 3(a + √5).' },
-    ta: { q: '√5a² + 2a − 3√5 ஐக் காரணிப்படுத்துக.', options: ['(a + √5)(√5a − 3)', '(a − √5)(√5a + 3)', '(√5a + 3)(a − 1)', '(a + 3)(√5a − √5)'], explanation: 'ac = −15 = 5 × (−3), 5 − 3 = 2: √5a(a + √5) − 3(a + √5).' },
+    ta: { q: '√5a² + 2a − 3√5 ஐக் காரணிப்படுத்துக.', options: ['(a + √5)(√5a − 3)', '(a − √5)(√5a + 3)', '(√5a + 3)(a − 1)', '(a + 3)(√5a − √5)'], explanation: 'ac = √5 × (−3√5) = −15 = 5 × (−3), 5 − 3 = 2: √5a² + 5a − 3a − 3√5 = √5a(a + √5) − 3(a + √5).' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.6 Q3(iv), p. 107', answer: 0,
     en: { q: 'Factorise a⁴ − 3a² + 2.', options: ['(a + 1)(a − 1)(a + √2)(a − √2)', '(a² + 1)(a² + 2)', '(a − 1)²(a² − 2)', '(a + 1)(a − 1)(a² + 2)'], explanation: 'a⁴ − 3a² + 2 = (a² − 1)(a² − 2) = (a + 1)(a − 1)(a + √2)(a − √2).' },
-    ta: { q: 'a⁴ − 3a² + 2 ஐக் காரணிப்படுத்துக.', options: ['(a + 1)(a − 1)(a + √2)(a − √2)', '(a² + 1)(a² + 2)', '(a − 1)²(a² − 2)', '(a + 1)(a − 1)(a² + 2)'], explanation: '(a² − 1)(a² − 2) = (a + 1)(a − 1)(a + √2)(a − √2).' },
+    ta: { q: 'a⁴ − 3a² + 2 ஐக் காரணிப்படுத்துக.', options: ['(a + 1)(a − 1)(a + √2)(a − √2)', '(a² + 1)(a² + 2)', '(a − 1)²(a² − 2)', '(a + 1)(a − 1)(a² + 2)'], explanation: 'a⁴ − 3a² + 2 = (a² − 1)(a² − 2) = (a + 1)(a − 1)(a + √2)(a − √2).' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.6 Q3(v), p. 107', answer: 0,
@@ -854,47 +854,47 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise 3.7 Q1(i), p. 111', answer: 0,
     en: { q: 'The quotient and remainder of (4x³ + 6x² − 23x + 18) ÷ (x + 3) are', options: ['4x² − 6x − 5 and 33', '4x² + 18x + 31 and 111', '4x² − 6x − 5 and −33', '4x² − 6x + 5 and 3'], explanation: 'Synthetic division with −3: 4, 6, −23, 18 give 4, −6, −5 and remainder 18 + 15 = 33.' },
-    ta: { q: '(4x³ + 6x² − 23x + 18) ÷ (x + 3) இன் ஈவும் மீதியும்', options: ['4x² − 6x − 5, 33', '4x² + 18x + 31, 111', '4x² − 6x − 5, −33', '4x² − 6x + 5, 3'], explanation: '−3 ஐக் கொண்டு தொகுமுறை வகுத்தல்: 4, −6, −5; மீதி 18 + 15 = 33.' },
+    ta: { q: '(4x³ + 6x² − 23x + 18) ÷ (x + 3) இன் ஈவும் மீதியும்', options: ['4x² − 6x − 5, 33', '4x² + 18x + 31, 111', '4x² − 6x − 5, −33', '4x² − 6x + 5, 3'], explanation: '−3 ஐக் கொண்டு தொகுமுறை வகுத்தல்: 4, 6, −23, 18 → 4, −6, −5; மீதி 18 + 15 = 33.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.7 Q1(ii), p. 111', answer: 0,
     en: { q: 'The quotient and remainder of (8y³ − 16y² + 16y − 15) ÷ (2y − 1) are', options: ['4y² − 6y + 5 and −10', '4y² − 6y + 5 and 10', '8y² − 12y + 10 and −10', '4y² + 6y + 5 and −10'], explanation: '(2y − 1)(4y² − 6y + 5) = 8y³ − 16y² + 16y − 5, so remainder −15 + 5 = −10.' },
-    ta: { q: '(8y³ − 16y² + 16y − 15) ÷ (2y − 1) இன் ஈவும் மீதியும்', options: ['4y² − 6y + 5, −10', '4y² − 6y + 5, 10', '8y² − 12y + 10, −10', '4y² + 6y + 5, −10'], explanation: '(2y − 1)(4y² − 6y + 5) = 8y³ − 16y² + 16y − 5; மீதி −10.' },
+    ta: { q: '(8y³ − 16y² + 16y − 15) ÷ (2y − 1) இன் ஈவும் மீதியும்', options: ['4y² − 6y + 5, −10', '4y² − 6y + 5, 10', '8y² − 12y + 10, −10', '4y² + 6y + 5, −10'], explanation: '(2y − 1)(4y² − 6y + 5) = 8y³ − 16y² + 16y − 5; மீதி −15 + 5 = −10.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.7 Q6, p. 111', answer: 0,
     en: { q: 'If the quotient on dividing 8x⁴ − 2x² + 6x − 7 by (2x + 1) is 4x³ + px² − qx + 3, then p, q and the remainder are', options: ['p = −2, q = 0, remainder −10', 'p = 2, q = 0, remainder −10', 'p = −2, q = 1, remainder 10', 'p = −4, q = 0, remainder −7'], explanation: '(2x + 1)(4x³ − 2x² + 3) = 8x⁴ − 2x² + 6x + 3, so remainder = −7 − 3 = −10.' },
-    ta: { q: '8x⁴ − 2x² + 6x − 7 ஐ (2x + 1) ஆல் வகுக்கக் கிடைக்கும் ஈவு 4x³ + px² − qx + 3 எனில் p, q, மீதி', options: ['p = −2, q = 0, மீதி −10', 'p = 2, q = 0, மீதி −10', 'p = −2, q = 1, மீதி 10', 'p = −4, q = 0, மீதி −7'], explanation: '(2x + 1)(4x³ − 2x² + 3) = 8x⁴ − 2x² + 6x + 3; மீதி −10.' },
+    ta: { q: '8x⁴ − 2x² + 6x − 7 ஐ (2x + 1) ஆல் வகுக்கக் கிடைக்கும் ஈவு 4x³ + px² − qx + 3 எனில் p, q, மீதி', options: ['p = −2, q = 0, மீதி −10', 'p = 2, q = 0, மீதி −10', 'p = −2, q = 1, மீதி 10', 'p = −4, q = 0, மீதி −7'], explanation: '(2x + 1)(4x³ − 2x² + 3) = 8x⁴ − 2x² + 6x + 3; மீதி −7 − 3 = −10.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.7 Q7, p. 112', answer: 0,
     en: { q: 'If the quotient on dividing 3x³ + 11x² + 34x + 106 by x − 3 is 3x² + ax + b, then a, b and the remainder are', options: ['a = 20, b = 94, remainder 388', 'a = 2, b = 40, remainder 226', 'a = 20, b = 94, remainder 0', 'a = −20, b = 94, remainder 388'], explanation: 'Synthetic division with 3: 3, 11, 34, 106 give 3, 20, 94 and remainder 106 + 282 = 388.' },
-    ta: { q: '3x³ + 11x² + 34x + 106 ஐ x − 3 ஆல் வகுக்கக் கிடைக்கும் ஈவு 3x² + ax + b எனில் a, b, மீதி', options: ['a = 20, b = 94, மீதி 388', 'a = 2, b = 40, மீதி 226', 'a = 20, b = 94, மீதி 0', 'a = −20, b = 94, மீதி 388'], explanation: '3 ஐக் கொண்டு: 3, 20, 94; மீதி 106 + 282 = 388.' },
+    ta: { q: '3x³ + 11x² + 34x + 106 ஐ x − 3 ஆல் வகுக்கக் கிடைக்கும் ஈவு 3x² + ax + b எனில் a, b, மீதி', options: ['a = 20, b = 94, மீதி 388', 'a = 2, b = 40, மீதி 226', 'a = 20, b = 94, மீதி 0', 'a = −20, b = 94, மீதி 388'], explanation: '3 ஐக் கொண்டு தொகுமுறை வகுத்தல்: 3, 11, 34, 106 → 3, 20, 94; மீதி 106 + 282 = 388.' },
   },
   {
     difficulty: 'hard', source: 'Book example 3.37, p. 111', answer: 0,
     en: { q: 'If the quotient on dividing x⁴ + 10x³ + 35x² + 50x + 29 by (x + 4) is x³ − ax² + bx + 6, then a, b and the remainder are', options: ['a = −6, b = 11, remainder 5', 'a = 6, b = 11, remainder 5', 'a = −6, b = −11, remainder 0', 'a = 6, b = 24, remainder 29'], explanation: 'Synthetic division with −4 gives quotient x³ + 6x² + 11x + 6 and remainder 5; −a = 6, b = 11.' },
-    ta: { q: 'x⁴ + 10x³ + 35x² + 50x + 29 ஐ (x + 4) ஆல் வகுக்கக் கிடைக்கும் ஈவு x³ − ax² + bx + 6 எனில் a, b, மீதி', options: ['a = −6, b = 11, மீதி 5', 'a = 6, b = 11, மீதி 5', 'a = −6, b = −11, மீதி 0', 'a = 6, b = 24, மீதி 29'], explanation: '−4 ஐக் கொண்டு ஈவு x³ + 6x² + 11x + 6, மீதி 5; −a = 6, b = 11.' },
+    ta: { q: 'x⁴ + 10x³ + 35x² + 50x + 29 ஐ (x + 4) ஆல் வகுக்கக் கிடைக்கும் ஈவு x³ − ax² + bx + 6 எனில் a, b, மீதி', options: ['a = −6, b = 11, மீதி 5', 'a = 6, b = 11, மீதி 5', 'a = −6, b = −11, மீதி 0', 'a = 6, b = 24, மீதி 29'], explanation: '−4 ஐக் கொண்டு தொகுமுறை வகுத்தலில் ஈவு x³ + 6x² + 11x + 6, மீதி 5; −a = 6, b = 11.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.8 Q1(i), p. 114', answer: 0,
     en: { q: 'Factorise x³ − 3x² − 10x + 24.', options: ['(x − 2)(x + 3)(x − 4)', '(x + 2)(x − 3)(x + 4)', '(x − 2)(x − 3)(x + 4)', '(x − 1)(x + 3)(x − 8)'], explanation: 'p(2) = 8 − 12 − 20 + 24 = 0; dividing by (x − 2) leaves x² − x − 12 = (x + 3)(x − 4).' },
-    ta: { q: 'x³ − 3x² − 10x + 24 ஐக் காரணிப்படுத்துக.', options: ['(x − 2)(x + 3)(x − 4)', '(x + 2)(x − 3)(x + 4)', '(x − 2)(x − 3)(x + 4)', '(x − 1)(x + 3)(x − 8)'], explanation: 'p(2) = 0; (x − 2) ஆல் வகுக்க x² − x − 12 = (x + 3)(x − 4).' },
+    ta: { q: 'x³ − 3x² − 10x + 24 ஐக் காரணிப்படுத்துக.', options: ['(x − 2)(x + 3)(x − 4)', '(x + 2)(x − 3)(x + 4)', '(x − 2)(x − 3)(x + 4)', '(x − 1)(x + 3)(x − 8)'], explanation: 'p(2) = 8 − 12 − 20 + 24 = 0; (x − 2) ஆல் வகுக்க x² − x − 12 = (x + 3)(x − 4).' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.8 Q1(ii), p. 114', answer: 0,
     en: { q: 'Factorise 2x³ − 3x² − 3x + 2.', options: ['(x + 1)(x − 2)(2x − 1)', '(x − 1)(x + 2)(2x + 1)', '(x + 1)(x + 2)(2x − 1)', '(x − 1)(x − 2)(2x + 1)'], explanation: 'p(−1) = −2 − 3 + 3 + 2 = 0, so (x + 1) is a factor; the quotient 2x² − 5x + 2 = (x − 2)(2x − 1).' },
-    ta: { q: '2x³ − 3x² − 3x + 2 ஐக் காரணிப்படுத்துக.', options: ['(x + 1)(x − 2)(2x − 1)', '(x − 1)(x + 2)(2x + 1)', '(x + 1)(x + 2)(2x − 1)', '(x − 1)(x − 2)(2x + 1)'], explanation: 'p(−1) = 0; (x + 1) காரணி; ஈவு 2x² − 5x + 2 = (x − 2)(2x − 1).' },
+    ta: { q: '2x³ − 3x² − 3x + 2 ஐக் காரணிப்படுத்துக.', options: ['(x + 1)(x − 2)(2x − 1)', '(x − 1)(x + 2)(2x + 1)', '(x + 1)(x + 2)(2x − 1)', '(x − 1)(x − 2)(2x + 1)'], explanation: 'p(−1) = −2 − 3 + 3 + 2 = 0; (x + 1) காரணி; ஈவு 2x² − 5x + 2 = (x − 2)(2x − 1).' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.8 Q1(iii), p. 114', answer: 0,
     en: { q: 'Factorise −7x + 3 + 4x³.', options: ['(x − 1)(2x − 1)(2x + 3)', '(x + 1)(2x + 1)(2x − 3)', '(x − 1)(2x + 1)(2x − 3)', '(x − 1)(4x² + 4x + 3)'], explanation: '4x³ − 7x + 3: coefficients sum 4 − 7 + 3 = 0; quotient 4x² + 4x − 3 = (2x − 1)(2x + 3).' },
-    ta: { q: '−7x + 3 + 4x³ ஐக் காரணிப்படுத்துக.', options: ['(x − 1)(2x − 1)(2x + 3)', '(x + 1)(2x + 1)(2x − 3)', '(x − 1)(2x + 1)(2x − 3)', '(x − 1)(4x² + 4x + 3)'], explanation: '4x³ − 7x + 3: கெழுக்களின் கூடுதல் 0; ஈவு 4x² + 4x − 3 = (2x − 1)(2x + 3).' },
+    ta: { q: '−7x + 3 + 4x³ ஐக் காரணிப்படுத்துக.', options: ['(x − 1)(2x − 1)(2x + 3)', '(x + 1)(2x + 1)(2x − 3)', '(x − 1)(2x + 1)(2x − 3)', '(x − 1)(4x² + 4x + 3)'], explanation: '4x³ − 7x + 3: கெழுக்களின் கூடுதல் 4 − 7 + 3 = 0; ஈவு 4x² + 4x − 3 = (2x − 1)(2x + 3).' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.8 Q1(iv), p. 114', answer: 0,
     en: { q: 'Factorise x³ + x² − 14x − 24.', options: ['(x + 2)(x + 3)(x − 4)', '(x − 2)(x − 3)(x + 4)', '(x + 2)(x − 3)(x + 4)', '(x + 1)(x + 4)(x − 6)'], explanation: 'p(−2) = −8 + 4 + 28 − 24 = 0; quotient x² − x − 12 = (x + 3)(x − 4).' },
-    ta: { q: 'x³ + x² − 14x − 24 ஐக் காரணிப்படுத்துக.', options: ['(x + 2)(x + 3)(x − 4)', '(x − 2)(x − 3)(x + 4)', '(x + 2)(x − 3)(x + 4)', '(x + 1)(x + 4)(x − 6)'], explanation: 'p(−2) = 0; ஈவு x² − x − 12 = (x + 3)(x − 4).' },
+    ta: { q: 'x³ + x² − 14x − 24 ஐக் காரணிப்படுத்துக.', options: ['(x + 2)(x + 3)(x − 4)', '(x − 2)(x − 3)(x + 4)', '(x + 2)(x − 3)(x + 4)', '(x + 1)(x + 4)(x − 6)'], explanation: 'p(−2) = −8 + 4 + 28 − 24 = 0; ஈவு x² − x − 12 = (x + 3)(x − 4).' },
   },
   {
     difficulty: 'hard', source: 'Book example 3.40, p. 113', answer: 0,
@@ -909,7 +909,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise 3.10 Q3, p. 124', answer: 0,
     en: { q: 'Two cars are 100 miles apart. Driving towards each other they meet in 1 hour; driving in the same direction they meet in 2 hours. Their speeds are', options: ['75 mph and 25 mph', '60 mph and 40 mph', '50 mph and 50 mph', '100 mph and 50 mph'], explanation: 'x + y = 100 and 2(x − y) = 100, so x − y = 50; x = 75, y = 25.' },
-    ta: { q: 'இரு மகிழுந்துகள் 100 மைல் இடைவெளியில் உள்ளன. எதிரெதிரே சென்றால் 1 மணியில், ஒரே திசையில் சென்றால் 2 மணியில் சந்திக்கின்றன. அவற்றின் வேகங்கள்', options: ['75 மை/ம, 25 மை/ம', '60 மை/ம, 40 மை/ம', '50 மை/ம, 50 மை/ம', '100 மை/ம, 50 மை/ம'], explanation: 'x + y = 100; 2(x − y) = 100 எனவே x − y = 50; x = 75, y = 25.' },
+    ta: { q: 'இரண்டு மகிழுந்துகளுக்கு இடைப்பட்ட தொலைவு 100 மைல்கள். இரண்டும் ஒன்றையொன்று நோக்கிப் பயணித்தால் ஒரு மணி நேரத்தில் சந்திக்கும்; ஒரே திசையில் சென்றால் 2 மணி நேரத்தில் சந்திக்கும். இரண்டு மகிழுந்துகளின் வேகங்கள்', options: ['75 மை/ம, 25 மை/ம', '60 மை/ம, 40 மை/ம', '50 மை/ம, 50 மை/ம', '100 மை/ம, 50 மை/ம'], explanation: 'x + y = 100; 2(x − y) = 100 எனவே x − y = 50; x = 75, y = 25.' },
   },
   {
     difficulty: 'hard', source: 'Book example 3.47, p. 123', answer: 0,
@@ -924,32 +924,32 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise 3.11 Q1(iii), p. 126', answer: 0,
     en: { q: 'Solve: 10% of x + 20% of y = 24 and 3x − y = 20.', options: ['x = 40, y = 100', 'x = 100, y = 40', 'x = 20, y = 40', 'x = 40, y = 20'], explanation: 'x + 2y = 240 and y = 3x − 20: x + 6x − 40 = 240, x = 40, y = 100.' },
-    ta: { q: 'தீர்க்க: x இன் 10% + y இன் 20% = 24; 3x − y = 20.', options: ['x = 40, y = 100', 'x = 100, y = 40', 'x = 20, y = 40', 'x = 40, y = 20'], explanation: 'x + 2y = 240, y = 3x − 20: 7x − 40 = 240; x = 40, y = 100.' },
+    ta: { q: 'தீர்க்க: x-இன் 10% + y-இன் 20% = 24; 3x − y = 20.', options: ['x = 40, y = 100', 'x = 100, y = 40', 'x = 20, y = 40', 'x = 40, y = 20'], explanation: 'x + 2y = 240, y = 3x − 20: 7x − 40 = 240; x = 40, y = 100.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.11 Q1(iv), p. 126', answer: 0,
     en: { q: 'The solution of √2x − √3y = 1 and √3x − √8y = 0 is', options: ['x = 2√2, y = √3', 'x = √3, y = 2√2', 'x = √2, y = √3', 'x = 2, y = 1'], explanation: 'Check: √2(2√2) − √3(√3) = 4 − 3 = 1 and √3(2√2) − √8(√3) = 2√6 − 2√6 = 0.' },
-    ta: { q: '√2x − √3y = 1, √3x − √8y = 0 இன் தீர்வு', options: ['x = 2√2, y = √3', 'x = √3, y = 2√2', 'x = √2, y = √3', 'x = 2, y = 1'], explanation: 'சரிபார்ப்பு: √2(2√2) − √3(√3) = 1; √3(2√2) − √8(√3) = 0.' },
+    ta: { q: '√2x − √3y = 1, √3x − √8y = 0 இன் தீர்வு', options: ['x = 2√2, y = √3', 'x = √3, y = 2√2', 'x = √2, y = √3', 'x = 2, y = 1'], explanation: 'சரிபார்ப்பு: √2(2√2) − √3(√3) = 4 − 3 = 1; √3(2√2) − √8(√3) = 2√6 − 2√6 = 0.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.11 Q2, p. 126', answer: 0,
     en: { q: "Raman's age is three times the sum of the ages of his two sons. After 5 years his age will be twice the sum of their ages. Raman's present age is", options: ['45 years', '15 years', '50 years', '40 years'], explanation: 'R = 3S and R + 5 = 2(S + 10): 3S + 5 = 2S + 20, S = 15, R = 45.' },
-    ta: { q: 'ராமனின் வயது அவருடைய இரு மகன்களின் வயதுகளின் கூடுதலின் மூன்று மடங்கு. 5 ஆண்டுகளுக்குப் பின் அவரது வயது மகன்களின் வயதுக் கூடுதலின் இரு மடங்கு. ராமனின் தற்போதைய வயது', options: ['45 ஆண்டுகள்', '15 ஆண்டுகள்', '50 ஆண்டுகள்', '40 ஆண்டுகள்'], explanation: 'R = 3S, R + 5 = 2(S + 10): 3S + 5 = 2S + 20; S = 15, R = 45.' },
+    ta: { q: 'இராமனின் வயது அவருடைய இரு மகன்களுடைய வயதுகளின் கூடுதலைப் போல் மூன்று மடங்காகும். ஐந்தாண்டுகள் கழித்து அவரின் வயது தனது மகன்களுடைய வயதுகளின் கூடுதலைப் போல் இரு மடங்காகும். இராமனின் தற்போதைய வயது', options: ['45 ஆண்டுகள்', '15 ஆண்டுகள்', '50 ஆண்டுகள்', '40 ஆண்டுகள்'], explanation: 'R = 3S, R + 5 = 2(S + 10): 3S + 5 = 2S + 20; S = 15, R = 45.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.11 Q3, p. 126', answer: 0,
     en: { q: 'The middle digit of a number between 100 and 1000 is zero and the sum of the other digits is 13. If the digits are reversed, the new number exceeds the original by 495. The number is', options: ['409', '904', '508', '706'], explanation: 'a + c = 13 and 99(c − a) = 495, so c − a = 5: a = 4, c = 9.' },
-    ta: { q: '100 க்கும் 1000 க்கும் இடையே உள்ள ஓர் எண்ணின் நடு இலக்கம் பூச்சியம்; மற்ற இரு இலக்கங்களின் கூடுதல் 13. இலக்கங்களைத் தலைகீழாக்கினால் கிடைக்கும் எண் 495 அதிகம். அந்த எண்', options: ['409', '904', '508', '706'], explanation: 'a + c = 13, 99(c − a) = 495; c − a = 5; a = 4, c = 9.' },
+    ta: { q: '100 மற்றும் 1000 இக்கு இடையே அமையும் ஒரு மூன்றிலக்க எண்ணின் நடு இலக்கம் பூச்சியம்; மற்ற இரு இலக்கங்களின் கூடுதல் 13. இலக்கங்களை இடம் மாற்றி அமைக்கும்போது கிடைக்கும் எண், அந்த எண்ணை விட 495 அதிகம். அந்த எண்', options: ['409', '904', '508', '706'], explanation: 'a + c = 13, 99(c − a) = 495; c − a = 5; a = 4, c = 9.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.12 Q1(iii), p. 128', answer: 0,
     en: { q: 'Solve by elimination: x/10 + y/5 = 14 and x/8 + y/6 = 15.', options: ['x = 80, y = 30', 'x = 30, y = 80', 'x = 40, y = 50', 'x = 60, y = 40'], explanation: 'x + 2y = 140 and 3x + 4y = 360: subtracting 2 × (first) gives x = 80, then y = 30.' },
-    ta: { q: 'நீக்கல் முறையில் தீர்க்க: x/10 + y/5 = 14, x/8 + y/6 = 15.', options: ['x = 80, y = 30', 'x = 30, y = 80', 'x = 40, y = 50', 'x = 60, y = 40'], explanation: 'x + 2y = 140, 3x + 4y = 360; x = 80, y = 30.' },
+    ta: { q: 'நீக்கல் முறையில் தீர்க்க: x/10 + y/5 = 14, x/8 + y/6 = 15.', options: ['x = 80, y = 30', 'x = 30, y = 80', 'x = 40, y = 50', 'x = 60, y = 40'], explanation: 'x + 2y = 140, 3x + 4y = 360; இரண்டாவதிலிருந்து முதலாவதின் 2 மடங்கைக் கழிக்க x = 80; பின் y = 30.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.12 Q1(iv), p. 128', answer: 0,
     en: { q: 'A non-zero solution of 3(2x + y) = 7xy and 3(x + 3y) = 11xy is', options: ['x = 1, y = 3/2', 'x = 3/2, y = 1', 'x = 1/2, y = 3', 'x = 2, y = 3'], explanation: 'Divide by xy: 6/y + 3/x = 7 and 3/y + 9/x = 11. Solving gives 1/x = 1, 1/y = 2/3.' },
-    ta: { q: '3(2x + y) = 7xy, 3(x + 3y) = 11xy இன் பூச்சியமற்ற தீர்வு', options: ['x = 1, y = 3/2', 'x = 3/2, y = 1', 'x = 1/2, y = 3', 'x = 2, y = 3'], explanation: 'xy ஆல் வகுக்க 6/y + 3/x = 7, 3/y + 9/x = 11; 1/x = 1, 1/y = 2/3.' },
+    ta: { q: '3(2x + y) = 7xy, 3(x + 3y) = 11xy இன் பூச்சியமற்ற தீர்வு', options: ['x = 1, y = 3/2', 'x = 3/2, y = 1', 'x = 1/2, y = 3', 'x = 2, y = 3'], explanation: 'xy ஆல் வகுக்க 6/y + 3/x = 7, 3/y + 9/x = 11; தீர்க்க 1/x = 1, 1/y = 2/3.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.12 Q1(v), p. 128', answer: 0,
@@ -959,12 +959,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise 3.12 Q2, p. 128', answer: 0,
     en: { q: 'The monthly incomes of A and B are in the ratio 3 : 4 and their expenditures in the ratio 5 : 7. If each saves ₹5000 a month, their incomes are', options: ['₹30000 and ₹40000', '₹15000 and ₹20000', '₹25000 and ₹35000', '₹3000 and ₹4000'], explanation: '3x − 5y = 5000 and 4x − 7y = 5000 give x = 10000, y = 5000.' },
-    ta: { q: 'A, B இன் மாத வருமானங்கள் 3 : 4, செலவுகள் 5 : 7 விகிதத்தில் உள்ளன. ஒவ்வொருவரும் மாதம் ₹5000 சேமித்தால் அவர்களின் வருமானங்கள்', options: ['₹30000, ₹40000', '₹15000, ₹20000', '₹25000, ₹35000', '₹3000, ₹4000'], explanation: '3x − 5y = 5000, 4x − 7y = 5000; x = 10000, y = 5000.' },
+    ta: { q: 'A மற்றும் B ஆகியோரது மாத வருமானங்களின் விகிதம் 3 : 4, செலவுகளின் விகிதம் 5 : 7. ஒவ்வொருவரும் மாதம் ₹5000 சேமிக்கிறார்கள் எனில், அவர்களுடைய மாத வருமானங்கள்', options: ['₹30000, ₹40000', '₹15000, ₹20000', '₹25000, ₹35000', '₹3000, ₹4000'], explanation: '3x − 5y = 5000, 4x − 7y = 5000; x = 10000, y = 5000.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.12 Q3, p. 128', answer: 0,
     en: { q: 'Five years ago a man was seven times as old as his son; five years hence he will be four times as old as his son. Their present ages are', options: ['75 and 15', '70 and 10', '80 and 20', '35 and 5'], explanation: 'm − 5 = 7(s − 5) and m + 5 = 4(s + 5) give 3s = 45, s = 15, m = 75.' },
-    ta: { q: 'ஐந்து ஆண்டுகளுக்கு முன் ஒருவரின் வயது அவர் மகனின் வயதின் ஏழு மடங்கு; ஐந்து ஆண்டுகளுக்குப் பின் நான்கு மடங்கு. அவர்களின் தற்போதைய வயதுகள்', options: ['75, 15', '70, 10', '80, 20', '35, 5'], explanation: 'm − 5 = 7(s − 5), m + 5 = 4(s + 5); 3s = 45; s = 15, m = 75.' },
+    ta: { q: '5 வருடங்களுக்கு முன்பு, ஒருவருடைய வயது அவருடைய மகனின் வயதைப் போல் 7 மடங்கு. 5 வருடங்கள் கழித்து அவருடைய வயது மகனின் வயதைப் போல் 4 மடங்காக இருக்கும். அவர்களுடைய தற்போதைய வயது', options: ['75, 15', '70, 10', '80, 20', '35, 5'], explanation: 'm − 5 = 7(s − 5), m + 5 = 4(s + 5); 3s = 45; s = 15, m = 75.' },
   },
   {
     difficulty: 'hard', source: 'Book example 3.51, p. 127', answer: 0,
@@ -979,32 +979,32 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book example 3.53, p. 130', answer: 0,
     en: { q: 'By cross multiplication, the solution of 3x + 5y = 21 and −7x − 6y = −49 is', options: ['x = 7, y = 0', 'x = 0, y = 7', 'x = 2, y = 3', 'x = 7, y = 1'], explanation: 'x/119 = y/0 = 1/17 gives x = 7, y = 0 (y/0 is only notation, not division by zero).' },
-    ta: { q: 'குறுக்குப் பெருக்கல் முறையில் 3x + 5y = 21, −7x − 6y = −49 இன் தீர்வு', options: ['x = 7, y = 0', 'x = 0, y = 7', 'x = 2, y = 3', 'x = 7, y = 1'], explanation: 'x/119 = y/0 = 1/17; x = 7, y = 0 (y/0 என்பது குறியீடு மட்டும்).' },
+    ta: { q: 'குறுக்குப் பெருக்கல் முறையில் 3x + 5y = 21, −7x − 6y = −49 இன் தீர்வு', options: ['x = 7, y = 0', 'x = 0, y = 7', 'x = 2, y = 3', 'x = 7, y = 1'], explanation: 'x/119 = y/0 = 1/17; x = 7, y = 0 (y/0 என்பது குறியீடு மட்டுமே; 0 ஆல் வகுத்தல் அல்ல).' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.13 Q2, p. 131', answer: 0,
     en: { q: 'Akshaya has 80 coins of ₹2 and ₹5 totalling ₹220. The numbers of ₹2 and ₹5 coins are', options: ['60 and 20', '20 and 60', '50 and 30', '40 and 40'], explanation: 'x + y = 80 and 2x + 5y = 220 give 3y = 60, y = 20, x = 60.' },
-    ta: { q: 'அட்சயாவிடம் ₹2, ₹5 நாணயங்கள் மொத்தம் 80, மதிப்பு ₹220. ₹2, ₹5 நாணயங்களின் எண்ணிக்கை', options: ['60, 20', '20, 60', '50, 30', '40, 40'], explanation: 'x + y = 80, 2x + 5y = 220; 3y = 60; y = 20, x = 60.' },
+    ta: { q: 'அட்சயா தனது பணப்பையில் இரண்டு ரூபாய், ஐந்து ரூபாய் நாணயங்களாக மொத்தம் ₹220 மதிப்புடைய 80 நாணயங்களை வைத்திருந்தாள். ₹2, ₹5 நாணயங்களின் எண்ணிக்கை', options: ['60, 20', '20, 60', '50, 30', '40, 40'], explanation: 'x + y = 80, 2x + 5y = 220; 3y = 60; y = 20, x = 60.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.13 Q3, p. 131', answer: 0,
     en: { q: 'Two pipes together fill a pool in 24 hours. Using the larger pipe for 8 hours and the smaller for 18 hours fills half the pool. The larger and smaller pipes alone would take', options: ['40 hours and 60 hours', '60 hours and 40 hours', '48 hours and 48 hours', '30 hours and 120 hours'], explanation: '1/x + 1/y = 1/24 and 8/x + 18/y = 1/2 give 1/x = 1/40 and 1/y = 1/60.' },
-    ta: { q: 'இரு குழாய்கள் சேர்ந்து ஒரு நீச்சல் குளத்தை 24 மணியில் நிரப்புகின்றன. பெரிய குழாய் 8 மணி, சிறிய குழாய் 18 மணி பயன்படுத்தினால் பாதி நிரம்புகிறது. பெரிய, சிறிய குழாய்கள் தனியே எடுக்கும் நேரம்', options: ['40 மணி, 60 மணி', '60 மணி, 40 மணி', '48 மணி, 48 மணி', '30 மணி, 120 மணி'], explanation: '1/x + 1/y = 1/24, 8/x + 18/y = 1/2; 1/x = 1/40, 1/y = 1/60.' },
+    ta: { q: 'இரு குழாய்கள் மூலம் ஒரு நீச்சல் குளத்தில் முழுமையாக நீர் நிரப்ப 24 மணி நேரம் ஆகும். அதிக விட்டமுடைய குழாயை 8 மணி நேரமும் குறைந்த விட்டமுடைய குழாயை 18 மணி நேரமும் பயன்படுத்தினால் குளத்தில் பாதி அளவு நீர் நிரம்பும். பெரிய, சிறிய குழாய்கள் தனித்தனியாகக் குளத்தை நிரப்ப ஆகும் நேரம்', options: ['40 மணி, 60 மணி', '60 மணி, 40 மணி', '48 மணி, 48 மணி', '30 மணி, 120 மணி'], explanation: '1/x + 1/y = 1/24, 8/x + 18/y = 1/2; 1/x = 1/40, 1/y = 1/60.' },
   },
   {
     difficulty: 'hard', source: 'Book example 3.55, p. 132', answer: 0,
     en: { q: 'The system kx + 2y = 3 and 2x − 3y = 1 has a unique solution when', options: ['k ≠ −4/3', 'k = −4/3', 'k ≠ 4/3', 'k = 3'], explanation: 'Unique solution needs a₁/a₂ ≠ b₁/b₂: k/2 ≠ 2/(−3), so k ≠ −4/3.' },
-    ta: { q: 'kx + 2y = 3, 2x − 3y = 1 க்கு ஒரே ஒரு தீர்வு இருக்க', options: ['k ≠ −4/3', 'k = −4/3', 'k ≠ 4/3', 'k = 3'], explanation: 'a₁/a₂ ≠ b₁/b₂: k/2 ≠ 2/(−3); k ≠ −4/3.' },
+    ta: { q: 'kx + 2y = 3, 2x − 3y = 1 க்கு ஒரே ஒரு தீர்வு இருக்க', options: ['k ≠ −4/3', 'k = −4/3', 'k ≠ 4/3', 'k = 3'], explanation: 'ஒரே ஒரு தீர்வுக்கு a₁/a₂ ≠ b₁/b₂: k/2 ≠ 2/(−3); k ≠ −4/3.' },
   },
   {
     difficulty: 'hard', source: 'Book example 3.56, p. 132', answer: 0,
     en: { q: 'The system 2x − 3y = 7 and (k + 2)x − (2k + 1)y = 3(2k − 1) has infinitely many solutions when k is', options: ['4', '2', '−4', '1/2'], explanation: '2/(k + 2) = 3/(2k + 1) gives 4k + 2 = 3k + 6, k = 4; it also satisfies the constant ratio.' },
-    ta: { q: '2x − 3y = 7, (k + 2)x − (2k + 1)y = 3(2k − 1) க்கு எண்ணற்ற தீர்வுகள் இருக்க k =', options: ['4', '2', '−4', '1/2'], explanation: '2/(k + 2) = 3/(2k + 1); 4k + 2 = 3k + 6; k = 4.' },
+    ta: { q: '2x − 3y = 7, (k + 2)x − (2k + 1)y = 3(2k − 1) க்கு எண்ணற்ற தீர்வுகள் இருக்க k =', options: ['4', '2', '−4', '1/2'], explanation: '2/(k + 2) = 3/(2k + 1); 4k + 2 = 3k + 6; k = 4; இது மாறிலிகளின் விகிதத்தையும் நிறைவு செய்கிறது.' },
   },
   {
     difficulty: 'hard', source: 'Book example 3.57, p. 132', answer: 0,
     en: { q: 'The value of k for which 8x + 5y = 9 and kx + 10y = 15 has no solution is', options: ['16', '4', '8', '24'], explanation: 'No solution needs 8/k = 5/10 ≠ 9/15, so k = 16.' },
-    ta: { q: '8x + 5y = 9, kx + 10y = 15 க்குத் தீர்வு இல்லாமல் இருக்க k இன் மதிப்பு', options: ['16', '4', '8', '24'], explanation: '8/k = 5/10 ≠ 9/15; k = 16.' },
+    ta: { q: '8x + 5y = 9, kx + 10y = 15 க்குத் தீர்வு இல்லாமல் இருக்க k இன் மதிப்பு', options: ['16', '4', '8', '24'], explanation: 'தீர்வு இல்லாமல் இருக்க 8/k = 5/10 ≠ 9/15; k = 16.' },
   },
   {
     difficulty: 'hard', source: 'Book example 3.54, p. 131', answer: 0,
@@ -1014,12 +1014,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise 3.14 Q1, p. 133', answer: 0,
     en: { q: 'The sum of a two-digit number and the number with digits interchanged is 110. If 10 is subtracted from the first number, the result is 4 more than 5 times the sum of its digits. The first number is', options: ['64', '46', '55', '73'], explanation: '11(x + y) = 110 gives x + y = 10; 10x + y − 10 = 5(10) + 4 gives 10x + y = 64.' },
-    ta: { q: 'ஓர் ஈரிலக்க எண்ணும் அதன் இலக்கங்களை இடமாற்றிய எண்ணும் சேர்ந்து 110. முதல் எண்ணிலிருந்து 10 ஐக் கழித்தால் அது இலக்கங்களின் கூடுதலின் 5 மடங்கை விட 4 அதிகம். முதல் எண்', options: ['64', '46', '55', '73'], explanation: '11(x + y) = 110; x + y = 10; 10x + y − 10 = 54; எண் 64.' },
+    ta: { q: 'ஓர் ஈரிலக்க எண்ணையும் அதன் இலக்கங்களை மாற்றுவதால் கிடைக்கும் எண்ணையும் கூட்டினால் 110 கிடைக்கும். முதல் எண்ணிலிருந்து 10 ஐக் கழித்தால் அது அதன் இலக்கங்களின் கூடுதலின் 5 மடங்கை விட 4 அதிகம். முதல் எண்', options: ['64', '46', '55', '73'], explanation: '11(x + y) = 110; x + y = 10; 10x + y − 10 = 5(10) + 4; எனவே 10x + y = 64.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.14 Q2, p. 133', answer: 0,
     en: { q: 'The sum of the numerator and denominator of a fraction is 12. If 3 is added to the denominator, the fraction becomes 1/2. The fraction is', options: ['5/7', '7/5', '4/8', '3/9'], explanation: 'x + y = 12 and 2x = y + 3 give 3x = 15, x = 5, y = 7.' },
-    ta: { q: 'ஒரு பின்னத்தின் பகுதி மற்றும் தொகுதியின் கூடுதல் 12. பகுதியுடன் 3 ஐக் கூட்டினால் மதிப்பு 1/2. அப்பின்னம்', options: ['5/7', '7/5', '4/8', '3/9'], explanation: 'x + y = 12, 2x = y + 3; 3x = 15; x = 5, y = 7.' },
+    ta: { q: 'ஒரு பின்னத்தின் பகுதி மற்றும் தொகுதியின் கூடுதல் 12. அப்பின்னத்தின் பகுதியுடன் 3 ஐக் கூட்டினால் அதன் மதிப்பு 1/2. அப்பின்னம்', options: ['5/7', '7/5', '4/8', '3/9'], explanation: 'x + y = 12, 2x = y + 3; 3x = 15; x = 5, y = 7.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.14 Q3, p. 133', answer: 0,
@@ -1029,22 +1029,22 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise 3.14 Q4, p. 133', answer: 0,
     en: { q: 'Selling a TV at 5% gain and a fridge at 10% gain gives a total gain of ₹2000; selling the TV at 10% gain and the fridge at 5% loss gives a gain of ₹1500. The price of the TV is', options: ['₹20000', '₹10000', '₹15000', '₹25000'], explanation: '0.05T + 0.1F = 2000 and 0.1T − 0.05F = 1500 give T = 20000, F = 10000.' },
-    ta: { q: 'தொலைக்காட்சிப் பெட்டியை 5% இலாபத்திற்கும் குளிர்சாதனப் பெட்டியை 10% இலாபத்திற்கும் விற்றால் இலாபம் ₹2000; தொலைக்காட்சியை 10% இலாபத்திற்கும் குளிர்சாதனத்தை 5% நட்டத்திற்கும் விற்றால் இலாபம் ₹1500. தொலைக்காட்சிப் பெட்டியின் விலை', options: ['₹20000', '₹10000', '₹15000', '₹25000'], explanation: '0.05T + 0.1F = 2000, 0.1T − 0.05F = 1500; T = 20000, F = 10000.' },
+    ta: { q: 'ஒரு தொலைக்காட்சிப் பெட்டியை 5% இலாபத்திற்கும் ஒரு குளிர்சாதனப் பெட்டியை 10% இலாபத்திற்கும் விற்பதால் நிகர இலாபம் ₹2000; தொலைக்காட்சிப் பெட்டியை 10% இலாபத்திற்கும் குளிர்சாதனப் பெட்டியை 5% நட்டத்திற்கும் விற்பதால் நிகர இலாபம் ₹1500. தொலைக்காட்சிப் பெட்டியின் விலை', options: ['₹20000', '₹10000', '₹15000', '₹25000'], explanation: '0.05T + 0.1F = 2000, 0.1T − 0.05F = 1500; T = 20000, F = 10000.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.14 Q5, p. 133', answer: 0,
     en: { q: 'Two numbers are in the ratio 5 : 6. If 8 is subtracted from each, the ratio becomes 4 : 5. The numbers are', options: ['40 and 48', '30 and 36', '50 and 60', '20 and 24'], explanation: '(5k − 8)/(6k − 8) = 4/5 gives 25k − 40 = 24k − 32, k = 8.' },
-    ta: { q: 'இரு எண்கள் 5 : 6 விகிதத்தில் உள்ளன. ஒவ்வொன்றிலிருந்தும் 8 ஐக் கழித்தால் விகிதம் 4 : 5. அந்த எண்கள்', options: ['40, 48', '30, 36', '50, 60', '20, 24'], explanation: '(5k − 8)/(6k − 8) = 4/5; 25k − 40 = 24k − 32; k = 8.' },
+    ta: { q: 'இரு எண்கள் 5 : 6 என்ற விகிதத்தில் உள்ளன. அவை ஒவ்வொன்றிலிருந்தும் 8 ஐக் கழித்தால் அவற்றின் விகிதம் 4 : 5 என மாறும். அந்த எண்கள்', options: ['40, 48', '30, 36', '50, 60', '20, 24'], explanation: '(5k − 8)/(6k − 8) = 4/5; 25k − 40 = 24k − 32; k = 8.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 3.14 Q6, p. 133', answer: 0,
     en: { q: '4 Indians and 4 Chinese can finish a work in 3 days; 2 Indians and 5 Chinese can finish it in 4 days. One Indian alone and one Chinese alone would take', options: ['18 days and 36 days', '36 days and 18 days', '12 days and 24 days', '24 days and 48 days'], explanation: '4/x + 4/y = 1/3 and 2/x + 5/y = 1/4 give 1/x = 1/18 and 1/y = 1/36.' },
-    ta: { q: '4 இந்தியர்களும் 4 சீனர்களும் ஒரு வேலையை 3 நாட்களில், 2 இந்தியர்களும் 5 சீனர்களும் 4 நாட்களில் முடிக்கின்றனர். ஓர் இந்தியர், ஒரு சீனர் தனியே எடுக்கும் நாட்கள்', options: ['18 நாட்கள், 36 நாட்கள்', '36 நாட்கள், 18 நாட்கள்', '12 நாட்கள், 24 நாட்கள்', '24 நாட்கள், 48 நாட்கள்'], explanation: '4/x + 4/y = 1/3, 2/x + 5/y = 1/4; 1/x = 1/18, 1/y = 1/36.' },
+    ta: { q: '4 இந்தியர்களும் 4 சீனர்களும் சேர்ந்து ஒரு வேலையை 3 நாள்களில் முடிக்கிறார்கள்; 2 இந்தியர்களும் 5 சீனர்களும் சேர்ந்து அதே வேலையை 4 நாள்களில் முடிக்கிறார்கள். தனியாக ஓர் இந்தியர், தனியாக ஒரு சீனர் அந்த வேலையை முடிக்க ஆகும் நாள்கள்', options: ['18 நாட்கள், 36 நாட்கள்', '36 நாட்கள், 18 நாட்கள்', '12 நாட்கள், 24 நாட்கள்', '24 நாட்கள், 48 நாட்கள்'], explanation: '4/x + 4/y = 1/3, 2/x + 5/y = 1/4; 1/x = 1/18, 1/y = 1/36.' },
   },
   {
     difficulty: 'hard', source: '§3.6.3, p. 112', answer: 0,
     en: { q: 'Assertion (A): (x + 1) is a factor of x³ + 7x² + 13x + 7.\nReason (R): (x + 1) is a factor of p(x) if the sum of the coefficients of even powers of x (including the constant) equals the sum of the coefficients of odd powers.', options: AR_EN, explanation: '7 + 7 = 14 and 1 + 13 = 14, so p(−1) = 0; R is exactly why A holds.' },
-    ta: { q: 'கூற்று: (x + 1) என்பது x³ + 7x² + 13x + 7 இன் காரணி.\nகாரணம்: x இன் இரட்டை அடுக்குகளின் கெழுக்கள் (மாறிலி உட்பட) கூடுதல் = ஒற்றை அடுக்குகளின் கெழுக்கள் கூடுதல் எனில் (x + 1) காரணி.', options: AR_TA, explanation: '7 + 7 = 14, 1 + 13 = 14; எனவே p(−1) = 0; காரணமே கூற்றை விளக்குகிறது.' },
+    ta: { q: 'கூற்று: (x + 1) என்பது x³ + 7x² + 13x + 7 இன் காரணி.\nகாரணம்: x இன் இரட்டைப்படை அடுக்குகளில் உள்ள உறுப்புகளின் கெழுக்கள் மற்றும் மாறிலியின் கூடுதல், ஒற்றைப்படை அடுக்குகளில் உள்ள உறுப்புகளின் கெழுக்களின் கூடுதலுக்குச் சமம் எனில் (x + 1) ஆனது p(x) இன் காரணி.', options: AR_TA, explanation: '7 + 7 = 14, 1 + 13 = 14; எனவே p(−1) = 0; காரணமே கூற்றை விளக்குகிறது.' },
   },
   {
     difficulty: 'hard', source: '§3.8.3, p. 131', answer: 3,

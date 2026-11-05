@@ -14,7 +14,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise I.2, p. 300', answer: 0,
     en: { q: 'The ice sheets of the north and south poles and icecaps on mountains get converted into water vapour through the process of _____.', options: ['sublimation', 'evaporation', 'condensation', 'infiltration'], explanation: 'Sublimation converts solid directly to gas without passing through the liquid phase.' },
-    ta: { q: 'வட, தென் துருவங்களில் காணப்படும் பனிப்பாறைகளிலுள்ள பனிக்கட்டிகள் நேரடியாக ஆவியாக மாறும் நிலை _____ எனப்படும்.', options: ['பதங்கமாதல்', 'ஆவியாதல்', 'குளிர்வித்தல்', 'உட்செலுத்துதல்'], explanation: 'திடப்பொருள் திரவ நிலையை அடையாமல் நேரடியாக வாயுவாக மாறுவது பதங்கமாதல்.' },
+    ta: { q: 'வட, தென் துருவங்களில் காணப்படும் பனிப்பாறைகளிலுள்ள பனிக்கட்டிகளும் மலைகளிலுள்ள பனி முகடுகளும் நேரடியாக ஆவியாக மாறும் நிலை _____ எனப்படும்.', options: ['பதங்கமாதல்', 'ஆவியாதல்', 'குளிர்வித்தல்', 'உட்செலுத்துதல்'], explanation: 'திடப்பொருள் திரவ நிலையை அடையாமல் நேரடியாக வாயுவாக மாறுவது பதங்கமாதல்.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise I.3, p. 300', answer: 0,
@@ -74,7 +74,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§24.2.3, p. 295', answer: 0,
     en: { q: 'Common land plants that grow where it is neither too wet nor too dry are', options: ['mesophytes', 'hydrophytes', 'xerophytes', 'succulents'], explanation: 'Mesophytes need no extreme adaptations.' },
-    ta: { q: 'மிக அதிகமான அல்லது மிகக் குறைவான நீரில்லாத இடங்களில் வளரும் தாவரங்கள்', options: ['இடைநிலைத்தாவரங்கள்', 'நீர்த்தாவரங்கள்', 'வறண்ட நிலத்தாவரங்கள்', 'சதைப்பற்றுத் தாவரங்கள்'], explanation: 'இடைநிலைத்தாவரங்களுக்கு எவ்வித சிறப்புத் தகவமைப்பும் தேவைப்படுவதில்லை.' },
+    ta: { q: 'மிக அதிகமான அல்லது மிகக் குறைவான நீரளவுள்ள இடங்களில் வளராமல், இடைப்பட்ட சூழலில் வளரும் பொதுவான நிலத்தாவரங்கள்', options: ['இடைநிலைத்தாவரங்கள்', 'நீர்த்தாவரங்கள்', 'வறண்ட நிலத்தாவரங்கள்', 'சதைப்பற்றுத் தாவரங்கள்'], explanation: 'இடைநிலைத்தாவரங்களுக்கு எவ்வித சிறப்புத் தகவமைப்பும் தேவைப்படுவதில்லை.' },
   },
   {
     difficulty: 'easy', source: '§24.3.2, p. 296', answer: 0,
@@ -111,7 +111,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise III.4, p. 300', answer: 0,
     en: { q: "'Earthworms use the remarkable high frequency system called echoes.' The corrected statement is", options: ['Bats use the high frequency system called echolocation.', 'Earthworms use ultrasonic sounds to find prey.', 'Fishes use echolocation to burrow.', 'Earthworms use echolocation to sense light.'], explanation: 'Bats emit ultrasonic sounds and locate prey from the echoes; earthworms sense light through photoreceptors in their skin.' },
-    ta: { q: "'மண்புழுக்கள் அதிர்வெண் கொண்ட எதிரொலித்தல் எனப்படும் அமைப்பைப் பயன்படுத்துகின்றன' – திருத்தப்பட்ட கூற்று", options: ['வெளவால்கள் அதிக அதிர்வெண் கொண்ட எதிரொலித்து இடம் கண்டறிதல் முறையைப் பயன்படுத்துகின்றன.', 'மண்புழுக்கள் மீயொலியைப் பயன்படுத்தி இரையைக் கண்டறிகின்றன.', 'மீன்கள் துளையிட எதிரொலியைப் பயன்படுத்துகின்றன.', 'மண்புழுக்கள் ஒளியை உணர எதிரொலியைப் பயன்படுத்துகின்றன.'], explanation: 'வெளவால்கள் மீயொலியை வெளியிட்டு எதிரொலி மூலம் இரையைக் கண்டறிகின்றன; மண்புழுக்கள் தோலிலுள்ள ஒளி உணர் செல்களால் ஒளியை உணர்கின்றன.' },
+    ta: { q: "'மண்புழுக்கள் அதிக அதிர்வெண் கொண்ட எதிரொலித்தல் என அழைக்கப்படும் அமைப்பைப் பயன்படுத்துகின்றன' – திருத்தப்பட்ட கூற்று", options: ['வெளவால்கள் அதிக அதிர்வெண் கொண்ட எதிரொலித்து இடம் கண்டறிதல் முறையைப் பயன்படுத்துகின்றன.', 'மண்புழுக்கள் மீயொலியைப் பயன்படுத்தி இரையைக் கண்டறிகின்றன.', 'மீன்கள் துளையிட எதிரொலியைப் பயன்படுத்துகின்றன.', 'மண்புழுக்கள் ஒளியை உணர எதிரொலியைப் பயன்படுத்துகின்றன.'], explanation: 'வெளவால்கள் மீயொலியை வெளியிட்டு எதிரொலி மூலம் இரையைக் கண்டறிகின்றன; மண்புழுக்கள் தோலிலுள்ள ஒளி உணர் செல்களால் ஒளியை உணர்கின்றன.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise III.5, p. 300', answer: 0,
@@ -156,7 +156,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise V.8, p. 300', answer: 0,
     en: { q: 'The vision of IUCN is', options: ["'A just world that values and conserves nature'", "'Water for all by 2030'", "'Clean air for every city'", "'One tree for every child'"], explanation: 'IUCN works for nature conservation and the sustainable use of natural resources.' },
-    ta: { q: 'ஐ.யு.சி.என் நோக்கம்', options: ["'இயற்கையை மதிக்கக்கூடிய மற்றும் பாதுகாக்கக்கூடிய நேர்மையான உலகம்'", "'2030-க்குள் அனைவருக்கும் நீர்'", "'ஒவ்வொரு நகரத்துக்கும் தூய காற்று'", "'ஒவ்வொரு குழந்தைக்கும் ஒரு மரம்'"], explanation: 'ஐ.யு.சி.என் இயற்கை வளப் பாதுகாப்பிலும் அவற்றை வளம்குன்றாமல் பயன்படுத்துவதிலும் பணியாற்றுகிறது.' },
+    ta: { q: 'ஐ.யு.சி.என்-இன் தொலைநோக்குப் பார்வை', options: ["'இயற்கையை மதிக்கக்கூடிய மற்றும் பாதுகாக்கக்கூடிய நேர்மையான உலகம்'", "'2030-க்குள் அனைவருக்கும் நீர்'", "'ஒவ்வொரு நகரத்துக்கும் தூய காற்று'", "'ஒவ்வொரு குழந்தைக்கும் ஒரு மரம்'"], explanation: 'ஐ.யு.சி.என் இயற்கை வளப் பாதுகாப்பிலும் அவற்றை வளம்குன்றாமல் பயன்படுத்துவதிலும் பணியாற்றுகிறது.' },
   },
   {
     difficulty: 'medium', source: '§24.1.1, p. 291', answer: 0,
@@ -241,7 +241,7 @@ export const QUESTIONS: BankQuestion[] = [
     ta: { q: 'கூற்று: வெளவால்கள் வெப்ப இரத்த விலங்குகளாக இருந்தாலும் ஓய்வின்போது உடல் வெப்பநிலையைக் குறைய விடுகின்றன. காரணம்: செயல்பாடு குறைந்த நிலைக்குச் செல்வது ஆற்றலைச் சேமிக்க உதவுகிறது.', options: AR_TA, explanation: 'பிற பாலூட்டிகள் போலன்றி வெளவால்கள் ஓய்வில் உடல் வெப்பநிலையைக் குறைத்து ஆற்றலைச் சேமிக்கின்றன; காரணம் கூற்றை விளக்குகிறது.' },
   },
   {
-    difficulty: 'hard', source: '§24.2.3, p. 295', answer: 2,
+    difficulty: 'hard', source: '§24.2.3, p. 295', answer: 3,
     en: { q: 'Assertion: Mesophytes need extreme adaptations to survive. Reason: Mesophytes grow in situations that are neither too wet nor too dry.', options: AR_EN, explanation: 'The assertion is false: mesophytes grow in moderate conditions and need no extreme adaptations. The reason is a true statement.' },
     ta: { q: 'கூற்று: இடைநிலைத்தாவரங்கள் வாழ்வதற்குச் சிறப்புத் தகவமைப்புகள் தேவை. காரணம்: இடைநிலைத்தாவரங்கள் மிக ஈரமோ மிக வறட்சியோ இல்லாத இடங்களில் வளர்கின்றன.', options: AR_TA, explanation: 'கூற்று தவறு: மிதமான சூழலில் வளரும் இடைநிலைத்தாவரங்களுக்குச் சிறப்புத் தகவமைப்பு தேவையில்லை; காரணம் சரி.' },
   },

@@ -19,7 +19,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise I.4, p. 123', answer: 0,
     en: { q: 'Which apparatus is essential to perform separation by the solvent extraction method?', options: ['Separating funnel', 'Filter paper', 'Centrifuge machine', 'Sieve'], explanation: 'Two immiscible liquids such as oil and water are separated in a separating funnel.' },
-    ta: { q: 'கரைப்பான் சாறு இறக்கல் முறையில் பிரித்தெடுக்க அவசியமான கருவி', options: ['பிரிபுனல்', 'வடிதாள்', 'மைய விலக்கு இயந்திரம்', 'சல்லடை'], explanation: 'எண்ணெய், நீர் போன்ற ஒன்றாகக் கலவாத திரவங்கள் பிரிபுனலில் பிரிக்கப்படுகின்றன.' },
+    ta: { q: 'கரைப்பானைக் கொண்டு சாறு இறக்குதல் முறையில் அவசியமான கருவி', options: ['பிரிபுனல்', 'வடிதாள்', 'மைய விலக்கு இயந்திரம்', 'சல்லடை'], explanation: 'எண்ணெய், நீர் போன்ற ஒன்றாகக் கலவாத திரவங்கள் பிரிபுனலில் பிரிக்கப்படுகின்றன.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise I.5, p. 123', answer: 0,
@@ -94,7 +94,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§10.4, p. 119', answer: 0,
     en: { q: 'In a solution, the component present in the larger amount by weight is called the', options: ['solvent', 'solute', 'dispersed phase', 'residue'], explanation: 'The component in larger amount is the solvent; the one in lesser amount is the solute.' },
-    ta: { q: 'ஒரு கரைசலில் அதிக அளவு நிறையில் உள்ள பகுதிப்பொருள்', options: ['கரைப்பான்', 'கரைபொருள்', 'பரவிய நிலைமை', 'வீழ்படிவு'], explanation: 'அதிக அளவில் உள்ளது கரைப்பான்; குறைந்த அளவில் உள்ளது கரைபொருள்.' },
+    ta: { q: 'ஒரு கரைசலில் அதிக அளவு நிறையில் உள்ள பகுதிப்பொருள்', options: ['கரைப்பான்', 'கரைபொருள்', 'பரவிய நிலைமை', 'எச்சம்'], explanation: 'அதிக அளவில் உள்ளது கரைப்பான்; குறைந்த அளவில் உள்ளது கரைபொருள்.' },
   },
   {
     difficulty: 'easy', source: '§10.4.2, p. 120', answer: 0,
@@ -120,7 +120,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise II.2, p. 123', answer: 0,
     en: { q: '"A compound cannot be broken into simpler substances chemically." The correct form of this statement is', options: ['A compound can be broken into simpler substances by chemical methods.', 'A compound can be broken into simpler substances only by physical methods.', 'A compound can never be broken into simpler substances.', 'An element can be broken into simpler substances chemically.'], explanation: 'The statement is false: a compound can be broken down into its elements by chemical reactions.' },
-    ta: { q: '"வேதிமுறையில் ஒரு சேர்மத்தை தனிமங்களாகப் பிரிக்க முடியாது." இக்கூற்றின் சரியான வடிவம்', options: ['வேதிமுறைகளால் ஒரு சேர்மத்தை எளிய பொருட்களாகப் பிரிக்க முடியும்.', 'இயற்பியல் முறைகளால் மட்டுமே ஒரு சேர்மத்தைப் பிரிக்க முடியும்.', 'ஒரு சேர்மத்தை ஒருபோதும் பிரிக்க முடியாது.', 'வேதிமுறையில் ஒரு தனிமத்தை எளிய பொருட்களாகப் பிரிக்க முடியும்.'], explanation: 'கூற்று தவறு: வேதிவினைகள் மூலம் ஒரு சேர்மத்தை அதன் தனிமங்களாகப் பிரிக்க முடியும்.' },
+    ta: { q: '"வேதிமுறையில் ஒரு சேர்மத்தை தனிமங்களாகப் பிரிக்க முடியாது." இக்கூற்றின் சரியான வடிவம்', options: ['வேதிமுறைகளால் ஒரு சேர்மத்தை எளிய பொருட்களாகப் பிரிக்க முடியும்.', 'இயற்பியல் முறைகளால் மட்டுமே ஒரு சேர்மத்தை எளிய பொருட்களாகப் பிரிக்க முடியும்.', 'ஒரு சேர்மத்தை ஒருபோதும் எளிய பொருட்களாகப் பிரிக்க முடியாது.', 'வேதிமுறையில் ஒரு தனிமத்தை எளிய பொருட்களாகப் பிரிக்க முடியும்.'], explanation: 'கூற்று தவறு: வேதிவினைகள் மூலம் ஒரு சேர்மத்தை அதன் தனிமங்களாகப் பிரிக்க முடியும்.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise II.3, p. 123', answer: 0,
@@ -175,7 +175,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Activity 1, p. 114', answer: 0,
     en: { q: 'Brass, made of about 30% zinc and 70% copper, is', options: ['a mixture', 'a compound', 'an element', 'a pure substance'], explanation: 'Brass is an alloy; alloys are mixtures of metals in variable proportions.' },
-    ta: { q: '30% துத்தநாகம், 70% தாமிரம் கொண்ட பித்தளை ஒரு', options: ['கலவை', 'சேர்மம்', 'தனிமம்', 'தூய பொருள்'], explanation: 'பித்தளை ஒரு உலோகக் கலவை; உலோகக் கலவைகள் மாறுபடும் விகிதங்களில் கலந்த கலவைகளே.' },
+    ta: { q: 'ஏறக்குறைய 30% துத்தநாகம், 70% தாமிரம் கொண்ட பித்தளை ஒரு', options: ['கலவை', 'சேர்மம்', 'தனிமம்', 'தூய பொருள்'], explanation: 'பித்தளை ஒரு உலோகக் கலவை; உலோகக் கலவைகள் மாறுபடும் விகிதங்களில் கலந்த கலவைகளே.' },
   },
   {
     difficulty: 'medium', source: '§10.1.4, p. 116', answer: 0,
@@ -195,12 +195,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: '§10.3.2, p. 118', answer: 0,
     en: { q: 'Which is an application of centrifugation?', options: ['Separating cream from milk in dairies', 'Getting drinking water from sea water', 'Separating dyes in ink', 'Separating oil from water'], explanation: 'Centrifuges separate cream from milk, squeeze water from clothes and separate blood cells.' },
-    ta: { q: 'மைய விலக்கத்தின் பயன்பாடு எது?', options: ['பால் பண்ணைகளில் பாலிலிருந்து வெண்ணெயை (கிரீம்) பிரித்தல்', 'கடல்நீரிலிருந்து குடிநீர் பெறுதல்', 'மையில் உள்ள சாயங்களைப் பிரித்தல்', 'நீரிலிருந்து எண்ணெயைப் பிரித்தல்'], explanation: 'மைய விலக்கம் பாலிலிருந்து கிரீமைப் பிரிக்கவும், ஈரத் துணிகளிலிருந்து நீரைப் பிழியவும், இரத்த செல்களைப் பிரிக்கவும் பயன்படுகிறது.' },
+    ta: { q: 'மைய விலக்கத்தின் பயன்பாடு எது?', options: ['பால் பண்ணைகளில் பாலிலிருந்து பாலாடையை (கிரீம்) பிரித்தல்', 'கடல்நீரிலிருந்து குடிநீர் பெறுதல்', 'மையில் உள்ள சாயங்களைப் பிரித்தல்', 'நீரிலிருந்து எண்ணெயைப் பிரித்தல்'], explanation: 'மைய விலக்கம் பாலிலிருந்து கிரீமைப் பிரிக்கவும், ஈரத் துணிகளிலிருந்து நீரைப் பிழியவும், இரத்த செல்களைப் பிரிக்கவும் பயன்படுகிறது.' },
   },
   {
     difficulty: 'medium', source: '§10.3.4, p. 118', answer: 0,
     en: { q: 'Simple distillation is a combination of', options: ['evaporation and condensation', 'filtration and evaporation', 'sublimation and condensation', 'sedimentation and decantation'], explanation: 'The liquid is vapourised by heating and the vapours are cooled to condense into pure liquid.' },
-    ta: { q: 'காய்ச்சி வடித்தல் என்பது எவற்றின் சேர்க்கை?', options: ['ஆவியாதல் மற்றும் குளிர்தல் (சுருங்குதல்)', 'வடிகட்டல் மற்றும் ஆவியாதல்', 'பதங்கமாதல் மற்றும் குளிர்தல்', 'வீழ்படிவாதல் மற்றும் தெளிய வைத்து இறுத்தல்'], explanation: 'வெப்பப்படுத்தி திரவத்தை ஆவியாக்கி, அந்த ஆவியைக் குளிர்வித்துத் தூய திரவமாகப் பெறுவதே காய்ச்சி வடித்தல்.' },
+    ta: { q: 'காய்ச்சி வடித்தல் என்பது எவற்றின் சேர்க்கை?', options: ['ஆவியாதல் மற்றும் குளிர்தல் (சுருங்குதல்)', 'வடிகட்டல் மற்றும் ஆவியாதல்', 'பதங்கமாதல் மற்றும் குளிர்தல்', 'வண்டல் படிதல் மற்றும் சாய்த்து வடித்தல்'], explanation: 'வெப்பப்படுத்தி திரவத்தை ஆவியாக்கி, அந்த ஆவியைக் குளிர்வித்துத் தூய திரவமாகப் பெறுவதே காய்ச்சி வடித்தல்.' },
   },
   {
     difficulty: 'medium', source: '§10.3.4–10.3.5, p. 118', answer: 0,

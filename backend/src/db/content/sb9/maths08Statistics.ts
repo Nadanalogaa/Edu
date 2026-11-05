@@ -36,7 +36,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§8.2.1, p. 268', answer: 0,
     en: { q: 'The number of times an item occurs in a class is called the _____ of that class.', options: ['frequency', 'class mark', 'class limit', 'range'], explanation: 'The count of items in each class is its frequency; the table of these counts is a frequency table.' },
-    ta: { q: 'ஒரு பிரிவில் உறுப்புகள் இடம்பெறும் எண்ணிக்கை அந்தப் பிரிவின் _____ எனப்படும்.', options: ['நிகழ்வெண்', 'நடுப்புள்ளி', 'பிரிவு எல்லை', 'வீச்சு'], explanation: 'ஒவ்வொரு பிரிவிலும் உள்ள உறுப்புகளின் எண்ணிக்கை நிகழ்வெண்; இவற்றின் அட்டவணை நிகழ்வெண் பட்டியல்.' },
+    ta: { q: 'ஒரு பிரிவில் உறுப்புகள் இடம்பெறும் எண்ணிக்கை அந்தப் பிரிவின் _____ எனப்படும்.', options: ['நிகழ்வெண்', 'மையப்புள்ளி', 'பிரிவு எல்லை', 'வீச்சு'], explanation: 'ஒவ்வொரு பிரிவிலும் உள்ள உறுப்புகளின் எண்ணிக்கை நிகழ்வெண்; இவற்றின் அட்டவணை நிகழ்வெண் பட்டியல்.' },
   },
   {
     difficulty: 'easy', source: '§8.2.1, p. 268', answer: 0,
@@ -46,12 +46,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§8.2.1 Note, p. 269', answer: 0,
     en: { q: 'In the class 56 – 60, the number 56 is called the', options: ['lower limit', 'upper limit', 'mid value', 'class size'], explanation: '56 is the lower limit and 60 is the upper limit of the class 56 – 60.' },
-    ta: { q: '56 – 60 என்ற பிரிவில் 56 என்பது', options: ['கீழ் எல்லை', 'மேல் எல்லை', 'நடுப்புள்ளி', 'பிரிவு இடைவெளியின் அளவு'], explanation: '56 – 60 பிரிவில் 56 கீழ் எல்லை, 60 மேல் எல்லை.' },
+    ta: { q: '56 – 60 என்ற பிரிவில் 56 என்பது', options: ['கீழ் எல்லை', 'மேல் எல்லை', 'மையப்புள்ளி', 'பிரிவு இடைவெளியின் அளவு'], explanation: '56 – 60 பிரிவில் 56 கீழ் எல்லை, 60 மேல் எல்லை.' },
   },
   {
     difficulty: 'easy', source: '§8.3, p. 269', answer: 0,
     en: { q: 'The three measures of central tendency (averages) studied in this chapter are', options: ['mean, median and mode', 'mean, range and frequency', 'median, mode and range', 'frequency, class mark and mode'], explanation: 'There are three definitions of average: the mean, the median and the mode.' },
-    ta: { q: 'இப்பாடத்தில் படிக்கும் மூன்று மையப்போக்கு அளவைகள்', options: ['சராசரி, இடைநிலை அளவு, முகடு', 'சராசரி, வீச்சு, நிகழ்வெண்', 'இடைநிலை அளவு, முகடு, வீச்சு', 'நிகழ்வெண், நடுப்புள்ளி, முகடு'], explanation: 'கூட்டுச் சராசரி, இடைநிலை அளவு, முகடு ஆகியவை மூன்று மையப்போக்கு அளவைகள்.' },
+    ta: { q: 'இப்பாடத்தில் படிக்கும் மூன்று மையப்போக்கு அளவைகள்', options: ['சராசரி, இடைநிலை அளவு, முகடு', 'சராசரி, வீச்சு, நிகழ்வெண்', 'இடைநிலை அளவு, முகடு, வீச்சு', 'நிகழ்வெண், மையப்புள்ளி, முகடு'], explanation: 'கூட்டுச் சராசரி, இடைநிலை அளவு, முகடு ஆகியவை மூன்று மையப்போக்கு அளவைகள்.' },
   },
   {
     difficulty: 'easy', source: '§8.4.1, p. 270', answer: 0,
@@ -61,7 +61,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§8.4.3, p. 272', answer: 0,
     en: { q: 'The mid value (class mark) of a class interval is', options: ['(UCL + LCL) ÷ 2', 'UCL − LCL', '(UCL − LCL) ÷ 2', 'UCL × LCL'], explanation: 'Mid value = (Upper Class Limit + Lower Class Limit) ÷ 2; the class size is UCL − LCL.' },
-    ta: { q: 'ஒரு பிரிவு இடைவெளியின் நடுப்புள்ளி', options: ['(UCL + LCL) ÷ 2', 'UCL − LCL', '(UCL − LCL) ÷ 2', 'UCL × LCL'], explanation: 'நடுப்புள்ளி = (மேல் எல்லை + கீழ் எல்லை) ÷ 2; பிரிவு இடைவெளியின் அளவு UCL − LCL.' },
+    ta: { q: 'ஒரு பிரிவு இடைவெளியின் மையப்புள்ளி', options: ['(UCL + LCL) ÷ 2', 'UCL − LCL', '(UCL − LCL) ÷ 2', 'UCL × LCL'], explanation: 'மையப்புள்ளி = (மேல் எல்லை + கீழ் எல்லை) ÷ 2; பிரிவு இடைவெளியின் அளவு UCL − LCL.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise 8.4 Q3, p. 288', answer: 0,
@@ -86,7 +86,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§8.6.1 Note, p. 285', answer: 0,
     en: { q: 'A distribution having two modes is called', options: ['bimodal', 'unimodal', 'trimodal', 'multimodal'], explanation: 'One mode – unimodal, two – bimodal, three – trimodal, more than three – multimodal.' },
-    ta: { q: 'இரண்டு முகடுகள் உள்ள பரவல்', options: ['இருமுகடு உடையது', 'ஒருமுகடு உடையது', 'மும்முகடு உடையது', 'பன்முகடு உடையது'], explanation: 'ஒரு முகடு – ஒருமுகடு, இரண்டு – இருமுகடு, மூன்று – மும்முகடு, மூன்றுக்கு மேல் – பன்முகடு.' },
+    ta: { q: 'இரண்டு முகடுகள் உள்ள பரவல்', options: ['இரட்டை முகட்டுப் பரவல்', 'ஒற்றை முகட்டுப் பரவல்', 'மும்முகட்டுப் பரவல்', 'பன்முகட்டுப் பரவல்'], explanation: 'ஒரு முகடு – ஒற்றை முகட்டுப் பரவல், இரண்டு – இரட்டை முகட்டுப் பரவல், மூன்று – மும்முகட்டுப் பரவல், மூன்றுக்கு மேல் – பன்முகட்டுப் பரவல்.' },
   },
   {
     difficulty: 'easy', source: '§8.6.3, p. 286', answer: 0,
@@ -96,17 +96,17 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book example 8.14, p. 285', answer: 0,
     en: { q: 'Seven labourers in a rice mill receive daily wages of ₹500, ₹600, ₹600, ₹800, ₹800, ₹800 and ₹1000. The modal wage is', options: ['₹800', '₹600', '₹1000', '₹728.57'], explanation: '₹800 occurs three times, more than any other wage.' },
-    ta: { q: 'ஓர் அரிசி ஆலையில் ஏழு தொழிலாளர்களின் தினக்கூலி ₹500, ₹600, ₹600, ₹800, ₹800, ₹800, ₹1000 எனில் முகட்டுக் கூலி', options: ['₹800', '₹600', '₹1000', '₹728.57'], explanation: '₹800 மூன்று முறை வருகிறது; வேறு எந்தக் கூலியும் அத்தனை முறை வரவில்லை.' },
+    ta: { q: 'ஓர் அரிசி ஆலையில் உள்ள ஏழு தொழிலாளிகளின் நாள்கூலி முறையே ₹500, ₹600, ₹600, ₹800, ₹800, ₹800 மற்றும் ₹1000 எனில் நாள்கூலியின் முகடு', options: ['₹800', '₹600', '₹1000', '₹728.57'], explanation: '₹800 மூன்று முறை வருகிறது; வேறு எந்தக் கூலியும் அத்தனை முறை வரவில்லை.' },
   },
   {
     difficulty: 'easy', source: 'Book example 8.16, p. 285', answer: 0,
     en: { q: 'A set of numbers has five 4s, four 5s, nine 6s and six 9s. The mode is', options: ['6', '9', '4', '5'], explanation: '6 has the maximum frequency, 9.' },
-    ta: { q: 'ஓர் எண் தொகுப்பில் ஐந்து 4 கள், நான்கு 5 கள், ஒன்பது 6 கள், ஆறு 9 கள் உள்ளன எனில் முகடு', options: ['6', '9', '4', '5'], explanation: '6 க்கு மிகப்பெரிய நிகழ்வெண் 9 உள்ளது.' },
+    ta: { q: 'ஓர் எண் தொகுப்பானது ஐந்து 4 களையும், நான்கு 5 களையும், ஒன்பது 6 களையும், ஆறு 9 களையும் கொண்டுள்ளது எனில் முகடு', options: ['6', '9', '4', '5'], explanation: '6 க்கு மிகப்பெரிய நிகழ்வெண் 9 உள்ளது.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise 8.3 Q4, p. 287', answer: 0,
     en: { q: 'Demand for track suits: size 38 – 36 persons, 39 – 15, 40 – 37, 41 – 13, 42 – 26, 43 – 8, 44 – 6, 45 – 2. Which size is in greater demand?', options: ['40', '38', '42', '45'], explanation: 'Size 40 has the highest frequency (37), so it is the mode.' },
-    ta: { q: 'விளையாட்டுக் கால்சட்டைகளுக்கான தேவை: அளவு 38 – 36 பேர், 39 – 15, 40 – 37, 41 – 13, 42 – 26, 43 – 8, 44 – 6, 45 – 2. எந்த அளவுக்கு அதிகத் தேவை உள்ளது?', options: ['40', '38', '42', '45'], explanation: 'அளவு 40 க்கு அதிக நிகழ்வெண் (37) உள்ளது; அதுவே முகடு.' },
+    ta: { q: 'விளையாட்டுக் கால்சட்டைகளுக்கான தேவை: அளவு 38 – 36 பேர், 39 – 15, 40 – 37, 41 – 13, 42 – 26, 43 – 8, 44 – 6, 45 – 2. எந்த அளவு கால்சட்டைக்கு அதிகத் தேவை உள்ளது?', options: ['40', '38', '42', '45'], explanation: 'அளவு 40 க்கு அதிக நிகழ்வெண் (37) உள்ளது; அதுவே முகடு.' },
   },
   {
     difficulty: 'easy', source: 'Points to Remember, p. 289', answer: 0,
@@ -123,17 +123,17 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 8.1 Q1, p. 277', answer: 0,
     en: { q: 'The temperatures of a place in a winter week are 26°C, 24°C, 28°C, 31°C, 30°C, 26°C, 24°C. The mean temperature is', options: ['27°C', '26°C', '28°C', '27.5°C'], explanation: 'Sum = 189; mean = 189 ÷ 7 = 27°C.' },
-    ta: { q: 'ஓர் இடத்தின் ஒரு வாரக் குளிர்கால வெப்பநிலை 26°C, 24°C, 28°C, 31°C, 30°C, 26°C, 24°C எனில் சராசரி வெப்பநிலை', options: ['27°C', '26°C', '28°C', '27.5°C'], explanation: 'கூடுதல் = 189; சராசரி = 189 ÷ 7 = 27°C.' },
+    ta: { q: 'ஓர் இடத்தின் ஒரு வாரக் குளிர்கால வெப்பநிலை 26°C, 24°C, 28°C, 31°C, 30°C, 26°C, 24°C எனக் கண்டறியப்பட்டது. அந்த இடத்தின் அவ்வாரத்திற்கான சராசரி வெப்பநிலை', options: ['27°C', '26°C', '28°C', '27.5°C'], explanation: 'கூடுதல் = 189; சராசரி = 189 ÷ 7 = 27°C.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 8.1 Q2, p. 277', answer: 0,
     en: { q: 'The mean weight of 4 members of a family is 60 kg. Three of them weigh 56 kg, 68 kg and 72 kg. The weight of the fourth member is', options: ['44 kg', '60 kg', '64 kg', '52 kg'], explanation: 'Total = 4 × 60 = 240 kg; fourth = 240 − 196 = 44 kg.' },
-    ta: { q: 'ஒரு குடும்பத்திலுள்ள 4 நபர்களின் சராசரி எடை 60 கி.கி. மூவரின் எடைகள் 56 கி.கி, 68 கி.கி, 72 கி.கி எனில் நான்காமவரின் எடை', options: ['44 கி.கி', '60 கி.கி', '64 கி.கி', '52 கி.கி'], explanation: 'மொத்தம் = 4 × 60 = 240 கி.கி; நான்காமவர் = 240 − 196 = 44 கி.கி.' },
+    ta: { q: 'ஒரு குடும்பத்தில் உள்ள 4 நபர்களின் எடைகளின் சராசரி 60 கி.கி. அவர்களில் மூவரின் எடைகள் 56 கி.கி, 68 கி.கி மற்றும் 72 கி.கி எனில் நான்காமவரின் எடை', options: ['44 கி.கி', '60 கி.கி', '64 கி.கி', '52 கி.கி'], explanation: 'மொத்தம் = 4 × 60 = 240 கி.கி; நான்காமவர் = 240 − 196 = 44 கி.கி.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 8.1 Q3, p. 277', answer: 0,
     en: { q: 'In a test, 10 students scored 75, 12 scored 60, 8 scored 40 and 3 scored 30. The mean score is about', options: ['56.97', '51.25', '60', '62.67'], explanation: 'Σfx = 750 + 720 + 320 + 90 = 1880; Σf = 33; mean = 1880 ÷ 33 ≈ 56.97 (about 57).' },
-    ta: { q: 'ஒரு தேர்வில் 10 மாணவர்கள் 75, 12 மாணவர்கள் 60, 8 மாணவர்கள் 40, 3 மாணவர்கள் 30 மதிப்பெண் பெற்றனர். சராசரி மதிப்பெண் ஏறக்குறைய', options: ['56.97', '51.25', '60', '62.67'], explanation: 'Σfx = 750 + 720 + 320 + 90 = 1880; Σf = 33; சராசரி = 1880 ÷ 33 ≈ 56.97 (ஏறக்குறைய 57).' },
+    ta: { q: 'ஒரு தேர்வில் 10 மாணவர்கள் 75 மதிப்பெண், 12 மாணவர்கள் 60 மதிப்பெண், 8 மாணவர்கள் 40 மதிப்பெண் மற்றும் 3 மாணவர்கள் 30 மதிப்பெண் பெற்றனர் எனில் மொத்தத்தில் சராசரி மதிப்பெண் ஏறக்குறைய', options: ['56.97', '51.25', '60', '62.67'], explanation: 'Σfx = 750 + 720 + 320 + 90 = 1880; Σf = 33; சராசரி = 1880 ÷ 33 ≈ 56.97 (ஏறக்குறைய 57).' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 8.1 Q4, p. 277', answer: 0,
@@ -148,27 +148,27 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book example 8.5, p. 276', answer: 0,
     en: { q: 'The arithmetic mean of 6 values is 45. If each value is increased by 4, the new mean is', options: ['49', '45', '69', '180'], explanation: 'Adding k to every value adds k to the mean: 45 + 4 = 49.' },
-    ta: { q: '6 மதிப்புகளின் கூட்டுச் சராசரி 45. ஒவ்வொரு மதிப்புடனும் 4 கூட்டப்பட்டால் புதிய சராசரி', options: ['49', '45', '69', '180'], explanation: 'ஒவ்வொரு மதிப்புடனும் k கூட்டினால் சராசரியும் k கூடும்: 45 + 4 = 49.' },
+    ta: { q: '6 தரவுகளின் கூட்டுச் சராசரி 45. ஒவ்வொரு தரவுடனும் 4 ஐக் கூட்டினால் கிடைக்கும் புதிய சராசரி', options: ['49', '45', '69', '180'], explanation: 'ஒவ்வொரு மதிப்புடனும் k கூட்டினால் சராசரியும் k கூடும்: 45 + 4 = 49.' },
   },
   {
     difficulty: 'medium', source: 'Book example 8.6, p. 276', answer: 0,
     en: { q: 'The arithmetic mean of 7 values is 30. If each value is divided by 3, the new mean is', options: ['10', '90', '30', '27'], explanation: 'Dividing every value by k divides the mean by k: 30 ÷ 3 = 10.' },
-    ta: { q: '7 மதிப்புகளின் கூட்டுச் சராசரி 30. ஒவ்வொரு மதிப்பும் 3 ஆல் வகுக்கப்பட்டால் புதிய சராசரி', options: ['10', '90', '30', '27'], explanation: 'ஒவ்வொரு மதிப்பையும் k ஆல் வகுத்தால் சராசரியும் k ஆல் வகுபடும்: 30 ÷ 3 = 10.' },
+    ta: { q: '7 தரவுகளின் கூட்டுச் சராசரி 30. ஒவ்வொரு தரவையும் 3 ஆல் வகுக்கக் கிடைக்கும் புதிய சராசரி', options: ['10', '90', '30', '27'], explanation: 'ஒவ்வொரு மதிப்பையும் k ஆல் வகுத்தால் சராசரியும் k ஆல் வகுபடும்: 30 ÷ 3 = 10.' },
   },
   {
     difficulty: 'medium', source: '§8.4.4 Progress Check, p. 276', answer: 0,
     en: { q: 'The mean of 10 observations is 48. If 7 is subtracted from each observation, the new mean is', options: ['41', '48', '55', '34'], explanation: 'Subtracting k from every value subtracts k from the mean: 48 − 7 = 41.' },
-    ta: { q: '10 மதிப்புகளின் சராசரி 48. ஒவ்வொரு மதிப்பிலிருந்தும் 7 கழிக்கப்பட்டால் புதிய சராசரி', options: ['41', '48', '55', '34'], explanation: 'ஒவ்வொரு மதிப்பிலிருந்தும் k கழித்தால் சராசரியும் k குறையும்: 48 − 7 = 41.' },
+    ta: { q: '10 தரவுகளின் சராசரி 48. ஒவ்வொரு தரவிலிருந்தும் 7 ஐக் கழித்தால் கிடைக்கும் புதிய தரவுகளின் சராசரி', options: ['41', '48', '55', '34'], explanation: 'ஒவ்வொரு மதிப்பிலிருந்தும் k கழித்தால் சராசரியும் k குறையும்: 48 − 7 = 41.' },
   },
   {
     difficulty: 'medium', source: '§8.4.4 Progress Check, p. 276', answer: 0,
     en: { q: 'The mean of 12 numbers is 20. If each number is multiplied by 6, the new mean is', options: ['120', '26', '20', '240'], explanation: 'Multiplying every value by k multiplies the mean by k: 20 × 6 = 120.' },
-    ta: { q: '12 எண்களின் சராசரி 20. ஒவ்வொரு எண்ணும் 6 ஆல் பெருக்கப்பட்டால் புதிய சராசரி', options: ['120', '26', '20', '240'], explanation: 'ஒவ்வொரு மதிப்பையும் k ஆல் பெருக்கினால் சராசரியும் k ஆல் பெருகும்: 20 × 6 = 120.' },
+    ta: { q: '12 தரவுகளின் சராசரி 20. ஒவ்வொரு தரவையும் 6 ஆல் பெருக்கக் கிடைக்கும் புதிய தரவுகளின் சராசரி', options: ['120', '26', '20', '240'], explanation: 'ஒவ்வொரு மதிப்பையும் k ஆல் பெருக்கினால் சராசரியும் k ஆல் பெருகும்: 20 × 6 = 120.' },
   },
   {
     difficulty: 'medium', source: '§8.4.4 Progress Check, p. 276', answer: 0,
     en: { q: 'The mean of 30 numbers is 16. If each number is divided by 4, the new mean is', options: ['4', '12', '64', '16'], explanation: 'Dividing every value by 4 divides the mean by 4: 16 ÷ 4 = 4.' },
-    ta: { q: '30 எண்களின் சராசரி 16. ஒவ்வொரு எண்ணும் 4 ஆல் வகுக்கப்பட்டால் புதிய சராசரி', options: ['4', '12', '64', '16'], explanation: 'ஒவ்வொரு மதிப்பையும் 4 ஆல் வகுத்தால் சராசரியும் 4 ஆல் வகுபடும்: 16 ÷ 4 = 4.' },
+    ta: { q: '30 தரவுகளின் சராசரி 16. ஒவ்வொரு தரவையும் 4 ஆல் வகுக்கக் கிடைக்கும் புதிய தரவுகளின் சராசரி', options: ['4', '12', '64', '16'], explanation: 'ஒவ்வொரு மதிப்பையும் 4 ஆல் வகுத்தால் சராசரியும் 4 ஆல் வகுபடும்: 16 ÷ 4 = 4.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 8.4 Q1, p. 288', answer: 0,
@@ -178,7 +178,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 8.4 Q2, p. 288', answer: 0,
     en: { q: 'The mean of a set of seven numbers is 81. If one number is discarded, the mean of the rest is 78. The discarded number is', options: ['99', '101', '100', '98'], explanation: '7 × 81 = 567; 6 × 78 = 468; discarded number = 567 − 468 = 99.' },
-    ta: { q: 'ஏழு மதிப்புகளின் சராசரி 81. அவற்றில் ஒரு மதிப்பு நீக்கப்படும்போது மற்ற மதிப்புகளின் சராசரி 78 எனில், நீக்கப்பட்ட மதிப்பு', options: ['99', '101', '100', '98'], explanation: '7 × 81 = 567; 6 × 78 = 468; நீக்கப்பட்டது = 567 − 468 = 99.' },
+    ta: { q: 'ஏழு மதிப்புகளின் சராசரி 81. அவற்றில் ஒரு மதிப்பு நீக்கப்படும்போது மற்ற மதிப்புகளின் சராசரி 78 ஆக அமைகிறது எனில், நீக்கப்பட்ட மதிப்பு', options: ['99', '101', '100', '98'], explanation: '7 × 81 = 567; 6 × 78 = 468; நீக்கப்பட்டது = 567 − 468 = 99.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 8.4 Q7, p. 288', answer: 0,
@@ -188,7 +188,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 8.4 Q8, p. 288', answer: 0,
     en: { q: 'The mean of 5, 9, x, 17 and 21 is 13. The value of x is', options: ['13', '9', '17', '21'], explanation: '5 × 13 = 65; 5 + 9 + 17 + 21 = 52; x = 65 − 52 = 13.' },
-    ta: { q: '5, 9, x, 17, 21 இன் சராசரி 13 எனில் x இன் மதிப்பு', options: ['13', '9', '17', '21'], explanation: '5 × 13 = 65; 5 + 9 + 17 + 21 = 52; x = 65 − 52 = 13.' },
+    ta: { q: '5, 9, x, 17 மற்றும் 21 இன் சராசரியானது 13 எனில், x இன் மதிப்பு', options: ['13', '9', '17', '21'], explanation: '5 × 13 = 65; 5 + 9 + 17 + 21 = 52; x = 65 − 52 = 13.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 8.4 Q10, p. 288', answer: 0,
@@ -203,12 +203,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book example 8.8, p. 279', answer: 0,
     en: { q: 'The scores of 11 players are 7, 21, 45, 12, 56, 35, 25, 0, 58, 66, 29. The median score is', options: ['29', '35', '25', '32'], explanation: 'Ordered: 0, 7, 12, 21, 25, 29, 35, 45, 56, 58, 66; the 6th value is 29.' },
-    ta: { q: '11 வீரர்கள் எடுத்த ஓட்டங்கள் 7, 21, 45, 12, 56, 35, 25, 0, 58, 66, 29 எனில் இடைநிலை அளவு', options: ['29', '35', '25', '32'], explanation: 'வரிசைப்படுத்த: 0, 7, 12, 21, 25, 29, 35, 45, 56, 58, 66; 6 ஆவது மதிப்பு 29.' },
+    ta: { q: 'ஒரு மட்டைப் பந்தாட்டத்தில் 11 வீரர்கள் எடுத்த ஓட்டங்கள் முறையே 7, 21, 45, 12, 56, 35, 25, 0, 58, 66, 29 எனில், அவற்றின் இடைநிலை அளவு', options: ['29', '35', '25', '32'], explanation: 'வரிசைப்படுத்த: 0, 7, 12, 21, 25, 29, 35, 45, 56, 58, 66; 6 ஆவது மதிப்பு 29.' },
   },
   {
     difficulty: 'medium', source: 'Book example 8.9, p. 280', answer: 0,
     en: { q: 'The median of 10, 17, 16, 21, 13, 18, 12, 10, 19, 22 is', options: ['16.5', '16', '17', '15.8'], explanation: 'Ordered: 10, 10, 12, 13, 16, 17, 18, 19, 21, 22; median = (16 + 17) ÷ 2 = 16.5.' },
-    ta: { q: '10, 17, 16, 21, 13, 18, 12, 10, 19, 22 இன் இடைநிலை அளவு', options: ['16.5', '16', '17', '15.8'], explanation: 'வரிசைப்படுத்த: 10, 10, 12, 13, 16, 17, 18, 19, 21, 22; இடைநிலை அளவு = (16 + 17) ÷ 2 = 16.5.' },
+    ta: { q: '10, 17, 16, 21, 13, 18, 12, 10, 19, 22 என்ற வகைப்படுத்தப்படாத தரவுகளின் இடைநிலை அளவு', options: ['16.5', '16', '17', '15.8'], explanation: 'வரிசைப்படுத்த: 10, 10, 12, 13, 16, 17, 18, 19, 21, 22; இடைநிலை அளவு = (16 + 17) ÷ 2 = 16.5.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 8.2 Q1, p. 283', answer: 0,
@@ -223,7 +223,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 8.2 Q4, p. 284', answer: 0,
     en: { q: 'The times (seconds) taken by 13 mice to find food are 31, 33, 63, 33, 28, 29, 33, 27, 27, 34, 35, 28, 32. The median time is', options: ['32 s', '33 s', '31 s', '34.8 s'], explanation: 'Ordered: 27, 27, 28, 28, 29, 31, 32, 33, 33, 33, 34, 35, 63; the 7th value is 32 s.' },
-    ta: { q: '13 எலிகள் உணவு தேட எடுத்துக்கொண்ட நேரம் (வினாடிகள்) 31, 33, 63, 33, 28, 29, 33, 27, 27, 34, 35, 28, 32 எனில் இடைநிலை அளவு', options: ['32 வினாடி', '33 வினாடி', '31 வினாடி', '34.8 வினாடி'], explanation: 'வரிசைப்படுத்த: 27, 27, 28, 28, 29, 31, 32, 33, 33, 33, 34, 35, 63; 7 ஆவது மதிப்பு 32.' },
+    ta: { q: 'ஓர் ஆராய்ச்சியாளர் 13 எலிகள் உணவு தேட எடுத்துக்கொள்ளும் நேரத்தை (வினாடிகளில்) 31, 33, 63, 33, 28, 29, 33, 27, 27, 34, 35, 28, 32 எனப் பட்டியலிட்டுள்ளார். அந்த நேரத்தின் இடைநிலை அளவு', options: ['32 வினாடி', '33 வினாடி', '31 வினாடி', '34.8 வினாடி'], explanation: 'வரிசைப்படுத்த: 27, 27, 28, 28, 29, 31, 32, 33, 33, 33, 34, 35, 63; 7 ஆவது மதிப்பு 32.' },
   },
   {
     difficulty: 'medium', source: 'Book example 8.10, p. 280', answer: 0,
@@ -243,12 +243,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book example 8.15, p. 285', answer: 0,
     en: { q: 'The mode(s) of 17, 18, 20, 20, 21, 21, 22, 22 is/are', options: ['20, 21 and 22 (trimodal)', '20 only', '22 only', '21 only'], explanation: '20, 21 and 22 each occur twice, so the data have three modes.' },
-    ta: { q: '17, 18, 20, 20, 21, 21, 22, 22 இன் முகடு(கள்)', options: ['20, 21, 22 (மும்முகடு)', '20 மட்டும்', '22 மட்டும்', '21 மட்டும்'], explanation: '20, 21, 22 ஒவ்வொன்றும் இருமுறை வருகின்றன; எனவே மூன்று முகடுகள்.' },
+    ta: { q: '17, 18, 20, 20, 21, 21, 22, 22 இன் முகடு(கள்)', options: ['20, 21, 22 (மும்முகட்டுப் பரவல்)', '20 மட்டும்', '22 மட்டும்', '21 மட்டும்'], explanation: '20, 21, 22 ஒவ்வொன்றும் இருமுறை வருகின்றன; எனவே மூன்று முகடுகள்.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 8.3 Q2, p. 287', answer: 0,
     en: { q: 'The mode of 3.1, 3.2, 3.3, 2.1, 1.3, 3.3, 3.1 is', options: ['3.1 and 3.3 (bimodal)', '3.3 only', '3.1 only', '3.2'], explanation: '3.1 and 3.3 both occur twice, so the data are bimodal.' },
-    ta: { q: '3.1, 3.2, 3.3, 2.1, 1.3, 3.3, 3.1 இன் முகடு', options: ['3.1, 3.3 (இருமுகடு)', '3.3 மட்டும்', '3.1 மட்டும்', '3.2'], explanation: '3.1, 3.3 இரண்டும் இருமுறை வருவதால் தரவு இருமுகடு உடையது.' },
+    ta: { q: '3.1, 3.2, 3.3, 2.1, 1.3, 3.3, 3.1 இன் முகடு', options: ['3.1, 3.3 (இரட்டை முகட்டுப் பரவல்)', '3.3 மட்டும்', '3.1 மட்டும்', '3.2'], explanation: '3.1, 3.3 இரண்டும் இருமுறை வருவதால் இது இரட்டை முகட்டுப் பரவல்.' },
   },
   {
     difficulty: 'medium', source: '§8.6.3 Note, p. 286', answer: 0,
@@ -263,7 +263,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book example 8.18, p. 287', answer: 0,
     en: { q: 'In a distribution, the mean and mode are 66 and 60. The median is', options: ['64', '63', '62', '72'], explanation: '60 = 3 Median − 2(66) ⇒ 3 Median = 192 ⇒ Median = 64.' },
-    ta: { q: 'ஒரு பரவலின் சராசரி, முகடு முறையே 66, 60 எனில் இடைநிலை அளவு', options: ['64', '63', '62', '72'], explanation: '60 = 3 இடைநிலை அளவு − 2(66) ⇒ 3 இடைநிலை அளவு = 192 ⇒ இடைநிலை அளவு = 64.' },
+    ta: { q: 'ஒரு பரவலின் சராசரி மற்றும் முகடு முறையே 66 மற்றும் 60 எனில் இடைநிலை அளவு', options: ['64', '63', '62', '72'], explanation: '60 = 3 இடைநிலை அளவு − 2(66) ⇒ 3 இடைநிலை அளவு = 192 ⇒ இடைநிலை அளவு = 64.' },
   },
   {
     difficulty: 'medium', source: '§8.4.3 Note, p. 275', answer: 0,
@@ -280,7 +280,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise 8.1 Q6, p. 278', answer: 0,
     en: { q: 'Weights (kg) 15–25, 25–35, 35–45, 45–55, 55–65, 65–75 have 4, 11, 19, 14, 0, 2 students. By the direct method, the mean weight is', options: ['40.2 kg', '40 kg', '41.2 kg', '33.5 kg'], explanation: 'Mid values 20, 30, …, 70; Σfx = 2010, Σf = 50; mean = 2010 ÷ 50 = 40.2 kg.' },
-    ta: { q: 'எடை (கி.கி) 15–25, 25–35, 35–45, 45–55, 55–65, 65–75 இல் மாணவர் எண்ணிக்கை 4, 11, 19, 14, 0, 2. நேரடி முறையில் சராசரி எடை', options: ['40.2 கி.கி', '40 கி.கி', '41.2 கி.கி', '33.5 கி.கி'], explanation: 'நடுப்புள்ளிகள் 20, 30, …, 70; Σfx = 2010, Σf = 50; சராசரி = 2010 ÷ 50 = 40.2 கி.கி.' },
+    ta: { q: 'எடை (கி.கி) 15–25, 25–35, 35–45, 45–55, 55–65, 65–75 இல் மாணவர் எண்ணிக்கை 4, 11, 19, 14, 0, 2. நேரடி முறையில் சராசரி எடை', options: ['40.2 கி.கி', '40 கி.கி', '41.2 கி.கி', '33.5 கி.கி'], explanation: 'மையப்புள்ளிகள் 20, 30, …, 70; Σfx = 2010, Σf = 50; சராசரி = 2010 ÷ 50 = 40.2 கி.கி.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 8.1 Q7, p. 278', answer: 0,
@@ -290,12 +290,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise 8.1 Q8, p. 278', answer: 0,
     en: { q: 'Ages 15–19, 20–24, 25–29, 30–34, 35–39, 40–44 have 4, 20, 38, 24, 10, 9 persons. By the step deviation method, the mean age is about', options: ['29.05', '27.00', '30.50', '31.25'], explanation: 'Mid values 17, 22, …, 42; A = 27, c = 5: Σfd = −8 − 20 + 0 + 24 + 20 + 27 = 43; mean = 27 + (43 ÷ 105) × 5 ≈ 29.05.' },
-    ta: { q: 'வயது 15–19, 20–24, 25–29, 30–34, 35–39, 40–44 இல் ஆட்களின் எண்ணிக்கை 4, 20, 38, 24, 10, 9. படிவிலக்க முறையில் சராசரி ஏறக்குறைய', options: ['29.05', '27.00', '30.50', '31.25'], explanation: 'நடுப்புள்ளிகள் 17, 22, …, 42; A = 27, c = 5: Σfd = −8 − 20 + 0 + 24 + 20 + 27 = 43; சராசரி = 27 + (43 ÷ 105) × 5 ≈ 29.05.' },
+    ta: { q: 'வயது 15–19, 20–24, 25–29, 30–34, 35–39, 40–44 இல் ஆட்களின் எண்ணிக்கை 4, 20, 38, 24, 10, 9. படிவிலக்க முறையில் சராசரி ஏறக்குறைய', options: ['29.05', '27.00', '30.50', '31.25'], explanation: 'மையப்புள்ளிகள் 17, 22, …, 42; A = 27, c = 5: Σfd = −8 − 20 + 0 + 24 + 20 + 27 = 43; சராசரி = 27 + (43 ÷ 105) × 5 ≈ 29.05.' },
   },
   {
     difficulty: 'hard', source: 'Book example 8.1, p. 273', answer: 0,
     en: { q: 'Ages 0–10, 10–20, 20–30, 30–40, 40–50, 50–60 have 2, 6, 9, 7, 4, 2 residents. The average age is', options: ['28.67', '25', '30', '143.33'], explanation: 'Mid values 5, 15, …, 55; Σfx = 860, Σf = 30; mean = 860 ÷ 30 ≈ 28.67.' },
-    ta: { q: 'வயது 0–10, 10–20, 20–30, 30–40, 40–50, 50–60 இல் குடியிருப்பாளர்கள் 2, 6, 9, 7, 4, 2. சராசரி வயது', options: ['28.67', '25', '30', '143.33'], explanation: 'நடுப்புள்ளிகள் 5, 15, …, 55; Σfx = 860, Σf = 30; சராசரி = 860 ÷ 30 ≈ 28.67.' },
+    ta: { q: 'ஒரு குடியிருப்பில் வாழும் மக்களின் வயது 0–10, 10–20, 20–30, 30–40, 40–50, 50–60; மக்களின் எண்ணிக்கை முறையே 2, 6, 9, 7, 4, 2. மக்களின் சராசரி வயது', options: ['28.67', '25', '30', '143.33'], explanation: 'மையப்புள்ளிகள் 5, 15, …, 55; Σfx = 860, Σf = 30; சராசரி = 860 ÷ 30 ≈ 28.67.' },
   },
   {
     difficulty: 'hard', source: 'Book example 8.2, p. 274', answer: 0,
@@ -310,12 +310,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book example 8.7, p. 277', answer: 0,
     en: { q: 'The average mark of 25 students was 78.4. Later a score of 96 was found misread as 69. The correct mean is', options: ['79.48', '77.32', '78.4', '79.08'], explanation: 'Incorrect total = 1960; correct total = 1960 − 69 + 96 = 1987; mean = 1987 ÷ 25 = 79.48.' },
-    ta: { q: '25 மாணவர்களின் சராசரி மதிப்பெண் 78.4. பின்னர் 96 என்ற மதிப்பெண் 69 எனத் தவறாக எடுக்கப்பட்டது கண்டறியப்பட்டது. சரியான சராசரி', options: ['79.48', '77.32', '78.4', '79.08'], explanation: 'தவறான கூடுதல் = 1960; சரியான கூடுதல் = 1960 − 69 + 96 = 1987; சராசரி = 1987 ÷ 25 = 79.48.' },
+    ta: { q: '25 மாணவர்களின் சராசரி மதிப்பெண் 78.4. இங்கு 96 என்ற மதிப்பானது 69 எனத் தவறுதலாக எடுக்கப்பட்டது பின்னர் கண்டறியப்பட்டது எனில், சரியான சராசரி', options: ['79.48', '77.32', '78.4', '79.08'], explanation: 'தவறான கூடுதல் = 1960; சரியான கூடுதல் = 1960 − 69 + 96 = 1987; சராசரி = 1987 ÷ 25 = 79.48.' },
   },
   {
     difficulty: 'hard', source: '§8.4.4 Progress Check, p. 277', answer: 0,
     en: { q: 'There are four numbers. Leaving out any one, the averages of the remaining three are 45, 60, 65 and 70. The average of all four numbers is', options: ['60', '80', '240', '45'], explanation: 'Sums of threes: 135, 180, 195, 210 = 720; each number counted 3 times, so total = 240 and average = 60.' },
-    ta: { q: 'நான்கு எண்கள் உள்ளன. ஏதேனும் ஒன்றை விட்டால் மீதி மூன்றின் சராசரிகள் 45, 60, 65, 70. நான்கு எண்களின் சராசரி', options: ['60', '80', '240', '45'], explanation: 'மூன்றின் கூடுதல்கள்: 135, 180, 195, 210 = 720; ஒவ்வோர் எண்ணும் 3 முறை கணக்கிடப்படுவதால் மொத்தம் 240, சராசரி 60.' },
+    ta: { q: 'நான்கு எண்கள் கொடுக்கப்பட்டுள்ளன. ஒவ்வொரு எண்ணையும் விடுத்துக் கிடைக்கும் மற்ற மூன்று எண்களின் கூட்டுச்சராசரிகள் முறையே 45, 60, 65, 70 எனில், அந்த நான்கு எண்களின் கூட்டுச்சராசரி', options: ['60', '80', '240', '45'], explanation: 'மூன்றின் கூடுதல்கள்: 135, 180, 195, 210 = 720; ஒவ்வோர் எண்ணும் 3 முறை கணக்கிடப்படுவதால் மொத்தம் 240, சராசரி 60.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 8.4 Q4, p. 288', answer: 0,
@@ -340,12 +340,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise 8.2 Q5, p. 284', answer: 0,
     en: { q: 'Marks 0–10, 10–20, 20–30, 30–40, 40–50, 50–60 have 2, 7, 15, 10, 11, 5 students. The median is', options: ['31', '30', '35', '32.5'], explanation: 'N = 50, N ÷ 2 = 25; cf up to 20–30 is 24, so median class 30–40: 30 + (25 − 24) ÷ 10 × 10 = 31.' },
-    ta: { q: 'மதிப்பெண்கள் 0–10, 10–20, 20–30, 30–40, 40–50, 50–60 இல் மாணவர்கள் 2, 7, 15, 10, 11, 5. இடைநிலை அளவு', options: ['31', '30', '35', '32.5'], explanation: 'N = 50, N ÷ 2 = 25; 20–30 வரை குவிவு நிகழ்வெண் 24; இடைநிலை அளவு பிரிவு 30–40: 30 + (25 − 24) ÷ 10 × 10 = 31.' },
+    ta: { q: 'ஒரு வகுப்பில் மாணவர்கள் எடுத்த மதிப்பெண்கள் 0–10, 10–20, 20–30, 30–40, 40–50, 50–60; மாணவர்களின் எண்ணிக்கை முறையே 2, 7, 15, 10, 11, 5. இடைநிலை அளவு', options: ['31', '30', '35', '32.5'], explanation: 'N = 50, N ÷ 2 = 25; 20–30 வரை குவிவு நிகழ்வெண் 24; இடைநிலை அளவு பிரிவு 30–40: 30 + (25 − 24) ÷ 10 × 10 = 31.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 8.2 Q6, p. 284', answer: 0,
     en: { q: 'The mean of five positive integers is twice their median. Four of them are 3, 4, 6, 9 and the median is 6. The fifth integer is', options: ['38', '12', '30', '60'], explanation: 'Mean = 2 × 6 = 12, total = 60; fifth = 60 − (3 + 4 + 6 + 9) = 38.' },
-    ta: { q: 'ஐந்து மிகை முழுக்களின் சராசரி அவற்றின் இடைநிலை அளவின் இருமடங்கு. அவற்றில் நான்கு 3, 4, 6, 9; இடைநிலை அளவு 6 எனில் ஐந்தாவது எண்', options: ['38', '12', '30', '60'], explanation: 'சராசரி = 2 × 6 = 12, கூடுதல் = 60; ஐந்தாவது = 60 − (3 + 4 + 6 + 9) = 38.' },
+    ta: { q: 'ஐந்து மிகைமுழுக்களின் சராசரியானது அவற்றின் இடைநிலை அளவைப்போல் இருமடங்கு. அவற்றில் நான்கு முழுக்கள் 3, 4, 6, 9 மற்றும் இடைநிலை அளவு 6 எனில் ஐந்தாவது முழு', options: ['38', '12', '30', '60'], explanation: 'சராசரி = 2 × 6 = 12, கூடுதல் = 60; ஐந்தாவது = 60 − (3 + 4 + 6 + 9) = 38.' },
   },
   {
     difficulty: 'hard', source: 'Book example 8.12, p. 282', answer: 0,
@@ -405,6 +405,6 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: '§8.4–8.6, p. 272–286', answer: 0,
     en: { q: 'Which of these statements are correct?\n(i) The median is a positional average.\n(ii) Mode ≈ 3 Median − 2 Mean.\n(iii) Mid value of a class = (UCL − LCL) ÷ 2.\n(iv) A distribution with two modes is bimodal.', options: ['(i), (ii) and (iv) only', '(i), (ii) and (iii) only', '(ii) and (iii) only', '(i) and (iv) only'], explanation: 'Mid value = (UCL + LCL) ÷ 2; UCL − LCL is the class size. So (iii) is wrong and the rest are correct.' },
-    ta: { q: 'பின்வருவனவற்றுள் சரியான கூற்றுகள் எவை?\n(i) இடைநிலை அளவு ஒரு நிலைச் சராசரி.\n(ii) முகடு ≈ 3 இடைநிலை அளவு − 2 சராசரி.\n(iii) பிரிவின் நடுப்புள்ளி = (UCL − LCL) ÷ 2.\n(iv) இரண்டு முகடுகள் உள்ள பரவல் இருமுகடு உடையது.', options: ['(i), (ii), (iv) மட்டும்', '(i), (ii), (iii) மட்டும்', '(ii), (iii) மட்டும்', '(i), (iv) மட்டும்'], explanation: 'நடுப்புள்ளி = (UCL + LCL) ÷ 2; UCL − LCL என்பது பிரிவு இடைவெளியின் அளவு. எனவே (iii) தவறு; மற்றவை சரி.' },
+    ta: { q: 'பின்வருவனவற்றுள் சரியான கூற்றுகள் எவை?\n(i) இடைநிலை அளவு ஒரு நிலைச் சராசரி.\n(ii) முகடு ≈ 3 இடைநிலை அளவு − 2 சராசரி.\n(iii) பிரிவின் மையப்புள்ளி = (UCL − LCL) ÷ 2.\n(iv) இரண்டு முகடுகள் உள்ள பரவல் இரட்டை முகட்டுப் பரவல் எனப்படும்.', options: ['(i), (ii), (iv) மட்டும்', '(i), (ii), (iii) மட்டும்', '(ii), (iii) மட்டும்', '(i), (iv) மட்டும்'], explanation: 'மையப்புள்ளி = (UCL + LCL) ÷ 2; UCL − LCL என்பது பிரிவு இடைவெளியின் அளவு. எனவே (iii) தவறு; மற்றவை சரி.' },
   },
 ];

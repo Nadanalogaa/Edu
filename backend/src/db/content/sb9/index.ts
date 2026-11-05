@@ -67,3 +67,23 @@ export const bankChapterSql = (board: string, classGrade: number, subjectCode: s
   }
   return statements.join('\n');
 };
+
+/**
+ * SQL that brings already-loaded bank questions of a chapter in line with the
+ * files (corrected wording, options, explanations), matched on the English
+ * question. Option order comes from the same seed, so saved answers still fit.
+ */
+export const bankSyncSql = (board: string, classGrade: number, subjectCode: string, chapter: number, questions: BankQuestion[]) =>
+  questions
+    .map((q) => {
+      const { optionsEn, optionsTa, answer } = shuffled(q);
+      const question = json({ en: q.en.q, ta: q.ta.q });
+      const options = json({ en: optionsEn, ta: optionsTa });
+      const explanation = json({ en: q.en.explanation, ta: q.ta.explanation });
+      return `UPDATE questions x SET question = ${question}, options = ${options}, correct_answer = ${answer}, explanation = ${explanation}, updated_at = now()
+       FROM subjects s JOIN chapters c ON c.subject_id = s.id AND c.number = ${chapter}
+       WHERE s.board = '${board}' AND s.class_grade = ${classGrade} AND s.code = '${subjectCode}'
+         AND x.chapter_id = c.id AND x.school_id IS NULL AND x.source IS NOT NULL AND x.question->>'en' = ${quote(q.en.q)}
+         AND (x.question, x.options, x.correct_answer, x.explanation) IS DISTINCT FROM (${question}, ${options}, ${answer}, ${explanation});`;
+    })
+    .join('\n');

@@ -109,7 +109,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise II.2, p. 170', answer: 0,
     en: { q: 'Which acid is used in aerated drinks?', options: ['Carbonic acid', 'Oxalic acid', 'Nitric acid', 'Hydrochloric acid'], explanation: 'Carbonic acid is used in aerated drinks; oxalic acid cleans and bleaches, nitric acid is for fertilizers and HCl for cleaning toilets.' },
-    ta: { q: 'காற்று அடைக்கப்பட்ட பானங்களில் பயன்படும் அமிலம் எது?', options: ['கார்பானிக் அமிலம்', 'ஆக்ஸாலிக் அமிலம்', 'நைட்ரிக் அமிலம்', 'ஹைட்ரோகுளோரிக் அமிலம்'], explanation: 'கார்பானிக் அமிலம் காற்று அடைக்கப்பட்ட பானங்களில் பயன்படுகிறது.' },
+    ta: { q: 'காற்று அடைக்கப்பட்ட பானங்களில் பயன்படும் அமிலம் எது?', options: ['கார்பானிக் அமிலம்', 'ஆக்ஸாலிக் அமிலம்', 'நைட்ரிக் அமிலம்', 'ஹைட்ரோகுளோரிக் அமிலம்'], explanation: 'கார்பானிக் அமிலம் காற்று அடைக்கப்பட்ட பானங்களில் பயன்படுகிறது; ஆக்ஸாலிக் அமிலம் சுத்தம் செய்யவும் வெளுக்கவும், நைட்ரிக் அமிலம் உரங்கள் தயாரிக்கவும், HCl கழிவறைகளைச் சுத்தம் செய்யவும் பயன்படுகின்றன.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise II.2, p. 170', answer: 0,

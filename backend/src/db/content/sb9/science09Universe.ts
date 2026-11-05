@@ -31,7 +31,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise II.1, p. 111', answer: 0,
     en: { q: 'The speed of the Sun (around the centre of the Milky Way) in km/s is _____.', options: ['250', '30', '3,00,000', '11.2'], explanation: 'The Sun travels at about 250 km per second (9 lakh km/h) around the galaxy.' },
-    ta: { q: 'சூரியனின் திசைவேகம் _____ கிமீ/வி.', options: ['250', '30', '3,00,000', '11.2'], explanation: 'சூரியன் வினாடிக்கு ஏறக்குறைய 250 கிமீ (மணிக்கு 9 லட்சம் கிமீ) வேகத்தில் விண்மீன் திரளைச் சுற்றுகிறது.' },
+    ta: { q: 'சூரியனின் திசைவேகம் (பால்வெளி வீதியின் மையத்தைச் சுற்றி) _____ கிமீ/வி.', options: ['250', '30', '3,00,000', '11.2'], explanation: 'சூரியன் வினாடிக்கு ஏறக்குறைய 250 கிமீ (மணிக்கு 9 லட்சம் கிமீ) வேகத்தில் விண்மீன் திரளைச் சுற்றுகிறது.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise II.3, p. 111', answer: 0,
@@ -51,7 +51,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise III.4, p. 111', answer: 0,
     en: { q: 'Which planet is called the red planet?', options: ['Mars', 'Venus', 'Jupiter', 'Mercury'], explanation: 'Mars appears slightly reddish, so it is called the red planet. The book statement is true.' },
-    ta: { q: 'சிவப்புக்கோள் என்றழைக்கப்படுவது', options: ['செவ்வாய்', 'வெள்ளி', 'வியாழன்', 'புதன்'], explanation: 'செவ்வாய் சற்றே சிவப்பு நிறத்தில் தோன்றுவதால் சிவப்புக்கோள் எனப்படுகிறது.' },
+    ta: { q: 'எந்தக் கோள் சிவப்புக்கோள் என்றழைக்கப்படுகிறது?', options: ['செவ்வாய்', 'வெள்ளி', 'வியாழன்', 'புதன்'], explanation: 'செவ்வாய் சற்றே சிவப்பு நிறத்தில் தோன்றுவதால் சிவப்புக்கோள் எனப்படுகிறது.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise IV.1, p. 111', answer: 0,
@@ -107,7 +107,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise III.3, p. 111', answer: 0,
     en: { q: '"Satellites nearer to the Earth should have lesser orbital velocity." This statement is', options: ['false; nearer satellites need a greater orbital velocity', 'true', 'false; orbital velocity does not depend on height', 'false; nearer satellites need zero velocity'], explanation: 'v = √(GM/(R + h)): the smaller the height h, the larger the orbital velocity.' },
-    ta: { q: '"பூமிக்கு அருகே உள்ள கோள்களுக்குச் சுழலும் திசைவேகம் குறைவாக இருக்கும்." இக்கூற்று', options: ['தவறு; அருகிலுள்ள துணைக்கோள்களுக்குச் சுழற்சித் திசைவேகம் அதிகம்', 'சரி', 'தவறு; சுழற்சித் திசைவேகம் உயரத்தைச் சார்ந்ததல்ல', 'தவறு; அருகிலுள்ளவற்றுக்குத் திசைவேகம் சுழி'], explanation: 'v = √(GM/(R + h)): உயரம் h குறையக் குறைய சுழற்சித் திசைவேகம் அதிகரிக்கும்.' },
+    ta: { q: '"பூமிக்கு அருகே உள்ள துணைக்கோள்களுக்குச் சுழலும் திசைவேகம் குறைவாக இருக்கும்." இக்கூற்று', options: ['தவறு; அருகிலுள்ள துணைக்கோள்களுக்குச் சுழற்சித் திசைவேகம் அதிகம்', 'சரி', 'தவறு; சுழற்சித் திசைவேகம் உயரத்தைச் சார்ந்ததல்ல', 'தவறு; அருகிலுள்ளவற்றுக்குத் திசைவேகம் சுழி'], explanation: 'v = √(GM/(R + h)): உயரம் h குறையக் குறைய சுழற்சித் திசைவேகம் அதிகரிக்கும்.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise IV.2, p. 111', answer: 0,
@@ -142,7 +142,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise II.2, p. 111', answer: 0,
     en: { q: 'The rotational period of the Sun near its poles is _____.', options: ['about 36 days', '24 hours', '365 days', '25 years'], explanation: 'The Sun is not solid; it rotates faster at its equator (about 25 days) and more slowly near the poles (about 36 days).' },
-    ta: { q: 'முனைகளில், சூரியனின் சுழற்சி வேகம் _____.', options: ['ஏறக்குறைய 36 நாட்கள்', '24 மணி நேரம்', '365 நாட்கள்', '25 ஆண்டுகள்'], explanation: 'சூரியன் திடப்பொருள் அல்ல; நிலநடுக்கோட்டில் வேகமாகவும் (ஏறக்குறைய 25 நாட்கள்) முனைகளில் மெதுவாகவும் (ஏறக்குறைய 36 நாட்கள்) சுழல்கிறது.' },
+    ta: { q: 'முனைகளில், சூரியனின் சுழற்சிக் காலம் _____.', options: ['ஏறக்குறைய 36 நாட்கள்', '24 மணி நேரம்', '365 நாட்கள்', '25 ஆண்டுகள்'], explanation: 'சூரியன் திடப்பொருள் அல்ல; நிலநடுக்கோட்டில் வேகமாகவும் (ஏறக்குறைய 25 நாட்கள்) முனைகளில் மெதுவாகவும் (ஏறக்குறைய 36 நாட்கள்) சுழல்கிறது.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise VI.1, p. 111', answer: 0,
@@ -162,7 +162,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: '§9.1.1, p. 103', answer: 0,
     en: { q: 'Nearly all of the matter in the universe created in the Big Bang is made of', options: ['hydrogen and helium', 'oxygen and carbon', 'iron and silicon', 'calcium and nitrogen'], explanation: 'Hydrogen and helium came from the Big Bang; heavier elements like oxygen, carbon and iron are formed in the cores of stars.' },
-    ta: { q: 'பெருவெடிப்பில் உருவான அண்டத்தின் பெரும்பாலான பொருள்', options: ['ஹைட்ரஜன், ஹீலியம்', 'ஆக்சிஜன், கார்பன்', 'இரும்பு, சிலிக்கான்', 'கால்சியம், நைட்ரஜன்'], explanation: 'ஹைட்ரஜனும் ஹீலியமும் பெருவெடிப்பில் உருவாயின; ஆக்சிஜன், கார்பன், இரும்பு போன்றவை விண்மீன்களின் உள்ளகத்தில் உருவாகின்றன.' },
+    ta: { q: 'பெருவெடிப்பில் உருவான அண்டத்தின் ஏறக்குறைய அனைத்துப் பொருள்களும் எவற்றால் ஆனவை?', options: ['ஹைட்ரஜன், ஹீலியம்', 'ஆக்சிஜன், கார்பன்', 'இரும்பு, சிலிக்கான்', 'கால்சியம், நைட்ரஜன்'], explanation: 'ஹைட்ரஜனும் ஹீலியமும் பெருவெடிப்பில் உருவாயின; ஆக்சிஜன், கார்பன், இரும்பு போன்றவை விண்மீன்களின் உள்ளகத்தில் உருவாகின்றன.' },
   },
   {
     difficulty: 'medium', source: '§9.2.1, p. 105', answer: 0,
@@ -192,7 +192,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: '§9.2.3, p. 107 (Do you know?)', answer: 0,
     en: { q: 'The time taken by the Sun to complete one revolution around the Milky Way (about 225 million years) is called a', options: ['cosmic year', 'light year', 'solar year', 'galactic day'], explanation: 'Travelling at about 250 km/s, the Sun takes about 225 million years for one revolution – a cosmic year.' },
-    ta: { q: 'சூரியன் பால்வெளி வீதியை ஒருமுறை சுற்றி வர எடுக்கும் காலம் (ஏறக்குறைய 225 மில்லியன் ஆண்டுகள்)', options: ['அண்ட ஆண்டு', 'ஒளி ஆண்டு', 'சூரிய ஆண்டு', 'விண்மீன் திரள் நாள்'], explanation: 'வினாடிக்கு ஏறக்குறைய 250 கிமீ வேகத்தில் சென்று ஒருமுறை சுற்ற 225 மில்லியன் ஆண்டுகள் ஆகிறது – இதுவே அண்ட ஆண்டு.' },
+    ta: { q: 'சூரியன் பால்வெளி வீதியை ஒருமுறை சுற்றி வர எடுக்கும் காலம் (ஏறக்குறைய 225 மில்லியன் ஆண்டுகள்) எவ்வாறு அழைக்கப்படுகிறது?', options: ['அண்ட ஆண்டு', 'ஒளி ஆண்டு', 'சூரிய ஆண்டு', 'விண்மீன் திரள் நாள்'], explanation: 'வினாடிக்கு ஏறக்குறைய 250 கிமீ வேகத்தில் சென்று ஒருமுறை சுற்ற 225 மில்லியன் ஆண்டுகள் ஆகிறது – இதுவே அண்ட ஆண்டு.' },
   },
   {
     difficulty: 'medium', source: '§9.5, p. 108', answer: 0,
@@ -213,7 +213,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise I.4, p. 111', answer: 0,
     en: { q: 'The period of revolution of planet A around the Sun is 8 times that of planet B. How many times is the distance of planet A as great as that of planet B?', options: ['4', '2', '5', '3'], explanation: 'T² ∝ R³: (8)² = 64 = R³ ⇒ R = 4. Taking T ∝ R by mistake would give 8.' },
-    ta: { q: 'A என்ற கோள் சூரியனைச் சுற்றி வர எடுத்துக்கொள்ளும் சுழற்சி நேரம் B என்ற கோளை விட எட்டு மடங்கு அதிகம் எனில், கோள் Aவின் தூரம் கோள் Bயின் தூரத்தைவிட எத்தனை மடங்கு அதிகம்?', options: ['4', '2', '5', '3'], explanation: 'T² ∝ R³: 8² = 64 = R³ ⇒ R = 4.' },
+    ta: { q: 'A என்ற கோள் சூரியனைச் சுற்றி வர எடுத்துக்கொள்ளும் சுழற்சி நேரம் B என்ற கோளை விட எட்டு மடங்கு அதிகம் எனில், கோள் Aவின் தூரம் கோள் Bயின் தூரத்தைவிட எத்தனை மடங்கு அதிகம்?', options: ['4', '2', '5', '3'], explanation: 'T² ∝ R³: 8² = 64 = R³ ⇒ R = 4. T ∝ R எனத் தவறாகக் கொண்டால் 8 என வரும்.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise VII.1, p. 111', answer: 0,
@@ -223,17 +223,17 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise VII.2, p. 111', answer: 0,
     en: { q: 'At an orbital height of 400 km (G = 6.673 × 10⁻¹¹ N m² kg⁻², M = 5.972 × 10²⁴ kg, R = 6371 km), the orbital period of a satellite is about', options: ['5545 s (about 92 min)', '5668 s (about 95 min)', '86,400 s (24 h)', '554 s (about 9 min)'], explanation: 'v = √(GM/(R + h)) ≈ 7672 m s⁻¹; T = 2π × 6.771 × 10⁶ ÷ 7672 ≈ 5545 s ≈ 92 min. 5668 s is the answer for 500 km.' },
-    ta: { q: 'பூமியிலிருந்து 400 கிமீ தொலைவில் உள்ள கோளின் சுழற்சிக் காலம் ஏறக்குறைய (G = 6.673 × 10⁻¹¹ N மீ² கிகி⁻², M = 5.972 × 10²⁴ கிகி, R = 6371 கிமீ)', options: ['5545 வி (ஏறக்குறைய 92 நிமிடம்)', '5668 வி (ஏறக்குறைய 95 நிமிடம்)', '86,400 வி (24 மணி)', '554 வி (ஏறக்குறைய 9 நிமிடம்)'], explanation: 'v = √(GM/(R + h)) ≈ 7672 மீ வி⁻¹; T = 2π × 6.771 × 10⁶ ÷ 7672 ≈ 5545 வி ≈ 92 நிமிடம். 5668 வி என்பது 500 கிமீ உயரத்திற்கான விடை.' },
+    ta: { q: 'பூமியிலிருந்து 400 கிமீ உயரத்தில் உள்ள செயற்கைக் கோளின் சுழற்சிக் காலம் ஏறக்குறைய (G = 6.673 × 10⁻¹¹ N மீ² கிகி⁻², M = 5.972 × 10²⁴ கிகி, R = 6371 கிமீ)', options: ['5545 வி (ஏறக்குறைய 92 நிமிடம்)', '5668 வி (ஏறக்குறைய 95 நிமிடம்)', '86,400 வி (24 மணி)', '554 வி (ஏறக்குறைய 9 நிமிடம்)'], explanation: 'v = √(GM/(R + h)) ≈ 7672 மீ வி⁻¹; T = 2π × 6.771 × 10⁶ ÷ 7672 ≈ 5545 வி ≈ 92 நிமிடம். 5668 வி என்பது 500 கிமீ உயரத்திற்கான விடை.' },
   },
   {
     difficulty: 'hard', source: 'Book example, Problem 1, p. 108', answer: 0,
     en: { q: 'The orbital velocity of a satellite orbiting at an altitude of 500 km (G = 6.673 × 10⁻¹¹, M = 5.972 × 10²⁴ kg, R = 6371 km) is about', options: ['7.6 km s⁻¹', '28.2 km s⁻¹', '7.9 km s⁻¹', '3.1 km s⁻¹'], explanation: 'v = √(GM/(R + h)) = √(3.985 × 10¹⁴ ÷ 6.871 × 10⁶) ≈ 7613 m s⁻¹ ≈ 7.6 km s⁻¹. Ignoring h gives about 7.9 km s⁻¹.' },
-    ta: { q: '500 கிமீ உயரத்தில் சுற்றும் துணைக்கோளின் சுழற்சித் திசைவேகம் ஏறக்குறைய (G = 6.673 × 10⁻¹¹, M = 5.972 × 10²⁴ கிகி, R = 6371 கிமீ)', options: ['7.6 கிமீ வி⁻¹', '28.2 கிமீ வி⁻¹', '7.9 கிமீ வி⁻¹', '3.1 கிமீ வி⁻¹'], explanation: 'v = √(GM/(R + h)) = √(3.985 × 10¹⁴ ÷ 6.871 × 10⁶) ≈ 7613 மீ வி⁻¹ ≈ 7.6 கிமீ வி⁻¹. h ஐ விட்டால் ஏறக்குறைய 7.9 கிமீ வி⁻¹ எனத் தவறாக வரும்.' },
+    ta: { q: '500 கிமீ உயரத்தில் இயங்கிக் கொண்டிருக்கும் செயற்கைக்கோளின் சுற்றியக்கத் திசைவேகம் ஏறக்குறைய (G = 6.673 × 10⁻¹¹, M = 5.972 × 10²⁴ கிகி, R = 6371 கிமீ)', options: ['7.6 கிமீ வி⁻¹', '28.2 கிமீ வி⁻¹', '7.9 கிமீ வி⁻¹', '3.1 கிமீ வி⁻¹'], explanation: 'v = √(GM/(R + h)) = √(3.985 × 10¹⁴ ÷ 6.871 × 10⁶) ≈ 7613 மீ வி⁻¹ ≈ 7.6 கிமீ வி⁻¹. h ஐ விட்டால் ஏறக்குறைய 7.9 கிமீ வி⁻¹ எனத் தவறாக வரும்.' },
   },
   {
     difficulty: 'hard', source: 'Book example, Problem 2, p. 108', answer: 0,
     en: { q: 'A satellite at 500 km height moves with orbital velocity 7616 m s⁻¹ (R = 6371 km). Its orbital period is about', options: ['95 min', '24 h', '9.5 min', '57 min'], explanation: 'T = 2π(R + h)/v = 2π × 6,871,000 ÷ 7616 ≈ 5668 s ≈ 95 min.' },
-    ta: { q: '500 கிமீ உயரத்திலுள்ள துணைக்கோள் 7616 மீ வி⁻¹ சுழற்சித் திசைவேகத்தில் சுற்றுகிறது (R = 6371 கிமீ). அதன் சுழற்சிக் காலம் ஏறக்குறைய', options: ['95 நிமிடம்', '24 மணி', '9.5 நிமிடம்', '57 நிமிடம்'], explanation: 'T = 2π(R + h)/v = 2π × 6,871,000 ÷ 7616 ≈ 5668 வி ≈ 95 நிமிடம்.' },
+    ta: { q: '500 கிமீ உயரத்திலுள்ள செயற்கைக்கோள் 7616 மீ வி⁻¹ சுற்றியக்கத் திசைவேகத்தில் இயங்குகிறது (R = 6371 கிமீ). அதன் சுற்றுக்காலம் ஏறக்குறைய', options: ['95 நிமிடம்', '24 மணி', '9.5 நிமிடம்', '57 நிமிடம்'], explanation: 'T = 2π(R + h)/v = 2π × 6,871,000 ÷ 7616 ≈ 5668 வி ≈ 95 நிமிடம்.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise VI.2, p. 111', answer: 0,
@@ -263,7 +263,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: '§9.3, p. 107', answer: 0,
     en: { q: 'Two satellites orbit the Earth at heights of 300 km and 3000 km. Which statement is correct?', options: ['The one at 300 km has the greater orbital velocity and the shorter period', 'The one at 3000 km has the greater orbital velocity', 'Both have the same orbital velocity', 'The one at 300 km has the longer period'], explanation: 'v = √(GM/(R + h)) is larger for smaller h, and T = 2π(R + h)/v is then shorter.' },
-    ta: { q: 'இரண்டு துணைக்கோள்கள் 300 கிமீ, 3000 கிமீ உயரங்களில் பூமியைச் சுற்றுகின்றன. சரியான கூற்று எது?', options: ['300 கிமீ உயரத்திலுள்ளதன் சுழற்சித் திசைவேகம் அதிகம், சுழற்சிக் காலம் குறைவு', '3000 கிமீ உயரத்திலுள்ளதன் சுழற்சித் திசைவேகம் அதிகம்', 'இரண்டின் சுழற்சித் திசைவேகமும் சமம்', '300 கிமீ உயரத்திலுள்ளதன் சுழற்சிக் காலம் அதிகம்'], explanation: 'v = √(GM/(R + h)) உயரம் குறைவாக இருந்தால் அதிகம்; அப்போது T = 2π(R + h)/v குறைவு.' },
+    ta: { q: 'இரண்டு துணைக்கோள்கள் 300 கிமீ, 3000 கிமீ உயரங்களில் பூமியைச் சுற்றுகின்றன. சரியான கூற்று எது?', options: ['300 கிமீ உயரத்திலுள்ளதன் சுழற்சித் திசைவேகம் அதிகம், சுற்றுக்காலம் குறைவு', '3000 கிமீ உயரத்திலுள்ளதன் சுழற்சித் திசைவேகம் அதிகம்', 'இரண்டின் சுழற்சித் திசைவேகமும் சமம்', '300 கிமீ உயரத்திலுள்ளதன் சுற்றுக்காலம் அதிகம்'], explanation: 'v = √(GM/(R + h)) உயரம் குறைவாக இருந்தால் அதிகம்; அப்போது T = 2π(R + h)/v குறைவு.' },
   },
   {
     difficulty: 'hard', source: '§9.1.2, p. 104 (Do you know?)', answer: 0,

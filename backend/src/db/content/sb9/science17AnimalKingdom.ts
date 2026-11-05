@@ -14,7 +14,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise I.8, p. 208', answer: 0,
     en: { q: 'Air sacs and pneumatic bones are seen in', options: ['birds', 'fish', 'frogs', 'bats'], explanation: 'Birds have lungs with air sacs and air-filled (pneumatic) bones that reduce body weight.' },
-    ta: { q: 'காற்றறைகள் மற்றும் காற்றெலும்புகள் காணப்படுவது', options: ['பறவை', 'மீன்', 'தவளை', 'வௌவால்'], explanation: 'பறவைகளின் நுரையீரல்களில் காற்றறைகளும், உடல் எடையைக் குறைக்கும் காற்றெலும்புகளும் உள்ளன.' },
+    ta: { q: 'காற்றறைகள் மற்றும் காற்றெலும்புகள் காணப்படுவது எதில்?', options: ['பறவை', 'மீன்', 'தவளை', 'வௌவால்'], explanation: 'பறவைகளின் நுரையீரல்களில் காற்றறைகளும், உடல் எடையைக் குறைக்கும் காற்றெலும்புகளும் உள்ளன.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise I.9, p. 208', answer: 0,
@@ -34,17 +34,17 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise II.3, p. 208', answer: 0,
     en: { q: 'Skates are _____ fishes.', options: ['cartilaginous', 'bony', 'jawless', 'lobe-finned'], explanation: 'Sharks and skates have a skeleton made of cartilage.' },
-    ta: { q: 'ஸ்கேட்டுகள் _____ மீன்களாகும்.', options: ['குருத்தெலும்பு', 'எலும்பு', 'தாடையற்ற', 'சதைத்துடுப்பு'], explanation: 'சுறா, ஸ்கேட் ஆகியவற்றின் சட்டகம் குருத்தெலும்பால் ஆனது.' },
+    ta: { q: 'ஸ்கேட்ஸ் என்பது _____ மீன்களாகும்.', options: ['குருத்தெலும்பு', 'எலும்பு', 'தாடையற்ற', 'சதைத்துடுப்பு'], explanation: 'சுறா, ஸ்கேட் ஆகியவற்றின் சட்டகம் குருத்தெலும்பால் ஆனது.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise II.4, p. 208', answer: 0,
     en: { q: 'The larva of an amphibian is called a _____.', options: ['tadpole', 'bipinnaria', 'caterpillar', 'nymph'], explanation: 'Amphibian eggs hatch into tadpole larvae, which transform into adults.' },
-    ta: { q: 'இரு வாழ்விகளின் லார்வா _____ ஆகும்.', options: ['தலைப்பிரட்டை', 'பைபின்னேரியா', 'கம்பளிப்புழு', 'இளம்பூச்சி (நிம்ஃப்)'], explanation: 'இரு வாழ்விகளின் முட்டைகள் தலைப்பிரட்டைகளாகப் பொரித்து பின் முதிர் உயிரிகளாக மாறுகின்றன.' },
+    ta: { q: '_____ இரு வாழ்விகளின் லார்வா ஆகும்.', options: ['தலைப்பிரட்டை', 'பைபின்னேரியா', 'கம்பளிப்புழு', 'இளம்பூச்சி (நிம்ஃப்)'], explanation: 'இரு வாழ்விகளின் முட்டைகள் தலைப்பிரட்டைகளாகப் பொரித்து பின் முதிர் உயிரிகளாக மாறுகின்றன.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise II.5, p. 208', answer: 0,
     en: { q: '_____ are jawless vertebrates.', options: ['Cyclostomes', 'Sharks', 'Amphibians', 'Reptiles'], explanation: 'Cyclostomes such as lamprey and hagfish have a circular mouth not bounded by jaws.' },
-    ta: { q: '_____ என்பவை தாடையற்ற முதுகெலும்பிகள் ஆகும்.', options: ['வட்டவாயுடையன', 'சுறாக்கள்', 'இரு வாழ்விகள்', 'ஊர்வன'], explanation: 'லாம்ப்ரே, ஹேக் மீன் போன்ற வட்டவாயுடையனவற்றின் வாய் தாடைகளால் சூழப்படவில்லை.' },
+    ta: { q: '_____ என்பது தாடையற்ற முதுகெலும்பிகள் ஆகும்.', options: ['வட்டவாயுடையன', 'சுறாக்கள்', 'இரு வாழ்விகள்', 'ஊர்வன'], explanation: 'லாம்ப்ரே, ஹேக் மீன் போன்ற வட்டவாயுடையனவற்றின் வட்ட வடிவ வாய் தாடைகளால் சூழப்படவில்லை.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise II.6, p. 208', answer: 0,
@@ -89,7 +89,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§17.2.6, p. 203', answer: 0,
     en: { q: 'The largest phylum of the animal kingdom is', options: ['Arthropoda', 'Mollusca', 'Chordata', 'Annelida'], explanation: 'Arthropoda, the animals with jointed legs, is the largest phylum.' },
-    ta: { q: 'விலங்குலகின் மிகப்பெரிய தொகுதி', options: ['கணுக்காலிகள்', 'மெல்லுடலிகள்', 'முதுகு நாணுள்ளவை', 'வளைதசைப்புழுக்கள்'], explanation: 'இணைப்புக் கால்களையுடைய கணுக்காலிகளே மிகப்பெரிய தொகுதி.' },
+    ta: { q: 'விலங்குலகின் மிகப்பெரிய தொகுதி', options: ['கணுக்காலிகள்', 'மெல்லுடலிகள்', 'முதுகு நாணுள்ளவை', 'வளைதசையுடலிகள்'], explanation: 'இணைப்புக் கால்களையுடைய கணுக்காலிகளே மிகப்பெரிய தொகுதி.' },
   },
   {
     difficulty: 'easy', source: '§17.3.2, p. 206 (More to know)', answer: 0,
@@ -110,7 +110,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise I.2, p. 208', answer: 0,
     en: { q: 'Mesoglea is present in', options: ['Coelenterata', 'Porifera', 'Annelida', 'Arthropoda'], explanation: 'In coelenterates the ectoderm and endoderm are separated by a jelly-like non-cellular mesoglea.' },
-    ta: { q: 'மீசோகிளியா காணப்படுவது', options: ['குழியுடலிகள்', 'துளையுடலிகள்', 'வளைதசைப்புழுக்கள்', 'கணுக்காலிகள்'], explanation: 'குழியுடலிகளில் புற அடுக்கும் அக அடுக்கும் செல்லற்ற கூழ்மப்பொருளான மீசோகிளியாவால் பிரிக்கப்பட்டுள்ளன.' },
+    ta: { q: 'மீசோகிளியா காணப்படுவது', options: ['குழியுடலிகள்', 'துளையுடலிகள்', 'வளைதசையுடலிகள்', 'கணுக்காலிகள்'], explanation: 'குழியுடலிகளில் புற அடுக்கும் அக அடுக்கும் செல்லற்ற கூழ்மப்பொருளான மீசோகிளியாவால் பிரிக்கப்பட்டுள்ளன.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise I.3, p. 208', answer: 0,
@@ -120,7 +120,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise I.5, p. 208', answer: 0,
     en: { q: 'An animal without a skull is called', options: ['Acrania', 'Acephalia', 'Apteria', 'Acoelomate'], explanation: 'Acrania means without a cranium (skull), as in prochordates like Amphioxus.' },
-    ta: { q: 'மண்டையோடற்ற உயிரிகள் எவ்வாறு அழைக்கப்படுகின்றன?', options: ['அக்ரேனியா', 'அசெஃபாலியா', 'ஏப்டீரியா', 'ஏசீலோமேட்டா'], explanation: 'அக்ரேனியா என்றால் மண்டையோடு (கிரேனியம்) அற்றவை; எ.கா. ஆம்பியாக்சஸ் போன்ற முன்முதுகுநாணிகள்.' },
+    ta: { q: 'மண்டையோடற்ற உயிரிகள் எவ்வாறு அழைக்கப்படுகின்றன?', options: ['ஏக்ரேனியா', 'ஏசெபாலியா', 'ஏப்டீரியா', 'ஏசீலோமேட்டா'], explanation: 'ஏக்ரேனியா என்றால் மண்டையோடு (கிரேனியம்) அற்றவை; எ.கா. ஆம்பியாக்சஸ் போன்ற முன்முதுகுநாணிகள்.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise I.7, p. 208', answer: 0,
@@ -130,17 +130,17 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise II.2, p. 208', answer: 0,
     en: { q: 'Ctenidia are the respiratory organs of _____.', options: ['Mollusca', 'Arthropoda', 'Annelida', 'Echinodermata'], explanation: 'Molluscs breathe through gills called ctenidia, or lungs, or both.' },
-    ta: { q: 'டினிடியா என்ற சுவாச உறுப்புகள் _____ இல் காணப்படும்.', options: ['மெல்லுடலிகள்', 'கணுக்காலிகள்', 'வளைதசைப்புழுக்கள்', 'முட்தோலிகள்'], explanation: 'மெல்லுடலிகள் டினிடியா எனும் செவுள்கள், நுரையீரல்கள் அல்லது இரண்டின் மூலமும் சுவாசிக்கின்றன.' },
+    ta: { q: 'டினிடியா என்ற சுவாச உறுப்புகள் _____ இல் காணப்படும்.', options: ['மெல்லுடலிகள்', 'கணுக்காலிகள்', 'வளைதசையுடலிகள்', 'முட்தோலிகள்'], explanation: 'மெல்லுடலிகள் டினிடியா எனும் செவுள்கள், நுரையீரல்கள் அல்லது இரண்டின் மூலமும் சுவாசிக்கின்றன.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise II.7, p. 208', answer: 0,
     en: { q: 'The spiny anteater is an example of a(n) _____ mammal.', options: ['egg-laying', 'pouched', 'flying', 'aquatic'], explanation: 'Platypus and spiny anteater are the egg-laying mammals; all others give birth to young ones.' },
-    ta: { q: 'எறும்புண்ணி _____ பாலூட்டிக்கு உதாரணமாகும்.', options: ['முட்டையிடும்', 'பை கொண்ட', 'பறக்கும்', 'நீர்வாழ்'], explanation: 'பிளாட்டிபஸ், எறும்புண்ணி ஆகியவை முட்டையிடும் பாலூட்டிகள்; மற்றவை குட்டிகளை ஈனுகின்றன.' },
+    ta: { q: 'முட்கள் கொண்ட எறும்புண்ணியானது _____ பாலூட்டிக்கு உதாரணமாகும்.', options: ['முட்டையிடும்', 'பை கொண்ட', 'பறக்கும்', 'நீர்வாழ்'], explanation: 'பிளாட்டிபஸ், முட்கள் கொண்ட எறும்புண்ணி ஆகியவை முட்டையிடும் பாலூட்டிகள்; மற்றவை குட்டிகளை ஈனுகின்றன.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise III.1 and III.3, p. 208', answer: 0,
     en: { q: 'Which statement about the canal system and tracheae is correct?', options: ['The canal system is seen in Porifera, and tracheae are the respiratory organs of Arthropoda.', 'The canal system is seen in coelenterates, and tracheae are the respiratory organs of Annelida.', 'The canal system is seen in Annelida, and tracheae are the respiratory organs of Mollusca.', 'The canal system is seen in Porifera, and tracheae are the respiratory organs of Annelida.'], explanation: 'The book statements are false: the canal system belongs to sponges (Porifera) and tracheae to arthropods, not coelenterates and annelids.' },
-    ta: { q: 'கால்வாய் மண்டலம், டிரக்கியா பற்றிய சரியான கூற்று எது?', options: ['கால்வாய் மண்டலம் துளையுடலிகளில் காணப்படுகிறது; டிரக்கியா கணுக்காலிகளின் சுவாச உறுப்பு.', 'கால்வாய் மண்டலம் குழியுடலிகளில் காணப்படுகிறது; டிரக்கியா வளைதசைப்புழுக்களின் சுவாச உறுப்பு.', 'கால்வாய் மண்டலம் வளைதசைப்புழுக்களில் காணப்படுகிறது; டிரக்கியா மெல்லுடலிகளின் சுவாச உறுப்பு.', 'கால்வாய் மண்டலம் துளையுடலிகளில் காணப்படுகிறது; டிரக்கியா வளைதசைப்புழுக்களின் சுவாச உறுப்பு.'], explanation: 'பாடநூல் கூற்றுகள் தவறு: கால்வாய் மண்டலம் துளையுடலிகளுக்கும், டிரக்கியா கணுக்காலிகளுக்கும் உரியவை.' },
+    ta: { q: 'கால்வாய் மண்டலம், டிரக்கியா பற்றிய சரியான கூற்று எது?', options: ['கால்வாய் மண்டலம் துளையுடலிகளில் காணப்படுகிறது; டிரக்கியா கணுக்காலிகளின் சுவாச உறுப்பு.', 'கால்வாய் மண்டலம் குழியுடலிகளில் காணப்படுகிறது; டிரக்கியா வளைதசையுடலிகளின் சுவாச உறுப்பு.', 'கால்வாய் மண்டலம் வளைதசையுடலிகளில் காணப்படுகிறது; டிரக்கியா மெல்லுடலிகளின் சுவாச உறுப்பு.', 'கால்வாய் மண்டலம் துளையுடலிகளில் காணப்படுகிறது; டிரக்கியா வளைதசையுடலிகளின் சுவாச உறுப்பு.'], explanation: 'பாடநூல் கூற்றுகள் தவறு: கால்வாய் மண்டலம் துளையுடலிகளுக்கும், டிரக்கியா கணுக்காலிகளுக்கும் உரியவை.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise III.4 and III.5, p. 208', answer: 0,
@@ -160,7 +160,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise V.2, p. 209', answer: 0,
     en: { q: 'Nematocysts (cnidoblasts) are', options: ['stinging cells on the tentacles of coelenterates', 'excretory cells of flatworms', 'pores on the body of sponges', 'locomotor organs of annelids'], explanation: 'The tentacles of coelenterates bear stinging cells called cnidoblasts or nematocysts.' },
-    ta: { q: 'நெமட்டோசிஸ்ட்டுகள் (நிடோபிளாஸ்ட்டுகள்) என்பவை', options: ['குழியுடலிகளின் உணர்நீட்சிகளில் உள்ள கொட்டும் செல்கள்', 'தட்டைப்புழுக்களின் கழிவு நீக்கச் செல்கள்', 'கடற்பஞ்சின் உடலில் உள்ள துளைகள்', 'வளைதசைப்புழுக்களின் இடப்பெயர்ச்சி உறுப்புகள்'], explanation: 'குழியுடலிகளின் உணர்நீட்சிகளில் நிடோபிளாஸ்ட் அல்லது நெமட்டோசிஸ்ட் எனும் கொட்டும் செல்கள் உள்ளன.' },
+    ta: { q: 'நெமட்டோசிஸ்ட்டுகள் (நிடோபிளாஸ்ட்டுகள்) என்பவை', options: ['குழியுடலிகளின் உணர்நீட்சிகளில் உள்ள கொட்டும் செல்கள்', 'தட்டைப்புழுக்களின் கழிவு நீக்கச் செல்கள்', 'கடற்பஞ்சின் உடலில் உள்ள துளைகள்', 'வளைதசையுடலிகளின் இடப்பெயர்ச்சி உறுப்புகள்'], explanation: 'குழியுடலிகளின் உணர்நீட்சிகளில் நிடோபிளாஸ்ட் அல்லது நெமட்டோசிஸ்ட் எனும் கொட்டும் செல்கள் உள்ளன.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise V.3, p. 209', answer: 0,
@@ -210,7 +210,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: '§17.2.7, p. 204', answer: 0, imageUrl: `${IMG}/garden-snail.png`,
     en: { q: 'The animal shown has a soft unsegmented body with a muscular foot and a hard shell secreted by the mantle. It belongs to phylum', options: ['Mollusca', 'Annelida', 'Arthropoda', 'Echinodermata'], explanation: 'The garden snail is a mollusc: soft body, muscular foot, mantle and calcareous shell.' },
-    ta: { q: 'படத்தில் உள்ள விலங்கு கண்டமற்ற மென்மையான உடல், தசைப் பாதம், மேன்டில் சுரக்கும் கடின ஓடு ஆகியவற்றைக் கொண்டது. இது எந்தத் தொகுதி?', options: ['மெல்லுடலிகள்', 'வளைதசைப்புழுக்கள்', 'கணுக்காலிகள்', 'முட்தோலிகள்'], explanation: 'தோட்ட நத்தை மெல்லுடலி: மென்மையான உடல், தசைப் பாதம், மேன்டில், சுண்ணாம்பு ஓடு.' },
+    ta: { q: 'படத்தில் உள்ள விலங்கு கண்டமற்ற மென்மையான உடல், தசைப் பாதம், மேன்டில் சுரக்கும் கடின ஓடு ஆகியவற்றைக் கொண்டது. இது எந்தத் தொகுதி?', options: ['மெல்லுடலிகள்', 'வளைதசையுடலிகள்', 'கணுக்காலிகள்', 'முட்தோலிகள்'], explanation: 'தோட்ட நத்தை மெல்லுடலி: மென்மையான உடல், தசைப் பாதம், மேன்டில், சுண்ணாம்பு ஓடு.' },
   },
   {
     difficulty: 'medium', source: '§17.3.2, p. 205', answer: 0,
@@ -226,12 +226,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise I.6, p. 208', answer: 0,
     en: { q: 'The hermaphrodite organisms are', options: ['Hydra, tapeworm, earthworm, Ascidian', 'Hydra, tapeworm, earthworm, Amphioxus', 'Hydra, tapeworm, earthworm, Balanoglossus', 'Hydra, tapeworm, Ascaris, earthworm'], explanation: 'Hydra, tapeworm, earthworm and Ascidian bear both sex organs; Ascaris (roundworm) has separate sexes.' },
-    ta: { q: 'இருபால் (Hermaphrodite) உயிரிகள் எவை?', options: ['ஹைட்ரா, நாடாப்புழு, மண்புழு, அசிடியன்', 'ஹைட்ரா, நாடாப்புழு, மண்புழு, ஆம்பியாக்சஸ்', 'ஹைட்ரா, நாடாப்புழு, மண்புழு, பலனோகிளாசஸ்', 'ஹைட்ரா, நாடாப்புழு, அஸ்காரிஸ், மண்புழு'], explanation: 'ஹைட்ரா, நாடாப்புழு, மண்புழு, அசிடியன் ஆகியவை இருபால் உயிரிகள்; அஸ்காரிஸ் (உருளைப்புழு) தனிப்பால் உயிரி.' },
+    ta: { q: 'இரு பாலின (Hermaphrodite) உயிரிகள் எவை?', options: ['ஹைட்ரா, நாடாப்புழு, மண்புழு, அசிடியன்', 'ஹைட்ரா, நாடாப்புழு, மண்புழு, ஆம்பியாக்சஸ்', 'ஹைட்ரா, நாடாப்புழு, மண்புழு, பலனோகிளாசஸ்', 'ஹைட்ரா, நாடாப்புழு, அஸ்காரிஸ், மண்புழு'], explanation: 'ஹைட்ரா, நாடாப்புழு, மண்புழு, அசிடியன் ஆகியவை இருபால் உயிரிகள்; அஸ்காரிஸ் (உருளைப்புழு) தனிப்பால் உயிரி.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise VI.1, p. 209', answer: 0,
     en: { q: 'Which set of features describes phylum Annelida?', options: ['Body divided into metameres, first true coelomates, setae and parapodia for locomotion', 'Body round and unsegmented, pseudocoelom, sexes separate', 'Flat body, acoelomate, flame cells for excretion', 'Jointed legs, chitin exoskeleton, open circulatory system'], explanation: 'Annelids are segmented (metameres joined by annuli), the first true coelomates, and move by setae and parapodia.' },
-    ta: { q: 'வளைதசைப்புழுக்கள் தொகுதியை விவரிக்கும் பண்புகள் எவை?', options: ['மெட்டாமியர்கள் எனும் கண்டங்கள், முதல் உண்மையான உடற்குழி, சீட்டா, பாரபோடியா மூலம் இடப்பெயர்ச்சி', 'உருளை வடிவக் கண்டமற்ற உடல், பொய் உடற்குழி, தனிப்பால் உயிரிகள்', 'தட்டையான உடல், உடற்குழியற்றவை, சுடர் செல்கள் மூலம் கழிவு நீக்கம்', 'இணைப்புக் கால்கள், கைட்டின் புறச்சட்டகம், திறந்த வகை இரத்த ஓட்டம்'], explanation: 'வளைதசைப்புழுக்கள் மெட்டாமியர்களாகப் பிரிந்தவை; முதல் உண்மையான உடற்குழி உயிரிகள்; சீட்டா, பாரபோடியா மூலம் இடம்பெயர்கின்றன.' },
+    ta: { q: 'வளைதசையுடலிகள் தொகுதியை விவரிக்கும் பண்புகள் எவை?', options: ['மெட்டாமியர்கள் எனும் கண்டங்கள், முதல் உண்மையான உடற்குழி, சீட்டா, பாரபோடியா மூலம் இடப்பெயர்ச்சி', 'உருளை வடிவக் கண்டமற்ற உடல், பொய் உடற்குழி, தனிப்பால் உயிரிகள்', 'தட்டையான உடல், உடற்குழியற்றவை, சுடர் செல்கள் மூலம் கழிவு நீக்கம்', 'இணைப்புக் கால்கள், கைட்டின் புறச்சட்டகம், திறந்த வகை இரத்த ஓட்டம்'], explanation: 'வளைதசையுடலிகள் மெட்டாமியர்களாகப் பிரிந்தவை; முதல் உண்மையான உடற்குழி உயிரிகள்; சீட்டா, பாரபோடியா மூலம் இடம்பெயர்கின்றன.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise VI.2, p. 209', answer: 0,
@@ -261,7 +261,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: '§17.2.9, p. 204', answer: 0, imageUrl: `${IMG}/balanoglossus.png`,
     en: { q: 'The marine worm-like animal shown (acorn worm) has gill slits but no notochord, and is a ciliary feeder. It belongs to', options: ['Hemichordata', 'Annelida', 'Cephalochordata', 'Aschelminthes'], explanation: 'Balanoglossus is a hemichordate: it shows both non-chordate and chordate features, with gill slits but no notochord.' },
-    ta: { q: 'படத்தில் உள்ள புழு போன்ற கடல் விலங்கு (ஏகார்ன் புழு) செவுள் பிளவுகளைக் கொண்டது, ஆனால் முதுகு நாண் இல்லை; குறுஇழை வழி உணவூட்டி. இது எந்தத் தொகுதி?', options: ['அரைநாணிகள்', 'வளைதசைப்புழுக்கள்', 'தலைமுதுகுநாணிகள்', 'உருளைப்புழுக்கள்'], explanation: 'பலனோகிளாசஸ் அரைநாணி; முதுகு நாணற்றவை, முதுகு நாணுள்ளவை இரண்டின் பண்புகளும் உண்டு; செவுள் பிளவுகள் உண்டு, முதுகு நாண் இல்லை.' },
+    ta: { q: 'படத்தில் உள்ள புழு போன்ற கடல் விலங்கு (ஏகார்ன் புழு) செவுள் பிளவுகளைக் கொண்டது, ஆனால் முதுகு நாண் இல்லை; குறுஇழை வழி உணவூட்டி. இது எந்தத் தொகுதி?', options: ['அரைநாணிகள்', 'வளைதசையுடலிகள்', 'தலைமுதுகுநாணிகள்', 'உருளைப்புழுக்கள்'], explanation: 'பலனோகிளாசஸ் அரைநாணி; முதுகு நாணற்றவை, முதுகு நாணுள்ளவை இரண்டின் பண்புகளும் உண்டு; செவுள் பிளவுகள் உண்டு, முதுகு நாண் இல்லை.' },
   },
   {
     difficulty: 'hard', source: '§17.2.8, p. 204', answer: 1,
@@ -274,9 +274,9 @@ export const QUESTIONS: BankQuestion[] = [
     ta: { q: 'கூற்று: பறவைகளின் உடல் பறப்பதற்கு ஏற்ற எடை குறைந்த உடலாகும்.\nகாரணம்: அவற்றின் எலும்புகள் காற்றால் நிரம்பியுள்ளன (காற்றெலும்புகள்).', options: AR_TA, explanation: 'இரண்டும் சரி; காற்றெலும்புகள் உடல் எடையைக் குறைப்பதே எடை குறைந்த உடலுக்குக் காரணம்.' },
   },
   {
-    difficulty: 'hard', source: '§17.3.2, p. 206', answer: 2,
+    difficulty: 'hard', source: '§17.3.2, p. 206', answer: 3,
     en: { q: 'Assertion: All mammals give birth to young ones.\nReason: Female mammals have mammary glands that secrete milk.', options: AR_EN, explanation: 'The reason is true, but the assertion is false: the platypus and spiny anteater lay eggs.' },
-    ta: { q: 'கூற்று: எல்லாப் பாலூட்டிகளும் குட்டிகளை ஈனுகின்றன.\nகாரணம்: பெண் பாலூட்டிகளில் பால் சுரக்கும் பால் சுரப்பிகள் உள்ளன.', options: AR_TA, explanation: 'காரணம் சரி; ஆனால் கூற்று தவறு: பிளாட்டிபஸ், எறும்புண்ணி முட்டையிடுகின்றன.' },
+    ta: { q: 'கூற்று: எல்லாப் பாலூட்டிகளும் குட்டிகளை ஈனுகின்றன.\nகாரணம்: பெண் பாலூட்டிகளில் பால் சுரக்கும் பால் சுரப்பிகள் உள்ளன.', options: AR_TA, explanation: 'காரணம் சரி; ஆனால் கூற்று தவறு: பிளாட்டிபஸ், முட்கள் கொண்ட எறும்புண்ணி முட்டையிடுகின்றன.' },
   },
   {
     difficulty: 'hard', source: '§17.1, p. 200', answer: 0,
@@ -296,6 +296,6 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: '§17.2.2–17.2.5, p. 202–203', answer: 0,
     en: { q: 'Which statements are correct?\n(i) Coelenterates show polymorphism.\n(ii) Roundworms cause elephantiasis and ascariasis.\n(iii) Annelids are acoelomates.\n(iv) Most flatworms are parasites with suckers and hooks.', options: ['(i), (ii) and (iv)', '(i), (iii) and (iv)', '(ii) and (iii) only', '(i), (ii) and (iii)'], explanation: 'Annelids are the first true coelomates, not acoelomates; the other three statements are correct.' },
-    ta: { q: 'சரியான கூற்றுகள் எவை?\n(i) குழியுடலிகள் பல்லுருவ அமைப்பைக் காட்டுகின்றன.\n(ii) உருளைப்புழுக்கள் யானைக்கால் நோய், அஸ்காரியாசிஸ் நோயைத் தோற்றுவிக்கின்றன.\n(iii) வளைதசைப்புழுக்கள் உடற்குழியற்றவை.\n(iv) பெரும்பாலான தட்டைப்புழுக்கள் உறிஞ்சிகள், கொக்கிகள் கொண்ட ஒட்டுண்ணிகள்.', options: ['(i), (ii), (iv)', '(i), (iii), (iv)', '(ii), (iii) மட்டும்', '(i), (ii), (iii)'], explanation: 'வளைதசைப்புழுக்கள் முதல் உண்மையான உடற்குழியுடைய உயிரிகள்; உடற்குழியற்றவை அல்ல. மற்ற மூன்றும் சரி.' },
+    ta: { q: 'சரியான கூற்றுகள் எவை?\n(i) குழியுடலிகள் பல்லுருவ அமைப்பைக் காட்டுகின்றன.\n(ii) உருளைப்புழுக்கள் யானைக்கால் நோய், அஸ்காரியாசிஸ் நோயைத் தோற்றுவிக்கின்றன.\n(iii) வளைதசையுடலிகள் உடற்குழியற்றவை.\n(iv) பெரும்பாலான தட்டைப்புழுக்கள் உறிஞ்சிகள், கொக்கிகள் கொண்ட ஒட்டுண்ணிகள்.', options: ['(i), (ii), (iv)', '(i), (iii), (iv)', '(ii), (iii) மட்டும்', '(i), (ii), (iii)'], explanation: 'வளைதசையுடலிகள் முதல் உண்மையான உடற்குழியுடைய உயிரிகள்; உடற்குழியற்றவை அல்ல. மற்ற மூன்றும் சரி.' },
   },
 ];

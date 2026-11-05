@@ -12,12 +12,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise I.1, p. 63', answer: 0,
     en: { q: 'Which device changes electrical energy into mechanical energy?', options: ['Electric motor', 'Electric generator', 'Battery', 'Switch'], explanation: 'A motor uses electrical energy to produce motion; a generator does the reverse.' },
-    ta: { q: 'மின்னாற்றலை இயந்திர ஆற்றலாக மாற்றும் கருவி எது?', options: ['மின் மோட்டார்', 'மின்னியற்றி', 'மின்கலன்', 'சாவி'], explanation: 'மோட்டார் மின்னாற்றலைக் கொண்டு இயக்கத்தை உருவாக்குகிறது; மின்னியற்றி இதற்கு நேர்மாறாகச் செயல்படுகிறது.' },
+    ta: { q: 'பின்வருவனவற்றுள் எது மின் ஆற்றலை இயந்திர ஆற்றலாக மாற்றுகிறது?', options: ['மின் மோட்டார்', 'மின்னியற்றி', 'மின்கலன்', 'சாவி'], explanation: 'மோட்டார் மின்னாற்றலைக் கொண்டு இயக்கத்தை உருவாக்குகிறது; மின்னியற்றி இதற்கு நேர்மாறாகச் செயல்படுகிறது.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise II.1, p. 64', answer: 0,
     en: { q: 'The SI unit of magnetic field (magnetic induction) B is the', options: ['tesla', 'weber', 'ampere', 'henry'], explanation: 'Magnetic field B is measured in tesla (T); magnetic flux is measured in weber.' },
-    ta: { q: 'காந்தப்புலத் தூண்டலின் (B) SI அலகு', options: ['டெஸ்லா', 'வெபர்', 'ஆம்பியர்', 'ஹென்றி'], explanation: 'காந்தப்புலம் B டெஸ்லா (T) அலகால் அளக்கப்படுகிறது; காந்தப்பாயத்தின் அலகு வெபர்.' },
+    ta: { q: 'காந்தப் புலத் தூண்டலின் (காந்தப்புலம் B) SI அலகு', options: ['டெஸ்லா', 'வெபர்', 'ஆம்பியர்', 'ஹென்றி'], explanation: 'காந்தப்புலம் B டெஸ்லா (T) அலகால் அளக்கப்படுகிறது; காந்தப்பாயத்தின் அலகு வெபர்.' },
   },
   {
     difficulty: 'easy', source: '§5.2.1, p. 53', answer: 0,
@@ -42,7 +42,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§5.3, p. 54', answer: 0,
     en: { q: 'The magnetic effect of electric current was discovered by', options: ['Hans Christian Oersted', 'Michael Faraday', 'H. A. Lorentz', 'John Ambrose Fleming'], explanation: 'In 1820 Oersted noticed a compass needle deflect when current flowed in a nearby wire.' },
-    ta: { q: 'மின்னோட்டத்தின் காந்த விளைவைக் கண்டறிந்தவர்', options: ['ஹான்ஸ் கிறிஸ்டியன் ஆயர்ஸ்டெட்', 'மைக்கேல் ஃபாரடே', 'ஹெச். ஏ. லாரன்ஸ்', 'ஜான் ஆம்ப்ரோஸ் ஃபிளெமிங்'], explanation: '1820-இல் அருகிலுள்ள கம்பியில் மின்னோட்டம் பாயும்போது திசைகாட்டி ஊசி விலகுவதை ஆயர்ஸ்டெட் கண்டார்.' },
+    ta: { q: 'மின்னோட்டத்தின் காந்த விளைவைக் கண்டறிந்தவர்', options: ['ஹான்ஸ் கிறிஸ்டியன் அயர்ஸ்டெட்', 'மைக்கேல் ஃபாரடே', 'ஹெச். ஏ. லாரன்ஸ்', 'ஜான் ஆம்ப்ரோஸ் ஃபிளெமிங்'], explanation: '1820-இல் அருகிலுள்ள கம்பியில் மின்னோட்டம் பாயும்போது திசைகாட்டி ஊசி விலகுவதை அயர்ஸ்டெட் கண்டார்.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise II.3, p. 64', answer: 0,
@@ -52,7 +52,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise II.4, p. 64', answer: 0,
     en: { q: 'A device that produces electric current from mechanical energy is the', options: ['generator (dynamo)', 'motor', 'transformer', 'loudspeaker'], explanation: 'A generator or dynamo converts mechanical energy into electrical energy by electromagnetic induction.' },
-    ta: { q: 'இயந்திர ஆற்றலிலிருந்து மின்னோட்டத்தை உருவாக்கும் கருவி', options: ['மின்னியற்றி (டைனமோ)', 'மோட்டார்', 'மின்மாற்றி', 'ஒலிபெருக்கி'], explanation: 'மின்னியற்றி அல்லது டைனமோ மின்காந்தத் தூண்டல் மூலம் இயந்திர ஆற்றலை மின்னாற்றலாக மாற்றுகிறது.' },
+    ta: { q: 'இயந்திர ஆற்றலிலிருந்து மின்னோட்டத்தை உருவாக்குவதற்கான கருவி', options: ['மின்னியற்றி (டைனமோ)', 'மோட்டார்', 'மின்மாற்றி', 'ஒலிபெருக்கி'], explanation: 'மின்னியற்றி அல்லது டைனமோ மின்காந்தத் தூண்டல் மூலம் இயந்திர ஆற்றலை மின்னாற்றலாக மாற்றுகிறது.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise II.2, p. 64', answer: 0,
@@ -62,34 +62,34 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise IV.3, p. 64', answer: 0,
     en: { q: "Fleming's right hand rule is also called the", options: ['generator (dynamo) rule', 'motor rule', 'thumb rule for wires', 'lever rule'], explanation: "The right hand rule gives the induced current in a generator; the left hand rule is used for motors." },
-    ta: { q: 'ஃபிளெமிங்கின் வலதுகை விதி இவ்வாறும் அழைக்கப்படுகிறது', options: ['மின்னியற்றி (டைனமோ) விதி', 'மோட்டார் விதி', 'கம்பிக்கான கட்டைவிரல் விதி', 'நெம்புகோல் விதி'], explanation: 'வலதுகை விதி மின்னியற்றியில் தூண்டப்பட்ட மின்னோட்டத்தின் திசையைத் தரும்; இடதுகை விதி மோட்டாருக்கு.' },
+    ta: { q: 'ஃபிளெமிங்கின் வலது கை விதி இவ்வாறும் அழைக்கப்படுகிறது', options: ['மின்னியற்றி (டைனமோ) விதி', 'மோட்டார் விதி', 'கம்பிக்கான கட்டைவிரல் விதி', 'நெம்புகோல் விதி'], explanation: 'வலதுகை விதி மின்னியற்றியில் தூண்டப்பட்ட மின்னோட்டத்தின் திசையைத் தரும்; இடதுகை விதி மோட்டாருக்கு.' },
   },
   {
     difficulty: 'easy', source: '§5.10.2, p. 62', answer: 0,
     en: { q: 'Maglev trains move without touching the track by using', options: ['magnetic levitation', 'compressed air', 'steam pressure', 'rubber wheels'], explanation: 'Maglev trains are lifted and pushed forward by magnets, so there is no friction with the track.' },
-    ta: { q: 'மேக்லெவ் தொடர்வண்டிகள் தண்டவாளத்தைத் தொடாமல் இயங்கப் பயன்படுவது', options: ['காந்த மிதத்தல்', 'அழுத்தப்பட்ட காற்று', 'நீராவி அழுத்தம்', 'ரப்பர் சக்கரங்கள்'], explanation: 'காந்தங்களால் தூக்கப்பட்டு முன்னோக்கித் தள்ளப்படுவதால் மேக்லெவ் தொடர்வண்டிகளுக்குத் தண்டவாளத்துடன் உராய்வு இல்லை.' },
+    ta: { q: 'காந்தத்தூக்கல் (மேக்லெவ்) தொடர்வண்டிகள் தண்டவாளத்தைத் தொடாமல் இயங்கப் பயன்படுவது', options: ['காந்தத்தூக்கல் (காந்த மிதத்தல்)', 'அழுத்தப்பட்ட காற்று', 'நீராவி அழுத்தம்', 'ரப்பர் சக்கரங்கள்'], explanation: 'காந்தங்களால் தூக்கப்பட்டு முன்னோக்கித் தள்ளப்படுவதால் காந்தத்தூக்கல் தொடர்வண்டிகளுக்குத் தண்டவாளத்துடன் உராய்வு இல்லை.' },
   },
   {
     difficulty: 'easy', source: '§5.10.3, p. 62', answer: 0,
     en: { q: 'MRI, used to obtain images of internal parts of the body, works on', options: ['electromagnetism', 'sound echoes only', 'the heating effect of current', 'chemical reactions'], explanation: 'Magnetic resonance imaging uses electromagnetic fields to scan fine details of the body.' },
-    ta: { q: 'உடலின் உள்ளுறுப்புகளின் பிம்பங்களைப் பெறும் MRI எதன் அடிப்படையில் இயங்குகிறது?', options: ['மின்காந்தவியல்', 'எதிரொலி மட்டும்', 'மின்னோட்டத்தின் வெப்ப விளைவு', 'வேதிவினைகள்'], explanation: 'காந்த ஒத்ததிர்வு தோற்றுருவாக்கல் (MRI) மின்காந்தப் புலங்களைக் கொண்டு உடலின் நுண்விவரங்களைக் காட்டுகிறது.' },
+    ta: { q: 'உடலின் உள்ளுறுப்புகளின் பிம்பங்களைப் பெறும் MRI எதன் அடிப்படையில் இயங்குகிறது?', options: ['மின்காந்தவியல்', 'ஒலி எதிரொலிகள் மட்டும்', 'மின்னோட்டத்தின் வெப்ப விளைவு', 'வேதிவினைகள்'], explanation: 'காந்த ஒத்ததிர்வு தோற்றுருவாக்கல் (MRI) மின்காந்தப் புலங்களைக் கொண்டு உடலின் நுண்விவரங்களைக் காட்டுகிறது.' },
   },
 
   // ---------------------------------------------------------------- Medium
   {
     difficulty: 'medium', source: 'Book exercise I.2, p. 63', answer: 0,
     en: { q: 'A transformer works with', options: ['ac only', 'dc only', 'both ac and dc', 'neither ac nor dc'], explanation: 'A transformer needs a changing current in the primary to change the flux; steady dc gives no induced e.m.f.' },
-    ta: { q: 'மின்மாற்றி வேலை செய்வது', options: ['AC-இல் மட்டும்', 'DC-இல் மட்டும்', 'AC மற்றும் DC இரண்டிலும்', 'இரண்டிலும் இல்லை'], explanation: 'முதன்மைச் சுருளில் மாறும் மின்னோட்டம் இருந்தால்தான் பாயம் மாறும்; நிலையான DC-யால் மின்னியக்கு விசை தூண்டப்படாது.' },
+    ta: { q: 'கீழ்க்கண்ட எவற்றில் மின்மாற்றி வேலை செய்கிறது?', options: ['AC இல் மட்டும்', 'DC இல் மட்டும்', 'AC மற்றும் DC இரண்டிலும்', 'AC, DC இரண்டிலும் இல்லை'], explanation: 'முதன்மைச் சுருளில் மாறும் மின்னோட்டம் இருந்தால்தான் பாயம் மாறும்; நிலையான DC-யால் மின்னியக்கு விசை தூண்டப்படாது.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise I.3, p. 63', answer: 0,
     en: { q: 'In an ac generator, the parts that pass the current from the rotating coil to the external circuit are the', options: ['brushes (pressing on the slip rings)', 'field magnets', 'split rings', 'armature axle'], explanation: 'The coil ends join the slip rings; the stationary brushes resting on the rings connect to the external circuit.' },
-    ta: { q: 'AC மின்னியற்றியில் சுழலும் சுருளிலிருந்து மின்னோட்டத்தை வெளிச்சுற்றுக்கு எடுத்துச் செல்லும் பகுதி', options: ['நழுவு வளையங்களின் மீதுள்ள தூரிகைகள்', 'புலக் காந்தங்கள்', 'பிளவு வளையங்கள்', 'சுருளின் அச்சு'], explanation: 'சுருளின் முனைகள் நழுவு வளையங்களுடனும், வளையங்களின் மீதுள்ள நிலையான தூரிகைகள் வெளிச்சுற்றுடனும் இணைக்கப்பட்டுள்ளன.' },
+    ta: { q: 'மின்னோட்டத்தை AC மின்னியற்றியின் சுழலும் சுருளிலிருந்து வெளிச் சுற்றுக்கு எடுத்துச் செல்லும் மின்னியற்றியின் பகுதி', options: ['தூரிகைகள் (நழுவு வளையங்களின் மீது அழுந்தியிருப்பவை)', 'புலக் காந்தங்கள்', 'பிளவு வளையங்கள்', 'ஆர்மேச்சர் அச்சு'], explanation: 'சுருளின் முனைகள் நழுவு வளையங்களுடனும், வளையங்களின் மீதுள்ள நிலையான தூரிகைகள் வெளிச்சுற்றுடனும் இணைக்கப்பட்டுள்ளன.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise III, p. 64', answer: 0,
     en: { q: 'Match:\n1. Magnetic material  2. Non-magnetic material  3. Current and magnetism  4. Electromagnetic induction\n(a) Oersted  (b) Wood  (c) Faraday  (d) Iron', options: ['1-d, 2-b, 3-a, 4-c', '1-b, 2-d, 3-a, 4-c', '1-d, 2-b, 3-c, 4-a', '1-a, 2-b, 3-d, 4-c'], explanation: 'Iron is magnetic, wood is not; Oersted linked current and magnetism; Faraday discovered electromagnetic induction.' },
-    ta: { q: 'பொருத்துக:\n1. காந்தப் பொருள்  2. காந்தமல்லாத பொருள்  3. மின்னோட்டமும் காந்தவியலும்  4. மின்காந்தத் தூண்டல்\n(a) ஆயர்ஸ்டெட்  (b) மரம்  (c) ஃபாரடே  (d) இரும்பு', options: ['1-d, 2-b, 3-a, 4-c', '1-b, 2-d, 3-a, 4-c', '1-d, 2-b, 3-c, 4-a', '1-a, 2-b, 3-d, 4-c'], explanation: 'இரும்பு காந்தப் பொருள், மரம் அல்ல; ஆயர்ஸ்டெட் மின்னோட்டத்தையும் காந்தவியலையும் இணைத்தார்; ஃபாரடே மின்காந்தத் தூண்டலைக் கண்டறிந்தார்.' },
+    ta: { q: 'பொருத்துக:\n1. காந்தப் பொருள்  2. காந்தமல்லாத பொருள்  3. மின்னோட்டம் மற்றும் காந்தவியல்  4. மின்காந்தத் தூண்டல்\n(a) அயர்ஸ்டெட்  (b) மரம்  (c) ஃபாரடே  (d) இரும்பு', options: ['1-d, 2-b, 3-a, 4-c', '1-b, 2-d, 3-a, 4-c', '1-d, 2-b, 3-c, 4-a', '1-a, 2-b, 3-d, 4-c'], explanation: 'இரும்பு காந்தப் பொருள், மரம் அல்ல; அயர்ஸ்டெட் மின்னோட்டத்தையும் காந்தவியலையும் இணைத்தார்; ஃபாரடே மின்காந்தத் தூண்டலைக் கண்டறிந்தார்.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise III.5, p. 64', answer: 0,
@@ -109,12 +109,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise V.1, p. 64', answer: 0,
     en: { q: "In Fleming's left hand rule, with the thumb, forefinger and middle finger held mutually perpendicular, the middle finger shows the direction of the", options: ['current', 'magnetic field', 'force or motion', 'induced e.m.f'], explanation: 'Forefinger – field, middle finger – current, thumb – force (motion) of the conductor.' },
-    ta: { q: 'ஃபிளெமிங்கின் இடதுகை விதியில் கட்டைவிரல், சுட்டுவிரல், நடுவிரல் மூன்றும் ஒன்றுக்கொன்று செங்குத்தாக இருக்கும்போது நடுவிரல் காட்டுவது', options: ['மின்னோட்டத்தின் திசை', 'காந்தப்புலத்தின் திசை', 'விசை அல்லது இயக்கத்தின் திசை', 'தூண்டப்பட்ட மின்னியக்கு விசை'], explanation: 'சுட்டுவிரல் – காந்தப்புலம், நடுவிரல் – மின்னோட்டம், கட்டைவிரல் – கடத்தியின் விசை (இயக்கம்).' },
+    ta: { q: 'ஃபிளெமிங்கின் இடதுகை விதியில் கட்டைவிரல், சுட்டுவிரல், நடுவிரல் மூன்றும் ஒன்றுக்கொன்று செங்குத்தாக இருக்கும்போது நடுவிரல் காட்டுவது', options: ['மின்னோட்டத்தின் திசை', 'காந்தப்புலத்தின் திசை', 'விசை அல்லது இயக்கத்தின் திசை', 'தூண்டப்பட்ட மின்னியக்கு விசையின் திசை'], explanation: 'சுட்டுவிரல் – காந்தப்புலம், நடுவிரல் – மின்னோட்டம், கட்டைவிரல் – கடத்தியின் விசை (இயக்கம்).' },
   },
   {
     difficulty: 'medium', source: 'Book exercise V.2, p. 64', answer: 0,
     en: { q: 'Magnetic flux density is defined as the number of magnetic field lines', options: ['crossing unit area held normal to the field', 'crossing any area at any angle', 'around a single pole', 'per unit length of the magnet'], explanation: 'Flux density = flux through unit area kept perpendicular to the field lines, in Wb/m².' },
-    ta: { q: 'காந்தப் பாய அடர்த்தி என்பது காந்தப்புலக் கோடுகளுக்கு', options: ['செங்குத்தாக வைக்கப்பட்ட ஓரலகு பரப்பைக் கடக்கும் கோடுகளின் எண்ணிக்கை', 'எந்தக் கோணத்திலும் உள்ள எந்தப் பரப்பையும் கடக்கும் கோடுகள்', 'ஒரே துருவத்தைச் சுற்றியுள்ள கோடுகள்', 'காந்தத்தின் ஓரலகு நீளத்திற்கான கோடுகள்'], explanation: 'பாய அடர்த்தி = புலக் கோடுகளுக்குச் செங்குத்தான ஓரலகு பரப்பின் வழியே செல்லும் பாயம், Wb/மீ².' },
+    ta: { q: 'காந்தப் பாய அடர்த்தி என்பது பின்வருவனவற்றைக் கடக்கும் காந்தப்புலக் கோடுகளின் எண்ணிக்கை', options: ['புலத்திற்குச் செங்குத்தாக வைக்கப்பட்ட ஓரலகு பரப்பு', 'எந்தக் கோணத்திலும் உள்ள எந்தப் பரப்பும்', 'ஒரே துருவத்தின் சுற்றுப்பகுதி', 'காந்தத்தின் ஓரலகு நீளம்'], explanation: 'பாய அடர்த்தி = புலக் கோடுகளுக்குச் செங்குத்தான ஓரலகு பரப்பின் வழியே செல்லும் பாயம், Wb/மீ².' },
   },
   {
     difficulty: 'medium', source: 'Book exercise V.3, p. 64', answer: 0,
@@ -124,7 +124,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise V.7, p. 64', answer: 0,
     en: { q: 'A portable radio has a built-in transformer so that it can run on the mains instead of batteries. This transformer is', options: ['step-down, because it lowers the 220 V mains to a few volts', 'step-up, because it raises the 220 V mains', 'step-up, because a radio needs high voltage', 'neither, because a radio needs dc only'], explanation: 'The radio works on a few volts like its batteries, so the mains voltage must be stepped down (and then rectified).' },
-    ta: { q: 'ஒரு வானொலிப் பெட்டி மின்கலங்களுக்குப் பதிலாக வீட்டு மின்சாரத்தில் இயங்க அதில் மின்மாற்றி பொருத்தப்பட்டுள்ளது. இது', options: ['இறக்கு மின்மாற்றி; 220 V-ஐச் சில வோல்ட்டுகளாகக் குறைக்கிறது', 'ஏற்று மின்மாற்றி; 220 V-ஐ உயர்த்துகிறது', 'ஏற்று மின்மாற்றி; வானொலிக்கு உயர் மின்னழுத்தம் தேவை', 'இரண்டும் அல்ல; வானொலிக்கு dc மட்டுமே தேவை'], explanation: 'வானொலி அதன் மின்கலங்களைப் போலச் சில வோல்ட்டுகளில் இயங்குவதால் வீட்டு மின்னழுத்தத்தைக் குறைக்க வேண்டும் (பின் திருத்த வேண்டும்).' },
+    ta: { q: 'ஒரு வானொலிப் பெட்டி மின்கலங்களுக்குப் பதிலாக வீட்டின் முதன்மைச் சுற்று மின்சாரத்தில் இயங்கும் வண்ணம் அதில் ஒரு மின்மாற்றி பொருத்தப்பட்டுள்ளது. இந்த மின்மாற்றி', options: ['இறக்கு மின்மாற்றி; 220 V-ஐச் சில வோல்ட்டுகளாகக் குறைக்கிறது', 'ஏற்று மின்மாற்றி; 220 V-ஐ உயர்த்துகிறது', 'ஏற்று மின்மாற்றி; வானொலிக்கு உயர் மின்னழுத்தம் தேவை', 'இரண்டும் அல்ல; வானொலிக்கு dc மட்டுமே தேவை'], explanation: 'வானொலி அதன் மின்கலங்களைப் போலச் சில வோல்ட்டுகளில் இயங்குவதால் வீட்டு மின்னழுத்தத்தைக் குறைக்க வேண்டும் (பின் திருத்த வேண்டும்).' },
   },
   {
     difficulty: 'medium', source: '§5.6, p. 59', answer: 0,
@@ -156,17 +156,17 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book example 1, p. 56', answer: 0,
     en: { q: 'A 50 cm long conductor carrying 5 A is placed perpendicular to a magnetic field of 2 × 10⁻³ T. The force on it is', options: ['5 × 10⁻³ N', '0.5 N', '5 × 10⁻¹ N', '2.5 × 10⁻³ N'], explanation: 'F = ILB = 5 × 0.5 × 2 × 10⁻³ = 5 × 10⁻³ N. Using 50 instead of 0.5 m gives 0.5 N.' },
-    ta: { q: '5 A மின்னோட்டம் பாயும் 50 செமீ நீளக் கடத்தி 2 × 10⁻³ T காந்தப்புலத்திற்குச் செங்குத்தாக வைக்கப்பட்டுள்ளது. அதன் மீதான விசை', options: ['5 × 10⁻³ N', '0.5 N', '5 × 10⁻¹ N', '2.5 × 10⁻³ N'], explanation: 'F = ILB = 5 × 0.5 × 2 × 10⁻³ = 5 × 10⁻³ N. 0.5 மீ-க்குப் பதில் 50 எடுத்தால் தவறாக 0.5 N வரும்.' },
+    ta: { q: '5 A மின்னோட்டம் பாயும் 50 செமீ நீளமுடைய ஒரு கடத்தியானது 2 × 10⁻³ T வலிமையுடைய காந்தப் புலத்திற்குச் செங்குத்தாக வைக்கப்படுகிறது. கடத்தி மீது செயல்படும் விசை', options: ['5 × 10⁻³ N', '0.5 N', '5 × 10⁻¹ N', '2.5 × 10⁻³ N'], explanation: 'F = ILB = 5 × 0.5 × 2 × 10⁻³ = 5 × 10⁻³ N. 0.5 மீ-க்குப் பதில் 50 எடுத்தால் தவறாக 0.5 N வரும்.' },
   },
   {
     difficulty: 'hard', source: 'Book example 2, p. 56', answer: 0,
     en: { q: 'A conductor perpendicular to a magnetic field feels a force F. If the current is made 4 times, the length halved and the field tripled, the new force is', options: ['6F', '12F', '24F', '1.5F'], explanation: 'F = ILB, so the new force = 4 × ½ × 3 = 6 times F.' },
-    ta: { q: 'காந்தப்புலத்திற்குச் செங்குத்தான கடத்தி F விசையை உணர்கிறது. மின்னோட்டம் 4 மடங்காகவும், நீளம் பாதியாகவும், காந்தப்புலம் 3 மடங்காகவும் ஆனால் புதிய விசை', options: ['6F', '12F', '24F', '1.5F'], explanation: 'F = ILB; புதிய விசை = 4 × ½ × 3 = 6 மடங்கு F.' },
+    ta: { q: 'காந்தப் புலத்திற்குச் செங்குத்தாக வைக்கப்பட்ட மின்னோட்டம் பாயும் கடத்தி F விசைக்கு உட்படுகிறது. மின்னோட்டம் நான்கு மடங்காகவும், நீளம் பாதியாகவும், காந்தப்புலம் மூன்று மடங்காகவும் ஆனால் புதிய விசை', options: ['6F', '12F', '24F', '1.5F'], explanation: 'F = ILB; புதிய விசை = 4 × ½ × 3 = 6 மடங்கு F.' },
   },
   {
     difficulty: 'hard', source: 'Book example 3, p. 62', answer: 0,
     en: { q: 'A transformer has 800 turns in the primary and 8 turns in the secondary. If the primary is connected to 220 V ac, the output voltage is', options: ['2.2 V', '22000 V', '22 V', '0.22 V'], explanation: 'Vs = (Ns ÷ Np) × Vp = (8 ÷ 800) × 220 = 2.2 V. Inverting the ratio gives 22000 V.' },
-    ta: { q: 'ஒரு மின்மாற்றியின் முதன்மைச் சுருளில் 800 சுற்றுகளும் துணைச் சுருளில் 8 சுற்றுகளும் உள்ளன. முதன்மைச் சுருள் 220 V ac-யுடன் இணைக்கப்பட்டால் வெளியீட்டு மின்னழுத்தம்', options: ['2.2 V', '22000 V', '22 V', '0.22 V'], explanation: 'Vs = (Ns ÷ Np) × Vp = (8 ÷ 800) × 220 = 2.2 V. விகிதத்தைத் தலைகீழாக்கினால் தவறாக 22000 V வரும்.' },
+    ta: { q: 'ஒரு மின்மாற்றியின் முதன்மைச் சுருளில் 800 சுற்றுகள் உள்ளன, துணைச் சுருள் 8 சுற்றுகளைக் கொண்டுள்ளது. முதன்மைச் சுருள் 220 V AC மூலத்துடன் இணைக்கப்பட்டால் வெளியீட்டு மின்னழுத்தம்', options: ['2.2 V', '22000 V', '22 V', '0.22 V'], explanation: 'Vs = (Ns ÷ Np) × Vp = (8 ÷ 800) × 220 = 2.2 V. விகிதத்தைத் தலைகீழாக்கினால் தவறாக 22000 V வரும்.' },
   },
   {
     difficulty: 'hard', source: '§5.9, p. 61', answer: 0,
@@ -181,7 +181,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: '§5.3, p. 54', answer: 0,
     en: { q: 'In Oersted\'s set-up, a wire runs north–south with one compass above it and one below. When current flows, the needle above points east. The needle below the wire points', options: ['west', 'east', 'north', 'south'], explanation: 'The magnetic field circles the wire, so it points in opposite directions above and below it: east above, west below.' },
-    ta: { q: 'ஆயர்ஸ்டெட் அமைப்பில் கம்பி வடக்கு–தெற்காக உள்ளது; ஒரு திசைகாட்டி அதற்கு மேலும் மற்றொன்று கீழும் உள்ளன. மின்னோட்டம் பாயும்போது மேலுள்ள ஊசி கிழக்கைக் காட்டுகிறது. கீழுள்ள ஊசி காட்டுவது', options: ['மேற்கு', 'கிழக்கு', 'வடக்கு', 'தெற்கு'], explanation: 'காந்தப்புலம் கம்பியைச் சுற்றி வட்டமாக இருப்பதால் மேலும் கீழும் எதிரெதிர் திசையில் இருக்கும்: மேலே கிழக்கு, கீழே மேற்கு.' },
+    ta: { q: 'அயர்ஸ்டெட் அமைப்பில் கம்பி வடக்கு–தெற்காக உள்ளது; ஒரு திசைகாட்டி அதற்கு மேலும் மற்றொன்று கீழும் உள்ளன. மின்னோட்டம் பாயும்போது மேலுள்ள ஊசி கிழக்கைக் காட்டுகிறது. கீழுள்ள ஊசி காட்டுவது', options: ['மேற்கு', 'கிழக்கு', 'வடக்கு', 'தெற்கு'], explanation: 'காந்தப்புலம் கம்பியைச் சுற்றி வட்டமாக இருப்பதால் மேலும் கீழும் எதிரெதிர் திசையில் இருக்கும்: மேலே கிழக்கு, கீழே மேற்கு.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise IV.4, p. 64', answer: 0,

@@ -37,17 +37,17 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise 2.1 Q1, p. 45', answer: 0, imageUrl: `${IMG}/numberline-ex2-1-q1.png`,
     en: { q: 'Which arrow best shows the position of 11/3 on the number line?', options: ['D', 'C', 'B', 'A'], explanation: '11/3 = 3.67 lies between 3 and 4, closer to 4: arrow D.' },
-    ta: { q: 'எண்கோட்டில் 11/3 இன் நிலையைச் சிறப்பாகக் காட்டும் அம்புக்குறி எது?', options: ['D', 'C', 'B', 'A'], explanation: '11/3 = 3.67; இது 3, 4 க்கு இடையே 4 க்கு அருகில் உள்ளது: அம்புக்குறி D.' },
+    ta: { q: 'எண்கோட்டில் 11/3 ஐ மிகச் சரியாகக் காட்டும் அம்புக்குறி எது?', options: ['D', 'C', 'B', 'A'], explanation: '11/3 = 3.67; இது 3, 4 க்கு இடையே 4 க்கு அருகில் உள்ளது: அம்புக்குறி D.' },
   },
   {
     difficulty: 'easy', source: '§2.3.2, p. 48', answer: 0,
     en: { q: 'The decimal expansion of a rational number is', options: ['either terminating or non-terminating and recurring', 'always terminating', 'non-terminating and non-recurring', 'always non-terminating'], explanation: 'A rational number has a terminating or a non-terminating recurring decimal expansion, and the converse is also true.' },
-    ta: { q: 'ஒரு விகிதமுறு எண்ணின் தசம விரிவு', options: ['முடிவுறு அல்லது முடிவுறாச் சுழல் தசம விரிவு', 'எப்போதும் முடிவுறு தசம விரிவு', 'முடிவுறாச் சுழலற்ற தசம விரிவு', 'எப்போதும் முடிவுறாத் தசம விரிவு'], explanation: 'விகிதமுறு எண்ணின் தசம விரிவு முடிவுறு அல்லது முடிவுறாச் சுழல் தசம விரிவு; மறுதலையும் உண்மை.' },
+    ta: { q: 'ஒரு விகிதமுறு எண்ணின் தசம விரிவு', options: ['முடிவுறு அல்லது முடிவுறாச் சுழல் தசம விரிவு', 'எப்போதும் முடிவுறு தசம விரிவு', 'முடிவுறாச் சுழல் தன்மையற்ற தசம விரிவு', 'எப்போதும் முடிவுறாத் தசம விரிவு'], explanation: 'விகிதமுறு எண்ணின் தசம விரிவு முடிவுறு அல்லது முடிவுறாச் சுழல் தசம விரிவு; மறுதலையும் உண்மை.' },
   },
   {
     difficulty: 'easy', source: '§2.3.6, p. 52', answer: 0,
     en: { q: 'A number with a non-terminating and non-recurring decimal expansion is', options: ['an irrational number', 'a rational number', 'an integer', 'a natural number'], explanation: 'Irrational numbers neither terminate nor repeat when written as decimals.' },
-    ta: { q: 'முடிவுறாச் சுழலற்ற தசம விரிவைக் கொண்ட எண்', options: ['விகிதமுறா எண்', 'விகிதமுறு எண்', 'முழுக்கள்', 'இயல் எண்'], explanation: 'விகிதமுறா எண்களின் தசம விரிவு முடிவுறாது, சுழலாது.' },
+    ta: { q: 'முடிவுறாச் சுழல் தன்மையற்ற தசம விரிவைக் கொண்ட எண்', options: ['விகிதமுறா எண்', 'விகிதமுறு எண்', 'முழுக்கள்', 'இயல் எண்'], explanation: 'விகிதமுறா எண்களைத் தசம வடிவில் எழுதும்போது அவை முடிவுறாமலும், சுழல் தன்மை இல்லாமலும் இருக்கும்.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise 2.2 Q1(iv), p. 51', answer: 0,
@@ -82,7 +82,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise 2.5 Q5, p. 60', answer: 0,
     en: { q: 'The 5th root of 243 is', options: ['3', '5', '9', '81'], explanation: '3⁵ = 243, so ⁵√243 = 3.' },
-    ta: { q: '243 இன் 5 ஆவது மூலம்', options: ['3', '5', '9', '81'], explanation: '3⁵ = 243; எனவே ⁵√243 = 3.' },
+    ta: { q: '243 இன் 5 வது மூலம்', options: ['3', '5', '9', '81'], explanation: '3⁵ = 243; எனவே ⁵√243 = 3.' },
   },
   {
     difficulty: 'easy', source: '§2.6, p. 60', answer: 0,
@@ -112,7 +112,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§2.8.1, p. 71', answer: 0,
     en: { q: 'In scientific notation a number N is written as a × 10ⁿ, where n is an integer and', options: ['1 ≤ a < 10', '0 < a < 1', '1 < a ≤ 10', '0 ≤ a < 100'], explanation: 'Exactly one non-zero digit is kept before the decimal point, so 1 ≤ a < 10.' },
-    ta: { q: 'அறிவியல் குறியீட்டில் N = a × 10ⁿ (n ஒரு முழு) என எழுதும்போது', options: ['1 ≤ a < 10', '0 < a < 1', '1 < a ≤ 10', '0 ≤ a < 100'], explanation: 'தசமப் புள்ளிக்கு இடப்புறம் பூச்சியமற்ற ஓர் இலக்கம் மட்டும் இருக்கும்; எனவே 1 ≤ a < 10.' },
+    ta: { q: 'அறிவியல் குறியீட்டில் ஓர் எண் N ஐ a × 10ⁿ (n ஒரு முழு) என எழுதும்போது a ஆனது', options: ['1 ≤ a < 10', '0 < a < 1', '1 < a ≤ 10', '0 ≤ a < 100'], explanation: 'தசமப் புள்ளிக்கு இடப்புறம் பூச்சியமற்ற ஓர் இலக்கம் மட்டும் இருக்கும்; எனவே 1 ≤ a < 10.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise 2.9 Q2, p. 74', answer: 0,
@@ -188,7 +188,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 2.2 Q2, p. 51', answer: 0,
     en: { q: '1/13 = 0.076923076923… The length of the period of this decimal is', options: ['6', '13', '5', '12'], explanation: 'The repeating block 076923 has 6 digits.' },
-    ta: { q: '1/13 = 0.076923076923… இதில் மீண்டும் வரும் இலக்கத் தொகுதியின் நீளம்', options: ['6', '13', '5', '12'], explanation: 'மீண்டும் வரும் தொகுதி 076923 இல் 6 இலக்கங்கள்.' },
+    ta: { q: '1/13 = 0.076923076923… இந்தத் தசம எண்ணின் காலமுறைமை (மீண்டும் வரும் இலக்கத் தொகுதியின் நீளம்)', options: ['6', '13', '5', '12'], explanation: 'மீண்டும் வரும் தொகுதி 076923 இல் 6 இலக்கங்கள்.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 2.2 Q3, p. 52', answer: 0,
@@ -238,12 +238,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book example 2.6, p. 51', answer: 0,
     en: { q: 'Without actual division, 43/375 has', options: ['a non-terminating recurring decimal expansion', 'a terminating decimal expansion', 'a non-terminating non-recurring expansion', 'an expansion with exactly three decimal places'], explanation: '375 = 3 × 5³ contains the prime 3, so the decimal does not terminate (but recurs, as it is rational).' },
-    ta: { q: 'வகுத்தல் செய்யாமல், 43/375 இன் தசம விரிவு', options: ['முடிவுறாச் சுழல் தசம விரிவு', 'முடிவுறு தசம விரிவு', 'முடிவுறாச் சுழலற்ற விரிவு', 'சரியாக மூன்று தசம இடங்கள் கொண்ட விரிவு'], explanation: '375 = 3 × 5³; இதில் 3 உள்ளதால் தசமம் முடிவுறாது; விகிதமுறு எண் என்பதால் சுழலும்.' },
+    ta: { q: 'வகுத்தல் செய்யாமல், 43/375 இன் தசம விரிவு', options: ['முடிவுறாச் சுழல் தசம விரிவு', 'முடிவுறு தசம விரிவு', 'முடிவுறாச் சுழல் தன்மையற்ற தசம விரிவு', 'சரியாக மூன்று தசம இடங்கள் கொண்ட தசம விரிவு'], explanation: '375 = 3 × 5³; இதில் 3 உள்ளதால் தசமம் முடிவுறாது; விகிதமுறு எண் என்பதால் சுழலும்.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 2.9 Q4, p. 74', answer: 0,
     en: { q: 'Which one of the following has a terminating decimal expansion?', options: ['5/64', '8/9', '14/15', '1/12'], explanation: '64 = 2⁶ has only the prime factor 2; the others have the factor 3.' },
-    ta: { q: 'பின்வருவனவற்றுள் எது முடிவுறு தசமத் தீர்வு?', options: ['5/64', '8/9', '14/15', '1/12'], explanation: '64 = 2⁶; இதில் 2 மட்டும் பகாக் காரணி; மற்றவற்றில் 3 உள்ளது.' },
+    ta: { q: 'பின்வருவனவற்றுள் எது முடிவுறு தசம விரிவைப் பெற்றிருக்கும்?', options: ['5/64', '8/9', '14/15', '1/12'], explanation: '64 = 2⁶; இதில் 2 மட்டும் பகாக் காரணி; மற்றவற்றில் 3 உள்ளது.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 2.9 Q6, p. 75', answer: 0,
@@ -258,7 +258,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 2.9 Q8, p. 75', answer: 0,
     en: { q: 'If 1/7 = 0.142857142857…, then 5/7 is', options: ['0.714285714285…', '0.142857142857…', '0.571428571428…', '0.714285 (terminating)'], explanation: '5/7 = 5 × 0.142857… = 0.714285714285…' },
-    ta: { q: '1/7 = 0.142857142857… எனில் 5/7 இன் மதிப்பு', options: ['0.714285714285…', '0.142857142857…', '0.571428571428…', '0.714285 (முடிவுறு)'], explanation: '5/7 = 5 × 0.142857… = 0.714285714285…' },
+    ta: { q: '1/7 = 0.142857142857… எனில் 5/7 இன் மதிப்பு என்ன?', options: ['0.714285714285…', '0.142857142857…', '0.571428571428…', '0.714285 (முடிவுறு)'], explanation: '5/7 = 5 × 0.142857… = 0.714285714285…' },
   },
   {
     difficulty: 'medium', source: 'Book example 2.9, p. 53', answer: 0,
@@ -278,7 +278,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 2.3 Q3, p. 55', answer: 0,
     en: { q: 'A rational number between 2.2360679… and 2.236505500… is', options: ['2.2362', '2.2360', '2.2366', '2.23606791…'], explanation: '2.2360679… < 2.2362 < 2.2365055…, and 2.2362 terminates.' },
-    ta: { q: '2.2360679…, 2.236505500… க்கு இடையே உள்ள ஒரு விகிதமுறு எண்', options: ['2.2362', '2.2360', '2.2366', '2.23606791…'], explanation: '2.2360679… < 2.2362 < 2.2365055…; 2.2362 முடிவுறு தசமம்.' },
+    ta: { q: '2.2360679…, 2.236505500… இவ்வெண்களுக்கிடையே உள்ள ஒரு விகிதமுறு எண்', options: ['2.2362', '2.2360', '2.2366', '2.23606791…'], explanation: '2.2360679… < 2.2362 < 2.2365055…; 2.2362 முடிவுறு தசமம்.' },
   },
   {
     difficulty: 'medium', source: 'Book example 2.11, p. 54', answer: 0,
@@ -288,12 +288,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 2.4 Q1(ii), p. 57', answer: 0,
     en: { q: '6.444… (4 repeating) correct to 3 decimal places, as used to mark it on the number line, is', options: ['6.444', '6.445', '6.44', '6.4'], explanation: '6.4444… to three places is 6.444 (the next digit 4 does not round up).' },
-    ta: { q: '6.444… (4 சுழல்கிறது) ஐ எண்கோட்டில் குறிக்க மூன்று தசம இடங்கள் வரை திருத்தமாக எழுத', options: ['6.444', '6.445', '6.44', '6.4'], explanation: '6.4444… மூன்று தசம இடங்கள் வரை 6.444.' },
+    ta: { q: '6.444… (4 சுழல்கிறது) ஐ எண்கோட்டில் குறிக்க மூன்று தசம இடத் திருத்தமாக எழுத', options: ['6.444', '6.445', '6.44', '6.4'], explanation: '6.4444… மூன்று தசம இடங்கள் வரை 6.444.' },
   },
   {
     difficulty: 'medium', source: 'Book example 2.14, p. 56', answer: 0,
     en: { q: 'While locating 4.863 on the number line by successive magnification, the final step divides the interval', options: ['from 4.86 to 4.87 into 10 equal parts', 'from 4.8 to 4.9 into 10 equal parts', 'from 4 to 5 into 100 equal parts', 'from 4.863 to 4.864 into 10 equal parts'], explanation: '4.863 lies between 4.86 and 4.87; it is the third mark to the right of 4.86.' },
-    ta: { q: 'தொடர் உருப்பெருக்கம் மூலம் 4.863 ஐ எண்கோட்டில் குறிக்கும்போது கடைசிப் படியில் பிரிக்கப்படும் இடைவெளி', options: ['4.86 முதல் 4.87 வரை 10 சம பாகங்கள்', '4.8 முதல் 4.9 வரை 10 சம பாகங்கள்', '4 முதல் 5 வரை 100 சம பாகங்கள்', '4.863 முதல் 4.864 வரை 10 சம பாகங்கள்'], explanation: '4.863 ஆனது 4.86, 4.87 க்கு இடையே உள்ளது; 4.86 இலிருந்து வலப்புறம் மூன்றாவது குறி.' },
+    ta: { q: 'தொடர் உருப்பெருக்க முறையில் 4.863 ஐ எண்கோட்டில் குறிக்கும்போது கடைசிப் படியில் 10 சம பாகங்களாகப் பிரிக்கப்படும் பகுதி', options: ['4.86 முதல் 4.87 வரை உள்ள பகுதி, 10 சம பாகங்களாக', '4.8 முதல் 4.9 வரை உள்ள பகுதி, 10 சம பாகங்களாக', '4 முதல் 5 வரை உள்ள பகுதி, 100 சம பாகங்களாக', '4.863 முதல் 4.864 வரை உள்ள பகுதி, 10 சம பாகங்களாக'], explanation: '4.863 ஆனது 4.86, 4.87 க்கு இடையே உள்ளது; 4.86 இலிருந்து வலப்புறம் மூன்றாவது குறி.' },
   },
   {
     difficulty: 'medium', source: 'Book example 2.16, p. 59', answer: 0,
@@ -333,7 +333,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 2.5 Q5(iv), p. 60', answer: 0,
     en: { q: 'The 5th root of 1024/3125 is', options: ['4/5', '2/5', '4/25', '5/4'], explanation: '1024 = 4⁵ and 3125 = 5⁵, so the 5th root is 4/5.' },
-    ta: { q: '1024/3125 இன் 5 ஆவது மூலம்', options: ['4/5', '2/5', '4/25', '5/4'], explanation: '1024 = 4⁵, 3125 = 5⁵; எனவே 5 ஆவது மூலம் 4/5.' },
+    ta: { q: '1024/3125 இன் 5 வது மூலம்', options: ['4/5', '2/5', '4/25', '5/4'], explanation: '1024 = 4⁵, 3125 = 5⁵; எனவே 5 வது மூலம் 4/5.' },
   },
   {
     difficulty: 'medium', source: 'Book example 2.19, p. 62', answer: 0,
@@ -443,7 +443,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 2.8 Q4, p. 74', answer: 0,
     en: { q: 'One light year is 9460528400000000 km. In scientific notation this is', options: ['9.4605284 × 10¹⁵ km', '9.4605284 × 10¹⁶ km', '94.605284 × 10¹⁴ km', '9.4605284 × 10¹⁴ km'], explanation: 'The decimal point moves 15 places to the left.' },
-    ta: { q: 'ஓர் ஒளி ஆண்டு = 9460528400000000 கி.மீ. இதன் அறிவியல் குறியீடு', options: ['9.4605284 × 10¹⁵ கி.மீ', '9.4605284 × 10¹⁶ கி.மீ', '94.605284 × 10¹⁴ கி.மீ', '9.4605284 × 10¹⁴ கி.மீ'], explanation: 'தசமப் புள்ளி 15 இடங்கள் இடப்புறம் நகர்கிறது.' },
+    ta: { q: 'ஓர் ஒளி ஆண்டு என்பது 9460528400000000 கி.மீ. தூரத்தைக் குறிக்கிறது. இதன் அறிவியல் குறியீடு', options: ['9.4605284 × 10¹⁵ கி.மீ', '9.4605284 × 10¹⁶ கி.மீ', '94.605284 × 10¹⁴ கி.மீ', '9.4605284 × 10¹⁴ கி.மீ'], explanation: 'தசமப் புள்ளி 15 இடங்கள் இடப்புறம் நகர்கிறது.' },
   },
   {
     difficulty: 'medium', source: 'Book example 2.30, p. 72', answer: 0,
@@ -463,7 +463,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 2.9 Q20, p. 76', answer: 0,
     en: { q: 'The length and breadth of a rectangular plot are 5 × 10⁵ m and 4 × 10⁴ m. Its area is', options: ['2 × 10¹⁰ m²', '9 × 10⁹ m²', '9 × 10¹ m²', '20 × 10²⁰ m²'], explanation: '5 × 4 = 20 and 10⁵ × 10⁴ = 10⁹: 20 × 10⁹ = 2 × 10¹⁰ m².' },
-    ta: { q: 'ஒரு செவ்வக வடிவ மனையின் நீளம், அகலம் முறையே 5 × 10⁵ மீ, 4 × 10⁴ மீ எனில் அதன் பரப்பளவு', options: ['2 × 10¹⁰ மீ²', '9 × 10⁹ மீ²', '9 × 10¹ மீ²', '20 × 10²⁰ மீ²'], explanation: '5 × 4 = 20; 10⁵ × 10⁴ = 10⁹; 20 × 10⁹ = 2 × 10¹⁰ மீ².' },
+    ta: { q: 'ஒரு செவ்வக வடிவ வீட்டு மனையின் நீளம் மற்றும் அகலங்கள் முறையே 5 × 10⁵ மீ, 4 × 10⁴ மீ எனில் அதன் பரப்பளவு', options: ['2 × 10¹⁰ மீ²', '9 × 10⁹ மீ²', '9 × 10¹ மீ²', '20 × 10²⁰ மீ²'], explanation: '5 × 4 = 20; 10⁵ × 10⁴ = 10⁹; 20 × 10⁹ = 2 × 10¹⁰ மீ².' },
   },
   // ------------------------------------------------------------------ Hard
   {
@@ -474,7 +474,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise 2.9 Q3, p. 74', answer: 0,
     en: { q: 'Which statement about the sum of two irrational numbers is true?', options: ['It may be rational or irrational.', 'It is always irrational.', 'It is always rational.', 'It is always an integer.'], explanation: '(2 + √3) + (2 − √3) = 4 is rational, while √2 + √3 is irrational.' },
-    ta: { q: 'இரு விகிதமுறா எண்களின் கூடுதல் பற்றிய கூற்றுகளில் எது உண்மை?', options: ['ஒரு விகிதமுறு அல்லது விகிதமுறா எண்ணாக இருக்கலாம்.', 'எப்போதும் ஒரு விகிதமுறா எண்.', 'எப்போதும் ஒரு விகிதமுறு எண்.', 'எப்போதும் ஒரு முழுக்களாகும்.'], explanation: '(2 + √3) + (2 − √3) = 4 விகிதமுறு; √2 + √3 விகிதமுறா.' },
+    ta: { q: 'இரு விகிதமுறா எண்களின் கூடுதல் பற்றிய கீழ்க்காணும் கூற்றுகளில் எது உண்மை?', options: ['ஒரு விகிதமுறு அல்லது விகிதமுறா எண்ணாக இருக்கலாம்.', 'எப்போதும் ஒரு விகிதமுறா எண்.', 'எப்போதும் ஒரு விகிதமுறு எண்.', 'எப்போதும் ஒரு முழுக்களாகும்.'], explanation: '(2 + √3) + (2 − √3) = 4 விகிதமுறு; √2 + √3 விகிதமுறா.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 2.9 Q9, p. 75', answer: 0,
@@ -544,17 +544,17 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise 2.6 Q3(i), p. 68', answer: 0,
     en: { q: 'Given √5 = 2.236 and √10 = 3.162, the value of √40 − √20 correct to 3 decimal places is', options: ['1.852', '4.472', '2.000', '0.926'], explanation: '√40 − √20 = 2√10 − 2√5 = 6.324 − 4.472 = 1.852.' },
-    ta: { q: '√5 = 2.236, √10 = 3.162 எனில் √40 − √20 இன் மதிப்பு (3 தசம இடங்கள்)', options: ['1.852', '4.472', '2.000', '0.926'], explanation: '√40 − √20 = 2√10 − 2√5 = 6.324 − 4.472 = 1.852.' },
+    ta: { q: '√5 = 2.236, √10 = 3.162 எனில் √40 − √20 இன் மதிப்பை மூன்று தசம இடத் திருத்தமாகக் காண்க.', options: ['1.852', '4.472', '2.000', '0.926'], explanation: '√40 − √20 = 2√10 − 2√5 = 6.324 − 4.472 = 1.852.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 2.6 Q3(ii), p. 68', answer: 0,
     en: { q: 'Given √2 = 1.414, √3 = 1.732 and √10 = 3.162, the value of √300 + √90 − √8 correct to 3 decimal places is', options: ['23.978', '26.806', '20.492', '24.392'], explanation: '10√3 + 3√10 − 2√2 = 17.320 + 9.486 − 2.828 = 23.978.' },
-    ta: { q: '√2 = 1.414, √3 = 1.732, √10 = 3.162 எனில் √300 + √90 − √8 இன் மதிப்பு (3 தசம இடங்கள்)', options: ['23.978', '26.806', '20.492', '24.392'], explanation: '10√3 + 3√10 − 2√2 = 17.320 + 9.486 − 2.828 = 23.978.' },
+    ta: { q: '√2 = 1.414, √3 = 1.732, √10 = 3.162 எனில் √300 + √90 − √8 இன் மதிப்பை மூன்று தசம இடத் திருத்தமாகக் காண்க.', options: ['23.978', '26.806', '20.492', '24.392'], explanation: '10√3 + 3√10 − 2√2 = 17.320 + 9.486 − 2.828 = 23.978.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 2.7 Q2(ii), p. 70', answer: 0,
     en: { q: 'Rationalising and simplifying (5√3 + √2)/(√3 + √2) gives', options: ['13 − 4√6', '13 + 4√6', '17 − 4√6', '(13 − 4√6)/5'], explanation: 'Multiply by (√3 − √2): numerator 15 − 5√6 + √6 − 2 = 13 − 4√6; denominator 3 − 2 = 1.' },
-    ta: { q: '(5√3 + √2)/(√3 + √2) ஐ விகிதப்படுத்திச் சுருக்க', options: ['13 − 4√6', '13 + 4√6', '17 − 4√6', '(13 − 4√6)/5'], explanation: '(√3 − √2) ஆல் பெருக்க: தொகுதி 13 − 4√6; பகுதி 3 − 2 = 1.' },
+    ta: { q: '(5√3 + √2)/(√3 + √2) இன் பகுதியை விகிதப்படுத்திச் சுருக்க', options: ['13 − 4√6', '13 + 4√6', '17 − 4√6', '(13 − 4√6)/5'], explanation: '(√3 − √2) ஆல் பெருக்க: தொகுதி 13 − 4√6; பகுதி 3 − 2 = 1.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 2.7 Q2(iv), p. 70', answer: 0,
@@ -564,7 +564,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise 2.7 Q2(i), p. 70', answer: 0,
     en: { q: 'Rationalising and simplifying (√48 + √32)/(√27 − √18) gives', options: ['4(5 + 2√6)/3', '4(5 − 2√6)/3', '(5 + 2√6)/3', '4(5 + 2√6)'], explanation: '(4√3 + 4√2)/(3√3 − 3√2) = (4/3)(√3 + √2)/(√3 − √2) = (4/3)(5 + 2√6).' },
-    ta: { q: '(√48 + √32)/(√27 − √18) ஐ விகிதப்படுத்திச் சுருக்க', options: ['4(5 + 2√6)/3', '4(5 − 2√6)/3', '(5 + 2√6)/3', '4(5 + 2√6)'], explanation: '(4/3)(√3 + √2)/(√3 − √2) = (4/3)(5 + 2√6).' },
+    ta: { q: '(√48 + √32)/(√27 − √18) இன் பகுதியை விகிதப்படுத்திச் சுருக்க', options: ['4(5 + 2√6)/3', '4(5 − 2√6)/3', '(5 + 2√6)/3', '4(5 + 2√6)'], explanation: '(4/3)(√3 + √2)/(√3 − √2) = (4/3)(5 + 2√6).' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 2.7 Q3, p. 70', answer: 0,
@@ -579,7 +579,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise 2.7 Q5, p. 70', answer: 0,
     en: { q: 'Given √2 = 1.414, the value of (8 − 5√2)/(3 − 2√2) to 3 decimal places is', options: ['5.414', '2.586', '4.414', '1.172'], explanation: 'Multiply by (3 + 2√2): (24 + 16√2 − 15√2 − 20)/1 = 4 + √2 = 5.414.' },
-    ta: { q: '√2 = 1.414 எனில் (8 − 5√2)/(3 − 2√2) இன் மதிப்பு (3 தசம இடங்கள்)', options: ['5.414', '2.586', '4.414', '1.172'], explanation: '(3 + 2√2) ஆல் பெருக்க: 4 + √2 = 5.414.' },
+    ta: { q: '√2 = 1.414 எனில் (8 − 5√2)/(3 − 2√2) இன் மதிப்பை 3 தசம இடத் திருத்தமாகக் காண்க.', options: ['5.414', '2.586', '4.414', '1.172'], explanation: '(3 + 2√2) ஆல் பெருக்க: 4 + √2 = 5.414.' },
   },
   {
     difficulty: 'hard', source: 'Book example 2.27(ii), p. 69', answer: 0,
@@ -617,9 +617,9 @@ export const QUESTIONS: BankQuestion[] = [
     ta: { q: 'a பூச்சியமற்ற விகிதமுறு எண், b விகிதமுறா எண் எனில் எப்போதும் விகிதமுறா எண்ணாக இருப்பது', options: ['a + b', 'b − b', 'b × b', 'b ÷ b'], explanation: 'விகிதமுறு + விகிதமுறா எப்போதும் விகிதமுறா; b − b = 0, b ÷ b = 1, √2 × √2 = 2 விகிதமுறு ஆகலாம்.' },
   },
   {
-    difficulty: 'hard', source: '§2.6, p. 60', answer: 2,
+    difficulty: 'hard', source: '§2.6, p. 60', answer: 3,
     en: { q: 'Assertion (A): π is a surd.\nReason (R): π is an irrational number.', options: AR_EN, explanation: 'π is irrational, but it is not a root of any equation with rational coefficients, so it is not a surd: A is false, R is true.' },
-    ta: { q: 'கூற்று: π ஒரு முறுடு.\nகாரணம்: π ஒரு விகிதமுறா எண்.', options: AR_TA, explanation: 'π விகிதமுறா எண்; ஆனால் விகிதமுறு கெழுக்கள் கொண்ட எந்தச் சமன்பாட்டின் மூலமும் அல்ல; எனவே முறுடு அல்ல.' },
+    ta: { q: 'கூற்று: π ஒரு முறுடு.\nகாரணம்: π ஒரு விகிதமுறா எண்.', options: AR_TA, explanation: 'π விகிதமுறா எண்; ஆனால் விகிதமுறு கெழுக்கள் கொண்ட எந்தச் சமன்பாட்டின் மூலமும் அல்ல; எனவே முறுடு அல்ல: கூற்று தவறு, காரணம் சரி.' },
   },
   {
     difficulty: 'hard', source: '§2.3.5, p. 51', answer: 0,

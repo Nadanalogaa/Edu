@@ -43,37 +43,37 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book progress check (ii), p. 147', answer: 0,
     en: { q: 'A quadrilateral is a _____ if a pair of opposite sides are equal and parallel.', options: ['parallelogram', 'kite', 'trapezium', 'cyclic quadrilateral'], explanation: 'If one pair of opposite sides is both equal and parallel, the quadrilateral is a parallelogram.' },
-    ta: { q: 'ஒரு சோடி எதிர்ப் பக்கங்கள் சமமாகவும் இணையாகவும் உள்ள நாற்கரம் ஒரு _____', options: ['இணைகரம்', 'பட்டம்', 'சரிவகம்', 'வட்ட நாற்கரம்'], explanation: 'ஒரு சோடி எதிர்ப் பக்கங்கள் சமமாகவும் இணையாகவும் இருந்தால் அந்த நாற்கரம் இணைகரம் ஆகும்.' },
+    ta: { q: 'ஒரு சோடி எதிர்ப்பக்கங்கள் சமமாகவும், இணையாகவும் உள்ள நாற்கரம் _____', options: ['இணைகரம்', 'பட்டம்', 'சரிவகம்', 'வட்ட நாற்கரம்'], explanation: 'ஒரு சோடி எதிர்ப் பக்கங்கள் சமமாகவும் இணையாகவும் இருந்தால் அந்த நாற்கரம் இணைகரம் ஆகும்.' },
   },
   {
     difficulty: 'easy', source: 'Book progress check (iv), p. 147', answer: 0,
     en: { q: 'Which parallelogram is equiangular but not equilateral?', options: ['rectangle', 'rhombus', 'square', 'kite'], explanation: 'A rectangle has all angles equal (90°) but its sides need not all be equal.' },
-    ta: { q: 'சமகோணமுடைய ஆனால் சமபக்கமற்ற இணைகரம் எது?', options: ['செவ்வகம்', 'சாய்சதுரம்', 'சதுரம்', 'பட்டம்'], explanation: 'செவ்வகத்தின் எல்லாக் கோணங்களும் 90°; ஆனால் எல்லாப் பக்கங்களும் சமமாக இருக்க வேண்டியதில்லை.' },
+    ta: { q: 'சம கோணங்களையும் சமமற்ற பக்கங்களையும் கொண்ட இணைகரம் எது?', options: ['செவ்வகம்', 'சாய்சதுரம்', 'சதுரம்', 'பட்டம்'], explanation: 'செவ்வகத்தின் எல்லாக் கோணங்களும் 90°; ஆனால் எல்லாப் பக்கங்களும் சமமாக இருக்க வேண்டியதில்லை.' },
   },
   {
     difficulty: 'easy', source: 'Book progress check (v), p. 147', answer: 0,
     en: { q: 'Which parallelogram is equilateral but not equiangular?', options: ['rhombus', 'rectangle', 'square', 'trapezium'], explanation: 'A rhombus has all sides equal, but its angles need not all be equal.' },
-    ta: { q: 'சமபக்கமுடைய ஆனால் சமகோணமற்ற இணைகரம் எது?', options: ['சாய்சதுரம்', 'செவ்வகம்', 'சதுரம்', 'சரிவகம்'], explanation: 'சாய்சதுரத்தின் எல்லாப் பக்கங்களும் சமம்; ஆனால் எல்லாக் கோணங்களும் சமமாக இருக்க வேண்டியதில்லை.' },
+    ta: { q: 'சம பக்கங்களையும், சமமற்ற கோணங்களையும் கொண்ட இணைகரம் எது?', options: ['சாய்சதுரம்', 'செவ்வகம்', 'சதுரம்', 'சரிவகம்'], explanation: 'சாய்சதுரத்தின் எல்லாப் பக்கங்களும் சமம்; ஆனால் எல்லாக் கோணங்களும் சமமாக இருக்க வேண்டியதில்லை.' },
   },
   {
     difficulty: 'easy', source: 'Book progress check (vii), p. 147', answer: 0,
     en: { q: '_____ is a rectangle, a rhombus and a parallelogram.', options: ['A square', 'A kite', 'A trapezium', 'An isosceles trapezium'], explanation: 'A square is an equilateral and equiangular parallelogram, so it is a rectangle and a rhombus too.' },
-    ta: { q: '_____ ஒரு செவ்வகம், ஒரு சாய்சதுரம் மற்றும் ஓர் இணைகரம் ஆகும்.', options: ['சதுரம்', 'பட்டம்', 'சரிவகம்', 'இருசமபக்கச் சரிவகம்'], explanation: 'சதுரம் சமபக்கமும் சமகோணமும் உடைய இணைகரம்; எனவே அது செவ்வகமும் சாய்சதுரமும் ஆகும்.' },
+    ta: { q: '_____ என்பது ஒரு செவ்வகம், ஒரு சாய்சதுரம் மற்றும் ஓர் இணைகரம் ஆகும்.', options: ['சதுரம்', 'பட்டம்', 'சரிவகம்', 'இருசமபக்கச் சரிவகம்'], explanation: 'சதுரம் சமபக்கமும் சமகோணமும் உடைய இணைகரம்; எனவே அது செவ்வகமும் சாய்சதுரமும் ஆகும்.' },
   },
   {
     difficulty: 'easy', source: '§4.4, p. 159', answer: 0,
     en: { q: 'A chord that passes through the centre of a circle is called a', options: ['diameter', 'radius', 'secant', 'arc'], explanation: 'A diameter is a chord through the centre; it is the longest chord of the circle.' },
-    ta: { q: 'வட்ட மையத்தின் வழியே செல்லும் நாண்', options: ['விட்டம்', 'ஆரம்', 'வெட்டுக்கோடு', 'வில்'], explanation: 'வட்ட மையத்தின் வழியே செல்லும் நாண் விட்டம்; அதுவே வட்டத்தின் மிக நீளமான நாண்.' },
+    ta: { q: 'வட்ட மையத்தின் வழியே செல்லும் நாண்', options: ['விட்டம்', 'ஆரம்', 'வெட்டும்கோடு', 'வில்'], explanation: 'வட்ட மையத்தின் வழியே செல்லும் நாண் விட்டம்; அதுவே வட்டத்தின் மிக நீளமான நாண்.' },
   },
   {
     difficulty: 'easy', source: '§4.4, p. 160', answer: 0,
     en: { q: 'Circles with the same centre but different radii are called', options: ['concentric circles', 'congruent circles', 'intersecting circles', 'circumcircles'], explanation: 'Concentric circles share a centre; examples are an archery target and water ripples.' },
-    ta: { q: 'ஒரே மையமும் வெவ்வேறு ஆரங்களும் கொண்ட வட்டங்கள்', options: ['ஒருமைய வட்டங்கள்', 'சர்வசம வட்டங்கள்', 'வெட்டும் வட்டங்கள்', 'சுற்றுவட்டங்கள்'], explanation: 'ஒரே மையம் கொண்ட வட்டங்கள் ஒருமைய வட்டங்கள்; எ.கா. அம்பெய்தும் இலக்கு, நீர் அலைகள்.' },
+    ta: { q: 'ஒரே மையமும் வெவ்வேறு ஆரங்களும் கொண்ட வட்டங்கள்', options: ['பொது மைய வட்டங்கள்', 'சர்வசம வட்டங்கள்', 'வெட்டும் வட்டங்கள்', 'சுற்றுவட்டங்கள்'], explanation: 'ஒரே மையம் கொண்ட வட்டங்கள் பொது மைய வட்டங்கள்; எ.கா. வில்வித்தை இலக்கு, நீர் அலைகள்.' },
   },
   {
     difficulty: 'easy', source: '§4.4, p. 160', answer: 0,
     en: { q: 'The region enclosed by two radii and an arc of a circle is called a', options: ['sector', 'segment', 'chord', 'secant'], explanation: 'Two radii and the arc between them bound a sector; a chord and an arc bound a segment.' },
-    ta: { q: 'இரு ஆரங்கள் மற்றும் ஒரு வில்லால் அடைபடும் பகுதி', options: ['வட்டக்கோணப்பகுதி', 'வட்டத்துண்டு', 'நாண்', 'வெட்டுக்கோடு'], explanation: 'இரு ஆரங்களும் வில்லும் அடைக்கும் பகுதி வட்டக்கோணப்பகுதி; நாணும் வில்லும் அடைக்கும் பகுதி வட்டத்துண்டு.' },
+    ta: { q: 'இரு ஆரங்கள் மற்றும் ஒரு வில்லால் அடைபடும் பகுதி', options: ['வட்டக்கோணப் பகுதி', 'வட்டத்துண்டு', 'நாண்', 'வெட்டும்கோடு'], explanation: 'இரு ஆரங்களும் வில்லும் அடைக்கும் பகுதி வட்டக்கோணப் பகுதி; நாணும் வில்லும் அடைக்கும் பகுதி வட்டத்துண்டு.' },
   },
   {
     difficulty: 'easy', source: 'Book progress check (true or false), p. 161', answer: 0,
@@ -145,27 +145,27 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 4.1.2, p. 143', answer: 0,
     en: { q: 'The angles of a triangle are in the ratio 1 : 2 : 3. The angles are', options: ['30°, 60°, 90°', '20°, 40°, 60°', '45°, 45°, 90°', '36°, 72°, 108°'], explanation: 'Sum of parts = 6, so one part = 180° ÷ 6 = 30°, giving 30°, 60°, 90°.' },
-    ta: { q: 'ஒரு முக்கோணத்தின் கோணங்கள் 1 : 2 : 3 என்ற விகிதத்தில் உள்ளன. கோணங்கள்', options: ['30°, 60°, 90°', '20°, 40°, 60°', '45°, 45°, 90°', '36°, 72°, 108°'], explanation: 'பகுதிகளின் கூடுதல் 6; ஒரு பகுதி = 180° ÷ 6 = 30°; எனவே 30°, 60°, 90°.' },
+    ta: { q: 'ஒரு முக்கோணத்தின் கோணங்களின் விகிதம் 1 : 2 : 3 எனில், முக்கோணத்தின் ஒவ்வொரு கோண அளவும்', options: ['30°, 60°, 90°', '20°, 40°, 60°', '45°, 45°, 90°', '36°, 72°, 108°'], explanation: 'பகுதிகளின் கூடுதல் 6; ஒரு பகுதி = 180° ÷ 6 = 30°; எனவே 30°, 60°, 90°.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 4.2.1, p. 157', answer: 0,
     en: { q: 'The angles of a quadrilateral are in the ratio 2 : 4 : 5 : 7. The angles are', options: ['40°, 80°, 100°, 140°', '20°, 40°, 50°, 70°', '30°, 60°, 75°, 105°', '36°, 72°, 90°, 162°'], explanation: 'Angle sum of a quadrilateral is 360°; 360° ÷ 18 = 20°, so the angles are 40°, 80°, 100°, 140°.' },
-    ta: { q: 'ஒரு நாற்கரத்தின் கோணங்கள் 2 : 4 : 5 : 7 என்ற விகிதத்தில் உள்ளன. கோணங்கள்', options: ['40°, 80°, 100°, 140°', '20°, 40°, 50°, 70°', '30°, 60°, 75°, 105°', '36°, 72°, 90°, 162°'], explanation: 'நாற்கரத்தின் கோணங்களின் கூடுதல் 360°; 360° ÷ 18 = 20°; எனவே 40°, 80°, 100°, 140°.' },
+    ta: { q: 'ஒரு நாற்கரத்தின் கோணங்களின் விகிதம் 2 : 4 : 5 : 7 எனில், அதன் கோண அளவுகள்', options: ['40°, 80°, 100°, 140°', '20°, 40°, 50°, 70°', '30°, 60°, 75°, 105°', '36°, 72°, 90°, 162°'], explanation: 'நாற்கரத்தின் கோணங்களின் கூடுதல் 360°; 360° ÷ 18 = 20°; எனவே 40°, 80°, 100°, 140°.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 4.2.2, p. 157', answer: 0,
     en: { q: 'In quadrilateral ABCD, ∠A = 72° and ∠C is the supplement of ∠A. The other two angles are (2x − 10)° and (x + 4)°. The value of x is', options: ['62', '58', '72', '54'], explanation: '∠C = 108°, so (2x − 10) + (x + 4) = 360 − 180 = 180, giving 3x = 186 and x = 62 (angles 114° and 66°).' },
-    ta: { q: 'நாற்கரம் ABCD இல் ∠A = 72°; ∠C ஆனது ∠A இன் மிகைநிரப்புக் கோணம். மற்ற இரு கோணங்கள் (2x − 10)° மற்றும் (x + 4)° எனில் x இன் மதிப்பு', options: ['62', '58', '72', '54'], explanation: '∠C = 108°; (2x − 10) + (x + 4) = 360 − 180 = 180; 3x = 186; x = 62 (கோணங்கள் 114°, 66°).' },
+    ta: { q: 'நாற்கரம் ABCD இல் ∠A = 72° மற்றும் ∠C ஆனது ∠A இன் மிகை நிரப்பி. மற்ற இரு கோணங்கள் (2x − 10)° மற்றும் (x + 4)° எனில் x இன் மதிப்பு', options: ['62', '58', '72', '54'], explanation: '∠C = 108°; (2x − 10) + (x + 4) = 360 − 180 = 180; 3x = 186; x = 62 (கோணங்கள் 114°, 66°).' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 4.2.3, p. 157', answer: 0,
     en: { q: 'ABCD is a rectangle whose diagonals AC and BD intersect at O. If ∠OAB = 46°, then ∠OBC is', options: ['44°', '46°', '88°', '134°'], explanation: 'Diagonals of a rectangle are equal and bisect each other, so OA = OB and ∠OBA = 46°; ∠OBC = 90° − 46° = 44°.' },
-    ta: { q: 'செவ்வகம் ABCD இன் மூலைவிட்டங்கள் AC, BD ஆகியவை O இல் வெட்டுகின்றன. ∠OAB = 46° எனில் ∠OBC', options: ['44°', '46°', '88°', '134°'], explanation: 'செவ்வகத்தின் மூலைவிட்டங்கள் சமம்; ஒன்றையொன்று இருசமக் கூறிடும்; OA = OB எனவே ∠OBA = 46°; ∠OBC = 90° − 46° = 44°.' },
+    ta: { q: 'செவ்வகம் ABCD இல் மூலைவிட்டங்கள் AC மற்றும் BD ஆனது O வில் வெட்டிக்கொள்கின்றன. மேலும் ∠OAB = 46° எனில் ∠OBC', options: ['44°', '46°', '88°', '134°'], explanation: 'செவ்வகத்தின் மூலைவிட்டங்கள் சமம்; ஒன்றையொன்று இருசமக் கூறிடும்; OA = OB எனவே ∠OBA = 46°; ∠OBC = 90° − 46° = 44°.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 4.2.4, p. 157', answer: 0,
     en: { q: 'The diagonals of a rhombus are 12 cm and 16 cm. The side of the rhombus is', options: ['10 cm', '14 cm', '20 cm', '28 cm'], explanation: 'Diagonals bisect at right angles: side = √(6² + 8²) = √100 = 10 cm.' },
-    ta: { q: 'ஒரு சாய்சதுரத்தின் மூலைவிட்டங்கள் 12 செமீ மற்றும் 16 செமீ எனில் அதன் பக்க அளவு', options: ['10 செமீ', '14 செமீ', '20 செமீ', '28 செமீ'], explanation: 'மூலைவிட்டங்கள் செங்குத்தாக இருசமக் கூறிடும்: பக்கம் = √(6² + 8²) = √100 = 10 செமீ.' },
+    ta: { q: 'சாய்சதுரத்தின் மூலைவிட்டங்களின் நீளங்கள் 12 செமீ மற்றும் 16 செமீ எனில், சாய்சதுரத்தின் பக்க அளவு', options: ['10 செமீ', '14 செமீ', '20 செமீ', '28 செமீ'], explanation: 'மூலைவிட்டங்கள் செங்குத்தாக இருசமக் கூறிடும்: பக்கம் = √(6² + 8²) = √100 = 10 செமீ.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 4.1.3(vi), p. 144', answer: 0,
@@ -230,12 +230,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 4.3.1, p. 169', answer: 0,
     en: { q: 'The diameter of a circle is 52 cm and one of its chords is 20 cm long. The distance of the chord from the centre is', options: ['24 cm', '26 cm', '16 cm', '48 cm'], explanation: 'Radius = 26 cm, half-chord = 10 cm: distance = √(26² − 10²) = √576 = 24 cm.' },
-    ta: { q: 'ஒரு வட்டத்தின் விட்டம் 52 செமீ; அதன் ஒரு நாணின் நீளம் 20 செமீ எனில் மையத்திலிருந்து நாணின் தூரம்', options: ['24 செமீ', '26 செமீ', '16 செமீ', '48 செமீ'], explanation: 'ஆரம் = 26 செமீ, அரை நாண் = 10 செமீ: தூரம் = √(26² − 10²) = √576 = 24 செமீ.' },
+    ta: { q: 'வட்டத்தின் விட்டம் 52 செமீ மற்றும் ஒரு நாணின் நீளம் 20 செமீ எனில், மையத்திலிருந்து நாணிற்கு உள்ள தூரம்', options: ['24 செமீ', '26 செமீ', '16 செமீ', '48 செமீ'], explanation: 'ஆரம் = 26 செமீ, அரை நாண் = 10 செமீ: தூரம் = √(26² − 10²) = √576 = 24 செமீ.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 4.3.2, p. 169', answer: 0,
     en: { q: 'A chord of length 30 cm is drawn at a distance of 8 cm from the centre of a circle. The radius of the circle is', options: ['17 cm', '15 cm', '22 cm', '34 cm'], explanation: 'r = √(15² + 8²) = √289 = 17 cm.' },
-    ta: { q: 'வட்ட மையத்திலிருந்து 8 செமீ தொலைவில் 30 செமீ நீளமுள்ள நாண் வரையப்பட்டுள்ளது. வட்டத்தின் ஆரம்', options: ['17 செமீ', '15 செமீ', '22 செமீ', '34 செமீ'], explanation: 'r = √(15² + 8²) = √289 = 17 செமீ.' },
+    ta: { q: 'வட்டத்தின் மையத்திலிருந்து 8 செமீ தொலைவில் 30 செமீ நீளமுள்ள நாண் வரையப்பட்டுள்ளது எனில், வட்டத்தின் ஆரம்', options: ['17 செமீ', '15 செமீ', '22 செமீ', '34 செமீ'], explanation: 'r = √(15² + 8²) = √289 = 17 செமீ.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 4.3.4, p. 169', answer: 0,
@@ -250,7 +250,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book progress check 1, p. 164', answer: 0,
     en: { q: 'The radius of a circle is 25 cm and one of its chords is 40 cm long. The distance of the chord from the centre is', options: ['15 cm', '20 cm', '5 cm', '30 cm'], explanation: 'Distance = √(25² − 20²) = √225 = 15 cm.' },
-    ta: { q: 'ஒரு வட்டத்தின் ஆரம் 25 செமீ; அதன் ஒரு நாணின் நீளம் 40 செமீ எனில் மையத்திலிருந்து நாணின் தூரம்', options: ['15 செமீ', '20 செமீ', '5 செமீ', '30 செமீ'], explanation: 'தூரம் = √(25² − 20²) = √225 = 15 செமீ.' },
+    ta: { q: 'வட்டத்தின் ஆரம் 25 செமீ மற்றும் ஒரு நாணின் நீளம் 40 செமீ எனில் வட்டத்தின் மையத்திலிருந்து நாணிற்கு உள்ள தூரம்', options: ['15 செமீ', '20 செமீ', '5 செமீ', '30 செமீ'], explanation: 'தூரம் = √(25² − 20²) = √225 = 15 செமீ.' },
   },
   {
     difficulty: 'medium', source: 'Book example 4.8, p. 168', answer: 0,
@@ -360,7 +360,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: '§4.5.1 Example 4.6, p. 163', answer: 0,
     en: { q: 'In two concentric circles, a chord AB of the outer circle cuts the inner circle at C and D (order A, C, D, B). If AB = 10 cm and CD = 6 cm, then AC is', options: ['2 cm', '4 cm', '3 cm', '8 cm'], explanation: 'The perpendicular from the centre bisects both chords, so AB − CD = 2AC; 10 − 6 = 2AC gives AC = 2 cm.' },
-    ta: { q: 'இரு ஒருமைய வட்டங்களில் வெளி வட்டத்தின் நாண் AB ஆனது உள் வட்டத்தை C, D இல் வெட்டுகிறது (வரிசை A, C, D, B). AB = 10 செமீ, CD = 6 செமீ எனில் AC', options: ['2 செமீ', '4 செமீ', '3 செமீ', '8 செமீ'], explanation: 'மையத்திலிருந்து வரையும் செங்குத்து இரு நாண்களையும் இருசமக் கூறிடுவதால் AB − CD = 2AC; 10 − 6 = 2AC; AC = 2 செமீ.' },
+    ta: { q: 'பொது மைய வட்டங்களில், வெளி வட்டத்தின் நாண் AB ஆனது உள் வட்டத்தை C மற்றும் D இல் சந்திக்கின்றது (வரிசை A, C, D, B). AB = 10 செமீ, CD = 6 செமீ எனில் AC', options: ['2 செமீ', '4 செமீ', '3 செமீ', '8 செமீ'], explanation: 'மையத்திலிருந்து வரையும் செங்குத்து இரு நாண்களையும் இருசமக் கூறிடுவதால் AB − CD = 2AC; 10 − 6 = 2AC; AC = 2 செமீ.' },
   },
 
   {
@@ -487,7 +487,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise 4.4.6, p. 173', answer: 0,
     en: { q: 'The arch of a bridge is part of a circle. It is 2 m high at its highest point and 6 m wide. The radius of the circle containing the arch is', options: ['3.25 m', '3 m', '2.5 m', '4.5 m'], explanation: 'r² = 3² + (r − 2)² gives 4r = 13, so r = 3.25 m.' },
-    ta: { q: 'ஒரு பாலத்தின் வளைவு ஒரு வட்டத்தின் பகுதி. அதன் உச்சி உயரம் 2 மீ, அகலம் 6 மீ எனில் அவ்வட்டத்தின் ஆரம்', options: ['3.25 மீ', '3 மீ', '2.5 மீ', '4.5 மீ'], explanation: 'r² = 3² + (r − 2)²; 4r = 13; r = 3.25 மீ.' },
+    ta: { q: 'ஒரு பாலத்தின் வளைவு ஒரு வட்டத்தின் பகுதி. வளைவின் அகலம் 6 மீ மற்றும் வளைவின் அதிகளவு உயரம் 2 மீ எனில், வளைவை உள்ளடக்கிய வட்டத்தின் ஆரம்', options: ['3.25 மீ', '3 மீ', '2.5 மீ', '4.5 மீ'], explanation: 'r² = 3² + (r − 2)²; 4r = 13; r = 3.25 மீ.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 4.4.8, p. 174', answer: 0,

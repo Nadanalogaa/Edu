@@ -22,17 +22,17 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise 1.1 Q1, p. 5', answer: 0,
     en: { q: 'Which of the following is a set?', options: ['The collection of prime numbers up to 100', 'The collection of rich people in India', 'The collection of good hockey players', 'The collection of beautiful flowers in a garden'], explanation: 'Prime numbers up to 100 are well defined; "rich", "good" and "beautiful" are not, so those collections are not sets.' },
-    ta: { q: 'கீழ்க்காண்பனவற்றில் எது கணம்?', options: ['100 வரையிலான பகா எண்களின் தொகுப்பு', 'இந்தியாவில் உள்ள பணக்காரர்களின் தொகுப்பு', 'சிறந்த ஹாக்கி வீரர்களின் தொகுப்பு', 'தோட்டத்தில் உள்ள அழகான மலர்களின் தொகுப்பு'], explanation: '100 வரையிலான பகா எண்கள் நன்கு வரையறுக்கப்பட்டவை; "பணக்காரர்", "சிறந்த", "அழகான" என்பவை வரையறுக்கப்படாதவை.' },
+    ta: { q: 'கீழ்க்காண்பனவற்றில் எது கணம்?', options: ['1 முதல் 100 வரையுள்ள பகா எண்களின் தொகுப்பு', 'இந்தியாவில் உள்ள செல்வந்தர்களின் தொகுப்பு', 'வளைகோல் பந்தாட்டத்தை நன்றாக விளையாடும் வீரர்களின் தொகுப்பு', 'தோட்டத்தில் உள்ள அழகான மலர்களின் தொகுப்பு'], explanation: '100 வரையுள்ள பகா எண்கள் நன்கு வரையறுக்கப்பட்டவை; "செல்வந்தர்", "நன்றாக விளையாடும்", "அழகான" என்பவை நன்கு வரையறுக்கப்படாதவை; எனவே அத்தொகுப்புகள் கணங்கள் அல்ல.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise 1.1 Q1, p. 5', answer: 0,
     en: { q: 'Which of the following is NOT a set?', options: ['The collection of good hockey players', 'The collection of all rivers in India', 'The collection of prime numbers up to 100', 'The collection of days in a week'], explanation: 'Whether a player is "good" is a matter of opinion, so that collection is not well defined.' },
-    ta: { q: 'கீழ்க்காண்பனவற்றில் எது கணம் அல்ல?', options: ['சிறந்த ஹாக்கி வீரர்களின் தொகுப்பு', 'இந்தியாவில் உள்ள அனைத்து ஆறுகளின் தொகுப்பு', '100 வரையிலான பகா எண்களின் தொகுப்பு', 'ஒரு வாரத்தின் நாட்களின் தொகுப்பு'], explanation: 'ஒரு வீரர் "சிறந்தவர்" என்பது கருத்து வேறுபாட்டிற்கு உரியது; எனவே அத்தொகுப்பு நன்கு வரையறுக்கப்படவில்லை.' },
+    ta: { q: 'கீழ்க்காண்பனவற்றில் எது கணம் அல்ல?', options: ['வளைகோல் பந்தாட்டத்தை நன்றாக விளையாடும் வீரர்களின் தொகுப்பு', 'இந்தியாவில் உள்ள அனைத்து ஆறுகளின் தொகுப்பு', '1 முதல் 100 வரையுள்ள பகா எண்களின் தொகுப்பு', 'ஒரு வாரத்தின் நாட்களின் தொகுப்பு'], explanation: 'ஒரு வீரர் "நன்றாக விளையாடுகிறார்" என்பது ஒவ்வொருவரின் கருத்தைப் பொறுத்தது; எனவே அத்தொகுப்பு நன்கு வரையறுக்கப்படவில்லை.' },
   },
   {
     difficulty: 'easy', source: 'Book example 1.1, p. 3', answer: 0,
     en: { q: 'A = {Ashwin, Murali Vijay, Vijay Shankar, Badrinath}. Then Ganguly _____ A.', options: ['∉', '∈', '⊂', '='], explanation: 'Ganguly is not an element of A, so Ganguly ∉ A.' },
-    ta: { q: 'A = {அஸ்வின், முரளி விஜய், விஜய் சங்கர், பத்ரிநாத்} எனில், கங்குலி _____ A.', options: ['∉', '∈', '⊂', '='], explanation: 'கங்குலி A இன் உறுப்பு அல்ல; எனவே கங்குலி ∉ A.' },
+    ta: { q: 'A = {அஸ்வின், முரளிவிஜய், விஜய்சங்கர், பத்ரிநாத்} எனில், கோடிட்ட இடத்தை நிரப்புக: கங்குலி _____ A.', options: ['∉', '∈', '⊂', '='], explanation: 'கங்குலி A இன் உறுப்பு அல்ல; எனவே கங்குலி ∉ A.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise 1.1 Q3(a), p. 5', answer: 0,
@@ -62,7 +62,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§1.3.3, p. 4', answer: 0,
     en: { q: 'Writing a set by listing all its elements, such as A = {a, e, i, o, u}, is called', options: ['roster form', 'set builder form', 'descriptive form', 'Venn form'], explanation: 'Listing the elements inside braces is the roster (tabular) form.' },
-    ta: { q: 'A = {a, e, i, o, u} என உறுப்புகளைப் பட்டியலிட்டு எழுதும் முறை', options: ['பட்டியல் முறை', 'கணக் கட்டமைப்பு முறை', 'விவரிப்பு முறை', 'வென்பட முறை'], explanation: 'உறுப்புகளை அடைப்புக்குறிக்குள் பட்டியலிடுவது பட்டியல் முறை.' },
+    ta: { q: 'A = {a, e, i, o, u} என உறுப்புகளைப் பட்டியலிட்டு எழுதும் முறை', options: ['பட்டியல் முறை', 'கணக் கட்டமைப்பு முறை', 'விவரித்தல் முறை', 'வென்பட முறை'], explanation: 'உறுப்புகளைக் கண அடைப்புக்குறிக்குள் பட்டியலிடுவது பட்டியல் முறை (அட்டவணை முறை).' },
   },
   {
     difficulty: 'easy', source: '§1.4.1, p. 6', answer: 0,
@@ -77,17 +77,17 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise 1.2 Q4(iv), p. 12', answer: 0,
     en: { q: 'D = the set of all triangles having four sides. D is', options: ['a null set', 'a singleton set', 'an infinite set', 'a universal set'], explanation: 'No triangle has four sides, so D has no element.' },
-    ta: { q: 'D = நான்கு பக்கங்கள் கொண்ட அனைத்து முக்கோணங்களின் கணம். D என்பது', options: ['வெற்றுக் கணம்', 'ஓருறுப்புக் கணம்', 'முடிவுறாக் கணம்', 'அனைத்துக் கணம்'], explanation: 'எந்த முக்கோணத்திற்கும் நான்கு பக்கங்கள் இல்லை; எனவே D இல் உறுப்பு இல்லை.' },
+    ta: { q: 'D = நான்கு பக்கங்களை உடைய முக்கோணங்களின் கணம். D என்பது', options: ['வெற்றுக் கணம்', 'ஓருறுப்புக் கணம்', 'முடிவுறாக் கணம்', 'அனைத்துக் கணம்'], explanation: 'எந்த முக்கோணத்திற்கும் நான்கு பக்கங்கள் இல்லை; எனவே D இல் உறுப்பு இல்லை.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise 1.2 Q2(ii), p. 11', answer: 0,
     en: { q: 'Y = the set of all straight lines passing through a point. Y is', options: ['an infinite set', 'a finite set', 'a null set', 'a singleton set'], explanation: 'Infinitely many lines pass through a point.' },
-    ta: { q: 'Y = ஒரு புள்ளி வழியாகச் செல்லும் அனைத்து நேர்க்கோடுகளின் கணம். Y என்பது', options: ['முடிவுறாக் கணம்', 'முடிவுறு கணம்', 'வெற்றுக் கணம்', 'ஓருறுப்புக் கணம்'], explanation: 'ஒரு புள்ளி வழியே எண்ணற்ற நேர்க்கோடுகள் செல்லும்.' },
+    ta: { q: 'Y = ஒரு புள்ளி வழிச் செல்லும் அனைத்து நேர்க்கோடுகளின் கணம். Y என்பது', options: ['முடிவுறாக் கணம்', 'முடிவுறு கணம்', 'வெற்றுக் கணம்', 'ஓருறுப்புக் கணம்'], explanation: 'ஒரு புள்ளி வழியே எண்ணற்ற நேர்க்கோடுகள் செல்லும்.' },
   },
   {
     difficulty: 'easy', source: '§1.4.4, p. 7', answer: 0,
     en: { q: 'The number of elements in a finite set A is called its', options: ['cardinal number, n(A)', 'power set, P(A)', 'complement, A′', 'universal set, U'], explanation: 'The cardinal number n(A) is the number of elements of A.' },
-    ta: { q: 'முடிவுறு கணம் A இல் உள்ள உறுப்புகளின் எண்ணிக்கை', options: ['ஆதி எண், n(A)', 'அடுக்குக் கணம், P(A)', 'நிரப்பி, A′', 'அனைத்துக் கணம், U'], explanation: 'A இன் உறுப்புகளின் எண்ணிக்கை அதன் ஆதி எண் n(A) ஆகும்.' },
+    ta: { q: 'முடிவுறு கணம் A இல் உள்ள உறுப்புகளின் எண்ணிக்கை அதன் _____ எனப்படும்.', options: ['ஆதி எண், n(A)', 'அடுக்குக் கணம், P(A)', 'நிரப்புக் கணம், A′', 'அனைத்துக் கணம், U'], explanation: 'A இன் உறுப்புகளின் எண்ணிக்கை அதன் ஆதி எண் n(A) ஆகும்.' },
   },
   {
     difficulty: 'easy', source: 'Book example 1.3, p. 7', answer: 0,
@@ -107,7 +107,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise 1.7 Q6, p. 37', answer: 0,
     en: { q: 'Which of the following is correct for the set {a, b}?', options: ['∅ ⊆ {a, b}', '∅ ∈ {a, b}', '{a} ∈ {a, b}', 'a ⊆ {a, b}'], explanation: 'The empty set is a subset of every set; ∅ and {a} are not elements of {a, b}, and a is an element, not a subset.' },
-    ta: { q: 'பின்வருவனவற்றுள் சரியானது எது?', options: ['∅ ⊆ {a, b}', '∅ ∈ {a, b}', '{a} ∈ {a, b}', 'a ⊆ {a, b}'], explanation: 'வெற்றுக் கணம் எல்லாக் கணங்களுக்கும் உட்கணம்; ∅, {a} ஆகியவை {a, b} இன் உறுப்புகள் அல்ல; a ஓர் உறுப்பு, உட்கணம் அல்ல.' },
+    ta: { q: '{a, b} என்ற கணத்திற்குப் பின்வருவனவற்றுள் சரியானது எது?', options: ['∅ ⊆ {a, b}', '∅ ∈ {a, b}', '{a} ∈ {a, b}', 'a ⊆ {a, b}'], explanation: 'வெற்றுக் கணம் எல்லாக் கணங்களுக்கும் உட்கணம்; ∅, {a} ஆகியவை {a, b} இன் உறுப்புகள் அல்ல; a ஓர் உறுப்பு, உட்கணம் அல்ல.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise 1.7 Q7, p. 37', answer: 0,
@@ -127,7 +127,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§1.4.11, p. 11', answer: 0,
     en: { q: 'The set of all subsets of a set A is called the', options: ['power set of A', 'universal set of A', 'complement of A', 'proper subset of A'], explanation: 'The power set P(A) is the set of all subsets of A.' },
-    ta: { q: 'A என்ற கணத்தின் அனைத்து உட்கணங்களையும் கொண்ட கணம்', options: ['A இன் அடுக்குக் கணம்', 'A இன் அனைத்துக் கணம்', 'A இன் நிரப்பி', 'A இன் தகு உட்கணம்'], explanation: 'A இன் அனைத்து உட்கணங்களின் கணம் அடுக்குக் கணம் P(A).' },
+    ta: { q: 'A என்ற கணத்தின் அனைத்து உட்கணங்களையும் கொண்ட கணம்', options: ['A இன் அடுக்குக் கணம்', 'A இன் அனைத்துக் கணம்', 'A இன் நிரப்புக் கணம்', 'A இன் தகு உட்கணம்'], explanation: 'A இன் அனைத்து உட்கணங்களின் கணம் அடுக்குக் கணம் P(A).' },
   },
   {
     difficulty: 'easy', source: '§1.5, p. 13', answer: 0,
@@ -137,7 +137,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§1.7, p. 24', answer: 0,
     en: { q: 'Augustus De Morgan, who formulated the laws for set difference and complementation, was born in', options: ['Madurai, Tamil Nadu', 'Cambridge, England', 'Berlin, Germany', 'Chennai, Tamil Nadu'], explanation: 'De Morgan was born on 27 June 1806 in Madurai; his family moved to England when he was seven months old.' },
-    ta: { q: 'கண வித்தியாசம், நிரப்பிக்கான விதிகளை அமைத்த அகஸ்டஸ் டி மார்கன் பிறந்த இடம்', options: ['மதுரை, தமிழ்நாடு', 'கேம்பிரிட்ஜ், இங்கிலாந்து', 'பெர்லின், ஜெர்மனி', 'சென்னை, தமிழ்நாடு'], explanation: 'டி மார்கன் 1806 ஜூன் 27 அன்று மதுரையில் பிறந்தார்; ஏழு மாதக் குழந்தையாக இருந்தபோது குடும்பம் இங்கிலாந்து சென்றது.' },
+    ta: { q: 'கண வித்தியாசம், கண நிரப்பிக்கான விதிகளை அமைத்த அகஸ்டஸ் டி மார்கன் பிறந்த இடம்', options: ['மதுரை, தமிழ்நாடு', 'கேம்பிரிட்ஜ், இங்கிலாந்து', 'பெர்லின், ஜெர்மனி', 'சென்னை, தமிழ்நாடு'], explanation: 'டி மார்கன் 1806 ஜூன் 27 அன்று மதுரையில் பிறந்தார்; ஏழு மாதக் குழந்தையாக இருந்தபோது குடும்பம் இங்கிலாந்து சென்றது.' },
   },
   {
     difficulty: 'easy', source: 'Book example 1.10, p. 13', answer: 0,
@@ -147,7 +147,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§1.5.1, p. 13', answer: 0,
     en: { q: 'For any set A in a universal set U, (A′)′ is', options: ['A', 'A′', 'U', '∅'], explanation: 'The complement of the complement of A is A itself.' },
-    ta: { q: 'அனைத்துக் கணம் U இல் உள்ள கணம் A க்கு (A′)′ என்பது', options: ['A', 'A′', 'U', '∅'], explanation: 'A இன் நிரப்பியின் நிரப்பி A யே ஆகும்.' },
+    ta: { q: 'அனைத்துக் கணம் U இல் உள்ள கணம் A க்கு (A′)′ என்பது', options: ['A', 'A′', 'U', '∅'], explanation: 'A இன் நிரப்புக் கணத்தின் நிரப்புக் கணம் A யே ஆகும்.' },
   },
   {
     difficulty: 'easy', source: 'Book example 1.11, p. 14', answer: 0,
@@ -157,7 +157,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book example 1.12, p. 15', answer: 0,
     en: { q: 'A = {x : x is an even natural number and 1 < x ≤ 12} and B = {x : x is a multiple of 3, x ∈ ℕ and x ≤ 12}. A ∩ B is', options: ['{6, 12}', '{2, 3, 4, 6, 8, 9, 10, 12}', '{3, 6, 9, 12}', '{6}'], explanation: 'A = {2, 4, 6, 8, 10, 12} and B = {3, 6, 9, 12}; common elements are 6 and 12.' },
-    ta: { q: 'A = {x : x ஓர் இரட்டை இயல் எண், 1 < x ≤ 12}, B = {x : x என்பது 3 இன் மடங்கு, x ∈ ℕ, x ≤ 12} எனில் A ∩ B =', options: ['{6, 12}', '{2, 3, 4, 6, 8, 9, 10, 12}', '{3, 6, 9, 12}', '{6}'], explanation: 'A = {2, 4, 6, 8, 10, 12}, B = {3, 6, 9, 12}; பொதுவானவை 6, 12.' },
+    ta: { q: 'A = {x : x ஓர் இரட்டை இயல் எண் மற்றும் 1 < x ≤ 12}, B = {x : x ஆனது 3 இன் மடங்கு, x ∈ ℕ மற்றும் x ≤ 12} எனில் A ∩ B =', options: ['{6, 12}', '{2, 3, 4, 6, 8, 9, 10, 12}', '{3, 6, 9, 12}', '{6}'], explanation: 'A = {2, 4, 6, 8, 10, 12}, B = {3, 6, 9, 12}; பொதுவானவை 6, 12.' },
   },
   // ---------------------------------------------------------------- Medium
   {
@@ -173,7 +173,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 1.1 Q4(iii), p. 5', answer: 0,
     en: { q: 'C = {x : x is a perfect cube, 27 < x < 216} in roster form is', options: ['{64, 125}', '{27, 64, 125, 216}', '{64, 125, 216}', '{27, 64, 125}'], explanation: 'The perfect cubes strictly between 27 and 216 are 4³ = 64 and 5³ = 125.' },
-    ta: { q: 'C = {x : x ஒரு முழுக் கனம், 27 < x < 216} இன் பட்டியல் முறை', options: ['{64, 125}', '{27, 64, 125, 216}', '{64, 125, 216}', '{27, 64, 125}'], explanation: '27, 216 க்கு இடையே (அவை நீங்கலாக) உள்ள முழுக் கனங்கள் 4³ = 64, 5³ = 125.' },
+    ta: { q: 'C = {x : x என்பது ஒரு முழுக் கன எண் மற்றும் 27 < x < 216} இன் பட்டியல் முறை', options: ['{64, 125}', '{27, 64, 125, 216}', '{64, 125, 216}', '{27, 64, 125}'], explanation: '27, 216 க்கு இடையே (அவை நீங்கலாக) உள்ள முழுக் கன எண்கள் 4³ = 64, 5³ = 125.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 1.1 Q4(iv), p. 5', answer: 0,
@@ -188,12 +188,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 1.1 Q6(ii), p. 6', answer: 0,
     en: { q: 'Q = {7, 11, 13, 17, 19, 23, 29} in descriptive form is', options: ['the set of prime numbers between 5 and 31', 'the set of odd numbers between 5 and 31', 'the set of prime numbers less than 30', 'the set of prime numbers between 7 and 29'], explanation: 'These are exactly the primes greater than 5 and less than 31; "less than 30" would also include 2, 3, 5.' },
-    ta: { q: 'Q = {7, 11, 13, 17, 19, 23, 29} இன் விவரிப்பு முறை', options: ['5 க்கும் 31 க்கும் இடையே உள்ள பகா எண்களின் கணம்', '5 க்கும் 31 க்கும் இடையே உள்ள ஒற்றை எண்களின் கணம்', '30 ஐ விடக் குறைவான பகா எண்களின் கணம்', '7 க்கும் 29 க்கும் இடையே உள்ள பகா எண்களின் கணம்'], explanation: 'இவை 5 ஐ விடப் பெரிய, 31 ஐ விடச் சிறிய பகா எண்கள்; "30 ஐ விடக் குறைவான" எனில் 2, 3, 5 உம் சேரும்.' },
+    ta: { q: 'Q = {7, 11, 13, 17, 19, 23, 29} இன் விவரித்தல் முறை', options: ['5 க்கும் 31 க்கும் இடையே உள்ள பகா எண்களின் கணம்', '5 க்கும் 31 க்கும் இடையே உள்ள ஒற்றை எண்களின் கணம்', '30 ஐ விடக் குறைவான பகா எண்களின் கணம்', '7 க்கும் 29 க்கும் இடையே உள்ள பகா எண்களின் கணம்'], explanation: 'இவை 5 ஐ விடப் பெரிய, 31 ஐ விடச் சிறிய பகா எண்கள்; "30 ஐ விடக் குறைவான" எனில் 2, 3, 5 உம் சேரும்.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 1.1 Q6(i), p. 6', answer: 0,
     en: { q: 'P = {January, June, July} in descriptive form is', options: ['the set of English months beginning with the letter J', 'the set of months with 31 days', 'the set of the first three months of a year', 'the set of months of the summer season'], explanation: 'January, June and July are the English months starting with J.' },
-    ta: { q: 'P = {ஜனவரி, ஜூன், ஜூலை} இன் விவரிப்பு முறை', options: ['J என்ற எழுத்தில் தொடங்கும் ஆங்கில மாதங்களின் கணம்', '31 நாட்கள் கொண்ட மாதங்களின் கணம்', 'ஓர் ஆண்டின் முதல் மூன்று மாதங்களின் கணம்', 'கோடைக்கால மாதங்களின் கணம்'], explanation: 'January, June, July ஆகியவை J இல் தொடங்கும் ஆங்கில மாதங்கள்.' },
+    ta: { q: 'P = {சனவரி, சூன், சூலை} இன் விவரித்தல் முறை', options: ['J என்ற எழுத்தில் தொடங்கும் ஆங்கில மாதங்களின் கணம்', '31 நாட்கள் கொண்ட மாதங்களின் கணம்', 'ஓர் ஆண்டின் முதல் மூன்று மாதங்களின் கணம்', 'கோடைக்கால மாதங்களின் கணம்'], explanation: 'சனவரி (January), சூன் (June), சூலை (July) ஆகியவை J என்ற எழுத்தில் தொடங்கும் ஆங்கில மாதங்கள்.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 1.2 Q1(ii), p. 11', answer: 0,
@@ -213,7 +213,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 1.2 Q1(v), p. 11', answer: 0,
     en: { q: 'S = the set of all leap years between 1882 and 1906. n(S) is', options: ['5', '6', '4', '7'], explanation: 'Leap years: 1884, 1888, 1892, 1896, 1904. 1900 is not a leap year (a century year must be divisible by 400).' },
-    ta: { q: 'S = 1882 க்கும் 1906 க்கும் இடையே உள்ள லீப் ஆண்டுகளின் கணம். n(S) =', options: ['5', '6', '4', '7'], explanation: 'லீப் ஆண்டுகள்: 1884, 1888, 1892, 1896, 1904. 1900 லீப் ஆண்டு அல்ல (நூற்றாண்டு 400 ஆல் வகுபட வேண்டும்).' },
+    ta: { q: 'S = 1882 க்கும் 1906 க்கும் இடையே உள்ள அனைத்து நெட்டாண்டுகளின் (leap year) கணம். n(S) =', options: ['5', '6', '4', '7'], explanation: 'நெட்டாண்டுகள்: 1884, 1888, 1892, 1896, 1904. 1900 நெட்டாண்டு அல்ல (நூற்றாண்டு ஆண்டு 400 ஆல் வகுபட வேண்டும்).' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 1.2 Q2(iii), p. 11', answer: 0,
@@ -238,27 +238,27 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 1.2 Q3(iv), p. 12', answer: 0,
     en: { q: 'G = {x : x is a prime number and 3 < x < 23} and H = {x : x is a divisor of 18}. G and H are', options: ['equivalent sets', 'equal sets', 'unequal and not equivalent', 'disjoint singleton sets'], explanation: 'G = {5, 7, 11, 13, 17, 19} and H = {1, 2, 3, 6, 9, 18}: 6 elements each, but different elements.' },
-    ta: { q: 'G = {x : x ஒரு பகா எண், 3 < x < 23}, H = {x : x என்பது 18 இன் வகுத்தி}. G, H ஆகியவை', options: ['சமான கணங்கள்', 'சம கணங்கள்', 'சமமற்றவை, சமானமும் அல்ல', 'வெட்டும் ஓருறுப்புக் கணங்கள்'], explanation: 'G = {5, 7, 11, 13, 17, 19}, H = {1, 2, 3, 6, 9, 18}: இரண்டிலும் 6 உறுப்புகள், உறுப்புகள் வேறு.' },
+    ta: { q: 'G = {x : x ஒரு பகா எண், 3 < x < 23}, H = {x : x என்பது 18 இன் வகு எண்கள்}. G, H ஆகியவை', options: ['சமான கணங்கள்', 'சம கணங்கள்', 'சமமற்றவை, சமானமும் அல்ல', 'வெட்டாத ஓருறுப்புக் கணங்கள்'], explanation: 'G = {5, 7, 11, 13, 17, 19}, H = {1, 2, 3, 6, 9, 18}: இரண்டிலும் 6 உறுப்புகள், உறுப்புகள் வேறு.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 1.2 Q5(ii), p. 12', answer: 0,
     en: { q: 'C = {x : x is a prime number, x > 2} and D = {x : x is an even prime number}. C and D are', options: ['disjoint', 'overlapping', 'equal', 'equivalent'], explanation: 'D = {2}, and every element of C is greater than 2, so C ∩ D = ∅.' },
-    ta: { q: 'C = {x : x ஒரு பகா எண், x > 2}, D = {x : x ஓர் இரட்டைப் பகா எண்}. C, D ஆகியவை', options: ['வெட்டாக் கணங்கள்', 'வெட்டும் கணங்கள்', 'சம கணங்கள்', 'சமான கணங்கள்'], explanation: 'D = {2}; C இன் எல்லா உறுப்புகளும் 2 ஐ விடப் பெரியவை; எனவே C ∩ D = ∅.' },
+    ta: { q: 'C = {x : x ஒரு பகா எண், x > 2}, D = {x : x ஓர் இரட்டைப்படை பகா எண்}. C, D ஆகியவை', options: ['வெட்டாக் கணங்கள்', 'வெட்டும் கணங்கள்', 'சம கணங்கள்', 'சமான கணங்கள்'], explanation: 'D = {2}; C இன் எல்லா உறுப்புகளும் 2 ஐ விடப் பெரியவை; எனவே C ∩ D = ∅.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 1.2 Q5(iii), p. 12', answer: 0,
     en: { q: 'E = {x : x is a factor of 24} and F = {x : x is a multiple of 3, x < 30}. E and F are', options: ['overlapping', 'disjoint', 'equal', 'equivalent'], explanation: '3, 6, 12 and 24 are common to both, so E ∩ F ≠ ∅.' },
-    ta: { q: 'E = {x : x என்பது 24 இன் காரணி}, F = {x : x என்பது 3 இன் மடங்கு, x < 30}. E, F ஆகியவை', options: ['வெட்டும் கணங்கள்', 'வெட்டாக் கணங்கள்', 'சம கணங்கள்', 'சமான கணங்கள்'], explanation: '3, 6, 12, 24 இரண்டிலும் உள்ளன; எனவே E ∩ F ≠ ∅.' },
+    ta: { q: 'E = {x : x என்பது 24 இன் காரணி}, F = {x : x ஆனது 3 இன் மடங்கு, x < 30}. E, F ஆகியவை', options: ['வெட்டும் கணங்கள்', 'வெட்டாக் கணங்கள்', 'சம கணங்கள்', 'சமான கணங்கள்'], explanation: '3, 6, 12, 24 இரண்டிலும் உள்ளன; எனவே E ∩ F ≠ ∅.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 1.2 Q6, p. 12', answer: 0,
     en: { q: 'S = {square, rectangle, circle, rhombus, triangle}. The subset of shapes which have 4 equal sides is', options: ['{square, rhombus}', '{square, rectangle, rhombus}', '{square}', '{rectangle, rhombus}'], explanation: 'Only a square and a rhombus have all four sides equal; a rectangle need not.' },
-    ta: { q: 'S = {சதுரம், செவ்வகம், வட்டம், சாய்சதுரம், முக்கோணம்}. 4 சம பக்கங்களைக் கொண்ட வடிவங்களின் உட்கணம்', options: ['{சதுரம், சாய்சதுரம்}', '{சதுரம், செவ்வகம், சாய்சதுரம்}', '{சதுரம்}', '{செவ்வகம், சாய்சதுரம்}'], explanation: 'சதுரம், சாய்சதுரம் மட்டுமே நான்கு சம பக்கங்களைக் கொண்டவை; செவ்வகத்திற்கு அவசியமில்லை.' },
+    ta: { q: 'S = {சதுரம், செவ்வகம், வட்டம், சாய்சதுரம், முக்கோணம்}. நான்கு சம பக்கங்களை உடைய வடிவங்களின் உட்கணம்', options: ['{சதுரம், சாய்சதுரம்}', '{சதுரம், செவ்வகம், சாய்சதுரம்}', '{சதுரம்}', '{செவ்வகம், சாய்சதுரம்}'], explanation: 'சதுரம், சாய்சதுரம் மட்டுமே நான்கு சம பக்கங்களைக் கொண்டவை; செவ்வகத்திற்கு அவசியமில்லை.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 1.2 Q6(iii), p. 12', answer: 0,
     en: { q: 'S = {square, rectangle, circle, rhombus, triangle}. The subset of shapes in which the sum of all interior angles is 180° is', options: ['{triangle}', '{square, rectangle}', '{triangle, rhombus}', '{ }'], explanation: 'Only the angles of a triangle add up to 180°; quadrilaterals add up to 360°.' },
-    ta: { q: 'S = {சதுரம், செவ்வகம், வட்டம், சாய்சதுரம், முக்கோணம்}. உட்கோணங்களின் கூடுதல் 180° ஆக உள்ள வடிவங்களின் உட்கணம்', options: ['{முக்கோணம்}', '{சதுரம், செவ்வகம்}', '{முக்கோணம், சாய்சதுரம்}', '{ }'], explanation: 'முக்கோணத்தின் கோணங்களின் கூடுதல் மட்டுமே 180°; நாற்கரங்களுக்கு 360°.' },
+    ta: { q: 'S = {சதுரம், செவ்வகம், வட்டம், சாய்சதுரம், முக்கோணம்}. உட்கோணங்களின் கூடுதல் 180° ஆக உடைய வடிவங்களின் உட்கணம்', options: ['{முக்கோணம்}', '{சதுரம், செவ்வகம்}', '{முக்கோணம், சாய்சதுரம்}', '{ }'], explanation: 'முக்கோணத்தின் கோணங்களின் கூடுதல் மட்டுமே 180°; நாற்கரங்களுக்கு 360°.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 1.2 Q7, p. 12', answer: 0,
@@ -323,7 +323,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 1.7 Q12, p. 37', answer: 0,
     en: { q: 'In a class of 50 boys, 35 play Carrom and 20 play Chess (every boy plays at least one). The number of boys who play both games is', options: ['5', '15', '30', '10'], explanation: 'n(C ∩ Ch) = 35 + 20 − 50 = 5.' },
-    ta: { q: '50 மாணவர்கள் உள்ள வகுப்பில் 35 பேர் சுண்டாட்டம், 20 பேர் சதுரங்கம் விளையாடுகின்றனர் (ஒவ்வொருவரும் குறைந்தது ஒன்று). இரண்டையும் விளையாடுபவர்களின் எண்ணிக்கை', options: ['5', '15', '30', '10'], explanation: '35 + 20 − 50 = 5.' },
+    ta: { q: 'ஒரு வகுப்பில் உள்ள 50 மாணவர்களில் 35 பேர் சுண்டாட்டம் (carrom) விளையாடுபவர்கள் மற்றும் 20 பேர் சதுரங்கம் விளையாடுபவர்கள் (ஒவ்வொருவரும் குறைந்தது ஒன்றை விளையாடுகின்றனர்) எனில், இந்த இரண்டு விளையாட்டையும் விளையாடுபவர்களின் எண்ணிக்கை', options: ['5', '15', '30', '10'], explanation: 'இரண்டையும் விளையாடுபவர்கள் = 35 + 20 − 50 = 5.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 1.7 Q13, p. 37', answer: 0,
@@ -468,12 +468,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book example 1.30, p. 30', answer: 0,
     en: { q: 'In a school every student plays hockey or cricket or both: 300 play hockey, 250 play cricket and 110 play both. The number who play only hockey is', options: ['190', '140', '300', '410'], explanation: 'n(H − C) = n(H) − n(H ∩ C) = 300 − 110 = 190.' },
-    ta: { q: 'ஒரு பள்ளியில் ஒவ்வொரு மாணவரும் ஹாக்கி அல்லது கிரிக்கெட் அல்லது இரண்டையும் விளையாடுகின்றனர்: ஹாக்கி 300, கிரிக்கெட் 250, இரண்டும் 110. ஹாக்கி மட்டும் விளையாடுபவர்கள்', options: ['190', '140', '300', '410'], explanation: 'n(H − C) = 300 − 110 = 190.' },
+    ta: { q: 'ஒரு பள்ளியில் எல்லா மாணவர்களும் வளைகோல்பந்தாட்டம் அல்லது மட்டைப் பந்து அல்லது இரண்டும் விளையாடுகிறார்கள்: 300 மாணவர்கள் வளைகோல்பந்தாட்டம், 250 மாணவர்கள் மட்டைப் பந்து, 110 மாணவர்கள் இரண்டையும் விளையாடுகிறார்கள். வளைகோல்பந்தாட்டம் மட்டும் விளையாடுபவர்களின் எண்ணிக்கை', options: ['190', '140', '300', '410'], explanation: 'n(H − C) = 300 − 110 = 190.' },
   },
   {
     difficulty: 'medium', source: 'Book example 1.31, p. 31', answer: 0,
     en: { q: 'In a party of 60 people, 35 had vanilla ice cream and 30 had chocolate ice cream; everyone had at least one. How many had only vanilla?', options: ['30', '35', '25', '5'], explanation: 'Both = 35 + 30 − 60 = 5, so only vanilla = 35 − 5 = 30.' },
-    ta: { q: '60 பேர் கொண்ட விருந்தில் 35 பேர் வெண்ணிலா, 30 பேர் சாக்லேட் பனிக்கூழ் உண்டனர்; ஒவ்வொருவரும் குறைந்தது ஒன்றை உண்டனர். வெண்ணிலா மட்டும் உண்டவர்கள்', options: ['30', '35', '25', '5'], explanation: 'இரண்டும் = 35 + 30 − 60 = 5; வெண்ணிலா மட்டும் = 35 − 5 = 30.' },
+    ta: { q: '60 பேர் கொண்ட விருந்தில் 35 பேர் வெண்ணிலா பனிக்கூழ், 30 பேர் சாக்லேட் பனிக்கூழ் எடுத்துக்கொண்டனர்; ஒவ்வொருவரும் குறைந்தது ஒன்றை எடுத்துக்கொண்டனர். வெண்ணிலா பனிக்கூழ் மட்டும் எடுத்துக்கொண்டவர்கள் எத்தனை பேர்?', options: ['30', '35', '25', '5'], explanation: 'இரண்டும் = 35 + 30 − 60 = 5; வெண்ணிலா மட்டும் = 35 − 5 = 30.' },
   },
   {
     difficulty: 'medium', source: '§1.8, p. 29', answer: 0,
@@ -494,72 +494,72 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise 1.6 Q6, p. 35', answer: 0,
     en: { q: 'In an examination, 50% of the students passed in Mathematics and 70% passed in Science, while 10% failed in both. If 300 students passed in both subjects, the total number of students is', options: ['1000', '600', '3000', '1200'], explanation: 'Passed in at least one = 90%, so both = 50% + 70% − 90% = 30%. 30% of N = 300 gives N = 1000.' },
-    ta: { q: 'ஒரு தேர்வில் 50% மாணவர்கள் கணிதத்திலும் 70% மாணவர்கள் அறிவியலிலும் தேர்ச்சி பெற்றனர்; 10% இரண்டிலும் தேர்ச்சி பெறவில்லை. 300 மாணவர்கள் இரண்டிலும் தேர்ச்சி எனில் மொத்த மாணவர்கள்', options: ['1000', '600', '3000', '1200'], explanation: 'குறைந்தது ஒன்றில் தேர்ச்சி = 90%; இரண்டிலும் = 50% + 70% − 90% = 30%. N இன் 30% = 300 எனவே N = 1000.' },
+    ta: { q: 'ஒரு தேர்வில் கணிதத்தில் 50% மாணவர்கள், அறிவியலில் 70% மாணவர்கள் தேர்ச்சி பெற்றனர்; 10% இரண்டிலும் தேர்ச்சி பெறாதோர். 300 மாணவர்கள் இரு பாடங்களிலும் தேர்ச்சி பெற்றுள்ளனர் எனில், தேர்வெழுதிய மாணவர்களின் மொத்த எண்ணிக்கை', options: ['1000', '600', '3000', '1200'], explanation: 'குறைந்தது ஒன்றில் தேர்ச்சி = 90%; இரண்டிலும் = 50% + 70% − 90% = 30%. N இன் 30% = 300 எனவே N = 1000.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 1.6 Q7, p. 35', answer: 0,
     en: { q: 'A and B are two sets with n(A − B) = 32 + x, n(B − A) = 5x and n(A ∩ B) = x. If n(A) = n(B), then x is', options: ['8', '4', '16', '32'], explanation: 'n(A) = 32 + 2x and n(B) = 6x. 32 + 2x = 6x gives x = 8.' },
-    ta: { q: 'A, B என்ற கணங்களுக்கு n(A − B) = 32 + x, n(B − A) = 5x, n(A ∩ B) = x. n(A) = n(B) எனில் x =', options: ['8', '4', '16', '32'], explanation: 'n(A) = 32 + 2x, n(B) = 6x. 32 + 2x = 6x எனவே x = 8.' },
+    ta: { q: 'A, B ஆகிய இரு கணங்கள் n(A − B) = 32 + x, n(B − A) = 5x, n(A ∩ B) = x என அமைகின்றன. n(A) = n(B) எனில் x =', options: ['8', '4', '16', '32'], explanation: 'n(A) = 32 + 2x, n(B) = 6x. 32 + 2x = 6x எனவே x = 8.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 1.6 Q8, p. 35', answer: 0,
     en: { q: 'Out of 500 car owners investigated, 400 owned car A, 200 owned car B and 50 owned both. This data is', options: ['not correct, because it gives 550 owners, more than 500', 'correct, because 400 + 200 − 50 = 550 ≤ 600', 'correct, because 50 < 200', 'not correct, because 400 + 200 = 600 owners own both'], explanation: 'n(A ∪ B) = 400 + 200 − 50 = 550, which is more than the 500 people surveyed.' },
-    ta: { q: '500 மகிழுந்து உரிமையாளர்களைப் பற்றிய ஆய்வில் 400 பேர் மகிழுந்து A, 200 பேர் மகிழுந்து B, 50 பேர் இரண்டையும் வைத்துள்ளனர். இத்தகவல்', options: ['சரியல்ல; இது 500 ஐ விட அதிகமான 550 உரிமையாளர்களைத் தருகிறது', 'சரி; ஏனெனில் 400 + 200 − 50 = 550 ≤ 600', 'சரி; ஏனெனில் 50 < 200', 'சரியல்ல; ஏனெனில் 400 + 200 = 600 பேர் இரண்டையும் வைத்துள்ளனர்'], explanation: 'n(A ∪ B) = 400 + 200 − 50 = 550; இது ஆய்வு செய்யப்பட்ட 500 ஐ விட அதிகம்.' },
+    ta: { q: '500 மகிழுந்து உரிமையாளர்களைப் பற்றிய ஆய்வில் 400 பேர் மகிழுந்து A ஐயும், 200 பேர் மகிழுந்து B ஐயும், 50 பேர் இரு வகையான மகிழுந்துகளையும் வைத்துள்ளனர். இத்தகவல்', options: ['சரியல்ல; இது 500 ஐ விட அதிகமான 550 உரிமையாளர்களைத் தருகிறது', 'சரி; ஏனெனில் 400 + 200 − 50 = 550 ≤ 600', 'சரி; ஏனெனில் 50 < 200', 'சரியல்ல; ஏனெனில் 400 + 200 = 600 பேர் இரண்டையும் வைத்துள்ளனர்'], explanation: 'n(A ∪ B) = 400 + 200 − 50 = 550; இது ஆய்வு செய்யப்பட்ட 500 ஐ விட அதிகம்.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 1.6 Q9, p. 35', answer: 0,
     en: { q: 'In a colony, 275 families buy a Tamil newspaper, 150 English, 45 Hindi; 125 buy Tamil and English, 17 English and Hindi, 5 Tamil and Hindi and 3 buy all three. Every family buys at least one. The total number of families is', options: ['326', '470', '323', '332'], explanation: 'n = 275 + 150 + 45 − 125 − 17 − 5 + 3 = 326.' },
-    ta: { q: 'ஒரு குடியிருப்பில் 275 குடும்பங்கள் தமிழ், 150 ஆங்கிலம், 45 இந்தி செய்தித்தாள் வாங்குகின்றன; 125 தமிழ், ஆங்கிலம்; 17 ஆங்கிலம், இந்தி; 5 தமிழ், இந்தி; 3 மூன்றையும் வாங்குகின்றன. ஒவ்வொன்றும் குறைந்தது ஒன்று வாங்கினால் மொத்தக் குடும்பங்கள்', options: ['326', '470', '323', '332'], explanation: '275 + 150 + 45 − 125 − 17 − 5 + 3 = 326.' },
+    ta: { q: 'ஒரு குடியிருப்பில் 275 குடும்பங்கள் தமிழ்ச் செய்தித்தாளும், 150 குடும்பங்கள் ஆங்கிலச் செய்தித்தாளும், 45 குடும்பங்கள் இந்தி செய்தித்தாளும் வாங்குகின்றன; 125 குடும்பங்கள் தமிழ், ஆங்கிலம்; 17 ஆங்கிலம், இந்தி; 5 தமிழ், இந்தி; 3 மூன்று செய்தித்தாள்களையும் வாங்குகின்றன. ஒவ்வொரு குடும்பமும் குறைந்தது ஒரு செய்தித்தாளையாவது வாங்குகிறது எனில், குடியிருப்பில் உள்ள மொத்தக் குடும்பங்களின் எண்ணிக்கை', options: ['326', '470', '323', '332'], explanation: '275 + 150 + 45 − 125 − 17 − 5 + 3 = 326.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 1.6 Q9, p. 35', answer: 0,
     en: { q: 'In the same colony (Tamil 275, English 150, Hindi 45, Tamil & English 125, English & Hindi 17, Tamil & Hindi 5, all three 3), the number of families buying at least two newspapers is', options: ['141', '147', '150', '144'], explanation: 'Exactly two = (125 − 3) + (17 − 3) + (5 − 3) = 138; adding the 3 who buy all three gives 141.' },
-    ta: { q: 'அதே குடியிருப்பில் (தமிழ் 275, ஆங்கிலம் 150, இந்தி 45, தமிழ்-ஆங்கிலம் 125, ஆங்கிலம்-இந்தி 17, தமிழ்-இந்தி 5, மூன்றும் 3) குறைந்தது இரண்டு செய்தித்தாள்களை வாங்கும் குடும்பங்கள்', options: ['141', '147', '150', '144'], explanation: 'சரியாக இரண்டு = (125 − 3) + (17 − 3) + (5 − 3) = 138; மூன்றும் வாங்கும் 3 ஐச் சேர்க்க 141.' },
+    ta: { q: 'அதே குடியிருப்பில் (தமிழ் 275, ஆங்கிலம் 150, இந்தி 45, தமிழ்-ஆங்கிலம் 125, ஆங்கிலம்-இந்தி 17, தமிழ்-இந்தி 5, மூன்றும் 3) குறைந்தது இரண்டு செய்தித்தாள்களை வாங்கும் குடும்பங்களின் எண்ணிக்கை', options: ['141', '147', '150', '144'], explanation: 'சரியாக இரண்டு = (125 − 3) + (17 − 3) + (5 − 3) = 138; மூன்றும் வாங்கும் 3 ஐச் சேர்க்க 141.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 1.6 Q10, p. 36', answer: 0,
     en: { q: 'A survey of 1000 farmers found 600 grew paddy, 350 ragi, 280 corn, 120 paddy and ragi, 100 ragi and corn and 80 paddy and corn. Each grew at least one. The number who grew all three is', options: ['70', '30', '100', '930'], explanation: '1000 = 600 + 350 + 280 − 120 − 100 − 80 + x = 930 + x, so x = 70.' },
-    ta: { q: '1000 விவசாயிகளில் 600 பேர் நெல், 350 கேழ்வரகு, 280 மக்காச்சோளம்; 120 நெல், கேழ்வரகு; 100 கேழ்வரகு, மக்காச்சோளம்; 80 நெல், மக்காச்சோளம் பயிரிட்டனர். ஒவ்வொருவரும் குறைந்தது ஒன்று பயிரிட்டால் மூன்றையும் பயிரிட்டவர்கள்', options: ['70', '30', '100', '930'], explanation: '1000 = 600 + 350 + 280 − 120 − 100 − 80 + x = 930 + x; எனவே x = 70.' },
+    ta: { q: '1000 விவசாயிகளிடம் நடத்தப்பட்ட ஆய்வில் 600 பேர் நெல், 350 பேர் கேழ்வரகு, 280 பேர் மக்காச்சோளம்; 120 பேர் நெல் மற்றும் கேழ்வரகு, 100 பேர் கேழ்வரகு மற்றும் மக்காச்சோளம், 80 பேர் நெல் மற்றும் மக்காச்சோளம் பயிரிட்டனர். ஒவ்வொரு விவசாயியும் குறைந்தது ஒரு பயிராவது பயிர் செய்தார் எனில், மூன்று பயிர்களையும் பயிரிட்ட விவசாயிகளின் எண்ணிக்கை', options: ['70', '30', '100', '930'], explanation: '1000 = 600 + 350 + 280 − 120 − 100 − 80 + x = 930 + x; எனவே x = 70.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 1.6 Q11, p. 36', answer: 0,
     en: { q: 'In a Venn diagram of three sets with n(U) = 125, the regions are: only A = x, only B = y, only C = z, A ∩ B only = 4, A ∩ C only = 6, B ∩ C only = 17, all three = 3, outside = 5. If y = 2x and z = x + 10, then (x, y, z) is', options: ['(20, 40, 30)', '(25, 50, 35)', '(15, 30, 25)', '(22, 44, 32)'], explanation: 'x + 2x + (x + 10) + 4 + 6 + 17 + 3 + 5 = 125 gives 4x + 45 = 125, so x = 20, y = 40, z = 30.' },
-    ta: { q: 'n(U) = 125 கொண்ட மூன்று கணங்களின் வென்படத்தில்: A மட்டும் = x, B மட்டும் = y, C மட்டும் = z, A ∩ B மட்டும் = 4, A ∩ C மட்டும் = 6, B ∩ C மட்டும் = 17, மூன்றும் = 3, வெளியே = 5. y = 2x, z = x + 10 எனில் (x, y, z) =', options: ['(20, 40, 30)', '(25, 50, 35)', '(15, 30, 25)', '(22, 44, 32)'], explanation: 'x + 2x + (x + 10) + 4 + 6 + 17 + 3 + 5 = 125; 4x + 45 = 125; x = 20, y = 40, z = 30.' },
+    ta: { q: 'n(U) = 125 கொண்ட மூன்று கணங்களின் வென்படத்தில்: A இல் மட்டும் = x, B இல் மட்டும் = y, C இல் மட்டும் = z, A ∩ B இல் மட்டும் = 4, A ∩ C இல் மட்டும் = 6, B ∩ C இல் மட்டும் = 17, மூன்றிலும் = 3, வட்டங்களுக்கு வெளியே = 5. y ஆனது x ஐப் போல் இருமடங்கு, z ஆனது x ஐ விட 10 அதிகம் எனில் (x, y, z) =', options: ['(20, 40, 30)', '(25, 50, 35)', '(15, 30, 25)', '(22, 44, 32)'], explanation: 'x + 2x + (x + 10) + 4 + 6 + 17 + 3 + 5 = 125; 4x + 45 = 125; x = 20, y = 40, z = 30.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 1.6 Q12, p. 36', answer: 0,
     en: { q: 'Each of 35 students plays at least one of chess, carrom and table tennis: 22 chess, 21 carrom, 15 table tennis, 10 chess and table tennis, 8 carrom and table tennis, and 6 all three. How many play chess and carrom but not table tennis?', options: ['5', '11', '7', '8'], explanation: '35 = 22 + 21 + 15 − n(Ch ∩ Ca) − 10 − 8 + 6 gives n(Ch ∩ Ca) = 11; without table tennis: 11 − 6 = 5.' },
-    ta: { q: '35 மாணவர்கள் ஒவ்வொருவரும் சதுரங்கம், சுண்டாட்டம், மேசை வரிப்பந்து இவற்றில் குறைந்தது ஒன்றை விளையாடுகின்றனர்: சதுரங்கம் 22, சுண்டாட்டம் 21, மேசை வரிப்பந்து 15, சதுரங்கம்-மேசை வரிப்பந்து 10, சுண்டாட்டம்-மேசை வரிப்பந்து 8, மூன்றும் 6. சதுரங்கம், சுண்டாட்டம் விளையாடி மேசை வரிப்பந்து விளையாடாதவர்கள்', options: ['5', '11', '7', '8'], explanation: '35 = 22 + 21 + 15 − n(ச ∩ சு) − 10 − 8 + 6 எனவே n(ச ∩ சு) = 11; மேசை வரிப்பந்து இல்லாமல் 11 − 6 = 5.' },
+    ta: { q: '35 மாணவர்கள் ஒவ்வொருவரும் சதுரங்கம், சுண்டாட்டம், மேசை வரிப்பந்து இவற்றில் குறைந்தது ஒன்றை விளையாடுகின்றனர்: சதுரங்கம் 22, சுண்டாட்டம் 21, மேசை வரிப்பந்து 15, சதுரங்கம்-மேசை வரிப்பந்து 10, சுண்டாட்டம்-மேசை வரிப்பந்து 8, மூன்றும் 6. சதுரங்கம் மற்றும் சுண்டாட்டம் விளையாடி மேசை வரிப்பந்து விளையாடாதவர்களின் எண்ணிக்கை', options: ['5', '11', '7', '8'], explanation: '35 = 22 + 21 + 15 − n(ச ∩ சு) − 10 − 8 + 6 எனவே n(ச ∩ சு) = 11; மேசை வரிப்பந்து இல்லாமல் 11 − 6 = 5.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 1.6 Q12, p. 36', answer: 0,
     en: { q: 'With the same data (35 students; chess 22, carrom 21, table tennis 15, chess & TT 10, carrom & TT 8, all three 6), the number who play only chess is', options: ['7', '5', '12', '8'], explanation: 'Chess & carrom only = 5, chess & TT only = 4, all three = 6; only chess = 22 − (5 + 4 + 6) = 7.' },
-    ta: { q: 'அதே தரவில் (35 மாணவர்கள்; சதுரங்கம் 22, சுண்டாட்டம் 21, மேசை வரிப்பந்து 15, சதுரங்கம்-மே.வ 10, சுண்டாட்டம்-மே.வ 8, மூன்றும் 6) சதுரங்கம் மட்டும் விளையாடுபவர்கள்', options: ['7', '5', '12', '8'], explanation: 'சதுரங்கம்-சுண்டாட்டம் மட்டும் = 5, சதுரங்கம்-மே.வ மட்டும் = 4, மூன்றும் = 6; சதுரங்கம் மட்டும் = 22 − 15 = 7.' },
+    ta: { q: 'அதே தரவில் (35 மாணவர்கள்; சதுரங்கம் 22, சுண்டாட்டம் 21, மேசை வரிப்பந்து 15, சதுரங்கம்-மேசை வரிப்பந்து 10, சுண்டாட்டம்-மேசை வரிப்பந்து 8, மூன்றும் 6) சதுரங்கம் மட்டும் விளையாடுபவர்களின் எண்ணிக்கை', options: ['7', '5', '12', '8'], explanation: 'சதுரங்கம்-சுண்டாட்டம் மட்டும் = 5, சதுரங்கம்-மேசை வரிப்பந்து மட்டும் = 4, மூன்றும் = 6; சதுரங்கம் மட்டும் = 22 − (5 + 4 + 6) = 7.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 1.6 Q13, p. 36', answer: 0,
     en: { q: 'In a class of 50, each comes to school by bus, bicycle or on foot: 25 by bus, 20 by bicycle, 30 on foot and 10 by all three. How many use exactly two modes?', options: ['5', '35', '15', '25'], explanation: '50 = 75 − (sum of pairwise) + 10, so sum of pairwise = 35. Exactly two = 35 − 3 × 10 = 5.' },
-    ta: { q: '50 மாணவர்கள் உள்ள வகுப்பில் ஒவ்வொருவரும் பேருந்து, மிதிவண்டி அல்லது நடந்து வருகின்றனர்: பேருந்து 25, மிதிவண்டி 20, நடந்து 30, மூன்றிலும் 10. சரியாக இரண்டு வகைகளில் மட்டும் வருபவர்கள்', options: ['5', '35', '15', '25'], explanation: '50 = 75 − (இரு இரு வெட்டுகளின் கூடுதல்) + 10; அக்கூடுதல் = 35. சரியாக இரண்டு = 35 − 3 × 10 = 5.' },
+    ta: { q: 'ஒரு வகுப்பிலுள்ள 50 மாணவர்கள் பேருந்து மூலமாகவோ அல்லது மிதிவண்டி மூலமாகவோ அல்லது நடந்தோ பள்ளிக்கு வருகின்றனர்: 25 பேர் பேருந்து மூலமும், 20 பேர் மிதிவண்டி மூலமும், 30 பேர் நடந்தும், 10 பேர் மூன்று வகைப் பயணங்களிலும் வருகின்றனர். சரியாக இரண்டு வகைப் பயணங்களில் மட்டும் வருபவர்கள் எத்தனை பேர்?', options: ['5', '35', '15', '25'], explanation: '50 = 75 − (இரு இரு வெட்டுகளின் கூடுதல்) + 10; அக்கூடுதல் = 35. சரியாக இரண்டு = 35 − 3 × 10 = 5.' },
   },
   {
     difficulty: 'hard', source: 'Book example 1.32, p. 32', answer: 0,
     en: { q: 'In a college, 240 play cricket, 180 football, 164 hockey; 42 cricket and football, 38 football and hockey, 40 cricket and hockey, and 16 all three. Each plays at least one game. The number of students in the college is', options: ['480', '584', '464', '496'], explanation: '240 + 180 + 164 − 42 − 38 − 40 + 16 = 480.' },
-    ta: { q: 'ஒரு கல்லூரியில் 240 பேர் கிரிக்கெட், 180 கால்பந்து, 164 ஹாக்கி; 42 கிரிக்கெட்-கால்பந்து, 38 கால்பந்து-ஹாக்கி, 40 கிரிக்கெட்-ஹாக்கி, 16 மூன்றும் விளையாடுகின்றனர். ஒவ்வொருவரும் குறைந்தது ஒன்று எனில் கல்லூரியின் மாணவர்கள்', options: ['480', '584', '464', '496'], explanation: '240 + 180 + 164 − 42 − 38 − 40 + 16 = 480.' },
+    ta: { q: 'ஒரு கல்லூரியில் 240 மாணவர்கள் மட்டைப்பந்தும், 180 பேர் கால்பந்தும், 164 பேர் வளைகோல் பந்தும்; 42 பேர் மட்டைப்பந்து மற்றும் கால்பந்தும், 38 பேர் கால்பந்து மற்றும் வளைகோல் பந்தும், 40 பேர் மட்டைப்பந்து மற்றும் வளைகோல் பந்தும், 16 பேர் மூன்று விளையாட்டுகளும் விளையாடுகிறார்கள். ஒவ்வொரு மாணவரும் குறைந்தது ஒரு விளையாட்டிலாவது பங்கேற்கிறார் எனில், கல்லூரியில் உள்ள மொத்த மாணவர்களின் எண்ணிக்கை', options: ['480', '584', '464', '496'], explanation: '240 + 180 + 164 − 42 − 38 − 40 + 16 = 480.' },
   },
   {
     difficulty: 'hard', source: 'Book example 1.34, p. 33', answer: 0,
     en: { q: 'Of 100 students, 85 speak Tamil, 40 English, 20 French; 32 speak Tamil and English, 13 English and French, 10 Tamil and French. Each speaks at least one. How many speak all three?', options: ['10', '90', '0', '20'], explanation: '100 = 85 + 40 + 20 − 32 − 13 − 10 + x = 90 + x, so x = 10.' },
-    ta: { q: '100 மாணவர்களில் 85 தமிழ், 40 ஆங்கிலம், 20 பிரெஞ்சு; 32 தமிழ்-ஆங்கிலம், 13 ஆங்கிலம்-பிரெஞ்சு, 10 தமிழ்-பிரெஞ்சு பேசுகின்றனர். ஒவ்வொருவரும் குறைந்தது ஒரு மொழி பேசினால் மூன்றையும் பேசுபவர்கள்', options: ['10', '90', '0', '20'], explanation: '100 = 85 + 40 + 20 − 32 − 13 − 10 + x = 90 + x; x = 10.' },
+    ta: { q: '100 மாணவர்களில் 85 பேர் தமிழ், 40 பேர் ஆங்கிலம், 20 பேர் பிரெஞ்சு; 32 பேர் தமிழ், ஆங்கிலம்; 13 பேர் ஆங்கிலம், பிரெஞ்சு; 10 பேர் தமிழ், பிரெஞ்சு பேசுகின்றனர். ஒவ்வொருவரும் குறைந்தது ஒரு மொழியாவது பேசுகின்றனர் எனில், மூன்று மொழிகளையும் பேசுபவர்கள் எத்தனை பேர்?', options: ['10', '90', '0', '20'], explanation: '100 = 85 + 40 + 20 − 32 − 13 − 10 + x = 90 + x; x = 10.' },
   },
   {
     difficulty: 'hard', source: 'Book example 1.35, p. 34', answer: 0,
     en: { q: 'Among 200 subscribers of magazines A, B, C: 75 do not take A, 100 do not take B, 50 do not take C, and 125 take at least two. The number who take exactly two magazines is', options: ['75', '50', '125', '100'], explanation: 'n(A) = 125, n(B) = 100, n(C) = 150. 200 = 375 − (x + y + z + r) − r = 250 − r gives r = 50, so exactly two = 125 − 50 = 75.' },
-    ta: { q: 'A, B, C இதழ்களின் 200 சந்தாதாரர்களில் 75 பேர் A ஐ, 100 பேர் B ஐ, 50 பேர் C ஐ வாங்குவதில்லை; 125 பேர் குறைந்தது இரண்டு இதழ்களை வாங்குகின்றனர். சரியாக இரண்டு இதழ்களை வாங்குபவர்கள்', options: ['75', '50', '125', '100'], explanation: 'n(A) = 125, n(B) = 100, n(C) = 150. 200 = 375 − 125 − r = 250 − r; r = 50; சரியாக இரண்டு = 125 − 50 = 75.' },
+    ta: { q: 'A, B, C இதழ்களின் 200 சந்தாதாரர்களில் 75 பேர் A ஐ, 100 பேர் B ஐ, 50 பேர் C ஐ வாங்குவதில்லை; 125 பேர் குறைந்தது இரண்டு இதழ்களையாவது வாங்குகின்றனர். சரியாக இரண்டு இதழ்களை வாங்குபவர்களின் எண்ணிக்கை', options: ['75', '50', '125', '100'], explanation: 'n(A) = 125, n(B) = 100, n(C) = 150. 200 = 375 − 125 − r = 250 − r; r = 50; சரியாக இரண்டு = 125 − 50 = 75.' },
   },
   {
     difficulty: 'hard', source: 'Book example 1.33, p. 33', answer: 0,
     en: { q: 'Of 600 families, 3/5 own a scooter, 1/3 a car, 1/4 a bicycle; 120 own scooter and car, 86 car and bicycle, 90 scooter and bicycle, and 2/15 own all three. The number of families owning no vehicle is', options: ['106', '494', '80', '136'], explanation: 'n(S) = 360, n(C) = 200, n(B) = 150, all three = 80. At least one = 360 + 200 + 150 − 120 − 86 − 90 + 80 = 494; none = 600 − 494 = 106.' },
-    ta: { q: '600 குடும்பங்களில் 3/5 பங்கு ஸ்கூட்டர், 1/3 பங்கு கார், 1/4 பங்கு மிதிவண்டி வைத்துள்ளனர்; 120 ஸ்கூட்டர்-கார், 86 கார்-மிதிவண்டி, 90 ஸ்கூட்டர்-மிதிவண்டி, 2/15 பங்கு மூன்றும் வைத்துள்ளனர். எந்த வாகனமும் இல்லாத குடும்பங்கள்', options: ['106', '494', '80', '136'], explanation: 'n(S) = 360, n(C) = 200, n(B) = 150, மூன்றும் = 80. குறைந்தது ஒன்று = 494; எதுவும் இல்லை = 600 − 494 = 106.' },
+    ta: { q: '600 குடும்பங்களில் 3/5 பங்கு துள்ளுந்து (scooter), 1/3 பங்கு மகிழுந்து (car), 1/4 பங்கு மிதிவண்டி வைத்துள்ளனர்; 120 குடும்பங்கள் துள்ளுந்து மற்றும் மகிழுந்தும், 86 மகிழுந்து மற்றும் மிதிவண்டியும், 90 துள்ளுந்து மற்றும் மிதிவண்டியும், 2/15 பங்கு குடும்பங்கள் மூன்று வகை வாகனங்களையும் வைத்துள்ளனர். எந்த ஒரு வாகனமும் வைத்திருக்காத குடும்பங்களின் எண்ணிக்கை', options: ['106', '494', '80', '136'], explanation: 'n(S) = 360, n(C) = 200, n(B) = 150, மூன்றும் = 80. குறைந்தது ஒன்று = 360 + 200 + 150 − 120 − 86 − 90 + 80 = 494; எதுவும் இல்லை = 600 − 494 = 106.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 1.7 Q9, p. 37', answer: 0, imageUrl: `${IMG}/venn-fig1-40.png`,
@@ -589,7 +589,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise 1.7 Q18, p. 38', answer: 0,
     en: { q: 'If J = set of three-sided shapes, K = set of shapes with two equal sides and L = set of shapes with a right angle, then J ∩ K ∩ L is the set of', options: ['isosceles right triangles', 'isosceles triangles', 'equilateral triangles', 'right-angled triangles'], explanation: 'A shape in all three is a triangle with two equal sides and a right angle: an isosceles right triangle.' },
-    ta: { q: 'J = மூன்று பக்கங்கள் கொண்ட உருவங்களின் கணம், K = இரண்டு பக்கங்கள் சமமான உருவங்களின் கணம், L = ஒரு கோணம் செங்கோணமான உருவங்களின் கணம் எனில் J ∩ K ∩ L என்பது', options: ['இருசமபக்கச் செங்கோண முக்கோணங்களின் கணம்', 'இருசமபக்க முக்கோணங்களின் கணம்', 'சமபக்க முக்கோணங்களின் கணம்', 'செங்கோண முக்கோணங்களின் கணம்'], explanation: 'மூன்றிலும் உள்ள உருவம் இரு சம பக்கங்களும் ஒரு செங்கோணமும் கொண்ட முக்கோணம்.' },
+    ta: { q: 'J என்பது மூன்று பக்கங்களைக் கொண்ட உருவங்களின் கணம், K என்பது ஏதேனும் இரண்டு பக்கங்கள் சமமாக உள்ள உருவங்களின் கணம், L என்பது ஒரு கோணம் செங்கோணமாக உள்ள உருவங்களின் கணம் எனில் J ∩ K ∩ L என்பது', options: ['இருசமபக்கச் செங்கோண முக்கோணங்களின் கணம்', 'இருசமபக்க முக்கோணங்களின் கணம்', 'சமபக்க முக்கோணங்களின் கணம்', 'செங்கோண முக்கோணங்களின் கணம்'], explanation: 'மூன்றிலும் உள்ள உருவம் இரு சம பக்கங்களும் ஒரு செங்கோணமும் கொண்ட முக்கோணம்.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 1.7 Q19, p. 38', answer: 0, imageUrl: `${IMG}/shaded-mcq19.png`,
@@ -599,7 +599,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise 1.7 Q20, p. 38', answer: 0,
     en: { q: 'In a city, 40% of people like only one fruit, 35% like only two fruits and 20% like all three fruits. What percentage of people do not like any of the three fruits?', options: ['5', '8', '10', '15'], explanation: 'People who like at least one fruit = 40 + 35 + 20 = 95%, so 100 − 95 = 5% like none.' },
-    ta: { q: 'ஒரு நகரில் 40% மக்கள் ஒரு வகை பழத்தை மட்டும், 35% மக்கள் இரண்டு வகை பழங்களை மட்டும், 20% மக்கள் மூன்று வகை பழங்களையும் விரும்புகின்றனர். மூன்றில் எதையும் விரும்பாதவர்களின் சதவீதம்', options: ['5', '8', '10', '15'], explanation: 'குறைந்தது ஒன்றை விரும்புபவர்கள் = 40 + 35 + 20 = 95%; எனவே 100 − 95 = 5%.' },
+    ta: { q: 'ஒரு நகரில் 40% மக்கள் ஒரு வகை பழத்தை மட்டும், 35% மக்கள் இரண்டு வகை பழங்களை மட்டும், 20% மக்கள் மூன்று வகை பழங்களையும் விரும்புகின்றனர். மேற்கண்ட மூன்று வகை பழங்களில் எதையும் விரும்பாதவர்களின் சதவீதம் என்ன?', options: ['5', '8', '10', '15'], explanation: 'குறைந்தது ஒன்றை விரும்புபவர்கள் = 40 + 35 + 20 = 95%; எனவே 100 − 95 = 5%.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 1.5 Q6, p. 28', answer: 0,
@@ -619,7 +619,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise 1.4 Q2, p. 22', answer: 0,
     en: { q: 'P = {x : x is a real number between 2 and 7} and Q = {x : x is a rational number between 2 and 7}. Which is correct?', options: ['P ∪ Q = Q ∪ P = P and P ∩ Q = Q ∩ P = Q', 'P ∪ Q = Q and P ∩ Q = P', 'P ∪ Q ≠ Q ∪ P', 'P ∩ Q = ∅'], explanation: 'Q ⊂ P, so the union is P and the intersection is Q, in either order (commutative property).' },
-    ta: { q: 'P = {x : x என்பது 2 க்கும் 7 க்கும் இடையே உள்ள மெய்யெண்}, Q = {x : x என்பது 2 க்கும் 7 க்கும் இடையே உள்ள விகிதமுறு எண்}. சரியானது எது?', options: ['P ∪ Q = Q ∪ P = P, P ∩ Q = Q ∩ P = Q', 'P ∪ Q = Q, P ∩ Q = P', 'P ∪ Q ≠ Q ∪ P', 'P ∩ Q = ∅'], explanation: 'Q ⊂ P; எனவே சேர்ப்பு P, வெட்டு Q – எந்த வரிசையிலும் (பரிமாற்றுப் பண்பு).' },
+    ta: { q: 'P = {x : x ஆனது 2 மற்றும் 7 க்கு இடையே உள்ள ஒரு மெய்யெண்}, Q = {x : x ஆனது 2 மற்றும் 7 க்கு இடையே உள்ள ஒரு விகிதமுறு எண்}. சரியானது எது?', options: ['P ∪ Q = Q ∪ P = P, P ∩ Q = Q ∩ P = Q', 'P ∪ Q = Q, P ∩ Q = P', 'P ∪ Q ≠ Q ∪ P', 'P ∩ Q = ∅'], explanation: 'Q ⊂ P; எனவே சேர்ப்பு P, வெட்டு Q – எந்த வரிசையிலும் (பரிமாற்றுப் பண்பு).' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 1.5 Q1, p. 28', answer: 0, imageUrl: `${IMG}/venn-ex1-5-q1.png`,

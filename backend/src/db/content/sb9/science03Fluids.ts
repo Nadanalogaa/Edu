@@ -118,7 +118,7 @@ export const FLUIDS_QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§3.5.4, p. 33', answer: 0,
     en: { q: 'A saccharometer is a hydrometer used for measuring the density of', options: ['sugar in a liquid', 'cream in milk', 'alcohol in spirits', 'salt in sea water'], explanation: 'Hydrometers are calibrated as lactometers (milk), saccharometers (sugar) and alcoholometers (alcohol).' },
-    ta: { q: 'சாக்கரோமீட்டர் என்ற திரவமானி எதன் அடர்த்தியை அளக்கப் பயன்படுகிறது?', options: ['திரவத்தில் உள்ள சர்க்கரை', 'பாலில் உள்ள கொழுப்பு', 'சாராயத்தில் உள்ள ஆல்கஹால்', 'கடல் நீரில் உள்ள உப்பு'], explanation: 'திரவமானிகள் பால்மானி (பால்), சாக்கரோமீட்டர் (சர்க்கரை), ஆல்கஹால்மானி (ஆல்கஹால்) எனப் பல வகைகளில் உள்ளன.' },
+    ta: { q: 'சர்க்கரைமானி (Saccharometer) என்ற திரவமானி எதன் அடர்த்தியை அளக்கப் பயன்படுகிறது?', options: ['திரவத்தில் உள்ள சர்க்கரை', 'பாலில் உள்ள கொழுப்பு', 'சாராயத்தில் உள்ள ஆல்கஹால்', 'கடல் நீரில் உள்ள உப்பு'], explanation: 'திரவமானிகள் பால்மானி (பால்), சர்க்கரைமானி (சர்க்கரை), சாராயமானி (ஆல்கஹால்) எனப் பல வகைகளில் உள்ளன.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise VI.4, p. 37', answer: 0,
@@ -195,7 +195,7 @@ export const FLUIDS_QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise III.1, p. 36', answer: 0,
     en: { q: 'Which statement about buoyant force is correct?', options: ['The weight of fluid displaced determines the buoyant force on an object', 'The weight of the object in air determines the buoyant force', 'Only the shape of the object determines the buoyant force', 'The buoyant force is the same in every liquid'], explanation: "True statement: by Archimedes' principle, upthrust = weight of the fluid displaced." },
-    ta: { q: 'மிதப்பு விசை பற்றிய சரியான கூற்று எது?', options: ['இடப்பெயர்ச்சி செய்யப்பட்ட நீரின் எடை மிதப்பு விசையைத் தீர்மானிக்கிறது', 'காற்றில் பொருளின் எடை மிதப்பு விசையைத் தீர்மானிக்கிறது', 'பொருளின் வடிவம் மட்டுமே மிதப்பு விசையைத் தீர்மானிக்கிறது', 'எல்லாத் திரவங்களிலும் மிதப்பு விசை ஒன்றே'], explanation: 'கூற்று சரி: ஆர்க்கிமிடிஸ் தத்துவப்படி மேல்நோக்கு விசை = வெளியேற்றப்பட்ட பாய்மத்தின் எடை.' },
+    ta: { q: 'மிதப்பு விசை பற்றிய சரியான கூற்று எது?', options: ['இடப்பெயர்ச்சி செய்யப்பட்ட பாய்மத்தின் எடை மிதப்பு விசையைத் தீர்மானிக்கிறது', 'காற்றில் பொருளின் எடை மிதப்பு விசையைத் தீர்மானிக்கிறது', 'பொருளின் வடிவம் மட்டுமே மிதப்பு விசையைத் தீர்மானிக்கிறது', 'எல்லாத் திரவங்களிலும் மிதப்பு விசை ஒன்றே'], explanation: 'கூற்று சரி: ஆர்க்கிமிடிஸ் தத்துவப்படி மேல்நோக்கு விசை = வெளியேற்றப்பட்ட பாய்மத்தின் எடை.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise III.2, p. 36', answer: 0,
@@ -225,7 +225,7 @@ export const FLUIDS_QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise VI.4, p. 37', answer: 0,
     en: { q: 'The bulb at the lower end of a hydrometer is partly filled with lead shots or mercury so that it', options: ['floats upright in the liquid', 'sinks to the bottom of the jar', 'measures the temperature of the liquid', 'becomes lighter than the liquid'], explanation: 'The heavy bulb keeps the hydrometer vertical; the reading on the narrow stem gives the relative density.' },
-    ta: { q: 'திரவமானியின் கீழ்முனைக் குமிழில் ஈயக் குண்டுகள் அல்லது பாதரசம் நிரப்பப்படுவதன் நோக்கம்', options: ['திரவத்தில் செங்குத்தாக மிதக்க', 'ஜாடியின் அடியில் மூழ்க', 'திரவத்தின் வெப்பநிலையை அளக்க', 'திரவத்தை விட இலேசாக்க'], explanation: 'கனமான குமிழ் திரவமானியைச் செங்குத்தாக நிறுத்துகிறது; குறுகிய குழாயின் அளவீடு ஒப்படர்த்தியைத் தருகிறது.' },
+    ta: { q: 'திரவமானியின் கீழ்முனைக் குமிழில் காரீயக் குண்டுகள் அல்லது பாதரசம் நிரப்பப்படுவதன் நோக்கம்', options: ['திரவத்தில் செங்குத்தாக மிதக்க', 'ஜாடியின் அடியில் மூழ்க', 'திரவத்தின் வெப்பநிலையை அளக்க', 'திரவத்தை விட இலேசாக்க'], explanation: 'கனமான குமிழ் திரவமானியைச் செங்குத்தாக நிறுத்துகிறது; குறுகிய குழாயின் அளவீடு ஒப்படர்த்தியைத் தருகிறது.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise VI.5, p. 37', answer: 0,
@@ -270,7 +270,7 @@ export const FLUIDS_QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book example (Problem 5), p. 33', answer: 0,
     en: { q: 'A block of mystery material is 12 cm long, 11 cm wide and 3.5 cm thick, with a mass of 1155 g. What is its density, and will it float in water?', options: ['2.5 g cm⁻³; it sinks', '2.5 g cm⁻³; it floats', '0.4 g cm⁻³; it floats', '0.4 g cm⁻³; it sinks'], explanation: 'Volume = 12 × 11 × 3.5 = 462 cm³; density = 1155 ÷ 462 = 2.5 g cm⁻³, denser than water, so it sinks.' },
-    ta: { q: 'ஒரு புதிர்ப் பொருளால் ஆன கட்டையின் நீளம் 12 செமீ, அகலம் 11 செமீ, தடிமன் 3.5 செமீ, நிறை 1155 கி. அதன் அடர்த்தி என்ன? அது நீரில் மிதக்குமா?', options: ['2.5 கி செமீ⁻³; மூழ்கும்', '2.5 கி செமீ⁻³; மிதக்கும்', '0.4 கி செமீ⁻³; மிதக்கும்', '0.4 கி செமீ⁻³; மூழ்கும்'], explanation: 'பருமன் = 12 × 11 × 3.5 = 462 செமீ³; அடர்த்தி = 1155 ÷ 462 = 2.5 கி செமீ⁻³; நீரை விட அதிகம்; எனவே மூழ்கும்.' },
+    ta: { q: '12 செமீ நீளமும், 11 செமீ அகலமும், 3.5 செமீ தடிமனும் கொண்ட ஒரு விநோதமான பொருளின் நிறை 1155 கி. அதன் அடர்த்தி யாது? அது தண்ணீரில் மிதக்குமா? மூழ்குமா?', options: ['2.5 கி செமீ⁻³; மூழ்கும்', '2.5 கி செமீ⁻³; மிதக்கும்', '0.4 கி செமீ⁻³; மிதக்கும்', '0.4 கி செமீ⁻³; மூழ்கும்'], explanation: 'பருமன் = 12 × 11 × 3.5 = 462 செமீ³; அடர்த்தி = 1155 ÷ 462 = 2.5 கி செமீ⁻³; நீரை விட அதிகம்; எனவே மூழ்கும்.' },
   },
   {
     difficulty: 'medium', source: 'Activity 5, §3.5, p. 32', answer: 0,
@@ -331,7 +331,7 @@ export const FLUIDS_QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: '§3.5.3, p. 33', answer: 0,
     en: { q: 'One ice cube is put in water and another in alcohol. Ice is less dense than water but denser than alcohol. What will you observe?', options: ['It floats in water and sinks in alcohol', 'It sinks in both', 'It floats in both', 'It sinks in water and floats in alcohol'], explanation: 'An object floats in a liquid denser than itself and sinks in a less dense one.' },
-    ta: { q: 'ஒரு பனிக்கட்டி நீரிலும் மற்றொன்று சாராயத்திலும் இடப்படுகிறது. பனிக்கட்டியின் அடர்த்தி நீரை விடக் குறைவு; சாராயத்தை விட அதிகம். நீ காண்பது', options: ['நீரில் மிதக்கும்; சாராயத்தில் மூழ்கும்', 'இரண்டிலும் மூழ்கும்', 'இரண்டிலும் மிதக்கும்', 'நீரில் மூழ்கும்; சாராயத்தில் மிதக்கும்'], explanation: 'தன்னை விட அடர்த்தி அதிகமான திரவத்தில் பொருள் மிதக்கும்; குறைவானதில் மூழ்கும்.' },
+    ta: { q: 'ஒரு பனிக்கட்டி ஒரு குவளை நீரிலும், மற்றொன்று ஒரு குவளை ஆல்கஹாலிலும் போடப்படுகிறது. பனிக்கட்டியின் அடர்த்தி நீரை விடக் குறைவு; ஆல்கஹாலை விட அதிகம். நீ காண்பது', options: ['நீரில் மிதக்கும்; ஆல்கஹாலில் மூழ்கும்', 'இரண்டிலும் மூழ்கும்', 'இரண்டிலும் மிதக்கும்', 'நீரில் மூழ்கும்; ஆல்கஹாலில் மிதக்கும்'], explanation: 'தன்னை விட அடர்த்தி அதிகமான திரவத்தில் பொருள் மிதக்கும்; குறைவானதில் மூழ்கும்.' },
   },
   {
     difficulty: 'hard', source: '§3.1, p. 27', answer: 0,
@@ -347,7 +347,7 @@ export const FLUIDS_QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise VII.1, p. 37', answer: 0,
     en: { q: 'Assertion: To float, a body must displace liquid whose weight is equal to its actual weight. Reason: The body will then experience no net downward force.', options: AR_EN, explanation: 'When upthrust (weight of liquid displaced) equals the weight, the net force is zero and the body floats – the reason explains the assertion.' },
-    ta: { q: 'கூற்று: ஒரு பொருள் மிதப்பதற்கு, தனது எடைக்குச் சமமான எடையுள்ள நீரை வெளியேற்ற வேண்டும். காரணம்: அப்பொருள் எந்தவொரு கீழ்நோக்கிய விசையையும் உணர்வதில்லை.', options: AR_TA, explanation: 'மேல்நோக்கு விசை (வெளியேற்றிய நீரின் எடை) பொருளின் எடைக்குச் சமமானால் நிகர விசை சுழி; பொருள் மிதக்கும் – காரணம் கூற்றை விளக்குகிறது.' },
+    ta: { q: 'கூற்று: ஒரு பொருள் மிதப்பதற்கு, தனது எடைக்குச் சமமான எடையுள்ள நீரை வெளியேற்ற வேண்டும். காரணம்: அப்போது அப்பொருள் எந்தவொரு நிகர கீழ்நோக்கிய விசையையும் உணர்வதில்லை.', options: AR_TA, explanation: 'மேல்நோக்கு விசை (வெளியேற்றிய நீரின் எடை) பொருளின் எடைக்குச் சமமானால் நிகர விசை சுழி; பொருள் மிதக்கும் – காரணம் கூற்றை விளக்குகிறது.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise VII.2, p. 37', answer: 1,
@@ -362,7 +362,7 @@ export const FLUIDS_QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book example (Problem 4), p. 31', answer: 0,
     en: { q: 'A hydraulic system lifts a 2000 kg vehicle sitting on a piston of area 0.5 m². The force is applied on a piston of area 0.03 m². What is the minimum force needed? (g = 9.8 m s⁻²)', options: ['1176 N', '19600 N', '326667 N', '120 N'], explanation: 'Weight = 2000 × 9.8 = 19600 N; F = 19600 × 0.03 ÷ 0.5 = 1176 N.' },
-    ta: { q: 'வாகனப் பணிமனையில் 2000 கிகி வாகனத்தைத் தூக்க நீரியல் அமைப்பு பயன்படுகிறது. வாகனம் 0.5 மீ² பரப்புள்ள பிஸ்டனில் உள்ளது; 0.03 மீ² பரப்புள்ள பிஸ்டனில் விசை செலுத்தப்படுகிறது. தேவையான மிகக் குறைந்த விசை (g = 9.8 மீ வி⁻²)', options: ['1176 N', '19600 N', '326667 N', '120 N'], explanation: 'எடை = 2000 × 9.8 = 19600 N; F = 19600 × 0.03 ÷ 0.5 = 1176 N.' },
+    ta: { q: '2000 கிகி நிறை கொண்ட வாகனத்தைத் தூக்குவதற்கு நீரியல் அமைப்பு பயன்படுத்தப்படுகிறது. வாகனம் இருக்கும் பிஸ்டனின் பரப்பளவு 0.5 மீ², விசை செயல்படும் பிஸ்டனின் பரப்பளவு 0.03 மீ² எனில், வாகனத்தைத் தூக்குவதற்குத் தேவைப்படும் குறைந்த அளவு விசை யாது? (g = 9.8 மீ வி⁻²)', options: ['1176 N', '19600 N', '326667 N', '120 N'], explanation: 'எடை = 2000 × 9.8 = 19600 N; F = 19600 × 0.03 ÷ 0.5 = 1176 N.' },
   },
   {
     difficulty: 'hard', source: '§3.3.1, p. 30', answer: 0,

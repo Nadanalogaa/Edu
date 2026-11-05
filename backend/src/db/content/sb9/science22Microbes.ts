@@ -24,7 +24,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise I.6, p. 270', answer: 0,
     en: { q: 'The organ affected by jaundice is the', options: ['liver', 'lungs', 'kidney', 'brain'], explanation: 'Jaundice (yellowness of eyes and skin) is a symptom of hepatitis, an inflammation of the liver.' },
-    ta: { q: 'மஞ்சள் காமாலையால் பாதிக்கப்படும் உறுப்பு', options: ['கல்லீரல்', 'நுரையீரல்', 'சிறுநீரகம்', 'மூளை'], explanation: 'மஞ்சள் காமாலை கல்லீரல் அழற்சியான ஹெப்படைடிஸ் நோயின் அறிகுறி.' },
+    ta: { q: 'மஞ்சள் காமாலையால் பாதிக்கப்படும் உறுப்பு', options: ['கல்லீரல்', 'நுரையீரல்', 'சிறுநீரகம்', 'மூளை'], explanation: 'மஞ்சள் காமாலை கல்லீரல் அழற்சியான ஹெப்பாடைட்டிஸ் நோயின் அறிகுறி.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise II.2, p. 271', answer: 0,
@@ -54,7 +54,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise III.2, p. 271', answer: 0,
     en: { q: 'HIV stands for', options: ['Human Immunodeficiency Virus', 'Human Infection Virus', 'Hepatitis Immune Virus', 'Human Immunity Vaccine'], explanation: 'HIV, the Human Immunodeficiency Virus, is the retrovirus that causes AIDS.' },
-    ta: { q: 'HIV என்பதன் விரிவாக்கம்', options: ['ஹியூமன் இம்யூனோ டெஃபிஷியன்சி வைரஸ் (மனித நோய்த்தடைக்காப்புக் குறைபாட்டு வைரஸ்)', 'ஹியூமன் இன்ஃபெக்ஷன் வைரஸ்', 'ஹெப்படைடிஸ் இம்யூன் வைரஸ்', 'ஹியூமன் இம்யூனிட்டி வேக்சின்'], explanation: 'எய்ட்ஸ் நோயை உண்டாக்கும் ரெட்ரோ வைரஸ் HIV – Human Immunodeficiency Virus.' },
+    ta: { q: 'HIV என்பதன் விரிவாக்கம்', options: ['ஹியூமன் இம்யூனோ டெஃபிஷியன்சி வைரஸ் (மனித நோய்த்தடைக்காப்புக் குறைபாட்டு வைரஸ்)', 'ஹியூமன் இன்ஃபெக்ஷன் வைரஸ்', 'ஹெப்பாடைட்டிஸ் இம்யூன் வைரஸ்', 'ஹியூமன் இம்யூனிட்டி வேக்சின்'], explanation: 'எய்ட்ஸ் நோயை உண்டாக்கும் ரெட்ரோ வைரஸ் HIV – Human Immunodeficiency Virus.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise III.3, p. 271', answer: 0,
@@ -94,7 +94,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§22.1.1, p. 259', answer: 0,
     en: { q: 'The first microbiologist, who designed his own microscope and observed plaque from his teeth in 1674, was', options: ['Antonie Van Leeuwenhoek', 'Robert Koch', 'Louis Pasteur', 'Edward Jenner'], explanation: 'Antonie Van Leeuwenhoek observed tiny moving organisms in his own tooth plaque in 1674.' },
-    ta: { q: '1674-ல் தனது பல்லின் சிதைவுற்ற பகுதியை தானே வடிவமைத்த நுண்ணோக்கியில் உற்றுநோக்கிய முதல் நுண்ணுயிரியலாளர்', options: ['ஆன்டன் வான் லூவென்ஹுக்', 'ராபர்ட் கோச்', 'லூயி பாஸ்டர்', 'எட்வர்ட் ஜென்னர்'], explanation: 'ஆன்டன் வான் லூவென்ஹுக் 1674-ல் தன் பல்லில் நகரும் நுண்ணுயிர்களைக் கண்டார்.' },
+    ta: { q: '1674-ல் தனது பல்லின் சிதைவுற்ற பகுதியை தானே வடிவமைத்த நுண்ணோக்கியில் உற்றுநோக்கிய முதல் நுண்ணுயிரியலாளர்', options: ['ஆன்டன் வான் லூவன்ஹுக்', 'ராபர்ட் கோச்', 'லூயி பாஸ்டர்', 'எட்வர்ட் ஜென்னர்'], explanation: 'ஆன்டன் வான் லூவன்ஹுக் 1674-ல் தன் பல்லில் நகரும் நுண்ணுயிர்களைக் கண்டார்.' },
   },
   {
     difficulty: 'easy', source: '§22.1.2, p. 259', answer: 0,
@@ -124,7 +124,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§22.6.3, p. 265', answer: 0,
     en: { q: 'Dengue is also known as', options: ['break bone fever', 'enteric fever', 'serum hepatitis', 'whooping cough'], explanation: 'Dengue is called break bone fever because of intense joint and muscle pain.' },
-    ta: { q: 'டெங்கு காய்ச்சலின் மற்றொரு பெயர்', options: ['எலும்பு முறிவுக் காய்ச்சல்', 'குடல் காய்ச்சல்', 'சீரம் ஹெப்படைடிஸ்', 'கக்குவான் இருமல்'], explanation: 'கடுமையான மூட்டு, தசை வலியால் டெங்கு எலும்பு முறிவுக் காய்ச்சல் எனப்படுகிறது.' },
+    ta: { q: 'டெங்கு காய்ச்சலின் மற்றொரு பெயர்', options: ['எலும்பு முறிவுக் காய்ச்சல்', 'குடல் காய்ச்சல்', 'சீரம் ஹெப்பாடைட்டிஸ்', 'கக்குவான் இருமல்'], explanation: 'கடுமையான மூட்டு, தசை வலியால் டெங்கு எலும்பு முறிவுக் காய்ச்சல் எனப்படுகிறது.' },
   },
   {
     difficulty: 'easy', source: '§22.9.1, p. 269', answer: 0,
@@ -136,7 +136,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise I.2, p. 270', answer: 0,
     en: { q: 'One of the means of indirect transmission of a disease is', options: ['vectors', 'sneezing', 'coughing', 'droplet infection'], explanation: 'Sneezing, coughing and droplets spread disease directly; vectors are intermediate carriers, an indirect means.' },
-    ta: { q: 'மறைமுகவழியில் நோய் பரவும் வழிமுறை', options: ['கடத்திகள்', 'தும்மல்', 'இருமல்', 'துளிர்த்தொற்று முறை'], explanation: 'தும்மல், இருமல், துளிகள் நேரடியாகப் பரப்புகின்றன; கடத்திகள் இடைநிலைக் கடத்தியாகச் செயல்படுவதால் மறைமுக வழி.' },
+    ta: { q: 'மறைமுகவழியில் நோய் பரவும் வழிமுறை', options: ['கடத்திகள்', 'தும்மல்', 'இருமல்', 'துளிர்தொற்று முறை'], explanation: 'தும்மல், இருமல், துளிகள் நேரடியாகப் பரப்புகின்றன; கடத்திகள் இடைநிலைக் கடத்தியாகச் செயல்படுவதால் மறைமுக வழி.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise I.5, p. 270', answer: 0,
@@ -176,7 +176,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise V.3–4, p. 271', answer: 0,
     en: { q: "'Vaccination was developed by Jenner' and 'Hepatitis B is more dangerous than Hepatitis A'. These statements are", options: ['both true', 'both false', 'first true, second false', 'first false, second true'], explanation: 'Edward Jenner introduced vaccination; Hepatitis B (serum hepatitis) can cause cirrhosis of liver, so it is more dangerous than Hepatitis A.' },
-    ta: { q: "'தடுப்பூசி முறையை ஜென்னர் உருவாக்கினார்', 'ஹெப்படைடிஸ் B, ஹெப்படைடிஸ் A-ஐ விட அபாயகரமானது' – இக்கூற்றுகள்", options: ['இரண்டும் சரி', 'இரண்டும் தவறு', 'முதலாவது சரி, இரண்டாவது தவறு', 'முதலாவது தவறு, இரண்டாவது சரி'], explanation: 'எட்வர்ட் ஜென்னர் தடுப்பூசி முறையை அறிமுகப்படுத்தினார்; ஹெப்படைடிஸ் B கல்லீரல் சுருக்கத்தை (சிரோசிஸ்) உண்டாக்குவதால் அதிக அபாயகரமானது.' },
+    ta: { q: "'தடுப்பூசி முறையை ஜென்னர் உருவாக்கினார்', 'ஹெப்பாடைட்டிஸ் B, ஹெப்பாடைட்டிஸ் A-ஐ விட அபாயகரமானது' – இக்கூற்றுகள்", options: ['இரண்டும் சரி', 'இரண்டும் தவறு', 'முதலாவது சரி, இரண்டாவது தவறு', 'முதலாவது தவறு, இரண்டாவது சரி'], explanation: 'எட்வர்ட் ஜென்னர் தடுப்பூசி முறையை அறிமுகப்படுத்தினார்; ஹெப்பாடைட்டிஸ் B கல்லீரல் சுருக்கத்தை (சிரோசிஸ்) உண்டாக்குவதால் அதிக அபாயகரமானது.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise VIII.1, p. 271', answer: 0,
@@ -323,12 +323,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: '§22.2.1, p. 261', answer: 0,
     en: { q: 'Which group lists only free-living nitrogen-fixing microbes?', options: ['Azotobacter, Nitrosomonas, Nostoc', 'Rhizobium, Frankia, Nostoc', 'Rhizobium, Azotobacter, Frankia', 'Frankia, Nitrosomonas, Rhizobium'], explanation: 'Azotobacter, Nitrosomonas and Nostoc are free living; Rhizobium and Frankia are symbiotic.' },
-    ta: { q: 'தனித்து வாழும் நுண்ணுயிரிகளை மட்டுமே கொண்ட தொகுதி எது?', options: ['அசட்டோபாக்டர், நைட்ரோசோமோனாஸ், நாஸ்டாக்', 'ரைசோபியம், ஃபிராங்கியா, நாஸ்டாக்', 'ரைசோபியம், அசட்டோபாக்டர், ஃபிராங்கியா', 'ஃபிராங்கியா, நைட்ரோசோமோனாஸ், ரைசோபியம்'], explanation: 'அசட்டோபாக்டர், நைட்ரோசோமோனாஸ், நாஸ்டாக் தனித்து வாழ்பவை; ரைசோபியம், ஃபிராங்கியா கூட்டுயிர் வாழ்பவை.' },
+    ta: { q: 'தனித்து வாழும் நைட்ரஜன் நிலைநிறுத்தும் நுண்ணுயிரிகளை மட்டுமே கொண்ட தொகுதி எது?', options: ['அசட்டோபாக்டர், நைட்ரோசோமோனாஸ், நாஸ்டாக்', 'ரைசோபியம், ஃபிராங்கியா, நாஸ்டாக்', 'ரைசோபியம், அசட்டோபாக்டர், ஃபிராங்கியா', 'ஃபிராங்கியா, நைட்ரோசோமோனாஸ், ரைசோபியம்'], explanation: 'அசட்டோபாக்டர், நைட்ரோசோமோனாஸ், நாஸ்டாக் தனித்து வாழ்பவை; ரைசோபியம், ஃபிராங்கியா கூட்டுயிர் வாழ்பவை.' },
   },
   {
     difficulty: 'hard', source: '§22.2.3, p. 262 (Table 22.2)', answer: 0,
     en: { q: 'Which vaccine is correctly matched with its type?', options: ['Tetanus toxoid – toxoid (inactivated antigen)', 'BCG – subunit vaccine', 'Hepatitis B vaccine – live attenuated', 'IPV – toxoid'], explanation: 'MMR and BCG are live attenuated, IPV is inactivated (killed antigen), Hepatitis B is a subunit vaccine, and tetanus and diphtheria toxoids are toxoids.' },
-    ta: { q: 'தடுப்பூசியும் அதன் வகையும் சரியாகப் பொருந்திய இணை எது?', options: ['டெட்டனஸ் டாக்சாய்டு – டாக்சாய்டு (செயலிழந்த ஆண்டிஜென்)', 'பி.சி.ஜி – துணை அலகு தடுப்பூசி', 'ஹெப்படைடிஸ் B தடுப்பூசி – உயிருள்ள வலுவிழந்தது', 'IPV – டாக்சாய்டு'], explanation: 'MMR, BCG உயிருள்ள வலுவிழந்தவை; IPV செயலிழந்தது; ஹெப்படைடிஸ் B துணை அலகு; டெட்டனஸ், டிப்தீரியா டாக்சாய்டுகள்.' },
+    ta: { q: 'தடுப்பூசியும் அதன் வகையும் சரியாகப் பொருந்திய இணை எது?', options: ['டெட்டனஸ் டாக்சாய்டு – டாக்சாய்டு (செயலிழந்த ஆண்டிஜென்)', 'பி.சி.ஜி – துணை அலகு தடுப்பூசி', 'ஹெப்பாடைட்டிஸ் B தடுப்பூசி – உயிருள்ள வலுவிழந்தது', 'IPV – டாக்சாய்டு'], explanation: 'MMR, BCG உயிருள்ள வலுவிழந்தவை; IPV செயலிழந்தது; ஹெப்பாடைட்டிஸ் B துணை அலகு; டெட்டனஸ், டிப்தீரியா டாக்சாய்டுகள்.' },
   },
   {
     difficulty: 'hard', source: '§22.6.5, p. 266', answer: 0,
@@ -343,7 +343,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: '§22.8.2, p. 268', answer: 0,
     en: { q: 'A person shows yellowness of eyes and skin and light coloured stools. Tests show the virus spread through unscreened blood. The most likely disease and best protection are', options: ['Hepatitis B; hepatitis B vaccine and screening of blood donors', 'Hepatitis A; drinking boiled chlorinated water', 'Typhoid; avoiding food exposed to flies', 'Malaria; using mosquito nets'], explanation: 'Hepatitis B (serum hepatitis) spreads through blood and body secretions, damages the liver and is prevented by blood screening and the safe, effective HBV vaccine.' },
-    ta: { q: 'ஒருவருக்குக் கண், தோல் மஞ்சளாதல், வெளிர் நிற மலம் காணப்படுகின்றன. சோதிக்கப்படாத இரத்தம் மூலம் வைரஸ் பரவியது தெரிகிறது. இது எந்த நோய், சிறந்த பாதுகாப்பு எது?', options: ['ஹெப்படைடிஸ் B; ஹெப்படைடிஸ் B தடுப்பூசியும் இரத்தக் கொடையாளர் சோதனையும்', 'ஹெப்படைடிஸ் A; கொதிக்க வைத்த குளோரின் நீர் அருந்துதல்', 'டைபாய்டு; ஈக்கள் மொய்க்கும் உணவைத் தவிர்த்தல்', 'மலேரியா; கொசுவலை பயன்படுத்துதல்'], explanation: 'ஹெப்படைடிஸ் B இரத்தம், உடல் சுரப்புகள் மூலம் பரவி கல்லீரலைச் சேதப்படுத்தும்; இரத்தச் சோதனையும் HBV தடுப்பூசியும் பாதுகாப்பு தரும்.' },
+    ta: { q: 'ஒருவருக்குக் கண், தோல் மஞ்சளாதல், வெளிர் நிற மலம் காணப்படுகின்றன. சோதிக்கப்படாத இரத்தம் மூலம் வைரஸ் பரவியது தெரிகிறது. இது எந்த நோய், சிறந்த பாதுகாப்பு எது?', options: ['ஹெப்பாடைட்டிஸ் B; ஹெப்பாடைட்டிஸ் B தடுப்பூசியும் இரத்தக் கொடையாளர் சோதனையும்', 'ஹெப்பாடைட்டிஸ் A; கொதிக்க வைத்த குளோரின் நீர் அருந்துதல்', 'டைபாய்டு; ஈக்கள் மொய்க்கும் உணவைத் தவிர்த்தல்', 'மலேரியா; கொசுவலை பயன்படுத்துதல்'], explanation: 'ஹெப்பாடைட்டிஸ் B இரத்தம், உடல் சுரப்புகள் மூலம் பரவி கல்லீரலைச் சேதப்படுத்தும்; இரத்தச் சோதனையும் HBV தடுப்பூசியும் பாதுகாப்பு தரும்.' },
   },
   {
     difficulty: 'hard', source: '§22.9, p. 268', answer: 0,

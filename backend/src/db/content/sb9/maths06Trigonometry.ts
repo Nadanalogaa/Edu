@@ -38,7 +38,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§6.1 Note, p. 224', answer: 0,
     en: { q: 'Trigonometric ratios are', options: ['unitless numbers', 'measured in degrees', 'measured in centimetres', 'measured in square units'], explanation: 'They are ratios of two lengths, so the units cancel.' },
-    ta: { q: 'முக்கோணவியல் விகிதங்கள்', options: ['அலகு இல்லாத எண்கள்', 'பாகைகளில் அளக்கப்படுபவை', 'சென்டிமீட்டரில் அளக்கப்படுபவை', 'சதுர அலகுகளில் அளக்கப்படுபவை'], explanation: 'இவை இரு நீளங்களின் விகிதங்கள்; எனவே அலகுகள் நீங்கிவிடும்.' },
+    ta: { q: 'முக்கோணவியல் விகிதங்கள்', options: ['அலகுகளற்ற எண்கள்', 'பாகைகளில் அளக்கப்படுபவை', 'சென்டிமீட்டரில் அளக்கப்படுபவை', 'சதுர அலகுகளில் அளக்கப்படுபவை'], explanation: 'இவை இரு நீளங்களின் விகிதங்கள்; எனவே அலகுகள் நீங்கிவிடும்.' },
   },
   {
     difficulty: 'easy', source: '§6.2.2, p. 229', answer: 0,
@@ -53,7 +53,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§6.2.3, p. 230', answer: 0,
     en: { q: 'The value of cos 90° is', options: ['0', '1', 'not defined', '1/2'], explanation: 'At 90° the point on the unit circle is (0, 1), so cos 90° = x = 0.' },
-    ta: { q: 'cos 90° இன் மதிப்பு', options: ['0', '1', 'வரையறுக்கப்படவில்லை', '1/2'], explanation: '90° இல் அலகு வட்டத்தின் புள்ளி (0, 1); எனவே cos 90° = x = 0.' },
+    ta: { q: 'cos 90° இன் மதிப்பு', options: ['0', '1', 'வரையறுக்கப்படவில்லை', '1/2'], explanation: '90° இல் ஓரலகு வட்டத்தின் மேல் உள்ள புள்ளி (0, 1); எனவே cos 90° = x = 0.' },
   },
   {
     difficulty: 'easy', source: '§6.2.3, p. 230', answer: 0,
@@ -68,7 +68,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book example 6.7, p. 233', answer: 0,
     en: { q: 'sin 74° expressed in terms of cosine is', options: ['cos 16°', 'cos 74°', 'cos 26°', 'cos 106°'], explanation: 'sin 74° = sin(90° − 16°) = cos 16°.' },
-    ta: { q: 'sin 74° ஐ cosine இல் மாற்றினால்', options: ['cos 16°', 'cos 74°', 'cos 26°', 'cos 106°'], explanation: 'sin 74° = sin(90° − 16°) = cos 16°.' },
+    ta: { q: 'sin 74° இன் மதிப்பை cosine இல் மாற்றிக் கூறினால்', options: ['cos 16°', 'cos 74°', 'cos 26°', 'cos 106°'], explanation: 'sin 74° = sin(90° − 16°) = cos 16°.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise 6.5.2, p. 239', answer: 0,
@@ -88,7 +88,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§6.4, p. 235', answer: 0,
     en: { q: 'One degree (1°) is divided into', options: ['60 minutes', '100 minutes', '60 seconds', '360 minutes'], explanation: '1° = 60′ (minutes) and 1′ = 60″ (seconds).' },
-    ta: { q: 'ஒரு பாகை (1°) என்பது', options: ['60 கலைகள்', '100 கலைகள்', '60 விகலைகள்', '360 கலைகள்'], explanation: '1° = 60′ (கலை), 1′ = 60″ (விகலை).' },
+    ta: { q: 'ஒரு பாகை (1°) என்பது', options: ['60 நிமிடங்கள்', '100 நிமிடங்கள்', '60 நொடிகள்', '360 நிமிடங்கள்'], explanation: '1° = 60′ (நிமிடம்), 1′ = 60″ (நொடி).' },
   },
   {
     difficulty: 'easy', source: '§6.4, p. 236', answer: 0,
@@ -98,7 +98,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§6.3 Thinking corner, p. 235', answer: 0,
     en: { q: 'For 0° ≤ θ ≤ 90°, the maximum value of sin θ is', options: ['1', '0', '1/2', 'not defined'], explanation: 'sin θ rises from sin 0° = 0 to sin 90° = 1.' },
-    ta: { q: '0° ≤ θ ≤ 90° க்கு sin θ இன் மீப்பெரு மதிப்பு', options: ['1', '0', '1/2', 'வரையறுக்கப்படவில்லை'], explanation: 'sin θ ஆனது sin 0° = 0 இலிருந்து sin 90° = 1 வரை அதிகரிக்கும்.' },
+    ta: { q: '0° ≤ θ ≤ 90° க்கு sin θ இன் அதிகளவு மதிப்பு', options: ['1', '0', '1/2', 'வரையறுக்கப்படவில்லை'], explanation: 'sin θ ஆனது sin 0° = 0 இலிருந்து sin 90° = 1 வரை அதிகரிக்கும்.' },
   },
 
   // ------------------------------------------------------------------ Medium
@@ -265,7 +265,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 6.4.5, p. 239', answer: 0,
     en: { q: 'A ladder of length 5 m rests against a wall with its foot 4 m away from the wall. The angle the ladder makes with the ground is about', options: ['36°52′', '53°8′', '38°40′', '51°20′'], explanation: 'cos θ = 4/5 = 0.8, and from the cosine table θ ≈ 36°52′.' },
-    ta: { q: '5 மீ நீளமுள்ள ஏணி அதன் அடிப்பாகம் சுவரிலிருந்து 4 மீ தொலைவில் இருக்குமாறு சுவரின் மீது சாய்த்து வைக்கப்பட்டுள்ளது. ஏணி தரையுடன் ஏற்படுத்தும் கோணம் ஏறக்குறைய', options: ['36°52′', '53°8′', '38°40′', '51°20′'], explanation: 'cos θ = 4/5 = 0.8; cosine அட்டவணையிலிருந்து θ ≈ 36°52′.' },
+    ta: { q: '5 மீ நீளமுள்ள ஓர் ஏணியானது சுவற்றிலிருந்து 4 மீ தொலைவில் அடிப்பாகம் தரையைத் தொடுமாறு சுவற்றின் மீது சாய்த்து வைக்கப்பட்டுள்ளது எனில், ஏணி தரைப்பகுதியுடன் ஏற்படுத்தும் கோணம் ஏறக்குறைய', options: ['36°52′', '53°8′', '38°40′', '51°20′'], explanation: 'cos θ = 4/5 = 0.8; cosine அட்டவணையிலிருந்து θ ≈ 36°52′.' },
   },
   {
     difficulty: 'medium', source: '§6.2 Note, p. 232', answer: 0,
@@ -432,22 +432,22 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise 6.4.4, p. 239', answer: 0,
     en: { q: 'The area of a right triangle whose hypotenuse is 10 cm and one acute angle is 24°24′ is about', options: ['18.81 cm²', '37.62 cm²', '41.31 cm²', '9.41 cm²'], explanation: 'Legs = 10 sin 24°24′ ≈ 4.131 cm and 10 cos 24°24′ ≈ 9.107 cm; area = ½ × 4.131 × 9.107 ≈ 18.81 cm².' },
-    ta: { q: 'கர்ணம் 10 செமீ, ஒரு குறுங்கோணம் 24°24′ கொண்ட செங்கோண முக்கோணத்தின் பரப்பு ஏறக்குறைய', options: ['18.81 செமீ²', '37.62 செமீ²', '41.31 செமீ²', '9.41 செமீ²'], explanation: 'பக்கங்கள் = 10 sin 24°24′ ≈ 4.131 செமீ, 10 cos 24°24′ ≈ 9.107 செமீ; பரப்பு = ½ × 4.131 × 9.107 ≈ 18.81 செமீ².' },
+    ta: { q: 'கர்ணம் 10 செமீ மற்றும் ஒரு குறுங்கோண அளவு 24°24′ கொண்ட ஒரு செங்கோண முக்கோணத்தின் பரப்பு ஏறக்குறைய', options: ['18.81 செமீ²', '37.62 செமீ²', '41.31 செமீ²', '9.41 செமீ²'], explanation: 'பக்கங்கள் = 10 sin 24°24′ ≈ 4.131 செமீ, 10 cos 24°24′ ≈ 9.107 செமீ; பரப்பு = ½ × 4.131 × 9.107 ≈ 18.81 செமீ².' },
   },
   {
     difficulty: 'hard', source: 'Book example 6.16, p. 238', answer: 0,
     en: { q: 'A right triangle has hypotenuse 5 cm and an acute angle of 48°30′ (sin 48°30′ = 0.7490, cos 48°30′ = 0.6626). Its area is about', options: ['6.20 cm²', '12.41 cm²', '3.75 cm²', '9.36 cm²'], explanation: 'AB = 5 × 0.7490 = 3.745 cm and BC = 5 × 0.6626 = 3.313 cm; area = ½ × 3.313 × 3.745 ≈ 6.20 cm².' },
-    ta: { q: 'கர்ணம் 5 செமீ, குறுங்கோணம் 48°30′ கொண்ட செங்கோண முக்கோணம் (sin 48°30′ = 0.7490, cos 48°30′ = 0.6626). அதன் பரப்பு ஏறக்குறைய', options: ['6.20 செமீ²', '12.41 செமீ²', '3.75 செமீ²', '9.36 செமீ²'], explanation: 'AB = 5 × 0.7490 = 3.745 செமீ, BC = 5 × 0.6626 = 3.313 செமீ; பரப்பு = ½ × 3.313 × 3.745 ≈ 6.20 செமீ².' },
+    ta: { q: 'கர்ணம் 5 செமீ மற்றும் ஒரு குறுங்கோணம் 48°30′ கொண்ட ஒரு செங்கோண முக்கோணம் (sin 48°30′ = 0.7490, cos 48°30′ = 0.6626). அதன் பரப்பு ஏறக்குறைய', options: ['6.20 செமீ²', '12.41 செமீ²', '3.75 செமீ²', '9.36 செமீ²'], explanation: 'AB = 5 × 0.7490 = 3.745 செமீ, BC = 5 × 0.6626 = 3.313 செமீ; பரப்பு = ½ × 3.313 × 3.745 ≈ 6.20 செமீ².' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 6.4.6, p. 239', answer: 0, imageUrl: `${IMG}/ex6-4-tree-height.png`,
     en: { q: 'HT is a vertical tree. From P, 60 m from the foot T, the angle of elevation of the top H is 42° (tan 42° = 0.9004). The height of the tree is about', options: ['54.02 m', '40.15 m', '66.64 m', '44.59 m'], explanation: 'tan 42° = HT ÷ 60, so HT = 60 × 0.9004 ≈ 54.02 m.' },
-    ta: { q: 'HT என்பது செங்குத்தாக நிற்கும் மரம். மரத்தின் அடி T இலிருந்து 60 மீ தொலைவில் உள்ள P இலிருந்து உச்சி H இன் ஏற்றக்கோணம் 42° (tan 42° = 0.9004). மரத்தின் உயரம் ஏறக்குறைய', options: ['54.02 மீ', '40.15 மீ', '66.64 மீ', '44.59 மீ'], explanation: 'tan 42° = HT ÷ 60; HT = 60 × 0.9004 ≈ 54.02 மீ.' },
+    ta: { q: 'HT என்பது நேரான ஒரு மரத்தின் உயரத்தைக் குறிக்கிறது. மரத்தின் அடிப்பாகம் T இலிருந்து 60 மீ தொலைவிலுள்ள P என்ற புள்ளியிலிருந்து மரத்தின் உச்சி H இன் ஏற்றக் கோணம் 42° (tan 42° = 0.9004). மரத்தின் உயரம் ஏறக்குறைய', options: ['54.02 மீ', '40.15 மீ', '66.64 மீ', '44.59 மீ'], explanation: 'tan 42° = HT ÷ 60; HT = 60 × 0.9004 ≈ 54.02 மீ.' },
   },
   {
     difficulty: 'hard', source: '§6.2.3, p. 230', answer: 0,
     en: { q: 'Assertion (A): tan 90° is not defined.\nReason (R): On the unit circle, tan θ = y ÷ x, and at θ = 90° the point is (0, 1).', options: AR_EN, explanation: 'At 90°, tan θ = 1 ÷ 0, so division by zero makes it undefined; R explains A.' },
-    ta: { q: 'கூற்று (A): tan 90° வரையறுக்கப்படவில்லை.\nகாரணம் (R): அலகு வட்டத்தில் tan θ = y ÷ x; θ = 90° இல் புள்ளி (0, 1).', options: AR_TA, explanation: '90° இல் tan θ = 1 ÷ 0; பூச்சியத்தால் வகுக்க இயலாததால் வரையறுக்கப்படவில்லை; R ஆனது A ஐ விளக்குகிறது.' },
+    ta: { q: 'கூற்று (A): tan 90° வரையறுக்கப்படவில்லை.\nகாரணம் (R): ஓரலகு வட்டத்தில் tan θ = y ÷ x; θ = 90° இல் புள்ளி (0, 1).', options: AR_TA, explanation: '90° இல் tan θ = 1 ÷ 0; பூச்சியத்தால் வகுக்க இயலாததால் வரையறுக்கப்படவில்லை; R ஆனது A ஐ விளக்குகிறது.' },
   },
   {
     difficulty: 'hard', source: '§6.2.2, p. 229', answer: 3,

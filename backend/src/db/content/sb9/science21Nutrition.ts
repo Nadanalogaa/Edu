@@ -30,7 +30,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise II.2, p. 255', answer: 0,
     en: { q: 'Altering the natural composition and quality of a food substance by adding or removing something is known as _____.', options: ['adulteration', 'preservation', 'pasteurization', 'fortification'], explanation: 'Adulteration is the addition or subtraction of any substance that affects the natural composition and quality of food.' },
-    ta: { q: 'உணவுப் பொருள்களின் இயல்பான தன்மையையும் தரத்தையும் பாதிக்கக்கூடிய செயல்பாடு _____ என்று அழைக்கப்படுகிறது.', options: ['உணவுக் கலப்படம்', 'உணவுப் பாதுகாப்பு', 'பாஸ்டர் பதனம்', 'ஊட்டமேற்றல்'], explanation: 'உணவில் ஏதேனும் சேர்ப்பதோ நீக்குவதோ அதன் இயல்பான தரத்தைப் பாதித்தால் அது கலப்படம்.' },
+    ta: { q: 'ஏதேனும் ஒன்றைச் சேர்ப்பதன் அல்லது நீக்குவதன் மூலம் உணவுப் பொருள்களின் இயல்பான தன்மையையும் தரத்தையும் பாதிக்கக்கூடிய செயல்பாடு _____ என்று அழைக்கப்படுகிறது.', options: ['உணவுக் கலப்படம்', 'உணவுப் பாதுகாப்பு', 'பாஸ்டர் பதனம்', 'ஊட்டமேற்றல்'], explanation: 'உணவில் ஏதேனும் சேர்ப்பதோ நீக்குவதோ அதன் இயல்பான தரத்தைப் பாதித்தால் அது கலப்படம்.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise II.3, p. 255', answer: 0,
@@ -96,7 +96,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise I.3, p. 255', answer: 0,
     en: { q: 'The sprouting of onions and potatoes can be delayed by', options: ['irradiation', 'freezing', 'salting', 'canning'], explanation: 'Exposing food to ionising radiation (irradiation) kills pests and delays sprouting while keeping it fresh.' },
-    ta: { q: 'வெங்காயம், உருளைக்கிழங்கு போன்றவை முளை கட்டுவதைத் தடுக்கும் முறை', options: ['கதிர் வீச்சு முறை', 'அதிக குளிர் நிலையில் பாதுகாத்தல்', 'உப்பினைச் சேர்த்தல்', 'கலன்களில் அடைத்தல்'], explanation: 'அயனியாக்கும் கதிர்களைச் செலுத்துவது (கதிரியக்கம்) பூச்சிகளைக் கொன்று முளைப்பதைத் தாமதப்படுத்துகிறது.' },
+    ta: { q: 'வெங்காயம், உருளைக்கிழங்கு போன்றவை முளை கட்டுவதைத் தடுக்கும் முறை', options: ['கதிர் வீச்சு முறை', 'அதிக குளிர் நிலையில் பாதுகாத்தல்', 'உப்பினைச் சேர்த்தல்', 'கலன்களில் அடைத்தல்'], explanation: 'அயனியாக்கும் கதிர்களைச் செலுத்தும் கதிர் வீச்சு முறை பூச்சிகளைக் கொன்று முளைப்பதைத் தாமதப்படுத்துகிறது.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise I.5, p. 255', answer: 0,
@@ -156,7 +156,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise IX.1(b), p. 256', answer: 0,
     en: { q: 'Which of the following is a micromineral (trace element)?', options: ['Iodine', 'Calcium', 'Potassium', 'Sodium'], explanation: 'Calcium, phosphorus, potassium, sodium and magnesium are macrominerals; iodine, iron, zinc etc. are trace elements.' },
-    ta: { q: 'பின்வருவனவற்றில் நுண்ணிய தனிமச்சத்து (சுவடு தனிமம்) எது?', options: ['அயோடின்', 'கால்சியம்', 'பொட்டாசியம்', 'சோடியம்'], explanation: 'கால்சியம், பாஸ்பரஸ், பொட்டாசியம், சோடியம், மெக்னீசியம் பெரும் தனிமங்கள்; அயோடின், இரும்பு, துத்தநாகம் முதலியவை சுவடு தனிமங்கள்.' },
+    ta: { q: 'பின்வருவனவற்றில் மைக்ரோ தனிமம் (சுவடு தனிமம்) எது?', options: ['அயோடின்', 'கால்சியம்', 'பொட்டாசியம்', 'சோடியம்'], explanation: 'கால்சியம், பாஸ்பரஸ், பொட்டாசியம், சோடியம், மெக்னீசியம் மேக்ரோ தனிமங்கள்; அயோடின், இரும்பு, துத்தநாகம் முதலியவை சுவடு தனிமங்கள்.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise IX.3, p. 256', answer: 0,
@@ -166,7 +166,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise IX.4, p. 256', answer: 0,
     en: { q: 'Which is a naturally occurring toxic substance in food?', options: ['Prussic acid in the seeds of apples and cherries', 'Calcium carbide on mangoes', 'Shellac wax on apples', 'Metallic lead colours on vegetables'], explanation: 'Prussic acid in apple and cherry seeds and toxins in some mushrooms are natural adulterants; the others are added intentionally.' },
-    ta: { q: 'உணவில் இயற்கையாகக் காணப்படும் நச்சுப் பொருள் எது?', options: ['ஆப்பிள், செர்ரி விதைகளில் உள்ள புருசிக் அமிலம்', 'மாம்பழங்களில் கால்சியம் கார்பைடு', 'ஆப்பிள்களின் மேல் ஷெல்லாக் மெழுகு', 'காய்கறிகளில் உலோக ஈய நிறமிகள்'], explanation: 'ஆப்பிள், செர்ரி விதைகளில் உள்ள புருசிக் அமிலம், சில காளான்களின் நச்சு ஆகியவை இயற்கைக் கலப்படப் பொருள்கள்; மற்றவை வேண்டுமென்றே சேர்க்கப்படுபவை.' },
+    ta: { q: 'உணவில் இயற்கையாகக் காணப்படும் நச்சுப் பொருள் எது?', options: ['ஆப்பிள், செர்ரி விதைகளில் உள்ள புருசிக் அமிலம்', 'மாம்பழங்களில் கால்சியம் கார்பைடு', 'ஆப்பிள்களின் மேல் செல்லாக் மெழுகு', 'காய்கறிகளில் உலோக ஈய நிறமிகள்'], explanation: 'ஆப்பிள், செர்ரி விதைகளில் உள்ள புருசிக் அமிலம், சில காளான்களின் நச்சு ஆகியவை இயற்கைக் கலப்படப் பொருள்கள்; மற்றவை வேண்டுமென்றே சேர்க்கப்படுபவை.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise IX.6, p. 256', answer: 0,
@@ -278,7 +278,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: '§21.5, p. 252', answer: 0,
     en: { q: 'Pesticide residues and Salmonella contamination in ready-to-eat meat are classified as', options: ['incidental (unintentionally added) adulterants', 'intentionally added adulterants', 'natural adulterants', 'synthetic preservatives'], explanation: 'These enter food unknowingly through ignorance or carelessness during handling and packaging.' },
-    ta: { q: 'பூச்சிக்கொல்லி எச்சங்களும் தயார் நிலை இறைச்சியில் சால்மோனெல்லா மாசும் எவ்வகைக் கலப்படப் பொருள்கள்?', options: ['தெரியாமல் சேர்க்கப்படும் கலப்படப் பொருள்கள்', 'தெரிந்தே சேர்க்கப்படும் கலப்படப் பொருள்கள்', 'இயற்கையான கலப்படப் பொருள்கள்', 'செயற்கைப் பாதுகாப்புப் பொருள்கள்'], explanation: 'உணவைக் கையாளும்போதும் பொதியிடும்போதும் அறியாமை அல்லது கவனக்குறைவால் இவை சேர்கின்றன.' },
+    ta: { q: 'பூச்சிக்கொல்லி எச்சங்களும் தயார் நிலை இறைச்சியில் சால்மோனல்லா மாசும் எவ்வகைக் கலப்படப் பொருள்கள்?', options: ['தற்செயலாக / தெரியாமல் சேர்க்கப்படும் கலப்படப் பொருள்கள்', 'தெரிந்தே சேர்க்கப்படும் கலப்படப் பொருள்கள்', 'இயற்கையான கலப்படப் பொருள்கள்', 'செயற்கைப் பாதுகாப்புப் பொருள்கள்'], explanation: 'உணவைக் கையாளும்போதும் பொதியிடும்போதும் அறியாமை அல்லது கவனக்குறைவால் இவை சேர்கின்றன.' },
   },
   {
     difficulty: 'hard', source: '§21.6.1, p. 254', answer: 0,

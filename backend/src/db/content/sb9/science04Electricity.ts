@@ -72,7 +72,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise IV.2, p. 50', answer: 0,
     en: { q: 'The current taken as flowing opposite to the motion of electrons is called _____ current.', options: ['conventional', 'electron', 'alternating', 'induced'], explanation: 'Conventional current is the flow of positive charge, opposite to the electron current.' },
-    ta: { q: 'எலக்ட்ரான்கள் இயங்கும் திசைக்கு எதிர்த்திசையில் கருதப்படும் மின்னோட்டம் _____ மின்னோட்டம்.', options: ['மரபு', 'எலக்ட்ரான்', 'மாறுதிசை', 'தூண்டப்பட்ட'], explanation: 'மரபு மின்னோட்டம் நேர் மின்னூட்டங்கள் இயங்கும் திசையில் கருதப்படுகிறது; அது எலக்ட்ரான் மின்னோட்டத்திற்கு எதிர்த்திசை.' },
+    ta: { q: 'எலக்ட்ரான்கள் நகரும் திசைக்கு எதிர்த்திசையில் பாய்வதாகக் கருதப்படும் மின்னோட்டம் _____ மின்னோட்டம் எனப்படும்.', options: ['மரபு', 'எலக்ட்ரான்', 'மாறுதிசை', 'தூண்டப்பட்ட'], explanation: 'மரபு மின்னோட்டம் நேர் மின்னூட்டங்கள் இயங்கும் திசையில் கருதப்படுகிறது; அது எலக்ட்ரான் மின்னோட்டத்திற்கு எதிர்த்திசை.' },
   },
   {
     difficulty: 'easy', source: '§4.5.2, p. 47', answer: 0,
@@ -93,7 +93,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§4.3, p. 44', answer: 0,
     en: { q: 'The four main components of any electric circuit are a cell, connecting wire, a switch and a', options: ['resistor or load', 'transformer', 'rectifier', 'voltmeter'], explanation: 'A basic circuit needs a cell, connecting wires, a switch and a resistor (load).' },
-    ta: { q: 'எந்த மின்சுற்றிலும் உள்ள நான்கு முக்கியக் கூறுகள்: மின்கலம், இணைப்புக் கம்பி, சாவி மற்றும்', options: ['மின்தடை (சுமை)', 'மின்மாற்றி', 'திருத்தி', 'வோல்ட்மீட்டர்'], explanation: 'அடிப்படை மின்சுற்றுக்கு மின்கலம், இணைப்புக் கம்பி, சாவி, மின்தடை ஆகியவை தேவை.' },
+    ta: { q: 'எந்த மின்சுற்றிலும் உள்ள நான்கு முக்கியக் கூறுகள்: மின்கலம், இணைப்புக் கம்பி, சாவி மற்றும்', options: ['மின்தடை அல்லது மின்பளு', 'மின்மாற்றி', 'திருத்தி', 'வோல்ட்மீட்டர்'], explanation: 'அடிப்படை மின்சுற்றுக்கு மின்கலம், இணைப்புக் கம்பி, சாவி, மின்தடை ஆகியவை தேவை.' },
   },
   {
     difficulty: 'easy', source: '§4.2.5, p. 43', answer: 0,
@@ -130,7 +130,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise I.8, p. 49', answer: 0,
     en: { q: 'The resistance of a wire depends on', options: ['its temperature, its shape and size, and the material', 'only the current through it', 'only the voltage across it', 'only its colour of insulation'], explanation: 'Resistance depends on temperature, geometry (length, thickness) and the nature of the material.' },
-    ta: { q: 'ஒரு கம்பியின் மின்தடை எவற்றைச் சார்ந்தது?', options: ['வெப்பநிலை, வடிவம், கம்பியின் பொருள்', 'அதன் வழியே பாயும் மின்னோட்டம் மட்டும்', 'அதன் குறுக்கே உள்ள மின்னழுத்தம் மட்டும்', 'காப்புறையின் நிறம் மட்டும்'], explanation: 'மின்தடை வெப்பநிலை, வடிவம் (நீளம், தடிமன்) மற்றும் கம்பியின் இயல்பைச் சார்ந்தது.' },
+    ta: { q: 'ஒரு கம்பியின் மின்தடை எவற்றைச் சார்ந்தது?', options: ['வெப்பநிலை, வடிவம் மற்றும் அளவு, கம்பியின் இயல்பு (பொருள்)', 'அதன் வழியே பாயும் மின்னோட்டம் மட்டும்', 'அதன் குறுக்கே உள்ள மின்னழுத்தம் மட்டும்', 'காப்புறையின் நிறம் மட்டும்'], explanation: 'மின்தடை வெப்பநிலை, வடிவம் (நீளம், தடிமன்) மற்றும் கம்பியின் இயல்பைச் சார்ந்தது.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise II, p. 49', answer: 0,
@@ -155,12 +155,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book example 2, p. 42', answer: 0,
     en: { q: 'A charge of 25 C passes through a wire in 50 s. The current is', options: ['0.5 A', '2 A', '1250 A', '75 A'], explanation: 'I = q ÷ t = 25 ÷ 50 = 0.5 A.' },
-    ta: { q: 'ஒரு கம்பியின் வழியே 50 வினாடியில் 25 C மின்னூட்டம் பாய்கிறது. மின்னோட்டம்', options: ['0.5 A', '2 A', '1250 A', '75 A'], explanation: 'I = q ÷ t = 25 ÷ 50 = 0.5 A.' },
+    ta: { q: 'கம்பியொன்றின் குறுக்குவெட்டுப் பரப்பை 25 கூலூம் அளவிலான மின்னூட்டம் 50 வினாடி காலத்தில் கடந்து சென்றால், அதனால் விளையும் மின்னோட்டத்தின் அளவு', options: ['0.5 A', '2 A', '1250 A', '75 A'], explanation: 'I = q ÷ t = 25 ÷ 50 = 0.5 A.' },
   },
   {
     difficulty: 'medium', source: 'Book example 4, p. 42', answer: 0,
     en: { q: 'A cell of e.m.f 1.5 V drives 0.5 C of charge round a circuit. The energy it supplies is', options: ['0.75 J', '3 J', '2 J', '1 J'], explanation: 'W = ε × q = 1.5 × 0.5 = 0.75 J.' },
-    ta: { q: '1.5 V மின்னியக்கு விசை கொண்ட மின்கலம் 0.5 C மின்னூட்டத்தைச் சுற்றில் அனுப்புகிறது. அது அளிக்கும் ஆற்றல்', options: ['0.75 J', '3 J', '2 J', '1 J'], explanation: 'W = ε × q = 1.5 × 0.5 = 0.75 J.' },
+    ta: { q: '1.5 V மின்னியக்கு விசை கொண்ட மின்கலம் 0.5 C மின்னூட்டத்தை மின்சுற்றைச் சுற்றி அனுப்புகிறது. அது அளிக்கும் ஆற்றல் எவ்வளவு?', options: ['0.75 J', '3 J', '2 J', '1 J'], explanation: 'W = ε × q = 1.5 × 0.5 = 0.75 J.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise VI.5, p. 50', answer: 0,
@@ -207,12 +207,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book example 3, p. 42', answer: 0,
     en: { q: 'A lamp draws 0.2 A and is kept on for one hour. The charge that passes through it is', options: ['720 C', '12 C', '0.2 C', '7200 C'], explanation: 'q = I × t = 0.2 × 3600 s = 720 C (using 60 s instead of 3600 s gives 12 C).' },
-    ta: { q: '0.2 A மின்னோட்டம் பெறும் ஒரு விளக்கு ஒரு மணி நேரம் எரிகிறது. அதன் வழியே பாயும் மின்னூட்டம்', options: ['720 C', '12 C', '0.2 C', '7200 C'], explanation: 'q = I × t = 0.2 × 3600 வி = 720 C (60 வி எடுத்தால் தவறாக 12 C வரும்).' },
+    ta: { q: 'விளக்கு ஒன்றின் வழியே பாயும் மின்னோட்டம் 0.2 A. விளக்கு ஒரு மணி நேரம் எரிந்திருந்தால், அதன் வழியே பாய்ந்த மொத்த மின்னூட்டத்தின் மதிப்பு', options: ['720 C', '12 C', '0.2 C', '7200 C'], explanation: 'q = I × t = 0.2 × 3600 வி = 720 C (60 வி எடுத்தால் தவறாக 12 C வரும்).' },
   },
   {
     difficulty: 'hard', source: 'Book example 5, p. 43', answer: 0,
     en: { q: 'A charge of 2 × 10⁴ C flows through a heater and 5 × 10⁶ J of electrical energy is turned into heat. The potential difference across the heater is', options: ['250 V', '25 V', '2500 V', '1 × 10¹¹ V'], explanation: 'V = W ÷ q = (5 × 10⁶) ÷ (2 × 10⁴) = 250 V. Multiplying instead gives 1 × 10¹¹.' },
-    ta: { q: 'ஒரு மின் சூடேற்றியின் வழியே 2 × 10⁴ C மின்னூட்டம் பாய்ந்து 5 × 10⁶ J மின்னாற்றல் வெப்பமாக மாறுகிறது. சூடேற்றியின் குறுக்கே மின்னழுத்த வேறுபாடு', options: ['250 V', '25 V', '2500 V', '1 × 10¹¹ V'], explanation: 'V = W ÷ q = (5 × 10⁶) ÷ (2 × 10⁴) = 250 V. பெருக்கினால் தவறாக 1 × 10¹¹ வரும்.' },
+    ta: { q: 'ஒரு மின் சூடேற்றியின் வழியாக 2 × 10⁴ C மின்னூட்டம் பாய்கிறது. 5 × 10⁶ J அளவு மின்னாற்றல் வெப்ப ஆற்றலாக மாற்றப்படுகிறது எனில், சூடேற்றியின் குறுக்கே காணப்படும் மின்னழுத்த வேறுபாடு', options: ['250 V', '25 V', '2500 V', '1 × 10¹¹ V'], explanation: 'V = W ÷ q = (5 × 10⁶) ÷ (2 × 10⁴) = 250 V. பெருக்கினால் தவறாக 1 × 10¹¹ வரும்.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise VII.1, p. 50', answer: 0,

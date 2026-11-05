@@ -10,17 +10,17 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise I.1, p. 230', answer: 0,
     en: { q: 'The tropic movement that helps climbing vines to find a suitable support is', options: ['thigmotropism', 'phototropism', 'geotropism', 'chemotropism'], explanation: 'Climbing vines respond to touch with their support – this is thigmotropism.' },
-    ta: { q: 'ஏறும் கொடிகள் தங்களுக்குப் பொருத்தமான ஆதாரத்தைக் கண்டறிய உதவும் சார்பசைவு', options: ['தொடு உணர்வு சார்பசைவு', 'ஒளிச் சார்பசைவு', 'புவிச் சார்பசைவு', 'வேதிச் சார்பசைவு'], explanation: 'ஏறும் கொடிகள் ஆதாரத்தைத் தொடுவதற்கு ஏற்ப வளைகின்றன; இது தொடு உணர்வு சார்பசைவு.' },
+    ta: { q: 'ஏறும் கொடிகள் தங்களுக்குப் பொருத்தமான ஆதரவைக் கண்டறிய உதவும் சார்பசைவு', options: ['தொடு உணர்வு சார்பசைவு', 'ஒளிச் சார்பசைவு', 'புவிச் சார்பசைவு', 'வேதிச் சார்பசைவு'], explanation: 'ஏறும் கொடிகள் ஆதரவைத் தொடுவதற்கு ஏற்ப வளைகின்றன; இது தொடு உணர்வு சார்பசைவு.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise I.3, p. 230', answer: 0,
     en: { q: 'The bending of the root of a plant in response to water is called', options: ['hydrotropism', 'thigmonasty', 'phototropism', 'photonasty'], explanation: 'Movement of a plant part towards water is hydrotropism; roots show it.' },
-    ta: { q: 'நீர்த் தூண்டலுக்கு ஏற்ப தாவர வேர் வளைவது', options: ['நீர்ச் சார்பசைவு', 'நடுக்கமுறு வளைதல்', 'ஒளிச் சார்பசைவு', 'ஒளியுறு வளைதல்'], explanation: 'நீரை நோக்கித் தாவரப் பாகம் நகர்வது நீர்ச் சார்பசைவு; வேர் இதைக் காட்டுகிறது.' },
+    ta: { q: 'நீர் தூண்டலுக்கு ஏற்ப தாவர வேர் வளைவது _____ எனப்படும்.', options: ['நீர்ச் சார்பசைவு', 'நடுக்கமுறு வளைதல்', 'ஒளிச் சார்பசைவு', 'ஒளியுறு வளைதல்'], explanation: 'நீரை நோக்கித் தாவரப் பாகம் நகர்வது நீர்ச் சார்பசைவு; வேர் இதைக் காட்டுகிறது.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise I.6, p. 230', answer: 0,
     en: { q: 'The non-directional movement of a plant part in response to temperature is called', options: ['thermonasty', 'thermotropism', 'chemotropism', 'thigmonasty'], explanation: 'A non-directional (nastic) response to temperature is thermonasty, e.g. tulip flowers opening as it gets warmer.' },
-    ta: { q: 'வெப்பத் தூண்டலுக்கு ஏற்ப தாவர உறுப்பு திசை சாரா முறையில் அசைவது', options: ['வெப்பமுறு வளைதல்', 'வெப்பச் சார்பசைவு', 'வேதிச் சார்பசைவு', 'நடுக்கமுறு வளைதல்'], explanation: 'வெப்பநிலைக்கு ஏற்ப ஏற்படும் திசை சாரா அசைவு வெப்பமுறு வளைதல்; எ.கா. டுலிப் மலர்கள்.' },
+    ta: { q: 'வெப்பத் தூண்டுதலுக்கு ஏற்ப தாவர உறுப்பு திசை சாரா தூண்டல் அசைவுகளை உருவாக்குவது _____ எனப்படும்.', options: ['வெப்பமுறு வளைதல்', 'வெப்பச் சார்பசைவு', 'வேதிச் சார்பசைவு', 'நடுக்கமுறு வளைதல்'], explanation: 'வெப்பநிலைக்கு ஏற்ப ஏற்படும் திசை சாரா அசைவு வெப்பமுறு வளைதல்; எ.கா. டுலிப் மலர்கள்.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise I.7, p. 230', answer: 0,
@@ -35,7 +35,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise II.1, p. 231', answer: 0,
     en: { q: 'The shoot system grows upward in response to _____.', options: ['light', 'gravity', 'water', 'touch'], explanation: 'The shoot is positively phototropic: it grows towards light (and away from gravity).' },
-    ta: { q: 'தண்டுத் தொகுப்பு _____ இன் தூண்டலால் மேல்நோக்கி வளர்கிறது.', options: ['ஒளி', 'புவியீர்ப்பு', 'நீர்', 'தொடுதல்'], explanation: 'தண்டு நேர் ஒளிச் சார்பசைவு உடையது; ஒளியை நோக்கி வளர்கிறது.' },
+    ta: { q: '_____ இன் துலங்கலால் தண்டுத் தொகுப்பு மேல்நோக்கி வளர்கிறது.', options: ['ஒளி', 'புவியீர்ப்பு', 'நீர்', 'தொடுதல்'], explanation: 'தண்டு நேர் ஒளிச் சார்பசைவு உடையது; ஒளியை நோக்கி வளர்கிறது.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise II.2, p. 231', answer: 0,
@@ -101,7 +101,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise II.4, p. 231', answer: 0,
     en: { q: 'Sunflower flowers follow the path of the sun from east to west. This solar tracking is due to', options: ['phototropism', 'geotropism', 'thigmonasty', 'hydrotropism'], explanation: 'The flower head turns in the direction of light, a phototropic movement.' },
-    ta: { q: 'சூரியகாந்தி மலர் சூரியனின் பாதைக்கு ஏற்ப (கிழக்கிலிருந்து மேற்காக) வளைவது', options: ['ஒளிச் சார்பசைவு', 'புவிச் சார்பசைவு', 'நடுக்கமுறு வளைதல்', 'நீர்ச் சார்பசைவு'], explanation: 'மலர் ஒளியின் திசையில் திரும்புவதால் இது ஒளிச் சார்பசைவு.' },
+    ta: { q: 'சூரியகாந்தி மலர் சூரியனின் பாதைக்கு ஏற்ப (கிழக்கிலிருந்து மேற்காக) வளைவது எதனால்?', options: ['ஒளிச் சார்பசைவு', 'புவிச் சார்பசைவு', 'நடுக்கமுறு வளைதல்', 'நீர்ச் சார்பசைவு'], explanation: 'மலர் ஒளியின் திசையில் திரும்புவதால் இது ஒளிச் சார்பசைவு.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise III, p. 231', answer: 0,

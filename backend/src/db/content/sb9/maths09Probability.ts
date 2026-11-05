@@ -13,7 +13,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise 9.3 Q1, p. 302', answer: 0,
     en: { q: 'A number between 0 and 1 that is used to measure uncertainty is called', options: ['probability', 'random variable', 'trial', 'simple event'], explanation: 'Probability is a way of quantifying or measuring uncertainty; its value lies from 0 to 1.' },
-    ta: { q: '0 க்கும் 1 க்கும் இடைப்பட்ட, உறுதியற்றவற்றை அளவிடும் எண் எவ்வாறு அழைக்கப்படுகிறது?', options: ['நிகழ்தகவு', 'சமவாய்ப்பு மாறி', 'முயற்சி', 'எளிய நிகழ்ச்சி'], explanation: 'உறுதியற்ற தன்மையை அளவிடும் முறை நிகழ்தகவு; அதன் மதிப்பு 0 முதல் 1 வரை.' },
+    ta: { q: '0 க்கும் 1 க்கும் இடைப்பட்ட ஓர் எண்ணைக் கொண்டு உறுதியற்றவற்றை அளவிடுவது எவ்வாறு அழைக்கப்படுகிறது?', options: ['நிகழ்தகவு', 'சமவாய்ப்பு மாறி', 'முயற்சி', 'எளிய நிகழ்ச்சி'], explanation: 'உறுதியற்ற தன்மையை அளவிடும் முறை நிகழ்தகவு; அதன் மதிப்பு 0 முதல் 1 வரை.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise 9.3 Q2, p. 302', answer: 0,
@@ -130,7 +130,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: '§9.3 Thinking Corner, p. 295', answer: 0,
     en: { q: 'If the probability of success of an experiment is 0.4, the probability of failure is', options: ['0.6', '0.4', '1.4', '0.04'], explanation: 'Success and failure are complementary: 1 − 0.4 = 0.6.' },
-    ta: { q: 'ஒரு சோதனையின் வெற்றிக்கான நிகழ்தகவு 0.4 எனில் தோல்விக்கான நிகழ்தகவு', options: ['0.6', '0.4', '1.4', '0.04'], explanation: 'வெற்றியும் தோல்வியும் நிரப்பு நிகழ்ச்சிகள்: 1 − 0.4 = 0.6.' },
+    ta: { q: 'ஒரு சோதனை வெற்றி பெறுவதற்கான நிகழ்தகவு 0.4 எனில் அது தோல்வி அடைவதற்கான நிகழ்தகவு', options: ['0.6', '0.4', '1.4', '0.04'], explanation: 'வெற்றியும் தோல்வியும் நிரப்பு நிகழ்ச்சிகள்: 1 − 0.4 = 0.6.' },
   },
   {
     difficulty: 'medium', source: '§9.3, p. 295', answer: 0,
@@ -140,7 +140,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: '§9.4, p. 296', answer: 0,
     en: { q: 'A manufacturer produces 10,000 switches a month and 1,000 are found defective. The empirical probability of producing a defective switch is', options: ['0.1', '0.01', '0.9', '1'], explanation: 'P(E) = r/n = 1000/10000 = 0.1.' },
-    ta: { q: 'ஒரு உற்பத்தியாளர் மாதம் 10,000 மின்சுவிட்சுகள் தயாரிக்கிறார்; அவற்றுள் 1,000 குறைபாடுடையவை. குறைபாடுள்ள சுவிட்ச் தயாரிக்கும் பட்டறி நிகழ்தகவு', options: ['0.1', '0.01', '0.9', '1'], explanation: 'P(E) = r/n = 1000/10000 = 0.1.' },
+    ta: { q: 'ஓர் உற்பத்தியாளர் ஒவ்வொரு மாதமும் 10,000 மின் சொடுக்கிகள் தயாரிக்கிறார்; அவற்றில் 1,000 சொடுக்கிகள் குறைபாடுடையவை எனக் கண்டறியப்பட்டன. குறைபாடுடைய மின் சொடுக்கியைத் தயாரிப்பதற்கான பட்டறி நிகழ்தகவு', options: ['0.1', '0.01', '0.9', '1'], explanation: 'P(E) = r/n = 1000/10000 = 0.1.' },
   },
   {
     difficulty: 'medium', source: '§9.4 Thinking Corner, p. 296', answer: 0,
@@ -155,82 +155,82 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 9.1 Q1, p. 298', answer: 0,
     en: { q: 'The probability that a person’s birthday falls on a Sunday is', options: ['1/7', '1/365', '1/30', '6/7'], explanation: 'A week has 7 equally likely days, one of which is Sunday: 1/7.' },
-    ta: { q: 'ஒருவரின் பிறந்தநாள் ஞாயிற்றுக்கிழமையில் வருவதற்கான நிகழ்தகவு', options: ['1/7', '1/365', '1/30', '6/7'], explanation: 'வாரத்தில் 7 சமவாய்ப்பு நாள்கள்; அவற்றுள் ஞாயிறு ஒன்று: 1/7.' },
+    ta: { q: 'ஒரு மனிதரின் பிறந்த நாள் ஞாயிற்றுக்கிழமையாக இருக்க நிகழ்தகவு', options: ['1/7', '1/365', '1/30', '6/7'], explanation: 'வாரத்தில் 7 சமவாய்ப்பு நாள்கள்; அவற்றுள் ஞாயிறு ஒன்று: 1/7.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 9.1 Q2, p. 298', answer: 0,
     en: { q: 'The probability of getting a perfect square from the natural numbers 1 to 13 is', options: ['3/13', '4/13', '2/13', '3/10'], explanation: 'Perfect squares: 1, 4, 9 → 3 out of 13.' },
-    ta: { q: '1 முதல் 13 வரையிலான இயல் எண்களிலிருந்து ஒரு முழு வர்க்க எண் கிடைப்பதற்கான நிகழ்தகவு', options: ['3/13', '4/13', '2/13', '3/10'], explanation: 'முழு வர்க்கங்கள்: 1, 4, 9 → 13 இல் 3.' },
+    ta: { q: '1 முதல் 13 வரை உள்ள இயல் எண்களில், முழுவர்க்க எண்ணாக இருக்க நிகழ்தகவு', options: ['3/13', '4/13', '2/13', '3/10'], explanation: 'முழு வர்க்கங்கள்: 1, 4, 9 → 13 இல் 3.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 9.1 Q3, p. 298', answer: 0,
     en: { q: 'The probability of throwing an even number with a single standard six-faced dice is', options: ['1/2', '1/3', '1/6', '2/3'], explanation: 'Even numbers {2, 4, 6}: 3/6 = 1/2.' },
-    ta: { q: 'ஆறு முகங்கள் கொண்ட ஒரு பகடையை உருட்டும்போது இரட்டைப்படை எண் கிடைப்பதற்கான நிகழ்தகவு', options: ['1/2', '1/3', '1/6', '2/3'], explanation: 'இரட்டை எண்கள் {2, 4, 6}: 3/6 = 1/2.' },
+    ta: { q: 'ஆறு முகங்கள் கொண்ட ஒரு சீரான பகடையை உருட்டும்போது ஓர் இரட்டை எண் கிடைப்பதற்கான நிகழ்தகவு', options: ['1/2', '1/3', '1/6', '2/3'], explanation: 'இரட்டை எண்கள் {2, 4, 6}: 3/6 = 1/2.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 9.1 Q4(i), p. 298', answer: 0,
     en: { q: 'A pot has 24 balls: 3 red, 5 blue and the rest green. The probability of picking a blue ball is', options: ['5/24', '1/8', '2/3', '5/19'], explanation: 'P(blue) = 5/24.' },
-    ta: { q: 'ஒரு பானையில் 24 பந்துகள்: 3 சிவப்பு, 5 நீலம், மீதி பச்சை. நீலப் பந்து எடுப்பதற்கான நிகழ்தகவு', options: ['5/24', '1/8', '2/3', '5/19'], explanation: 'P(நீலம்) = 5/24.' },
+    ta: { q: 'ஒரு பானையில் 24 பந்துகள் உள்ளன; அவற்றில் 3 சிவப்பு, 5 நீலம், மீதி இருப்பவை பச்சை நிறமுடையவை. அவற்றில் ஒன்றைத் தேர்ந்தெடுக்கும்போது அது நீல நிறப் பந்தாக இருக்க நிகழ்தகவு', options: ['5/24', '1/8', '2/3', '5/19'], explanation: 'P(நீலம்) = 5/24.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 9.1 Q4(ii), p. 298', answer: 0,
     en: { q: 'A pot has 24 balls: 3 red, 5 blue and the rest green. The probability of picking a red ball is', options: ['1/8', '5/24', '3/21', '1/3'], explanation: 'P(red) = 3/24 = 1/8.' },
-    ta: { q: 'ஒரு பானையில் 24 பந்துகள்: 3 சிவப்பு, 5 நீலம், மீதி பச்சை. சிவப்புப் பந்து எடுப்பதற்கான நிகழ்தகவு', options: ['1/8', '5/24', '3/21', '1/3'], explanation: 'P(சிவப்பு) = 3/24 = 1/8.' },
+    ta: { q: 'ஒரு பானையில் 24 பந்துகள் உள்ளன; அவற்றில் 3 சிவப்பு, 5 நீலம், மீதி இருப்பவை பச்சை நிறமுடையவை. அவற்றில் ஒன்றைத் தேர்ந்தெடுக்கும்போது அது சிவப்பு நிறப் பந்தாக இருக்க நிகழ்தகவு', options: ['1/8', '5/24', '3/21', '1/3'], explanation: 'P(சிவப்பு) = 3/24 = 1/8.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 9.1 Q4(iii), p. 298', answer: 0,
     en: { q: 'A pot has 24 balls: 3 red, 5 blue and the rest green. The probability of picking a green ball is', options: ['2/3', '1/3', '8/24', '16/21'], explanation: 'Green = 24 − 8 = 16; P(green) = 16/24 = 2/3.' },
-    ta: { q: 'ஒரு பானையில் 24 பந்துகள்: 3 சிவப்பு, 5 நீலம், மீதி பச்சை. பச்சைப் பந்து எடுப்பதற்கான நிகழ்தகவு', options: ['2/3', '1/3', '8/24', '16/21'], explanation: 'பச்சை = 24 − 8 = 16; P(பச்சை) = 16/24 = 2/3.' },
+    ta: { q: 'ஒரு பானையில் 24 பந்துகள் உள்ளன; அவற்றில் 3 சிவப்பு, 5 நீலம், மீதி இருப்பவை பச்சை நிறமுடையவை. அவற்றில் ஒன்றைத் தேர்ந்தெடுக்கும்போது அது பச்சை நிறப் பந்தாக இருக்க நிகழ்தகவு', options: ['2/3', '1/3', '8/24', '16/21'], explanation: 'பச்சை = 24 − 8 = 16; P(பச்சை) = 16/24 = 2/3.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 9.1 Q5, p. 298', answer: 0,
     en: { q: 'When two coins are tossed, the probability of getting two heads is', options: ['1/4', '1/2', '3/4', '1/3'], explanation: 'S = {HH, HT, TH, TT}; only HH is favourable: 1/4.' },
-    ta: { q: 'இரு நாணயங்கள் சுண்டப்படும்போது இரண்டு தலைகள் கிடைப்பதற்கான நிகழ்தகவு', options: ['1/4', '1/2', '3/4', '1/3'], explanation: 'S = {HH, HT, TH, TT}; HH மட்டுமே சாதகமானது: 1/4.' },
+    ta: { q: 'இரண்டு நாணயங்களை ஒரே நேரத்தில் சுண்டும்போது, இரு தலைகள் கிடைப்பதற்கான நிகழ்தகவு', options: ['1/4', '1/2', '3/4', '1/3'], explanation: 'S = {HH, HT, TH, TT}; HH மட்டுமே சாதகமானது: 1/4.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 9.1 Q6(i), p. 298', answer: 0,
     en: { q: 'Two dice are rolled. The probability that the sum is equal to 1 is', options: ['0', '1/36', '1/6', '1/12'], explanation: 'The smallest possible sum is 2, so a sum of 1 is impossible: probability 0.' },
-    ta: { q: 'இரு பகடைகள் உருட்டப்படுகின்றன. கூடுதல் 1 ஆக இருப்பதற்கான நிகழ்தகவு', options: ['0', '1/36', '1/6', '1/12'], explanation: 'மிகச் சிறிய கூடுதல் 2; எனவே கூடுதல் 1 இயலாது: நிகழ்தகவு 0.' },
+    ta: { q: 'இரு பகடைகள் உருட்டப்படும்போது கிடைக்கும் எண்களின் கூடுதல் 1 க்குச் சமமாக இருக்க நிகழ்தகவு', options: ['0', '1/36', '1/6', '1/12'], explanation: 'மிகச் சிறிய கூடுதல் 2; எனவே கூடுதல் 1 இயலாது: நிகழ்தகவு 0.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 9.1 Q6(iii), p. 298', answer: 0,
     en: { q: 'Two dice are rolled. The probability that the sum is less than 13 is', options: ['1', '0', '35/36', '11/12'], explanation: 'The largest possible sum is 12, so every outcome has a sum less than 13: a sure event.' },
-    ta: { q: 'இரு பகடைகள் உருட்டப்படுகின்றன. கூடுதல் 13 ஐ விடக் குறைவாக இருப்பதற்கான நிகழ்தகவு', options: ['1', '0', '35/36', '11/12'], explanation: 'மிகப்பெரிய கூடுதல் 12; எனவே எல்லா விளைவுகளின் கூடுதலும் 13 க்குக் குறைவு: உறுதியான நிகழ்ச்சி.' },
+    ta: { q: 'இரு பகடைகள் உருட்டப்படும்போது கிடைக்கும் எண்களின் கூடுதல் 13 ஐ விடச் சிறியதாக இருக்க நிகழ்தகவு', options: ['1', '0', '35/36', '11/12'], explanation: 'மிகப்பெரிய கூடுதல் 12; எனவே எல்லா விளைவுகளின் கூடுதலும் 13 க்குக் குறைவு: உறுதியான நிகழ்ச்சி.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 9.1 Q7, p. 298', answer: 0,
     en: { q: 'A manufacturer tested 7000 LED lights and found 25 defective. The probability that a randomly selected LED light is defective is', options: ['1/280', '1/250', '25/6975', '279/280'], explanation: 'P = 25/7000 = 1/280.' },
-    ta: { q: 'ஓர் உற்பத்தியாளர் 7000 LED விளக்குகளைச் சோதித்ததில் 25 குறைபாடுடையவை. சமவாய்ப்பு முறையில் எடுக்கும் விளக்கு குறைபாடுடையதாக இருக்க நிகழ்தகவு', options: ['1/280', '1/250', '25/6975', '279/280'], explanation: 'P = 25/7000 = 1/280.' },
+    ta: { q: 'ஓர் உற்பத்தியாளர் 7000 ஒளி உமிழ் இருமுனைய விளக்குகளை (LED lights) சோதனை செய்ததில் அவற்றில் 25 விளக்குகள் குறைபாடுடையதாகக் கண்டறியப்பட்டன. சமவாய்ப்பு முறையில் ஒரு விளக்கைத் தேர்ந்தெடுக்கும்போது அது குறைபாடுடையதாக இருக்க நிகழ்தகவு', options: ['1/280', '1/250', '25/6975', '279/280'], explanation: 'P = 25/7000 = 1/280.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 9.1 Q8, p. 299', answer: 0,
     en: { q: 'A goalkeeper stops the goal 32 times out of 40 attempts. The probability that the opponent converts an attempt into a goal is', options: ['1/5', '4/5', '1/4', '8/32'], explanation: 'Goals scored = 40 − 32 = 8; P = 8/40 = 1/5.' },
-    ta: { q: 'ஒரு கால்பந்துப் போட்டியில் கோல் காப்பாளர் 40 முயற்சிகளில் 32 முறை கோலைத் தடுக்கிறார். எதிரணி ஒரு முயற்சியைக் கோலாக மாற்றுவதற்கான நிகழ்தகவு', options: ['1/5', '4/5', '1/4', '8/32'], explanation: 'கோல்கள் = 40 − 32 = 8; P = 8/40 = 1/5.' },
+    ta: { q: 'ஒரு கால்பந்தாட்டத்தில், ஓர் இலக்குக் காப்பாளரால் (goalkeeper) 40 இல் 32 முயற்சிகளைத் தடுக்க இயலும் எனில், எதிரணியானது ஒரு முயற்சியை இலக்காக (கோலாக) மாற்றுவதற்கான நிகழ்தகவு', options: ['1/5', '4/5', '1/4', '8/32'], explanation: 'இலக்காக மாறியவை = 40 − 32 = 8; P = 8/40 = 1/5.' },
   },
   {
     difficulty: 'medium', source: 'Book example 9.3, p. 297', answer: 0,
     en: { q: 'In 10 cricket matches, Team I beat Team II in the 1st, 6th and 9th matches. The relative frequency of Team I winning is', options: ['0.3', '0.7', '0.03', '0.6'], explanation: 'Team I won 3 of the 10 trials: 3/10 = 0.3.' },
-    ta: { q: '10 மட்டைப்பந்துப் போட்டிகளில் அணி I, அணி II ஐ 1, 6, 9 ஆவது போட்டிகளில் வென்றது. அணி I வெற்றி பெறுவதற்கான ஒப்பீட்டு நிகழ்வெண் நிகழ்தகவு', options: ['0.3', '0.7', '0.03', '0.6'], explanation: '10 முயற்சிகளில் அணி I 3 இல் வென்றது: 3/10 = 0.3.' },
+    ta: { q: 'அணி I, அணி II ஆகிய இரு அணிகளும் 10 முறை மட்டைப் பந்து ஆடுகின்றன; அணி I முதலாவது, ஆறாவது, ஒன்பதாவது ஆட்டங்களில் அணி II ஐ வென்றது. அணி I வெற்றி பெறுவதற்கான ஒப்பீட்டு நிகழ்வெண் நிகழ்தகவு', options: ['0.3', '0.7', '0.03', '0.6'], explanation: '10 முயற்சிகளில் அணி I 3 இல் வென்றது: 3/10 = 0.3.' },
   },
   {
     difficulty: 'medium', source: 'Book example 9.4, p. 300', answer: 0,
     en: { q: 'The probability that it will rain tomorrow is 91/100. The probability that it will not rain tomorrow is', options: ['0.09', '0.91', '0.19', '1.91'], explanation: 'P(E′) = 1 − P(E) = 1 − 0.91 = 0.09.' },
-    ta: { q: 'நாளை மழை பெய்வதற்கான நிகழ்தகவு 91/100 எனில் நாளை மழை பெய்யாமல் இருப்பதற்கான நிகழ்தகவு', options: ['0.09', '0.91', '0.19', '1.91'], explanation: 'P(E′) = 1 − P(E) = 1 − 0.91 = 0.09.' },
+    ta: { q: 'நாளைய மழை பொழிவிற்கான நிகழ்தகவு 91/100 எனில், நாளை மழை பொழியாமல் இருப்பதற்கான நிகழ்தகவு', options: ['0.09', '0.91', '0.19', '1.91'], explanation: 'P(E′) = 1 − P(E) = 1 − 0.91 = 0.09.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 9.2 Q1, p. 301', answer: 0,
     en: { q: 'A company manufactured 10000 laptops in 6 months and 25 were defective. The probability that a laptop chosen at random is a good one is', options: ['0.9975', '0.0025', '0.975', '0.25'], explanation: 'Good laptops = 9975; P = 9975/10000 = 0.9975.' },
-    ta: { q: 'ஒரு நிறுவனம் 6 மாதங்களில் 10000 மடிக்கணினிகளை உற்பத்தி செய்தது; அவற்றில் 25 குறைபாடுடையவை. சமவாய்ப்பு முறையில் தேர்ந்தெடுக்கும் மடிக்கணினி குறைபாடில்லாததாக இருக்க நிகழ்தகவு', options: ['0.9975', '0.0025', '0.975', '0.25'], explanation: 'நல்லவை = 9975; P = 9975/10000 = 0.9975.' },
+    ta: { q: 'ஒரு நிறுவனம் ஆறு மாதங்களில் 10000 மடிக்கணினிகளை உற்பத்தி செய்தது. அவற்றில் 25 மடிக்கணினிகள் குறைபாடு உடையனவாகக் கண்டறியப்பட்டன. சமவாய்ப்பு முறையில் ஒரு மடிக்கணினியைத் தேர்ந்தெடுக்கும்போது அது குறைபாடில்லாததாக இருக்க நிகழ்தகவு', options: ['0.9975', '0.0025', '0.975', '0.25'], explanation: 'நல்லவை = 9975; P = 9975/10000 = 0.9975.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 9.2 Q2, p. 301', answer: 0,
     en: { q: 'In a survey of 400 youngsters, 191 have a voter ID card. The probability that a youngster selected at random does not have one is', options: ['209/400', '191/400', '209/191', '191/209'], explanation: 'P(not) = 1 − 191/400 = 209/400.' },
-    ta: { q: '400 இளைஞர்களிடம் நடத்திய ஆய்வில் 191 பேர் வாக்காளர் அடையாள அட்டை வைத்திருந்தனர். ஒருவரைத் தேர்ந்தெடுக்கும்போது அவர் அட்டை இல்லாதவராக இருக்க நிகழ்தகவு', options: ['209/400', '191/400', '209/191', '191/209'], explanation: 'P(இல்லாமை) = 1 − 191/400 = 209/400.' },
+    ta: { q: '400 இளைஞர்களிடம் நடத்தப்பட்ட ஓர் ஆய்வில், 191 பேர் வாக்காளர் அடையாள அட்டை வைத்திருப்பதாகக் கண்டறியப்பட்டது. சமவாய்ப்பு முறையில் அவர்களில் ஒருவரைத் தேர்ந்தெடுக்கும்போது அவர் வாக்காளர் அடையாள அட்டை வைத்திருக்கும் நபராக இல்லாமல் இருக்க நிகழ்தகவு', options: ['209/400', '191/400', '209/191', '191/209'], explanation: 'P(இல்லாமை) = 1 − 191/400 = 209/400.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 9.2 Q4, p. 302', answer: 0,
     en: { q: 'The probability of a player winning a particular tennis match is 0.72. The probability of the player losing the match is', options: ['0.28', '0.72', '1.72', '0.38'], explanation: 'P(lose) = 1 − 0.72 = 0.28.' },
-    ta: { q: 'ஒரு வரிப்பந்து வீரர் ஒரு குறிப்பிட்ட ஆட்டத்தில் வெற்றி பெறுவதற்கான நிகழ்தகவு 0.72 எனில் அவர் தோல்வியடைவதற்கான நிகழ்தகவு', options: ['0.28', '0.72', '1.72', '0.38'], explanation: 'P(தோல்வி) = 1 − 0.72 = 0.28.' },
+    ta: { q: 'ஒரு வரிப்பந்து (tennis) விளையாட்டு வீரர் ஒரு குறிப்பிட்ட ஆட்டத்தில் வெற்றி பெறுவதற்கான நிகழ்தகவு 0.72 எனில், அவர் அந்த ஆட்டத்தில் தோல்வியடைவதற்கான நிகழ்தகவு', options: ['0.28', '0.72', '1.72', '0.38'], explanation: 'P(தோல்வி) = 1 − 0.72 = 0.28.' },
   },
   {
     difficulty: 'medium', source: '§9.5, p. 299', answer: 0,
@@ -247,12 +247,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise 9.1 Q6(ii), p. 298', answer: 0,
     en: { q: 'Two dice are rolled. The probability that the sum is equal to 4 is', options: ['1/12', '1/9', '1/6', '1/18'], explanation: 'Favourable: (1, 3), (2, 2), (3, 1) – 3 out of 36 = 1/12.' },
-    ta: { q: 'இரு பகடைகள் உருட்டப்படுகின்றன. கூடுதல் 4 ஆக இருப்பதற்கான நிகழ்தகவு', options: ['1/12', '1/9', '1/6', '1/18'], explanation: 'சாதகமானவை: (1, 3), (2, 2), (3, 1) – 36 இல் 3 = 1/12.' },
+    ta: { q: 'இரு பகடைகள் உருட்டப்படும்போது கிடைக்கும் எண்களின் கூடுதல் 4 க்குச் சமமாக இருக்க நிகழ்தகவு', options: ['1/12', '1/9', '1/6', '1/18'], explanation: 'சாதகமானவை: (1, 3), (2, 2), (3, 1) – 36 இல் 3 = 1/12.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 9.1 Q9, p. 299', answer: 0, imageUrl: `${IMG}/spinner.png`,
     en: { q: 'The spinner shown has 8 equal sectors numbered 1 to 8. The probability that it will not land on a multiple of 3 is', options: ['3/4', '1/4', '5/8', '2/3'], explanation: 'Multiples of 3 are 3 and 6 (2 of 8); P(not) = 1 − 2/8 = 6/8 = 3/4.' },
-    ta: { q: 'படத்திலுள்ள சுழலட்டையில் 1 முதல் 8 வரை எண்ணிடப்பட்ட 8 சம பகுதிகள் உள்ளன. முள் 3 இன் மடங்குகளில் நிலை கொள்ளாமல் இருப்பதற்கான நிகழ்தகவு', options: ['3/4', '1/4', '5/8', '2/3'], explanation: '3 இன் மடங்குகள் 3, 6 (8 இல் 2); P = 1 − 2/8 = 6/8 = 3/4.' },
+    ta: { q: 'படத்திலுள்ள சுழலட்டையில் (spinner) 1 முதல் 8 வரை எண்ணிடப்பட்ட 8 சம பகுதிகள் உள்ளன. அதன் முள் 3 இன் மடங்குகளில் நிலை கொள்ளாமல் இருப்பதற்கான நிகழ்தகவு', options: ['3/4', '1/4', '5/8', '2/3'], explanation: '3 இன் மடங்குகள் 3, 6 (8 இல் 2); P = 1 − 2/8 = 6/8 = 3/4.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 9.1 Q10, p. 299', answer: 0, imageUrl: `${IMG}/spinner.png`,
@@ -262,37 +262,37 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book example 9.2, p. 297', answer: 0,
     en: { q: 'In an office of 42 staff, 7 use cars, 20 use two-wheelers and 15 use cycles. The relative frequency of two-wheeler users is', options: ['10/21', '1/6', '5/14', '20/22'], explanation: '20/42 = 10/21. Also 1/6 + 10/21 + 5/14 = 1.' },
-    ta: { q: '42 பணியாளர்கள் உள்ள அலுவலகத்தில் 7 பேர் மகிழுந்து, 20 பேர் இரு சக்கர வண்டி, 15 பேர் மிதிவண்டி பயன்படுத்துகின்றனர். இரு சக்கர வண்டி பயன்படுத்துவோருக்கான ஒப்பீட்டு நிகழ்வெண்', options: ['10/21', '1/6', '5/14', '20/22'], explanation: '20/42 = 10/21. மேலும் 1/6 + 10/21 + 5/14 = 1.' },
+    ta: { q: '42 நபர்கள் பணி செய்யும் ஓர் அலுவலகத்தில் 7 பணியாளர்கள் மகிழுந்து, 20 பணியாளர்கள் இரு சக்கர வண்டி, மீதி 15 பணியாளர்கள் மிதிவண்டி பயன்படுத்துகிறார்கள். இரு சக்கர வண்டி பயன்படுத்துவோருக்கான ஒப்பீட்டு நிகழ்வெண் நிகழ்தகவு', options: ['10/21', '1/6', '5/14', '20/22'], explanation: '20/42 = 10/21. மேலும் 1/6 + 10/21 + 5/14 = 1.' },
   },
   {
     difficulty: 'hard', source: 'Book example 9.5, p. 301', answer: 0,
     en: { q: 'Of 1184 centum scorers, 233 were in Mathematics, 125 in Social Science and 106 in Science. The probability that a randomly selected centum scorer is in Mathematics is', options: ['233/1184', '106/1184', '233/464', '951/1184'], explanation: 'n(E₁) = 233, n(S) = 1184; P(E₁) = 233/1184.' },
-    ta: { q: '1184 நூற்றுக்கு நூறு பெற்றவர்களில் 233 பேர் கணிதத்திலும், 125 பேர் சமூக அறிவியலிலும், 106 பேர் அறிவியலிலும் பெற்றனர். தேர்ந்தெடுக்கும் மாணவர் கணிதத்தில் நூற்றுக்கு நூறு பெற்றவராக இருக்க நிகழ்தகவு', options: ['233/1184', '106/1184', '233/464', '951/1184'], explanation: 'n(E₁) = 233, n(S) = 1184; P(E₁) = 233/1184.' },
+    ta: { q: 'நூற்றுக்கு நூறு மதிப்பெண்கள் பெற்ற 1184 மாணவர்களில், 233 பேர் கணிதத்திலும், 125 பேர் சமூக அறிவியலிலும், 106 பேர் அறிவியலிலும் நூற்றுக்கு நூறு பெற்றுள்ளனர். சமவாய்ப்பு முறையில் ஒரு மாணவரைத் தேர்ந்தெடுக்கும்போது அந்த மாணவர் கணிதத்தில் நூற்றுக்கு நூறு மதிப்பெண் பெற்றவராக இருக்க நிகழ்தகவு', options: ['233/1184', '106/1184', '233/464', '951/1184'], explanation: 'n(E₁) = 233, n(S) = 1184; P(E₁) = 233/1184.' },
   },
   {
     difficulty: 'hard', source: 'Book example 9.5, p. 301', answer: 0,
     en: { q: 'Of 1184 centum scorers, 106 were in Science. The probability that a randomly selected centum scorer is NOT a centum scorer in Science is', options: ['1078/1184', '106/1184', '951/1184', '1078/106'], explanation: 'P(E₂′) = 1 − 106/1184 = 1078/1184.' },
-    ta: { q: '1184 நூற்றுக்கு நூறு பெற்றவர்களில் 106 பேர் அறிவியலில் பெற்றனர். தேர்ந்தெடுக்கும் மாணவர் அறிவியலில் நூற்றுக்கு நூறு பெறாதவராக இருக்க நிகழ்தகவு', options: ['1078/1184', '106/1184', '951/1184', '1078/106'], explanation: 'P(E₂′) = 1 − 106/1184 = 1078/1184.' },
+    ta: { q: 'நூற்றுக்கு நூறு மதிப்பெண்கள் பெற்ற 1184 மாணவர்களில், 106 பேர் அறிவியலில் நூற்றுக்கு நூறு பெற்றுள்ளனர். சமவாய்ப்பு முறையில் ஒரு மாணவரைத் தேர்ந்தெடுக்கும்போது அந்த மாணவர் அறிவியலில் நூற்றுக்கு நூறு பெறாதவராக இருக்க நிகழ்தகவு', options: ['1078/1184', '106/1184', '951/1184', '1078/106'], explanation: 'P(E₂′) = 1 − 106/1184 = 1078/1184.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 9.2 Q3, p. 301', answer: 0,
     en: { q: 'The probability of guessing the correct answer to a question is x/3 and of not guessing it is x/5. The value of x is', options: ['15/8', '8/15', '3/5', '5/3'], explanation: 'x/3 + x/5 = 1 ⇒ 8x/15 = 1 ⇒ x = 15/8.' },
-    ta: { q: 'ஒரு வினாவிற்கான சரியான விடையை ஊகிப்பதற்கான நிகழ்தகவு x/3; ஊகிக்காமல் இருப்பதற்கான நிகழ்தகவு x/5 எனில் x இன் மதிப்பு', options: ['15/8', '8/15', '3/5', '5/3'], explanation: 'x/3 + x/5 = 1 ⇒ 8x/15 = 1 ⇒ x = 15/8.' },
+    ta: { q: 'ஒரு வினாவிற்கான சரியான விடையை ஊகிப்பதற்கான நிகழ்தகவு x/3 என்க. சரியான விடையை ஊகிக்காமல் இருப்பதற்கான நிகழ்தகவு x/5 எனில், x இன் மதிப்பு', options: ['15/8', '8/15', '3/5', '5/3'], explanation: 'x/3 + x/5 = 1 ⇒ 8x/15 = 1 ⇒ x = 15/8.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 9.2 Q5(i), p. 302', answer: 0,
     en: { q: '1500 families were surveyed: 860 have only part-time maids, 370 only full-time maids and 250 both. The probability that a selected family has both types of maids is', options: ['1/6', '37/150', '43/75', '1/75'], explanation: 'P = 250/1500 = 1/6.' },
-    ta: { q: '1500 குடும்பங்களில்: 860 பகுதிநேரம் மட்டும், 370 முழுநேரம் மட்டும், 250 இரண்டு வகைப் பணிப்பெண்களும் வைத்துள்ளனர். தேர்ந்தெடுக்கும் குடும்பம் இரு வகைப் பணிப்பெண்களும் வைத்திருக்க நிகழ்தகவு', options: ['1/6', '37/150', '43/75', '1/75'], explanation: 'P = 250/1500 = 1/6.' },
+    ta: { q: '1500 குடும்பங்களின் பணிப்பெண்கள் பற்றிய தரவு: பகுதிநேரம் மட்டும் – 860, முழுநேரம் மட்டும் – 370, இரண்டு வகைப் பணிப்பெண்களும் – 250 குடும்பங்கள். சமவாய்ப்பு முறையில் ஒரு குடும்பம் தேர்ந்தெடுக்கப்படும்போது, அக்குடும்பம் இரு வகைப் பணிப்பெண்களும் வைத்திருக்க நிகழ்தகவு', options: ['1/6', '37/150', '43/75', '1/75'], explanation: 'P = 250/1500 = 1/6.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 9.2 Q5(ii), p. 302', answer: 0,
     en: { q: '1500 families were surveyed: 860 have only part-time maids, 370 only full-time maids and 250 both. The probability that a selected family has only part-time maids is', options: ['43/75', '37/50', '1/6', '37/150'], explanation: 'P = 860/1500 = 43/75 (the book’s answer uses the "only part-time" count).' },
-    ta: { q: '1500 குடும்பங்களில்: 860 பகுதிநேரம் மட்டும், 370 முழுநேரம் மட்டும், 250 இரண்டு வகைப் பணிப்பெண்களும் வைத்துள்ளனர். தேர்ந்தெடுக்கும் குடும்பம் பகுதிநேரப் பணிப்பெண் மட்டும் வைத்திருக்க நிகழ்தகவு', options: ['43/75', '37/50', '1/6', '37/150'], explanation: 'P = 860/1500 = 43/75 (நூலின் விடை “பகுதிநேரம் மட்டும்” எண்ணிக்கையைப் பயன்படுத்துகிறது).' },
+    ta: { q: '1500 குடும்பங்களின் பணிப்பெண்கள் பற்றிய தரவு: பகுதிநேரம் மட்டும் – 860, முழுநேரம் மட்டும் – 370, இரண்டு வகைப் பணிப்பெண்களும் – 250 குடும்பங்கள். சமவாய்ப்பு முறையில் ஒரு குடும்பம் தேர்ந்தெடுக்கப்படும்போது, அக்குடும்பம் பகுதிநேரப் பணிப்பெண் மட்டும் வைத்திருக்க நிகழ்தகவு', options: ['43/75', '37/50', '1/6', '37/150'], explanation: 'P = 860/1500 = 43/75 (நூலின் விடை “பகுதிநேரம் மட்டும்” எண்ணிக்கையைப் பயன்படுத்துகிறது).' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 9.2 Q5(iii), p. 302', answer: 0,
     en: { q: '1500 families were surveyed: 860 have only part-time maids, 370 only full-time maids and 250 both. The probability that a selected family has no maids is', options: ['1/75', '1/6', '0', '74/75'], explanation: 'No maids = 1500 − (860 + 370 + 250) = 20; P = 20/1500 = 1/75.' },
-    ta: { q: '1500 குடும்பங்களில்: 860 பகுதிநேரம் மட்டும், 370 முழுநேரம் மட்டும், 250 இரண்டு வகைப் பணிப்பெண்களும் வைத்துள்ளனர். தேர்ந்தெடுக்கும் குடும்பம் பணிப்பெண் வைத்திருக்காமல் இருக்க நிகழ்தகவு', options: ['1/75', '1/6', '0', '74/75'], explanation: 'பணிப்பெண் இல்லாதவை = 1500 − (860 + 370 + 250) = 20; P = 20/1500 = 1/75.' },
+    ta: { q: '1500 குடும்பங்களின் பணிப்பெண்கள் பற்றிய தரவு: பகுதிநேரம் மட்டும் – 860, முழுநேரம் மட்டும் – 370, இரண்டு வகைப் பணிப்பெண்களும் – 250 குடும்பங்கள். சமவாய்ப்பு முறையில் ஒரு குடும்பம் தேர்ந்தெடுக்கப்படும்போது, அக்குடும்பம் பணிப்பெண் வைத்திருக்காமல் இருக்க நிகழ்தகவு', options: ['1/75', '1/6', '0', '74/75'], explanation: 'பணிப்பெண் இல்லாதவை = 1500 − (860 + 370 + 250) = 20; P = 20/1500 = 1/75.' },
   },
   {
     difficulty: 'hard', source: '§9.4 Progress Check, p. 297', answer: 0,

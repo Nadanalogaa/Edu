@@ -13,17 +13,17 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise I.2, p. 77', answer: 0,
     en: { q: 'The reflector used behind the bulb of a torch is a', options: ['concave mirror', 'convex mirror', 'plane mirror', 'glass prism'], explanation: 'A concave mirror sends the light from a bulb at its focus out as a strong parallel beam.' },
-    ta: { q: 'டார்ச் விளக்கில் எதிரொளிப்பானாகப் பயன்படுவது', options: ['குழியாடி', 'குவியாடி', 'சமதள ஆடி', 'கண்ணாடி முப்பட்டகம்'], explanation: 'குழியாடியின் குவியத்தில் உள்ள விளக்கின் ஒளி இணையான வலிமையான கற்றையாக வெளிவருகிறது.' },
+    ta: { q: 'டார்ச் விளக்கில் எதிரொளிப்பானாகப் பயன்படுவது _____', options: ['குழியாடி', 'குவியாடி', 'சமதள ஆடி', 'கண்ணாடி முப்பட்டகம்'], explanation: 'குழியாடியின் குவியத்தில் உள்ள விளக்கின் ஒளி இணையான வலிமையான கற்றையாக வெளிவருகிறது.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise I.4, p. 77', answer: 0,
     en: { q: 'A spherical mirror whose reflecting surface bulges outwards is a', options: ['convex mirror', 'concave mirror', 'plane mirror', 'parabolic reflector'], explanation: 'Reflecting surface curved outward – convex; curved inward, facing the centre – concave.' },
-    ta: { q: 'எதிரொளிக்கும் பரப்பு வெளிப்புறமாக வளைந்துள்ள கோளக ஆடி', options: ['குவியாடி', 'குழியாடி', 'சமதள ஆடி', 'பரவளைய எதிரொளிப்பான்'], explanation: 'எதிரொளிக்கும் பரப்பு வெளிப்புறம் வளைந்தால் குவியாடி; உட்புறம் (மையத்தை நோக்கி) வளைந்தால் குழியாடி.' },
+    ta: { q: 'எதிரொளிக்கும் பகுதி வெளிப்புறமாக வளைந்திருக்கும் கோளக ஆடி', options: ['குவியாடி', 'குழியாடி', 'சமதள ஆடி', 'பரவளைய எதிரொளிப்பான்'], explanation: 'எதிரொளிக்கும் பரப்பு வெளிப்புறம் வளைந்தால் குவியாடி; உட்புறம் (மையத்தை நோக்கி) வளைந்தால் குழியாடி.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise I.6, p. 77', answer: 0,
     en: { q: 'Light travels fastest in', options: ['vacuum', 'glass', 'water', 'diamond'], explanation: 'Light travels at about 3 × 10⁸ m s⁻¹ in vacuum and slower in any material medium.' },
-    ta: { q: 'ஒளியின் திசைவேகம் எதில் பெருமமாக உள்ளது?', options: ['வெற்றிடம்', 'கண்ணாடி', 'நீர்', 'வைரம்'], explanation: 'வெற்றிடத்தில் ஒளியின் திசைவேகம் ஏறக்குறைய 3 × 10⁸ மீ வி⁻¹; பிற ஊடகங்களில் குறைவு.' },
+    ta: { q: 'ஒளியின் திசைவேகம் _____ பெருமமாக உள்ளது.', options: ['வெற்றிடத்தில்', 'கண்ணாடியில்', 'நீரில்', 'வைரத்தில்'], explanation: 'வெற்றிடத்தில் ஒளியின் திசைவேகம் ஏறக்குறைய 3 × 10⁸ மீ வி⁻¹; பிற ஊடகங்களில் குறைவு.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise VI.5, p. 78', answer: 0,
@@ -38,7 +38,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§6.1.2, p. 67', answer: 0,
     en: { q: 'The word "AMBULANCE" is written in mirror form on the front of ambulances because a plane mirror shows', options: ['lateral inversion', 'total internal reflection', 'refraction', 'magnification'], explanation: 'Drivers ahead see it in their rear-view mirror, where lateral (sideways) inversion makes it read correctly.' },
-    ta: { q: 'அவசர ஊர்திகளின் முன்புறம் AMBULANCE என்பது இடவலமாகத் திருப்பி எழுதப்படுவதற்குக் காரணம் சமதள ஆடியில் ஏற்படும்', options: ['இடவல மாற்றம்', 'முழு அக எதிரொளிப்பு', 'ஒளிவிலகல்', 'உருப்பெருக்கம்'], explanation: 'முன்னே செல்லும் ஓட்டுநர்கள் பின்காட்டி ஆடியில் பார்க்கும்போது இடவல மாற்றத்தால் அது சரியாகத் தெரியும்.' },
+    ta: { q: 'அவசர ஊர்திகளின் முன்புறம் AMBULANCE என்பது இடவலமாகத் திருப்பி எழுதப்படுவதற்குக் காரணம் சமதள ஆடியில் ஏற்படும்', options: ['இடவல மாற்றம்', 'முழு அக எதிரொளிப்பு', 'ஒளிவிலகல்', 'உருப்பெருக்கம்'], explanation: 'முன்னே செல்லும் ஓட்டுநர்கள் பின்னோக்கு ஆடியில் பார்க்கும்போது இடவல மாற்றத்தால் அது சரியாகத் தெரியும்.' },
   },
   {
     difficulty: 'easy', source: '§6.2, p. 67', answer: 0,
@@ -58,12 +58,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise III.5, p. 77', answer: 0,
     en: { q: 'Large _____ mirrors are used to concentrate sunlight in solar furnaces.', options: ['concave', 'convex', 'plane', 'one-way'], explanation: 'Large concave mirrors focus sunlight to a point, producing heat in solar heaters and furnaces.' },
-    ta: { q: 'சூரிய உலைகளில் சூரிய ஒளியைக் குவிக்கப் பெரிய _____ பயன்படுகின்றன.', options: ['குழியாடிகள்', 'குவியாடிகள்', 'சமதள ஆடிகள்', 'ஒருவழி ஆடிகள்'], explanation: 'பெரிய குழியாடிகள் சூரிய ஒளியைக் குவித்து வெப்பத்தை உருவாக்குகின்றன.' },
+    ta: { q: 'சூரிய அடுப்புகளில் (உலைகளில்) சூரிய ஒளியைக் குவித்து வெப்பம் உண்டாக்கப் பயன்படும் பெரிய ஆடிகள் _____.', options: ['குழியாடிகள்', 'குவியாடிகள்', 'சமதள ஆடிகள்', 'ஒருவழி ஆடிகள்'], explanation: 'பெரிய குழியாடிகள் சூரிய ஒளியைக் குவித்து வெப்பத்தை உருவாக்குகின்றன.' },
   },
   {
     difficulty: 'easy', source: '§6.5.2, p. 72', answer: 0,
     en: { q: 'Rear-view mirrors in vehicles are', options: ['convex mirrors', 'concave mirrors', 'plane mirrors', 'prisms'], explanation: 'A convex mirror always gives an erect, small image and a wide field of view.' },
-    ta: { q: 'வாகனங்களின் பின்காட்டி ஆடிகள்', options: ['குவியாடிகள்', 'குழியாடிகள்', 'சமதள ஆடிகள்', 'முப்பட்டகங்கள்'], explanation: 'குவியாடி எப்போதும் நேரான, சிறிய பிம்பத்தையும் அகன்ற பார்வைப் புலத்தையும் தரும்.' },
+    ta: { q: 'வாகனங்களின் பின்னோக்கு ஆடிகள்', options: ['குவியாடிகள்', 'குழியாடிகள்', 'சமதள ஆடிகள்', 'முப்பட்டகங்கள்'], explanation: 'குவியாடி எப்போதும் நேரான, சிறிய பிம்பத்தையும் அகன்ற பார்வைப் புலத்தையும் தரும்.' },
   },
   {
     difficulty: 'easy', source: '§6.7, p. 73', answer: 0,
@@ -100,17 +100,17 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise I.1, p. 77', answer: 0,
     en: { q: 'A ray of light passes from one medium into another. It bends (refracts) when the angle of incidence is', options: ['45°', '0°', '90°', '0° and 90° only'], explanation: 'A ray along the normal (0°) goes straight through and a 90° ray only grazes the surface; an oblique ray, such as one at 45°, bends.' },
-    ta: { q: 'ஒளிக்கதிர் ஒரு ஊடகத்திலிருந்து மற்றொன்றுக்குச் செல்கிறது. படுகோணம் எவ்வளவாக இருக்கும்போது அது விலகலடையும்?', options: ['45°', '0°', '90°', '0°, 90° மட்டும்'], explanation: 'குத்துக்கோட்டின் வழியே (0°) செல்லும் கதிர் விலகாது; 90° கதிர் பரப்பை ஒட்டிச் செல்லும்; 45° போன்ற சாய்வான கதிர் விலகும்.' },
+    ta: { q: 'ஒளி ஒரு ஊடகத்திலிருந்து மற்றொரு ஊடகத்திற்குச் செல்கிறது. எந்தப் படுகோணத்தில் அது ஒளிவிலகல் அடையும் (வளையும்)?', options: ['45°', '0°', '90°', '0°, 90° மட்டும்'], explanation: 'குத்துக்கோட்டின் வழியே (0°) செல்லும் கதிர் விலகாது; 90° கதிர் பரப்பை ஒட்டிச் செல்லும்; 45° போன்ற சாய்வான கதிர் விலகும்.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise I.3, p. 77', answer: 0,
     en: { q: 'An enlarged, virtual image can be obtained with a', options: ['concave mirror', 'convex mirror', 'plane mirror', 'convex mirror held very close'], explanation: 'With the object between F and P, a concave mirror gives a virtual, erect, magnified image. Convex and plane mirrors never magnify.' },
-    ta: { q: 'பெரிதான மாய பிம்பத்தை உருவாக்குவது', options: ['குழியாடி', 'குவியாடி', 'சமதள ஆடி', 'மிக அருகில் வைத்த குவியாடி'], explanation: 'பொருள் F-க்கும் P-க்கும் இடையே இருக்கும்போது குழியாடி மாய, நேரான, பெரிதான பிம்பம் தரும். குவியாடியும் சமதள ஆடியும் பெரிதாக்குவதில்லை.' },
+    ta: { q: 'பெரிதான, மாய பிம்பத்தை உருவாக்குவது _____', options: ['குழியாடி', 'குவியாடி', 'சமதள ஆடி', 'மிக அருகில் வைத்த குவியாடி'], explanation: 'பொருள் F-க்கும் P-க்கும் இடையே இருக்கும்போது குழியாடி மாய, நேரான, பெரிதான பிம்பம் தரும். குவியாடியும் சமதள ஆடியும் பெரிதாக்குவதில்லை.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise I.5, p. 77', answer: 0,
     en: { q: 'When a beam of white light passes through a glass prism, it is', options: ['deviated and dispersed into colours', 'only reflected', 'only deviated', 'absorbed completely'], explanation: 'A prism bends (deviates) light and also splits white light into its colours (dispersion).' },
-    ta: { q: 'வெண்ணிற ஒளிக்கற்றை முப்பட்டகம் வழியே செல்லும்போது அது', options: ['விலகலடைந்து நிறப்பிரிகை அடைகிறது', 'எதிரொளிக்கப்படுகிறது மட்டும்', 'விலகல் மட்டும் அடைகிறது', 'முழுவதும் உட்கவரப்படுகிறது'], explanation: 'முப்பட்டகம் ஒளியை விலகச் செய்வதுடன் வெண்ணிற ஒளியை நிறங்களாகப் பிரிக்கிறது (நிறப்பிரிகை).' },
+    ta: { q: 'முப்பட்டகம் ஒன்றின் வழியே வெண்ணிற ஒளிக்கற்றை பாயும்போது, அது', options: ['விலகலடைகிறது மற்றும் நிறப்பிரிகை அடைகிறது', 'எதிரொளிக்கப்பட மட்டும் செய்கிறது', 'விலகல் மட்டும் அடைகிறது', 'முழுவதும் உட்கவரப்படுகிறது'], explanation: 'முப்பட்டகம் ஒளியை விலகச் செய்வதுடன் வெண்ணிற ஒளியை நிறங்களாகப் பிரிக்கிறது (நிறப்பிரிகை).' },
   },
   {
     difficulty: 'medium', source: 'Book exercise II.2, II.3, II.4, p. 77', answer: 0,
@@ -120,17 +120,17 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise III.1, p. 77', answer: 0,
     en: { q: 'When a ray of light goes from a rarer medium into a denser medium, it bends', options: ['towards the normal', 'away from the normal', 'along the surface', 'back into the rarer medium'], explanation: 'Light slows down in the denser medium and bends towards the normal.' },
-    ta: { q: 'ஒளிக்கதிர் அடர் குறை ஊடகத்திலிருந்து அடர்மிகு ஊடகத்திற்குச் செல்லும்போது', options: ['குத்துக்கோட்டை நோக்கி விலகும்', 'குத்துக்கோட்டை விட்டு விலகும்', 'பரப்பின் வழியே செல்லும்', 'அடர் குறை ஊடகத்திற்கே திரும்பும்'], explanation: 'அடர்மிகு ஊடகத்தில் ஒளியின் திசைவேகம் குறைவதால் அது குத்துக்கோட்டை நோக்கி விலகும்.' },
+    ta: { q: 'அடர் குறை ஊடகத்திலிருந்து அடர்மிகு ஊடகத்திற்கு ஒளிக்கதிர் செல்லும்போது அது', options: ['குத்துக்கோட்டை நோக்கி விலகும்', 'குத்துக்கோட்டை விட்டு விலகும்', 'பரப்பின் வழியே செல்லும்', 'அடர் குறை ஊடகத்திற்கே திரும்பும்'], explanation: 'அடர்மிகு ஊடகத்தில் ஒளியின் திசைவேகம் குறைவதால் அது குத்துக்கோட்டை நோக்கி விலகும்.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise III.4, p. 77', answer: 0,
     en: { q: 'The radius of curvature of a concave mirror of focal length 5 cm is', options: ['10 cm', '2.5 cm', '5 cm', '25 cm'], explanation: 'R = 2f = 2 × 5 = 10 cm.' },
-    ta: { q: '5 செமீ குவியத்தொலைவு கொண்ட குழியாடியின் வளைவு ஆரம்', options: ['10 செமீ', '2.5 செமீ', '5 செமீ', '25 செமீ'], explanation: 'R = 2f = 2 × 5 = 10 செமீ.' },
+    ta: { q: '5 செமீ குவியத்தொலைவு கொண்ட குழியாடியின் வளைவு ஆரம் = _____', options: ['10 செமீ', '2.5 செமீ', '5 செமீ', '25 செமீ'], explanation: 'R = 2f = 2 × 5 = 10 செமீ.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise IV, p. 77', answer: 0,
     en: { q: 'Match:\n1. Used at hairpin bends in mountains  2. Coin in water appears raised  3. Mirage  4. Dentist\'s mirror\n(a) Total internal reflection  (b) Concave mirror  (c) Convex mirror  (d) Refraction', options: ['1-c, 2-d, 3-a, 4-b', '1-b, 2-d, 3-a, 4-c', '1-c, 2-a, 3-d, 4-b', '1-d, 2-c, 3-a, 4-b'], explanation: 'Convex mirrors at bends, refraction raises the coin, a mirage is due to total internal reflection, and dentists use concave mirrors.' },
-    ta: { q: 'பொருத்துக:\n1. மலைகளின் கொண்டை ஊசி வளைவுகளில் பயன்படுவது  2. நீரில் உள்ள நாணயம் சற்று மேலே தெரிவது  3. கானல் நீர்  4. பல் மருத்துவர் பயன்படுத்தும் ஆடி\n(a) முழு அக எதிரொளிப்பு  (b) குழியாடி  (c) குவியாடி  (d) ஒளிவிலகல்', options: ['1-c, 2-d, 3-a, 4-b', '1-b, 2-d, 3-a, 4-c', '1-c, 2-a, 3-d, 4-b', '1-d, 2-c, 3-a, 4-b'], explanation: 'வளைவுகளில் குவியாடி; ஒளிவிலகலால் நாணயம் மேலே தெரியும்; கானல் நீர் முழு அக எதிரொளிப்பால்; பல் மருத்துவர் குழியாடி பயன்படுத்துவார்.' },
+    ta: { q: 'பொருத்துக:\n1. மலைகளில் காணப்படும் மிகக் குறுகிய (கொண்டை ஊசி) வளைவுகளில் பயன்படுவது  2. தண்ணீருக்குள் உள்ள நாணயம் சற்று மேலே உள்ளது போல் தெரிவது  3. கானல் நீர்  4. பல் மருத்துவர் பயன்படுத்துவது\n(a) முழு அக எதிரொளிப்பு  (b) குழியாடி  (c) குவியாடி  (d) ஒளிவிலகல்', options: ['1-c, 2-d, 3-a, 4-b', '1-b, 2-d, 3-a, 4-c', '1-c, 2-a, 3-d, 4-b', '1-d, 2-c, 3-a, 4-b'], explanation: 'வளைவுகளில் குவியாடி; ஒளிவிலகலால் நாணயம் மேலே தெரியும்; கானல் நீர் முழு அக எதிரொளிப்பால்; பல் மருத்துவர் குழியாடி பயன்படுத்துவார்.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise IV.1, p. 77', answer: 0,
@@ -170,7 +170,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise VII.2, p. 78', answer: 0,
     en: { q: 'Which group lists only uses of concave mirrors?', options: ["Dentist's mirror, torchlight reflector, make-up mirror", 'Rear-view mirror, dentist\'s mirror, make-up mirror', 'Mirrors in shopping malls, torchlight reflector, rear-view mirror', 'Rear-view mirror, mirrors in shopping malls, make-up mirror'], explanation: 'Dentist, torch and make-up mirrors are concave; rear-view mirrors and blind-spot mirrors in shops are convex.' },
-    ta: { q: 'குழியாடியின் பயன்கள் மட்டும் உள்ள தொகுப்பு எது?', options: ['பல் மருத்துவர் ஆடி, டார்ச் எதிரொளிப்பான், ஒப்பனை ஆடி', 'பின்காட்டி ஆடி, பல் மருத்துவர் ஆடி, ஒப்பனை ஆடி', 'அங்காடிகளில் உள்ள ஆடி, டார்ச் எதிரொளிப்பான், பின்காட்டி ஆடி', 'பின்காட்டி ஆடி, அங்காடிகளில் உள்ள ஆடி, ஒப்பனை ஆடி'], explanation: 'பல் மருத்துவர், டார்ச், ஒப்பனை ஆடிகள் குழியாடிகள்; பின்காட்டி ஆடியும் அங்காடிகளின் மறைவிட ஆடியும் குவியாடிகள்.' },
+    ta: { q: 'குழியாடியின் பயன்கள் மட்டும் உள்ள தொகுப்பு எது?', options: ['பல் மருத்துவர் ஆடி, கை மின்விளக்கு ஆடி, ஒப்பனை ஆடி', 'பின்னோக்கு ஆடி, பல் மருத்துவர் ஆடி, ஒப்பனை ஆடி', 'பல்பொருள் அங்காடிகளில் உள்ள ஆடி, கை மின்விளக்கு ஆடி, பின்னோக்கு ஆடி', 'பின்னோக்கு ஆடி, பல்பொருள் அங்காடிகளில் உள்ள ஆடி, ஒப்பனை ஆடி'], explanation: 'பல் மருத்துவர் ஆடி, கை மின்விளக்கு (டார்ச்) ஆடி, ஒப்பனை ஆடி ஆகியவை குழியாடிகள்; பின்னோக்கு ஆடியும் பல்பொருள் அங்காடிகளின் மறைவிட ஆடியும் குவியாடிகள்.' },
   },
   {
     difficulty: 'medium', source: '§6.4.1, p. 69', answer: 0,
@@ -185,7 +185,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: '§6.8, p. 75', answer: 0,
     en: { q: 'The critical angle is the angle of incidence in the denser medium for which the angle of refraction is', options: ['90°', '0°', '45°', 'equal to the angle of incidence'], explanation: 'At the critical angle the refracted ray grazes the surface, so r = 90°.' },
-    ta: { q: 'மாறுநிலைக் கோணம் என்பது அடர்மிகு ஊடகத்தில் விலகு கோணம் எவ்வளவாக இருக்கும் படுகோணம்?', options: ['90°', '0°', '45°', 'படுகோணத்திற்குச் சமம்'], explanation: 'மாறுநிலைக் கோணத்தில் விலகுகதிர் இரு ஊடகங்களையும் பிரிக்கும் பரப்பை ஒட்டிச் செல்லும்; r = 90°.' },
+    ta: { q: 'அடர்மிகு ஊடகத்தில் உள்ள எந்தப் படுகோணத்திற்கு விலகு கோணம் _____ ஆக இருக்கிறதோ, அந்தப் படுகோணமே மாறுநிலைக் கோணம்.', options: ['90°', '0°', '45°', 'படுகோணத்திற்குச் சமம்'], explanation: 'மாறுநிலைக் கோணத்தில் விலகுகதிர் இரு ஊடகங்களையும் பிரிக்கும் பரப்பை ஒட்டிச் செல்லும்; r = 90°.' },
   },
   {
     difficulty: 'medium', source: '§6.2 Activity 1, p. 68', answer: 0,
@@ -197,37 +197,37 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise V.1, p. 77', answer: 3,
     en: { q: 'Assertion: To watch the traffic at a hairpin bend on a mountain road, a plane mirror is preferred to a convex or concave mirror. Reason: A convex mirror has a much wider field of view than a plane or concave mirror.', options: AR_EN, explanation: 'The assertion is false – convex mirrors are used at hairpin bends – and the reason, their wider field of view, is true.' },
-    ta: { q: 'கூற்று: மலைப்பாதைகளின் கொண்டை ஊசி வளைவுகளில் போக்குவரத்தைக் காண குவியாடி, குழியாடியை விடச் சமதள ஆடியே விரும்பப்படுகிறது. காரணம்: சமதள ஆடி, குழியாடியை விடக் குவியாடிக்கு மிக அகன்ற பார்வைப் புலம் உண்டு.', options: AR_TA, explanation: 'கூற்று தவறு – வளைவுகளில் குவியாடியே பயன்படுகிறது; அதன் அகன்ற பார்வைப் புலம் என்ற காரணம் சரி.' },
+    ta: { q: 'கூற்று: மலைப்பாதைகளில் உள்ள கொண்டை ஊசி வளைவில் போக்குவரத்தைக் கண்காணிக்கக் குவியாடி மற்றும் குழியாடியை விடச் சமதள ஆடியே பயன்படுத்தப்படுகிறது. காரணம்: ஒரு குவியாடியானது சமதள ஆடி அல்லது குழியாடியை விட மிக அதிகமான பார்வைப்புலம் உடையது.', options: AR_TA, explanation: 'கூற்று தவறு – வளைவுகளில் குவியாடியே பயன்படுகிறது; அதன் அகன்ற பார்வைப் புலம் என்ற காரணம் சரி.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise V.2, p. 78', answer: 0,
     en: { q: 'Assertion: A ray directed towards the centre of curvature of a spherical mirror retraces its path after reflection. Reason: For this ray, the angle of incidence = angle of reflection = 0°.', options: AR_EN, explanation: 'Both true: the ray falls along the normal, so i = r = 0° and it comes back on itself – the reason explains the assertion.' },
-    ta: { q: 'கூற்று: கோளக ஆடியின் வளைவு மையத்தை நோக்கிச் செலுத்தப்படும் கதிர் எதிரொளிப்புக்குப் பின் அதே பாதையில் திரும்பும். காரணம்: இக்கதிருக்குப் படுகோணம் = எதிரொளிப்புக் கோணம் = 0°.', options: AR_TA, explanation: 'இரண்டும் சரி: கதிர் குத்துக்கோட்டின் வழியே விழுவதால் i = r = 0°; அது அதே பாதையில் திரும்பும்; காரணம் கூற்றை விளக்குகிறது.' },
+    ta: { q: 'கூற்று: கோளக ஆடியின் வளைவு மையத்தை நோக்கிச் செலுத்தப்படும் கதிர் எதிரொளிப்புக்குப் பின் அதே பாதையில் திரும்பும். காரணம்: இக்கதிருக்குப் படுகோணம் (i) = எதிரொளிப்புக் கோணம் (r) = 0°.', options: AR_TA, explanation: 'இரண்டும் சரி: கதிர் குத்துக்கோட்டின் வழியே விழுவதால் i = r = 0°; அது அதே பாதையில் திரும்பும்; காரணம் கூற்றை விளக்குகிறது.' },
   },
   {
     difficulty: 'hard', source: 'Book example 1, p. 71', answer: 0,
     en: { q: 'A 1 cm tall object is 15 cm in front of a concave mirror of focal length 10 cm. The image is', options: ['30 cm in front of the mirror, real, inverted, 2 cm tall', '30 cm behind the mirror, virtual, erect, 2 cm tall', '6 cm in front of the mirror, real, inverted, 0.4 cm tall', '30 cm in front of the mirror, real, erect, 2 cm tall'], explanation: 'u = −15, f = −10: 1/v = 1/f − 1/u = −1/10 + 1/15 = −1/30, so v = −30 cm. m = −v/u = −2, so the image is real, inverted and 2 cm tall.' },
-    ta: { q: '1 செமீ உயரப் பொருள், 10 செமீ குவியத்தொலைவு கொண்ட குழியாடிக்கு முன் 15 செமீ தொலைவில் உள்ளது. பிம்பம்', options: ['ஆடிக்கு முன் 30 செமீ; மெய், தலைகீழ், 2 செமீ உயரம்', 'ஆடிக்குப் பின் 30 செமீ; மாய, நேரான, 2 செமீ உயரம்', 'ஆடிக்கு முன் 6 செமீ; மெய், தலைகீழ், 0.4 செமீ உயரம்', 'ஆடிக்கு முன் 30 செமீ; மெய், நேரான, 2 செமீ உயரம்'], explanation: 'u = −15, f = −10: 1/v = 1/f − 1/u = −1/10 + 1/15 = −1/30; v = −30 செமீ. m = −v/u = −2; பிம்பம் மெய், தலைகீழ், 2 செமீ.' },
+    ta: { q: '10 செமீ குவியத்தொலைவு கொண்ட குழியாடி ஒன்றிலிருந்து 15 செமீ தொலைவில் (ஆடிக்கு முன்) 1 செமீ உயரம் கொண்ட பொருள் வைக்கப்பட்டுள்ளது. பிம்பம்', options: ['ஆடிக்கு முன் 30 செமீ; மெய், தலைகீழ், 2 செமீ உயரம்', 'ஆடிக்குப் பின் 30 செமீ; மாய, நேரான, 2 செமீ உயரம்', 'ஆடிக்கு முன் 6 செமீ; மெய், தலைகீழ், 0.4 செமீ உயரம்', 'ஆடிக்கு முன் 30 செமீ; மெய், நேரான, 2 செமீ உயரம்'], explanation: 'u = −15, f = −10: 1/v = 1/f − 1/u = −1/10 + 1/15 = −1/30; v = −30 செமீ. m = −v/u = −2; பிம்பம் மெய், தலைகீழ், 2 செமீ.' },
   },
   {
     difficulty: 'hard', source: 'Book example 2, p. 71', answer: 0,
     en: { q: 'A 2 cm tall object is 16 cm in front of a concave mirror, which forms a real image 3 cm tall. The image is', options: ['24 cm in front of the mirror', '24 cm behind the mirror', '10.7 cm in front of the mirror', '48 cm in front of the mirror'], explanation: 'm = h₂/h₁ = −3/2 = −1.5 (real image). Since m = −v/u, v = −m × u = 1.5 × (−16) = −24 cm, i.e. 24 cm in front.' },
-    ta: { q: '2 செமீ உயரப் பொருள் குழியாடிக்கு முன் 16 செமீ தொலைவில் உள்ளது; அது 3 செமீ உயர மெய் பிம்பத்தை உருவாக்குகிறது. பிம்பம் உள்ள இடம்', options: ['ஆடிக்கு முன் 24 செமீ', 'ஆடிக்குப் பின் 24 செமீ', 'ஆடிக்கு முன் 10.7 செமீ', 'ஆடிக்கு முன் 48 செமீ'], explanation: 'm = h₂/h₁ = −3/2 = −1.5 (மெய் பிம்பம்). m = −v/u என்பதால் v = 1.5 × (−16) = −24 செமீ; அதாவது ஆடிக்கு முன் 24 செமீ.' },
+    ta: { q: 'குழியாடிக்கு முன் 16 செமீ தொலைவில் வைக்கப்படும் 2 செமீ உயரம் கொண்ட பொருளின் மெய் பிம்பம் 3 செமீ உயரம் உள்ளது. பிம்பம் உருவாகும் இடம்', options: ['ஆடிக்கு முன் 24 செமீ', 'ஆடிக்குப் பின் 24 செமீ', 'ஆடிக்கு முன் 10.7 செமீ', 'ஆடிக்கு முன் 48 செமீ'], explanation: 'm = h₂/h₁ = −3/2 = −1.5 (மெய் பிம்பம்). m = −v/u என்பதால் v = 1.5 × (−16) = −24 செமீ; அதாவது ஆடிக்கு முன் 24 செமீ.' },
   },
   {
     difficulty: 'hard', source: 'Book example 3, p. 73', answer: 0,
     en: { q: 'A car has a convex rear-view mirror of focal length 20 cm. A second car 2 m broad is 6 m behind it. The image of the second car is about', options: ['19.4 cm behind the mirror and 6.45 cm broad', '19.4 cm in front of the mirror and 6.45 cm broad', '20.7 cm behind the mirror and 6.9 cm broad', '600 cm behind the mirror and 2 m broad'], explanation: 'u = −600 cm, f = +20 cm: 1/v = 1/20 + 1/600 = 31/600, v ≈ 19.35 cm (behind). m = −v/u ≈ 0.032, breadth ≈ 0.032 × 200 ≈ 6.45 cm.' },
-    ta: { q: 'ஒரு காரில் 20 செமீ குவியத்தொலைவு கொண்ட குவியாடி பின்காட்டி ஆடியாக உள்ளது. 2 மீ அகலமுள்ள மற்றொரு கார் 6 மீ பின்னால் உள்ளது. இரண்டாவது காரின் பிம்பம் ஏறக்குறைய', options: ['ஆடிக்குப் பின் 19.4 செமீ; 6.45 செமீ அகலம்', 'ஆடிக்கு முன் 19.4 செமீ; 6.45 செமீ அகலம்', 'ஆடிக்குப் பின் 20.7 செமீ; 6.9 செமீ அகலம்', 'ஆடிக்குப் பின் 600 செமீ; 2 மீ அகலம்'], explanation: 'u = −600 செமீ, f = +20 செமீ: 1/v = 1/20 + 1/600 = 31/600; v ≈ 19.35 செமீ (பின்னால்). m = −v/u ≈ 0.032; அகலம் ≈ 0.032 × 200 ≈ 6.45 செமீ.' },
+    ta: { q: 'ஒரு மகிழுந்தில் 20 செமீ குவியத்தொலைவு கொண்ட குவியாடி பின்னோக்கு ஆடியாகப் பொருத்தப்பட்டுள்ளது. 2 மீ அகலமுள்ள இன்னொரு மகிழுந்து 6 மீ பின்னால் உள்ளது. இரண்டாவது மகிழுந்தின் பிம்பம் ஏறக்குறைய', options: ['ஆடிக்குப் பின் 19.4 செமீ; 6.45 செமீ அகலம்', 'ஆடிக்கு முன் 19.4 செமீ; 6.45 செமீ அகலம்', 'ஆடிக்குப் பின் 20.7 செமீ; 6.9 செமீ அகலம்', 'ஆடிக்குப் பின் 600 செமீ; 2 மீ அகலம்'], explanation: 'u = −600 செமீ, f = +20 செமீ: 1/v = 1/20 + 1/600 = 31/600; v ≈ 19.35 செமீ (பின்னால்). m = −v/u ≈ 0.032; அகலம் ≈ 0.032 × 200 ≈ 6.45 செமீ.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise IX.1, p. 78', answer: 0,
     en: { q: 'A concave mirror forms a real image three times the size of an object placed 7 cm in front of it. Where is the image?', options: ['21 cm in front of the mirror', '21 cm behind the mirror', '2.33 cm in front of the mirror', '10 cm in front of the mirror'], explanation: 'Real image, so m = −3 = −v/u, giving v = 3u = 3 × (−7) = −21 cm: 21 cm in front.' },
-    ta: { q: 'குழியாடிக்கு முன் 7 செமீ தொலைவில் உள்ள பொருளுக்கு மூன்று மடங்கு பெரிதான மெய் பிம்பம் உருவாகிறது. பிம்பம் உள்ள இடம்', options: ['ஆடிக்கு முன் 21 செமீ', 'ஆடிக்குப் பின் 21 செமீ', 'ஆடிக்கு முன் 2.33 செமீ', 'ஆடிக்கு முன் 10 செமீ'], explanation: 'மெய் பிம்பம் என்பதால் m = −3 = −v/u; v = 3u = 3 × (−7) = −21 செமீ: ஆடிக்கு முன் 21 செமீ.' },
+    ta: { q: 'குழியாடியின் முன் 7 செமீ தொலைவில் பொருள் வைக்கப்படும்போது அதன் மும்மடங்கு உருப்பெருக்கப்பட்ட மெய் பிம்பம் கிடைக்கிறது எனில், பிம்பம் எவ்விடத்தில் கிடைக்கும்?', options: ['ஆடிக்கு முன் 21 செமீ', 'ஆடிக்குப் பின் 21 செமீ', 'ஆடிக்கு முன் 2.33 செமீ', 'ஆடிக்கு முன் 10 செமீ'], explanation: 'மெய் பிம்பம் என்பதால் m = −3 = −v/u; v = 3u = 3 × (−7) = −21 செமீ: ஆடிக்கு முன் 21 செமீ.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise IX.2, p. 78', answer: 0,
     en: { q: 'Light enters a glass plate of refractive index 1.5 from air (speed 3 × 10⁸ m s⁻¹). The speed of light in the glass is', options: ['2 × 10⁸ m s⁻¹', '4.5 × 10⁸ m s⁻¹', '1.5 × 10⁸ m s⁻¹', '3 × 10⁸ m s⁻¹'], explanation: 'v = c ÷ μ = (3 × 10⁸) ÷ 1.5 = 2 × 10⁸ m s⁻¹. Multiplying gives the impossible 4.5 × 10⁸.' },
-    ta: { q: 'காற்றிலிருந்து (திசைவேகம் 3 × 10⁸ மீ வி⁻¹) ஒளிவிலகல் எண் 1.5 உள்ள கண்ணாடித் தட்டிற்குள் ஒளி செல்கிறது. கண்ணாடியில் ஒளியின் திசைவேகம்', options: ['2 × 10⁸ மீ வி⁻¹', '4.5 × 10⁸ மீ வி⁻¹', '1.5 × 10⁸ மீ வி⁻¹', '3 × 10⁸ மீ வி⁻¹'], explanation: 'v = c ÷ μ = (3 × 10⁸) ÷ 1.5 = 2 × 10⁸ மீ வி⁻¹. பெருக்கினால் இயலாத 4.5 × 10⁸ வரும்.' },
+    ta: { q: 'காற்றிலிருந்து (திசைவேகம் 3 × 10⁸ மீ வி⁻¹) 1.5 ஒளிவிலகல் எண் கொண்ட கண்ணாடிப் பாளத்திற்குள் ஒளி செல்கிறது. கண்ணாடியில் ஒளியின் திசைவேகம்', options: ['2 × 10⁸ மீ வி⁻¹', '4.5 × 10⁸ மீ வி⁻¹', '1.5 × 10⁸ மீ வி⁻¹', '3 × 10⁸ மீ வி⁻¹'], explanation: 'v = c ÷ μ = (3 × 10⁸) ÷ 1.5 = 2 × 10⁸ மீ வி⁻¹. பெருக்கினால் இயலாத 4.5 × 10⁸ வரும்.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise IX.3, p. 78', answer: 0,
@@ -242,17 +242,17 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book example 5, p. 74', answer: 0,
     en: { q: 'Light passes from a rarer into a denser medium with angle of incidence 45° and angle of refraction 30°. The refractive index of the second medium with respect to the first is', options: ['√2 ≈ 1.414', '1.5', '0.707', '√3 ≈ 1.732'], explanation: '1μ2 = sin i ÷ sin r = sin 45° ÷ sin 30° = (1/√2) ÷ (1/2) = √2 ≈ 1.414.' },
-    ta: { q: 'ஒளி அடர் குறை ஊடகத்திலிருந்து அடர்மிகு ஊடகத்திற்குச் செல்கிறது; படுகோணம் 45°, விலகு கோணம் 30°. முதல் ஊடகத்தைப் பொறுத்து இரண்டாம் ஊடகத்தின் ஒளிவிலகல் எண்', options: ['√2 ≈ 1.414', '1.5', '0.707', '√3 ≈ 1.732'], explanation: '1μ2 = sin i ÷ sin r = sin 45° ÷ sin 30° = (1/√2) ÷ (1/2) = √2 ≈ 1.414.' },
+    ta: { q: 'அடர் குறை ஊடகத்திலிருந்து அடர்மிகு ஊடகத்திற்கு ஒளி செல்கிறது; படுகோணம் 45°, விலகு கோணம் 30°. முதல் ஊடகத்தைப் பொறுத்து இரண்டாவது ஊடகத்தின் ஒளிவிலகல் எண்', options: ['√2 ≈ 1.414', '1.5', '0.707', '√3 ≈ 1.732'], explanation: '1μ2 = sin i ÷ sin r = sin 45° ÷ sin 30° = (1/√2) ÷ (1/2) = √2 ≈ 1.414.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise X.3, p. 78', answer: 0,
     en: { q: 'The refractive index of diamond is 2.41. What can you conclude about the speed of light in diamond?', options: ['It is about 1.24 × 10⁸ m s⁻¹, much less than in air', 'It is about 7.2 × 10⁸ m s⁻¹, more than in air', 'It is the same as in air', 'It is about 2.41 × 10⁸ m s⁻¹'], explanation: 'v = c ÷ μ = (3 × 10⁸) ÷ 2.41 ≈ 1.24 × 10⁸ m s⁻¹; light is slowed to well under half its speed in air.' },
-    ta: { q: 'வைரத்தின் ஒளிவிலகல் எண் 2.41. வைரத்தில் ஒளியின் திசைவேகம் பற்றி என்ன முடிவு செய்யலாம்?', options: ['ஏறக்குறைய 1.24 × 10⁸ மீ வி⁻¹; காற்றை விட மிகக் குறைவு', 'ஏறக்குறைய 7.2 × 10⁸ மீ வி⁻¹; காற்றை விட அதிகம்', 'காற்றில் உள்ளது போலவே', 'ஏறக்குறைய 2.41 × 10⁸ மீ வி⁻¹'], explanation: 'v = c ÷ μ = (3 × 10⁸) ÷ 2.41 ≈ 1.24 × 10⁸ மீ வி⁻¹; காற்றில் உள்ள வேகத்தின் பாதிக்கும் குறைவு.' },
+    ta: { q: 'வைரத்தின் ஒளிவிலகல் எண்ணின் மதிப்பு 2.41. வைரத்தின் வழியாகச் செல்லும் ஒளியின் திசைவேகம் பற்றி என்ன முடிவு செய்யலாம்?', options: ['ஏறக்குறைய 1.24 × 10⁸ மீ வி⁻¹; காற்றை விட மிகக் குறைவு', 'ஏறக்குறைய 7.2 × 10⁸ மீ வி⁻¹; காற்றை விட அதிகம்', 'காற்றில் உள்ளது போலவே', 'ஏறக்குறைய 2.41 × 10⁸ மீ வி⁻¹'], explanation: 'v = c ÷ μ = (3 × 10⁸) ÷ 2.41 ≈ 1.24 × 10⁸ மீ வி⁻¹; காற்றில் உள்ள வேகத்தின் பாதிக்கும் குறைவு.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise X.2, p. 78', answer: 0,
     en: { q: 'A ray of light passes obliquely from air into glass. Compared with the angle of incidence, the angle of refraction is', options: ['smaller, because the ray bends towards the normal', 'larger, because the ray bends away from the normal', 'equal, because glass is transparent', 'always 90°'], explanation: 'Glass is optically denser than air, so the ray bends towards the normal and r < i.' },
-    ta: { q: 'ஒளிக்கதிர் காற்றிலிருந்து கண்ணாடிக்குள் சாய்வாகச் செல்கிறது. படுகோணத்துடன் ஒப்பிடும்போது விலகு கோணம்', options: ['குறைவு; கதிர் குத்துக்கோட்டை நோக்கி விலகும்', 'அதிகம்; கதிர் குத்துக்கோட்டை விட்டு விலகும்', 'சமம்; கண்ணாடி ஒளிபுகும் பொருள்', 'எப்போதும் 90°'], explanation: 'கண்ணாடி காற்றை விட அடர்மிகு ஊடகம்; கதிர் குத்துக்கோட்டை நோக்கி விலகும்; r < i.' },
+    ta: { q: 'ஓர் ஒளிக்கதிர் காற்றிலிருந்து கண்ணாடிக்குள் சாய்வாக நுழைகிறது. படுகோணத்தின் மதிப்புடன் ஒப்பிடும்போது விலகு கோணத்தின் மதிப்பு', options: ['குறைவு; கதிர் குத்துக்கோட்டை நோக்கி விலகும்', 'அதிகம்; கதிர் குத்துக்கோட்டை விட்டு விலகும்', 'சமம்; கண்ணாடி ஒளிபுகும் பொருள்', 'எப்போதும் 90°'], explanation: 'கண்ணாடி காற்றை விட அடர்மிகு ஊடகம்; கதிர் குத்துக்கோட்டை நோக்கி விலகும்; r < i.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise X.1, p. 78', imageUrl: `${IMG}/refraction-water-air.png`, answer: 0,

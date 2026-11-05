@@ -51,7 +51,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise II.6, p. 100', answer: 0,
     en: { q: '_____ is a medical instrument used for listening to sounds produced in the body.', options: ['Stethoscope', 'SONAR', 'Megaphone', 'Echogram'], explanation: 'In a stethoscope, body sounds reach the doctor by multiple reflections in the tube.' },
-    ta: { q: 'உடலில் ஏற்படும் ஒலிகளை உணர பயன்படுத்தப்படும் மருத்துவக் கருவி _____.', options: ['ஸ்டெதஸ்கோப்', 'சோனார்', 'ஒலிபெருக்கி', 'எதிரொலி வரைவு'], explanation: 'ஸ்டெதஸ்கோப்பில் உடல் ஒலிகள் குழாயில் பன்முக எதிரொலிப்பின் மூலம் மருத்துவரின் காதை அடைகின்றன.' },
+    ta: { q: 'உடலில் ஏற்படும் ஒலிகளை உணர பயன்படுத்தப்படும் மருத்துவக் கருவி _____.', options: ['ஸ்டெதஸ்கோப்', 'சோனார்', 'ஒலிபெருக்கி', 'எதிரொலி ஆழ வரைவு'], explanation: 'ஸ்டெதஸ்கோப்பில் உடல் ஒலிகள் குழாயில் பன்முக எதிரொலிப்பின் மூலம் மருத்துவரின் காதை அடைகின்றன.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise II.7, p. 100', answer: 0,
@@ -71,7 +71,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§8.3, p. 93', answer: 0,
     en: { q: 'Sound with frequency less than 20 Hz is called', options: ['infrasonic sound', 'ultrasonic sound', 'audible sound', 'supersonic sound'], explanation: 'Frequencies below the audible range are infrasonic.' },
-    ta: { q: '20 ஹெர்ட்ஸை விடக் குறைவான அதிர்வெண் கொண்ட ஒலி', options: ['குற்றொலி', 'மீயொலி', 'செவியுணர் ஒலி', 'மீ ஒலி வேகம்'], explanation: 'செவியுணர் நெடுக்கத்திற்குக் கீழுள்ள அதிர்வெண் கொண்ட ஒலி குற்றொலி.' },
+    ta: { q: '20 ஹெர்ட்ஸை விடக் குறைவான அதிர்வெண் கொண்ட ஒலி', options: ['குற்றொலி', 'மீயொலி', 'செவியுணர் ஒலி', 'சூப்பர் சோனிக் ஒலி'], explanation: 'செவியுணர் நெடுக்கத்திற்குக் கீழுள்ள அதிர்வெண் கொண்ட ஒலி குற்றொலி.' },
   },
   {
     difficulty: 'easy', source: '§8.3, p. 93', answer: 0,
@@ -81,7 +81,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§8.4, p. 94', answer: 0,
     en: { q: 'The unit of intensity level of sound is', options: ['decibel (dB)', 'hertz (Hz)', 'metre (m)', 'pascal (Pa)'], explanation: 'Sound level is measured in decibels, named after Alexander Graham Bell.' },
-    ta: { q: 'ஒலியின் செறிவு அளவிடப்படும் அலகு', options: ['டெசிபல் (dB)', 'ஹெர்ட்ஸ் (Hz)', 'மீட்டர் (மீ)', 'பாஸ்கல் (Pa)'], explanation: 'ஒலிச் செறிவு டெசிபலில் அளக்கப்படுகிறது; அலெக்ஸாண்டர் கிரஹாம் பெல் நினைவாக இப்பெயர்.' },
+    ta: { q: 'ஒலியின் செறிவு மட்டம் அளவிடப்படும் அலகு', options: ['டெசிபல் (dB)', 'ஹெர்ட்ஸ் (Hz)', 'மீட்டர் (மீ)', 'பாஸ்கல் (Pa)'], explanation: 'ஒலிச் செறிவு டெசிபலில் அளக்கப்படுகிறது; அலெக்ஸாண்டர் கிரஹாம் பெல் நினைவாக இப்பெயர்.' },
   },
   {
     difficulty: 'easy', source: '§8.10, p. 98', answer: 0,
@@ -197,7 +197,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: '§8.9.1, p. 97', answer: 0,
     en: { q: 'Which of these is NOT an application of ultrasonic waves given in the book?', options: ['Recording an ECG of the heart', 'Cleaning minute particles from objects', 'Detecting cracks in metal blocks', 'Breaking kidney stones into fine grains'], explanation: 'An ECG records the electrical activity of the heart; echocardiography is the ultrasound technique.' },
-    ta: { q: 'பாடநூலில் கொடுக்கப்பட்டுள்ள மீயொலியின் பயன்பாடு அல்லாதது எது?', options: ['இதயத்தின் ECG பதிவு', 'பொருள்களிலுள்ள நுண் துகள்களைச் சுத்தம் செய்தல்', 'உலோகக் கட்டிகளில் உள்ள விரிசல்களைக் கண்டறிதல்', 'சிறுநீரகக் கற்களை நுண்ணிய துகள்களாக உடைத்தல்'], explanation: 'ECG இதயத் தசையின் மின் செயல்பாட்டைப் பதிவு செய்கிறது; மீயொலி நுட்பம் எக்கோ கார்டியோகிராஃபி.' },
+    ta: { q: 'பாடநூலில் கொடுக்கப்பட்டுள்ள மீயொலியின் பயன்பாடு அல்லாதது எது?', options: ['இதயத்தின் மின்ஒலி இதய வரைபடம் (ECG) பதிவு', 'பொருள்களிலுள்ள நுண் துகள்களைச் சுத்தம் செய்தல்', 'உலோகக் கட்டிகளில் உள்ள விரிசல்களைக் கண்டறிதல்', 'சிறுநீரகக் கற்களை நுண்ணிய துகள்களாக உடைத்தல்'], explanation: 'ECG இதயத் தசையின் மின் செயல்பாட்டைப் பதிவு செய்கிறது; மீயொலியைப் பயன்படுத்தும் நுட்பம் மீயொலி இதய வரைவி (எக்கோ கார்டியோகிராஃபி).' },
   },
   {
     difficulty: 'medium', source: '§8.12, p. 98', answer: 0,
@@ -213,17 +213,17 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise VI.2, p. 101', answer: 0,
     en: { q: 'A stone is dropped from the top of a tower 750 m high into a pond at its base. After how long is the splash heard at the top? (g = 10 m s⁻², speed of sound = 340 m s⁻¹)', options: ['About 14.5 s', 'About 12.2 s', 'About 2.2 s', 'About 75 s'], explanation: 'Fall: t₁ = √(2h/g) = √150 ≈ 12.25 s. Sound up: t₂ = 750/340 ≈ 2.21 s. Total ≈ 14.5 s.' },
-    ta: { q: '750 மீ உயரமுள்ள கோபுரத்தின் உச்சியிலிருந்து ஒரு கல் அதன் கீழே உள்ள குளத்தில் போடப்படுகிறது. நீர் தெளிக்கும் ஒலி உச்சியில் எத்தனை வினாடிகளில் கேட்கும்? (g = 10 மீ வி⁻², ஒலியின் வேகம் = 340 மீ வி⁻¹)', options: ['ஏறக்குறைய 14.5 வி', 'ஏறக்குறைய 12.2 வி', 'ஏறக்குறைய 2.2 வி', 'ஏறக்குறைய 75 வி'], explanation: 'விழும் காலம்: t₁ = √(2h/g) = √150 ≈ 12.25 வி. ஒலி மேலே வர: t₂ = 750/340 ≈ 2.21 வி. மொத்தம் ≈ 14.5 வி.' },
+    ta: { q: '750 மீட்டர் உயரமுள்ள ஒரு கோபுரத்தின் உச்சியிலிருந்து ஒரு கல் அதன் கீழே உள்ள குளத்தில் போடப்படுகிறது. குளத்து நீர் தெளிக்கும் ஒலி கோபுரத்தின் உச்சியில் எத்தனை வினாடிகளில் கேட்கும்? (g = 10 மீ வி⁻², ஒலியின் வேகம் = 340 மீ வி⁻¹)', options: ['ஏறக்குறைய 14.5 வி', 'ஏறக்குறைய 12.2 வி', 'ஏறக்குறைய 2.2 வி', 'ஏறக்குறைய 75 வி'], explanation: 'விழும் காலம்: t₁ = √(2h/g) = √150 ≈ 12.25 வி. ஒலி மேலே வர: t₂ = 750/340 ≈ 2.21 வி. மொத்தம் ≈ 14.5 வி.' },
   },
   {
     difficulty: 'hard', source: 'Book example, Problem 3, p. 97', answer: 0,
     en: { q: 'A man fires a gun and hears its echo after 5 s. He moves 310 m towards the hill, fires again and hears the echo after 3 s. The speed of sound is', options: ['310 m s⁻¹', '155 m s⁻¹', '620 m s⁻¹', '340 m s⁻¹'], explanation: '2d = 5v and 2d – 620 = 3v ⇒ 2v = 620 ⇒ v = 310 m s⁻¹.' },
-    ta: { q: 'ஒருவர் துப்பாக்கியைச் சுட்டு 5 வினாடிக்குப் பிறகு எதிரொலியைக் கேட்கிறார். குன்றை நோக்கி 310 மீ நகர்ந்து மீண்டும் சுட, 3 வினாடிக்குப் பிறகு எதிரொலியைக் கேட்கிறார். ஒலியின் வேகம்', options: ['310 மீ வி⁻¹', '155 மீ வி⁻¹', '620 மீ வி⁻¹', '340 மீ வி⁻¹'], explanation: '2d = 5v, 2d – 620 = 3v ⇒ 2v = 620 ⇒ v = 310 மீ வி⁻¹.' },
+    ta: { q: 'ஒருவர் தனது துப்பாக்கியைச் சுட்டு 5 வினாடிக்குப் பிறகு எதிரொலியைக் கேட்கிறார். அவர் குன்றை நோக்கி 310 மீ முன்னோக்கி நகர்ந்து மீண்டும் சுடுகிறார். இப்பொழுது 3 வினாடிக்குப் பிறகு எதிரொலியைக் கேட்கிறார் எனில் ஒலியின் வேகம்', options: ['310 மீ வி⁻¹', '155 மீ வி⁻¹', '620 மீ வி⁻¹', '340 மீ வி⁻¹'], explanation: '2d = 5v, 2d – 620 = 3v ⇒ 2v = 620 ⇒ v = 310 மீ வி⁻¹.' },
   },
   {
     difficulty: 'hard', source: 'Book example, Problem 4, p. 98', answer: 0,
     en: { q: 'A ship sends out ultrasound that returns from the seabed after 3.42 s. If the speed of ultrasound in sea water is 1531 m s⁻¹, the depth of the seabed is', options: ['2618 m', '5236 m', '1309 m', '447 m'], explanation: '2d = vt = 1531 × 3.42 = 5236 m ⇒ d = 2618 m. Forgetting to halve gives 5236 m.' },
-    ta: { q: 'ஒரு கப்பல் அனுப்பும் மீயொலி கடல் தரையிலிருந்து எதிரொலித்து 3.42 வி இல் திரும்புகிறது. கடல் நீரில் மீயொலியின் வேகம் 1531 மீ வி⁻¹ எனில், கடலின் ஆழம்', options: ['2618 மீ', '5236 மீ', '1309 மீ', '447 மீ'], explanation: '2d = vt = 1531 × 3.42 = 5236 மீ ⇒ d = 2618 மீ. இரண்டால் வகுக்க மறந்தால் 5236 மீ.' },
+    ta: { q: 'ஒரு கப்பலிலிருந்து அனுப்பப்படும் மீயொலி கடலின் அடிப்பகுதியில் எதிரொலிக்கப்பட்டு 3.42 வினாடிக்குப் பிறகு மீண்டும் வந்தடைகிறது. கடல் நீரில் மீயொலியின் வேகம் 1531 மீ வி⁻¹ எனில், கடலின் ஆழம்', options: ['2618 மீ', '5236 மீ', '1309 மீ', '447 மீ'], explanation: '2d = vt = 1531 × 3.42 = 5236 மீ ⇒ d = 2618 மீ. இரண்டால் வகுக்க மறந்தால் 5236 மீ.' },
   },
   {
     difficulty: 'hard', source: '§8.7, p. 96', answer: 0,
@@ -258,7 +258,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise V.4, p. 100', answer: 0,
     en: { q: 'A SONAR signal returns 2 s after being sent. If the speed of sound in sea water is 1500 m s⁻¹, the object is at a distance of', options: ['1500 m', '3000 m', '750 m', '6000 m'], explanation: 'Echo-ranging: 2d = vt = 1500 × 2 = 3000 m, so d = 1500 m.' },
-    ta: { q: 'சோனார் அனுப்பிய சைகை 2 வி கழித்துத் திரும்புகிறது. கடல் நீரில் ஒலியின் வேகம் 1500 மீ வி⁻¹ எனில், பொருளின் தொலைவு', options: ['1500 மீ', '3000 மீ', '750 மீ', '6000 மீ'], explanation: 'எதிரொலி மூலம் தொலைவு காணல்: 2d = vt = 1500 × 2 = 3000 மீ; எனவே d = 1500 மீ.' },
+    ta: { q: 'சோனார் அனுப்பிய சைகை 2 வி கழித்துத் திரும்புகிறது. கடல் நீரில் ஒலியின் வேகம் 1500 மீ வி⁻¹ எனில், பொருளின் தொலைவு', options: ['1500 மீ', '3000 மீ', '750 மீ', '6000 மீ'], explanation: 'எதிரொலி நெடுக்கம்: 2d = vt = 1500 × 2 = 3000 மீ; எனவே d = 1500 மீ.' },
   },
   {
     difficulty: 'hard', source: '§8.4, p. 94', answer: 0,
@@ -273,7 +273,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: '§8.11, p. 98', answer: 2,
     en: { q: 'Assertion: An ECG is a record of the electrical activity of the heart muscle as it changes with time.\nReason: An ECG uses ultrasonic waves reflected from the heart to form its image.', options: AR_EN, explanation: 'The assertion is the book definition of ECG; forming an image of the heart with reflected ultrasound is echocardiography, so the reason is false.' },
-    ta: { q: 'கூற்று: ECG என்பது காலத்தைப் பொறுத்து மாறும் இதயத் தசையின் மின் செயல்பாட்டின் பதிவு.\nகாரணம்: ECG இதயத்திலிருந்து எதிரொலிக்கும் மீயொலியைக் கொண்டு அதன் உருவத்தை அமைக்கிறது.', options: AR_TA, explanation: 'கூற்று பாடநூல் தரும் ECG வரையறை; எதிரொலிக்கும் மீயொலி மூலம் இதய உருவம் பெறுவது எக்கோ கார்டியோகிராஃபி; எனவே காரணம் தவறு.' },
+    ta: { q: 'கூற்று: மின்ஒலி இதய வரைபடம் (ECG) என்பது நேரத்தைப் பொறுத்து மாறக்கூடிய இதயத் தசைகளின் மின்சாரச் செயல்பாடுகளின் பதிவு.\nகாரணம்: ECG இதயத்திலிருந்து எதிரொலிக்கும் மீயொலியைக் கொண்டு அதன் உருவத்தை அமைக்கிறது.', options: AR_TA, explanation: 'கூற்று பாடநூல் தரும் ECG வரையறை; எதிரொலிக்கும் மீயொலி மூலம் இதய பிம்பம் பெறுவது மீயொலி இதய வரைவி (எக்கோ கார்டியோகிராஃபி); எனவே காரணம் தவறு.' },
   },
   {
     difficulty: 'hard', source: '§8.12, p. 99 (Fig. 8.10)', imageUrl: `${IMG}/human-ear.png`, answer: 0,
@@ -283,6 +283,6 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise V.3, p. 100', answer: 0,
     en: { q: 'Which of these use reflection of sound or ultrasound?\n1. Stethoscope\n2. SONAR\n3. Echocardiography\n4. Electric bell in a vacuum jar', options: ['1, 2 and 3 only', '1, 2, 3 and 4', '2 and 3 only', '1 and 4 only'], explanation: 'Stethoscope (multiple reflection), SONAR and echocardiography (reflected ultrasound) all use reflection; the bell jar shows sound needs a medium.' },
-    ta: { q: 'இவற்றில் ஒலி அல்லது மீயொலியின் எதிரொலிப்பைப் பயன்படுத்துபவை எவை?\n1. ஸ்டெதஸ்கோப்\n2. சோனார்\n3. எக்கோ கார்டியோகிராஃபி\n4. வெற்றிடச் சாடியிலுள்ள மின்மணி', options: ['1, 2, 3 மட்டும்', '1, 2, 3, 4', '2, 3 மட்டும்', '1, 4 மட்டும்'], explanation: 'ஸ்டெதஸ்கோப் (பன்முக எதிரொலிப்பு), சோனார், எக்கோ கார்டியோகிராஃபி (எதிரொலிக்கும் மீயொலி) எதிரொலிப்பைப் பயன்படுத்துகின்றன; மணிச்சாடி ஒலிக்கு ஊடகம் தேவை என்பதைக் காட்டுகிறது.' },
+    ta: { q: 'இவற்றில் ஒலி அல்லது மீயொலியின் எதிரொலிப்பைப் பயன்படுத்துபவை எவை?\n1. ஸ்டெதஸ்கோப்\n2. சோனார்\n3. மீயொலி இதய வரைவி (எக்கோ கார்டியோகிராஃபி)\n4. வெற்றிடச் சாடியிலுள்ள மின்மணி', options: ['1, 2, 3 மட்டும்', '1, 2, 3, 4', '2, 3 மட்டும்', '1, 4 மட்டும்'], explanation: 'ஸ்டெதஸ்கோப் (பன்முக எதிரொலிப்பு), சோனார், மீயொலி இதய வரைவி (எதிரொலிக்கும் மீயொலி) எதிரொலிப்பைப் பயன்படுத்துகின்றன; மணிச்சாடி ஒலிக்கு ஊடகம் தேவை என்பதைக் காட்டுகிறது.' },
   },
 ];

@@ -17,22 +17,22 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise I.2, p. 183', answer: 0,
     en: { q: 'Carbon forms a very large number of organic compounds mainly due to', options: ['catenation', 'allotropy', 'its high density', 'its metallic nature'], explanation: 'Carbon links repeatedly to itself through covalent bonds to form long chains and rings; this catenation is the main reason for the huge number of organic compounds.' },
-    ta: { q: 'கார்பன் அதிக எண்ணிக்கையிலான கரிமச் சேர்மங்களை உருவாக்கக் முக்கியக் காரணம்', options: ['சங்கிலித் தொடராக்கம்', 'புறவேற்றுமை வடிவம்', 'அதன் அதிக அடர்த்தி', 'அதன் உலோகத் தன்மை'], explanation: 'கார்பன் சகப்பிணைப்பின் மூலம் தன்னுடனேயே மீண்டும் மீண்டும் இணைந்து நீண்ட சங்கிலிகளையும் வளையங்களையும் உருவாக்குகிறது; இதுவே முக்கியக் காரணம்.' },
+    ta: { q: 'கார்பன் அதிகப்படியான கரிமச் சேர்மங்களை உருவாக்க முக்கியக் காரணம்', options: ['சங்கிலித் தொடராக்கம்', 'புறவேற்றுமை வடிவம்', 'அதன் அதிக அடர்த்தி', 'அதன் உலோகத் தன்மை'], explanation: 'கார்பன் சகப்பிணைப்பின் மூலம் தன்னுடனேயே மீண்டும் மீண்டும் இணைந்து நீண்ட சங்கிலிகளையும் வளையங்களையும் உருவாக்குகிறது; இதுவே முக்கியக் காரணம்.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise I.3, p. 183', answer: 0,
     en: { q: 'Nandhini brings lunch in a plastic container with resin code 5. The container is made of', options: ['polypropylene (PP)', 'polystyrene (PS)', 'PVC', 'LDPE'], explanation: 'Resin code 5 is PP (polypropylene); 3 is PVC, 4 is LDPE and 6 is PS.' },
-    ta: { q: 'நந்தினி கொண்டு வரும் மதிய உணவுக் கலனின் (நெகிழி) ரெசின் குறியீடு 5. அந்தக் கலன் தயாரிக்கப்பட்ட நெகிழி', options: ['பாலிபுரொப்பலீன் (PP)', 'பாலிஸ்டைரீன் (PS)', 'பி.வி.சி', 'எல்.டி.பி.இ'], explanation: 'ரெசின் குறியீடு 5 – PP (பாலிபுரொப்பலீன்); 3 – PVC, 4 – LDPE, 6 – PS.' },
+    ta: { q: 'நந்தினி பள்ளிக்கு மதிய உணவு கொண்டுவரும் (நெகிழி) கலனானது குறியீடு 5 உடைய ரெசினால் ஆனது. அந்த நெகிழிக் கலன் எதனால் தயாரிக்கப்பட்டிருக்கும்?', options: ['பாலிபுரொப்பலீன் (PP)', 'பாலிஸ்டைரீன் (PS)', 'பி.வி.சி', 'எல்.டி.பி.இ'], explanation: 'ரெசின் குறியீடு 5 – PP (பாலிபுரொப்பலீன்); 3 – PVC, 4 – LDPE, 6 – PS.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise I.4, p. 183', answer: 0,
     en: { q: 'Plastics made of polycarbonate (PC) and acrylonitrile butadiene styrene (ABS) carry resin code', options: ['7', '2', '5', '6'], explanation: 'Resin code 7 covers all other plastics, including PC and ABS.' },
-    ta: { q: 'பாலி கார்பனேட் (PC), அக்ரைலோ நைட்ரைல் பியூட்டாடையீன் ஸ்டைரின் (ABS) நெகிழிகளின் ரெசின் குறியீடு', options: ['7', '2', '5', '6'], explanation: 'ரெசின் குறியீடு 7 PC, ABS உட்பட மற்ற அனைத்து நெகிழிகளையும் குறிக்கிறது.' },
+    ta: { q: 'பாலி கார்பனேட் (PC) மற்றும் அக்ரைலோ நைட்ரைல் பியூட்டாடையீன் ஸ்டைரின் (ABS) மூலம் தயாரிக்கப்படும் நெகிழியானது எந்தக் குறியீடு உடைய ரெசினால் ஆனது?', options: ['7', '2', '5', '6'], explanation: 'ரெசின் குறியீடு 7 PC, ABS உட்பட மற்ற அனைத்து நெகிழிகளையும் குறிக்கிறது.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise I.5, p. 183', answer: 0,
     en: { q: 'Graphene, a one-atom-thick layer of carbon, is obtained from', options: ['graphite', 'diamond', 'fullerene', 'gas carbon'], explanation: 'Geim and Novoselov used adhesive tape to peel a single layer of atoms from graphite.' },
-    ta: { q: 'ஓரணு தடிமனுள்ள கார்பன் அடுக்கான கிராஃபீன் எதிலிருந்து கிடைக்கிறது?', options: ['கிராஃபைட்', 'வைரம்', 'ஃபுல்லரீன்', 'வாயு கார்பன்'], explanation: 'ஜெம், நொவோசெலோவ் ஒட்டும் நாடாவைப் பயன்படுத்தி கிராஃபைட்டிலிருந்து ஒரு அணு அடுக்கைப் பிரித்தெடுத்தனர்.' },
+    ta: { q: 'ஓரணு தடிமனுள்ள ஓரடுக்குக் கார்பன் அணுக்களால் ஆன கிராஃபீன் எதிலிருந்து கிடைக்கிறது?', options: ['கிராஃபைட்', 'வைரம்', 'ஃபுல்லரீன்', 'வாயு கார்பன்'], explanation: 'ஜெம், நொவோசெலோவ் ஒட்டும் நாடாவைப் பயன்படுத்தி கிராஃபைட்டிலிருந்து ஒரு அணு அடுக்கைப் பிரித்தெடுத்தனர்.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise I.6, p. 183', answer: 0,
@@ -169,7 +169,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: '§15.1, p. 173', answer: 0,
     en: { q: 'Lavoisier burned a diamond in a closed jar and found that it formed carbon dioxide. He concluded that', options: ['diamond and charcoal are made of the same element, carbon', 'diamond is a compound of carbon and oxygen', 'diamond and graphite are different elements', 'diamond is made of oxygen'], explanation: 'Since diamond combined with oxygen to give only CO₂, Lavoisier concluded that diamond and charcoal are both carbon.' },
-    ta: { q: 'மூடிய கண்ணாடிக் குடுவையில் வைரத்தை எரித்தபோது கார்பன் டை ஆக்சைடு உருவானதைக் கண்ட லவாய்சியர் கண்ட முடிவு', options: ['வைரமும் கரியும் கார்பன் எனும் ஒரே தனிமத்தால் ஆனவை', 'வைரம் கார்பனும் ஆக்ஸிஜனும் சேர்ந்த சேர்மம்', 'வைரமும் கிராஃபைட்டும் வேறுவேறு தனிமங்கள்', 'வைரம் ஆக்ஸிஜனால் ஆனது'], explanation: 'வைரம் ஆக்ஸிஜனுடன் சேர்ந்து CO₂ ஐ மட்டும் தந்ததால், வைரமும் கரியும் கார்பனே என லவாய்சியர் முடிவு செய்தார்.' },
+    ta: { q: 'மூடிய கண்ணாடிக் குடுவையில் வைரத்தை எரித்தபோது கார்பன் டை ஆக்சைடு உருவானதைக் கண்டு லவாய்சியர் எடுத்த முடிவு', options: ['வைரமும் கரியும் கார்பன் எனும் ஒரே தனிமத்தால் ஆனவை', 'வைரம் கார்பனும் ஆக்ஸிஜனும் சேர்ந்த சேர்மம்', 'வைரமும் கிராஃபைட்டும் வேறுவேறு தனிமங்கள்', 'வைரம் ஆக்ஸிஜனால் ஆனது'], explanation: 'வைரம் ஆக்ஸிஜனுடன் சேர்ந்து CO₂ ஐ மட்டும் தந்ததால், வைரமும் கரியும் கார்பனே என லவாய்சியர் முடிவு செய்தார்.' },
   },
   {
     difficulty: 'medium', source: '§15.2.2, p. 174', answer: 0,
@@ -226,7 +226,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise V.1, p. 183', answer: 0,
     en: { q: 'Which statements about catenation are correct?\n1. It is the binding of an element to itself through covalent bonds.\n2. Carbon can form linear, branched and ring chains.\n3. Catenation in carbon takes place through ionic bonds.', options: ['1 and 2 only', '1 and 3 only', '2 and 3 only', '1, 2 and 3'], explanation: 'Carbon links repeatedly to itself through covalent (not ionic) bonds to form open or closed chains.' },
-    ta: { q: 'சங்கிலித் தொடராக்கம் பற்றிய சரியான கூற்றுகள் எவை?\n1. ஒரு தனிமம் சகப்பிணைப்பின் மூலம் தன்னுடனேயே இணைதல்.\n2. கார்பன் நீள், கிளைச், வளையச் சங்கிலிகளை உருவாக்கும்.\n3. கார்பனின் சங்கிலித் தொடராக்கம் அயனிப் பிணைப்பின் மூலம் நடைபெறுகிறது.', options: ['1, 2 மட்டும்', '1, 3 மட்டும்', '2, 3 மட்டும்', '1, 2, 3'], explanation: 'கார்பன் சகப்பிணைப்பின் மூலம் (அயனிப் பிணைப்பு அல்ல) தன்னுடன் மீண்டும் மீண்டும் இணைந்து திறந்த அல்லது மூடிய சங்கிலிகளை உருவாக்குகிறது.' },
+    ta: { q: 'சங்கிலித் தொடராக்கம் பற்றிய சரியான கூற்றுகள் எவை?\n1. ஒரு தனிமம் சகப்பிணைப்பின் மூலம் தன்னுடனேயே இணைதல்.\n2. கார்பன் நேர்ச்சங்கிலி, கிளைச்சங்கிலி, வளையச் சங்கிலி ஆகியவற்றை உருவாக்கும்.\n3. கார்பனின் சங்கிலித் தொடராக்கம் அயனிப் பிணைப்பின் மூலம் நடைபெறுகிறது.', options: ['1, 2 மட்டும்', '1, 3 மட்டும்', '2, 3 மட்டும்', '1, 2, 3'], explanation: 'கார்பன் சகப்பிணைப்பின் மூலம் (அயனிப் பிணைப்பு அல்ல) தன்னுடன் மீண்டும் மீண்டும் இணைந்து திறந்த அல்லது மூடிய சங்கிலிகளை உருவாக்குகிறது.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise V.3, p. 183', answer: 0,
@@ -296,6 +296,6 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: '§15.2.2, p. 174', answer: 0,
     en: { q: 'Calcium carbonate is prepared by passing carbon dioxide into a solution of slaked lime. Which use matches this compound?', options: ['Antacid', 'Solvent for sulphur', 'Main component of water gas', 'Preparing acetylene for welding'], explanation: 'CaCO₃ (insoluble crystalline solid) is used as an antacid; CS₂ dissolves sulphur, CO is in water gas, CaC₂ gives acetylene.' },
-    ta: { q: 'நீர்த்த சுண்ணாம்புக் கரைசலில் கார்பன் டை ஆக்சைடைச் செலுத்தி கால்சியம் கார்பனேட் தயாரிக்கப்படுகிறது. இச்சேர்மத்தின் பயன் எது?', options: ['அமில நீக்கி', 'சல்பரின் கரைப்பான்', 'நீர் வாயுவின் முக்கியக் கூறு', 'பற்றவைப்பிற்கான அசிட்டிலீன் தயாரிப்பு'], explanation: 'CaCO₃ (நீரில் கரையாத படிகத் திண்மம்) அமில நீக்கியாகப் பயன்படுகிறது; CS₂ சல்பரைக் கரைக்கும், CO நீர் வாயுவில் உள்ளது, CaC₂ அசிட்டிலீனைத் தரும்.' },
+    ta: { q: 'நீற்றுச் சுண்ணாம்புக் கரைசலில் கார்பன் டை ஆக்சைடைச் செலுத்தி கால்சியம் கார்பனேட் தயாரிக்கப்படுகிறது. இச்சேர்மத்தின் பயன் எது?', options: ['அமில நீக்கி', 'சல்பரின் கரைப்பான்', 'நீர் வாயுவின் முக்கியக் கூறு', 'பற்றவைப்பிற்கான அசிட்டிலீன் தயாரிப்பு'], explanation: 'CaCO₃ (நீரில் கரையாத படிகத் திண்மம்) அமில நீக்கியாகப் பயன்படுகிறது; CS₂ சல்பரைக் கரைக்கும், CO நீர் வாயுவில் உள்ளது, CaC₂ அசிட்டிலீனைத் தரும்.' },
   },
 ];

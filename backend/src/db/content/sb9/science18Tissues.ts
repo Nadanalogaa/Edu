@@ -100,12 +100,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise I.6, p. 223', answer: 0,
     en: { q: 'Smooth muscles occur in the walls of', options: ['the uterus, arteries and veins', 'the biceps and triceps', 'the heart only', 'the limbs and tongue only'], explanation: 'Smooth (involuntary) muscle lines internal organs such as blood vessels, the urinary bladder and the uterus.' },
-    ta: { q: 'மென் தசைகள் காணப்படும் இடம்', options: ['கர்ப்பப்பை, தமனி, சிரை ஆகியவற்றின் சுவர்கள்', 'கையின் இருதலை, முத்தலைத் தசைகள்', 'இதயம் மட்டும்', 'கை, கால், நாக்கு மட்டும்'], explanation: 'மென் தசைகள் (தன்னிச்சையற்றவை) இரத்தநாளம், சிறுநீர்ப்பை, கர்ப்பப்பை போன்ற உள்ளுறுப்புகளின் சுவர்களில் உள்ளன.' },
+    ta: { q: 'மிருதுவான தசைகள் காணப்படுவது', options: ['கர்ப்பப்பை, தமனி, சிரை ஆகியவற்றின் சுவர்கள்', 'கையின் இருதலை, முத்தலைத் தசைகள்', 'இதயம் மட்டும்', 'கை, கால், நாக்கு மட்டும்'], explanation: 'மிருதுவான தசைகள் (தன்னிச்சையற்றவை) இரத்தநாளம், சிறுநீர்ப்பை, கர்ப்பப்பை போன்ற உள்ளுறுப்புகளின் சுவர்களில் உள்ளன.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise III.1, p. 223', answer: 0,
     en: { q: '_____ tissues, with thick lignified walls, provide mechanical support to organs.', options: ['Sclerenchyma', 'Parenchyma', 'Aerenchyma', 'Meristematic'], explanation: 'Sclerenchyma cells have thick, often lignified walls and give mechanical strength.' },
-    ta: { q: 'தடித்த லிக்னின் சுவருடைய _____ திசுக்கள் உறுப்புகளுக்கு உறுதியை அளிக்கின்றன.', options: ['ஸ்கிளீரன்கைமா', 'பாரன்கைமா', 'ஏரன்கைமா', 'ஆக்கு'], explanation: 'ஸ்கிளீரன்கைமா செல்கள் லிக்னின் படிந்த தடித்த சுவர் கொண்டு உறுதியை அளிக்கின்றன.' },
+    ta: { q: 'தடித்த லிக்னின் சுவருடைய _____ திசுக்கள் உள்ளுறுப்புகளுக்கு உறுதியை அளிக்கின்றன.', options: ['ஸ்கிளீரன்கைமா', 'பாரன்கைமா', 'ஏரன்கைமா', 'ஆக்கு'], explanation: 'ஸ்கிளீரன்கைமா செல்கள் லிக்னின் படிந்த தடித்த சுவர் கொண்டு உறுதியை அளிக்கின்றன.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise III.4, p. 223', answer: 0,
@@ -115,12 +115,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise III.5, p. 223', answer: 0,
     en: { q: 'The lining of the small intestine is made up of _____.', options: ['columnar epithelium', 'squamous epithelium', 'compound epithelium', 'cartilage'], explanation: 'Pillar-like columnar epithelium lines the stomach, small intestine and colon and helps in secretion and absorption.' },
-    ta: { q: 'சிறுகுடலின் உட்சுவர் _____ ஆல் ஆனது.', options: ['தூண் எபிதீலியம்', 'தட்டை எபிதீலியம்', 'கூட்டு எபிதீலியம்', 'குருத்தெலும்பு'], explanation: 'தூண் போன்ற செல்களாலான தூண் எபிதீலியம் இரைப்பை, சிறுகுடல், பெருங்குடலின் உட்சுவரில் உள்ளது; சுரத்தல், உறிஞ்சுதலுக்கு உதவும்.' },
+    ta: { q: 'சிறுகுடலின் புறணி _____ ஆல் ஆனது.', options: ['தூண் எபிதீலியம்', 'தட்டை எபிதீலியம்', 'கூட்டு எபிதீலியம்', 'குருத்தெலும்பு'], explanation: 'தூண் போன்ற செல்களாலான தூண் எபிதீலியம் இரைப்பை, சிறுகுடல், பெருங்குடலின் உட்சுவரில் உள்ளது; சுரத்தல், உறிஞ்சுதலுக்கு உதவும்.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise IV.2, p. 224', answer: 0,
     en: { q: "The book's statement 'Bone and cartilage are two types of areolar connective tissue' is false. The correct statement is", options: ['Bone and cartilage are supportive (skeletal) connective tissues.', 'Bone and cartilage are fluid connective tissues.', 'Bone and cartilage are dense connective tissues.', 'Bone and cartilage are epithelial tissues.'], explanation: 'Cartilage and bone are supportive connective tissues that form the endoskeleton; areolar and adipose are connective tissue proper.' },
-    ta: { q: "'எலும்பு மற்றும் குருத்தெலும்பு ஆகியவை ஏரியோலார் இணைப்புத் திசுவின் இருவகைகள்' என்பது தவறு. சரியான கூற்று", options: ['எலும்பும் குருத்தெலும்பும் ஆதார (எலும்புச் சட்டக) இணைப்புத் திசுக்கள்.', 'எலும்பும் குருத்தெலும்பும் திரவ இணைப்புத் திசுக்கள்.', 'எலும்பும் குருத்தெலும்பும் அடர்த்தியான இணைப்புத் திசுக்கள்.', 'எலும்பும் குருத்தெலும்பும் எபிதீலியத் திசுக்கள்.'], explanation: 'குருத்தெலும்பும் எலும்பும் அகச்சட்டகத்தை உருவாக்கும் ஆதார இணைப்புத் திசுக்கள்; ஏரியோலார், கொழுப்புத் திசுக்கள் இணைப்புத் திசு வகையைச் சேர்ந்தவை.' },
+    ta: { q: "'எலும்பு மற்றும் குருத்தெலும்பு ஆகியவை சிற்றிட இணைப்புத் திசுவின் இருவகைகள்' என்பது தவறு. சரியான கூற்று", options: ['எலும்பும் குருத்தெலும்பும் ஆதார (எலும்புச் சட்டக) இணைப்புத் திசுக்கள்.', 'எலும்பும் குருத்தெலும்பும் திரவ இணைப்புத் திசுக்கள்.', 'எலும்பும் குருத்தெலும்பும் அடர்த்தியான இணைப்புத் திசுக்கள்.', 'எலும்பும் குருத்தெலும்பும் எபிதீலியத் திசுக்கள்.'], explanation: 'குருத்தெலும்பும் எலும்பும் அகச்சட்டகத்தை உருவாக்கும் ஆதார இணைப்புத் திசுக்கள்; சிற்றிட (ஏரியோலார்), கொழுப்புத் திசுக்கள் இணைப்புத் திசு வகையைச் சேர்ந்தவை.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise IV.4 and IV.5, p. 224', answer: 0,
@@ -140,7 +140,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise V.3, p. 224', answer: 0,
     en: { q: 'The most abundant muscular tissue in our body, attached to bones, and its function are', options: ['skeletal (striated) muscle – voluntary body movements', 'cardiac muscle – pumping blood', 'smooth muscle – moving food in the gut', 'skeletal muscle – involuntary rhythmic contraction'], explanation: 'Skeletal muscles are attached to bones, work under our control and bring about body movements.' },
-    ta: { q: 'நம் உடலில் அதிக அளவில் காணப்படும், எலும்புகளுடன் இணைந்த தசைத் திசுவும் அதன் பணியும்', options: ['எலும்புச் சட்டகத் தசை (வரித் தசை) – விருப்பப்படி இயங்கும் உடல் அசைவுகள்', 'இதயத் தசை – இரத்தத்தை உந்துதல்', 'மென் தசை – உணவுக்குழாயில் உணவை நகர்த்துதல்', 'எலும்புச் சட்டகத் தசை – தன்னிச்சையற்ற சீரான சுருக்கம்'], explanation: 'எலும்புச் சட்டகத் தசைகள் எலும்புகளுடன் இணைந்து நம் கட்டுப்பாட்டில் இயங்கி உடல் அசைவுகளை ஏற்படுத்துகின்றன.' },
+    ta: { q: 'நம் உடலில் அதிக அளவில் காணப்படும், எலும்புகளுடன் இணைந்த தசைத் திசுவும் அதன் பணியும்', options: ['எலும்புச் சட்டகத் தசை (வரித் தசை) – விருப்பப்படி இயங்கும் உடல் அசைவுகள்', 'இதயத் தசை – இரத்தத்தை உந்துதல்', 'மிருதுவான தசை – உணவுக்குழாயில் உணவை நகர்த்துதல்', 'எலும்புச் சட்டகத் தசை – தன்னிச்சையற்ற சீரான சுருக்கம்'], explanation: 'எலும்புச் சட்டகத் தசைகள் எலும்புகளுடன் இணைந்து நம் கட்டுப்பாட்டில் இயங்கி உடல் அசைவுகளை ஏற்படுத்துகின்றன.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise V.4, p. 224', answer: 0,
@@ -150,12 +150,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise V.6, p. 224', answer: 0,
     en: { q: 'In which stage of mitosis do the chromosomes line up on the equatorial plate?', options: ['Metaphase', 'Prophase', 'Anaphase', 'Telophase'], explanation: 'In metaphase the chromosomes arrange on the equator, each attached to a spindle fibre by its centromere.' },
-    ta: { q: 'மைட்டாசிஸின் எந்த நிலையில் குரோமோசோம்கள் செல்லின் மையத் தட்டில் அமைகின்றன?', options: ['மெட்டாநிலை', 'புரோநிலை', 'அனாநிலை', 'டீலோநிலை'], explanation: 'மெட்டாநிலையில் குரோமோசோம்கள் மையப்பகுதியில் ஒருங்கமைந்து, சென்ட்ரோமியர் மூலம் கதிர் இழைகளுடன் இணைகின்றன.' },
+    ta: { q: 'மைட்டாசிஸின் எந்த நிலையில் குரோமோசோம்கள் செல்லின் மையப்பகுதியில் (மையத் தட்டில்) அமைகின்றன?', options: ['மெட்டாநிலை', 'புரோநிலை', 'அனாநிலை', 'டீலோநிலை'], explanation: 'மெட்டாநிலையில் குரோமோசோம்கள் மையப்பகுதியில் ஒருங்கமைந்து, சென்ட்ரோமியர் மூலம் கதிர் இழைகளுடன் இணைகின்றன.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise VI.1, p. 224', answer: 0,
     en: { q: 'Permanent tissues are those in which', options: ['growth has stopped either completely or for the time being', 'cells keep dividing all the time', 'all cells are always dead', 'only chloroplasts are present'], explanation: 'Permanent tissues have stopped growing, though at times they may become meristematic again.' },
-    ta: { q: 'நிலையான திசுக்கள் என்பவை', options: ['வளர்ச்சி முழுமையாகவோ தற்காலிகமாகவோ நின்றுவிட்ட திசுக்கள்', 'எப்போதும் பகுப்படையும் செல்களைக் கொண்டவை', 'எப்போதும் இறந்த செல்களைக் கொண்டவை', 'பசுங்கணிகங்களை மட்டும் கொண்டவை'], explanation: 'நிலையான திசுக்களில் வளர்ச்சி நின்றுவிட்டது; சில நேரங்களில் அவை மீண்டும் ஆக்குத்திசுவாக மாறலாம்.' },
+    ta: { q: 'நிலைத்த திசுக்கள் என்பவை', options: ['வளர்ச்சி முழுமையாகவோ தற்காலிகமாகவோ நின்றுவிட்ட திசுக்கள்', 'எப்போதும் பகுப்படையும் செல்களைக் கொண்டவை', 'எப்போதும் இறந்த செல்களைக் கொண்டவை', 'பசுங்கணிகங்களை மட்டும் கொண்டவை'], explanation: 'நிலையான திசுக்களில் வளர்ச்சி நின்றுவிட்டது; சில நேரங்களில் அவை மீண்டும் ஆக்குத்திசுவாக மாறலாம்.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise VI.2, p. 224', answer: 0,
@@ -195,7 +195,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: '§18.2.3, p. 218', answer: 0,
     en: { q: 'The intercalated disc is a distinguishing feature of', options: ['cardiac muscle', 'skeletal muscle', 'smooth muscle', 'nervous tissue'], explanation: 'The branches of cardiac muscle fibres join to form intercalated discs, unique to heart muscle.' },
-    ta: { q: 'இடைச்செருகுத்தட்டு எதன் தனிச்சிறப்புப் பண்பு?', options: ['இதயத் தசை', 'எலும்புச் சட்டகத் தசை', 'மென் தசை', 'நரம்புத் திசு'], explanation: 'இதயத் தசை நார்களின் கிளைகள் இணைந்து இடைச்செருகுத்தட்டுகளை உருவாக்குகின்றன; இது இதயத் தசைக்கு மட்டுமே உரியது.' },
+    ta: { q: 'இடைச்செருகுத்தட்டு எதன் தனிச்சிறப்புப் பண்பு?', options: ['இதயத் தசை', 'எலும்புச் சட்டகத் தசை', 'மிருதுவான தசை', 'நரம்புத் திசு'], explanation: 'இதயத் தசை நார்களின் கிளைகள் இணைந்து இடைச்செருகுத்தட்டுகளை உருவாக்குகின்றன; இது இதயத் தசைக்கு மட்டுமே உரியது.' },
   },
   {
     difficulty: 'medium', source: '§18.3.1, p. 219', answer: 0, imageUrl: `${IMG}/amitosis.png`,
@@ -216,7 +216,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise V.5, p. 224', answer: 0,
     en: { q: 'Why must gametes be produced by meiosis during sexual reproduction?', options: ['So that haploid gametes fuse to restore the diploid number and keep the chromosome number constant', 'So that gametes have double the parent chromosome number', 'So that gametes are identical to the parent cell', 'So that gametes can repair damaged tissues'], explanation: 'Meiosis halves the chromosome number (2n to n); fertilisation restores 2n, keeping it constant across generations, and crossing over adds variation.' },
-    ta: { q: 'பாலினப் பெருக்கத்தின்போது கேமீட்டுகள் ஏன் மியாசிஸ் மூலம் உருவாக வேண்டும்?', options: ['ஒற்றைமய கேமீட்டுகள் இணைந்து இரட்டைமய நிலை மீண்டு, குரோமோசோம் எண்ணிக்கை மாறாமல் இருக்க', 'கேமீட்டுகள் தாய் செல்லைப் போல இருமடங்கு குரோமோசோம் பெற', 'கேமீட்டுகள் தாய் செல்லை ஒத்திருக்க', 'கேமீட்டுகள் காயமடைந்த திசுக்களைச் சீரமைக்க'], explanation: 'மியாசிஸ் குரோமோசோம் எண்ணிக்கையை 2n-இலிருந்து n ஆகக் குறைக்கிறது; கருவுறுதலில் 2n மீண்டும் கிடைத்து எண்ணிக்கை மாறாமல் உள்ளது; குறுக்கே கலத்தல் வேறுபாடுகளைத் தருகிறது.' },
+    ta: { q: 'பாலினப் பெருக்கத்தின்போது கேமீட்டுகள் ஏன் மியாசிஸ் மூலம் உருவாக வேண்டும்?', options: ['ஒற்றைமய கேமீட்டுகள் இணைந்து இரட்டைமய நிலை மீண்டு, குரோமோசோம் எண்ணிக்கை மாறாமல் இருக்க', 'கேமீட்டுகள் தாய் செல்லைவிட இருமடங்கு குரோமோசோம்களைப் பெற', 'கேமீட்டுகள் தாய் செல்லை ஒத்திருக்க', 'கேமீட்டுகள் காயமடைந்த திசுக்களைச் சீரமைக்க'], explanation: 'மியாசிஸ் குரோமோசோம் எண்ணிக்கையை 2n-இலிருந்து n ஆகக் குறைக்கிறது; கருவுறுதலில் 2n மீண்டும் கிடைத்து எண்ணிக்கை மாறாமல் உள்ளது; குறுக்கே கலத்தல் வேறுபாடுகளைத் தருகிறது.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise VI.3, p. 224', answer: 0,
@@ -251,7 +251,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: '§18.2.3, p. 218', answer: 3,
     en: { q: 'Assertion: Smooth muscles are called voluntary muscles.\nReason: Smooth muscle fibres have no striations.', options: AR_EN, explanation: 'Smooth muscles are involuntary, so the assertion is false; the reason (no striations, hence non-striated) is true.' },
-    ta: { q: 'கூற்று: மென் தசைகள் இயக்கு (விருப்பப்படி இயங்கும்) தசைகள் என அழைக்கப்படுகின்றன.\nகாரணம்: மென் தசை நார்களில் வரிகள் இல்லை.', options: AR_TA, explanation: 'மென் தசைகள் தானே இயங்கும் தசைகள்; எனவே கூற்று தவறு. வரிகள் இல்லாததால் வரியற்ற தசை என்பது (காரணம்) சரி.' },
+    ta: { q: 'கூற்று: மிருதுவான தசைகள் இயக்கு (விருப்பப்படி இயங்கும்) தசைகள் என அழைக்கப்படுகின்றன.\nகாரணம்: மிருதுவான தசை நார்களில் வரிகள் இல்லை.', options: AR_TA, explanation: 'மிருதுவான தசைகள் தானே இயங்கும் தசைகள்; எனவே கூற்று தவறு. வரிகள் இல்லாததால் வரியற்ற தசை என்பது (காரணம்) சரி.' },
   },
   {
     difficulty: 'hard', source: '§18.3.1, p. 220', answer: 0,

@@ -73,7 +73,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise 5.6.5, p. 218', answer: 0,
     en: { q: 'The point whose ordinate is 4 and which lies on the y-axis is', options: ['(0, 4)', '(4, 0)', '(1, 4)', '(4, 2)'], explanation: 'A point on the y-axis has abscissa 0, so it is (0, 4).' },
-    ta: { q: 'y-அச்சுத் தொலைவு 4 மற்றும் y-அச்சில் அமைந்த புள்ளி', options: ['(0, 4)', '(4, 0)', '(1, 4)', '(4, 2)'], explanation: 'y-அச்சின் மீதுள்ள புள்ளியின் x-அச்சுத் தொலைவு 0; எனவே (0, 4).' },
+    ta: { q: 'ஒரு புள்ளியின் y அச்சுத் தொலைவு 4 மற்றும் அப்புள்ளி y அச்சில் அமைந்தால் அப்புள்ளி', options: ['(0, 4)', '(4, 0)', '(1, 4)', '(4, 2)'], explanation: 'y-அச்சின் மீதுள்ள புள்ளியின் x-அச்சுத் தொலைவு 0; எனவே (0, 4).' },
   },
   {
     difficulty: 'easy', source: 'Book exercise 5.6.8, p. 218', answer: 0,
@@ -93,7 +93,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§5.3.3, p. 197', answer: 0,
     en: { q: 'The distance of a point P(x₁, y₁) from the origin is', options: ['√(x₁² + y₁²)', 'x₁ + y₁', '√(x₁ + y₁)', 'x₁² + y₁²'], explanation: 'Using the distance formula with (0, 0): OP = √(x₁² + y₁²).' },
-    ta: { q: 'P(x₁, y₁) என்ற புள்ளிக்கும் ஆதிக்கும் இடையே உள்ள தொலைவு', options: ['√(x₁² + y₁²)', 'x₁ + y₁', '√(x₁ + y₁)', 'x₁² + y₁²'], explanation: '(0, 0) உடன் தொலைவுச் சூத்திரம்: OP = √(x₁² + y₁²).' },
+    ta: { q: 'P(x₁, y₁) என்ற புள்ளிக்கும் ஆதிக்கும் இடையே உள்ள தொலைவு', options: ['√(x₁² + y₁²)', 'x₁ + y₁', '√(x₁ + y₁)', 'x₁² + y₁²'], explanation: '(0, 0) உடன் தொலைவு வாய்ப்பாடு: OP = √(x₁² + y₁²).' },
   },
   {
     difficulty: 'easy', source: '§5.4, p. 204', answer: 0,
@@ -120,17 +120,17 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 5.1.3(i), p. 193', answer: 0,
     en: { q: 'The points (−5, 3), (−1, 3), (0, 3) and (5, 3) are plotted and joined. The figure is', options: ['a straight line parallel to the x-axis', 'a straight line parallel to the y-axis', 'a straight line on the y-axis', 'a square'], explanation: 'All four points have ordinate 3, so they lie on the line y = 3, parallel to the x-axis.' },
-    ta: { q: '(−5, 3), (−1, 3), (0, 3), (5, 3) ஆகிய புள்ளிகளைக் குறித்து இணைத்தால் கிடைக்கும் உருவம்', options: ['x-அச்சுக்கு இணையான நேர்க்கோடு', 'y-அச்சுக்கு இணையான நேர்க்கோடு', 'y-அச்சின் மீது அமைந்த நேர்க்கோடு', 'சதுரம்'], explanation: 'நான்கு புள்ளிகளின் y-அச்சுத் தொலைவும் 3; எனவே அவை y = 3 என்ற x-அச்சுக்கு இணையான கோட்டில் அமையும்.' },
+    ta: { q: '(−5, 3), (−1, 3), (0, 3), (5, 3) ஆகிய புள்ளிகளை வரைபடத்தாளில் குறித்து இணைத்தால் கிடைக்கும் வடிவம்', options: ['x-அச்சுக்கு இணையான நேர்க்கோடு', 'y-அச்சுக்கு இணையான நேர்க்கோடு', 'y-அச்சின் மீது அமைந்த நேர்க்கோடு', 'சதுரம்'], explanation: 'நான்கு புள்ளிகளின் y-அச்சுத் தொலைவும் 3; எனவே அவை y = 3 என்ற x-அச்சுக்கு இணையான கோட்டில் அமையும்.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 5.1.3(ii), p. 193', answer: 0,
     en: { q: 'The points (0, −4), (0, −2), (0, 4) and (0, 5) are plotted and joined. The figure is', options: ['a straight line lying on the y-axis', 'a straight line parallel to the x-axis', 'a straight line lying on the x-axis', 'a rectangle'], explanation: 'All abscissae are 0, so the points lie on the y-axis.' },
-    ta: { q: '(0, −4), (0, −2), (0, 4), (0, 5) ஆகிய புள்ளிகளைக் குறித்து இணைத்தால் கிடைக்கும் உருவம்', options: ['y-அச்சின் மீது அமைந்த நேர்க்கோடு', 'x-அச்சுக்கு இணையான நேர்க்கோடு', 'x-அச்சின் மீது அமைந்த நேர்க்கோடு', 'செவ்வகம்'], explanation: 'எல்லாக் கிடை அச்சுத் தொலைவுகளும் 0; எனவே புள்ளிகள் y-அச்சின் மீது அமையும்.' },
+    ta: { q: '(0, −4), (0, −2), (0, 4), (0, 5) ஆகிய புள்ளிகளை வரைபடத்தாளில் குறித்து இணைத்தால் கிடைக்கும் வடிவம்', options: ['y-அச்சின் மீது அமைந்த நேர்க்கோடு', 'x-அச்சுக்கு இணையான நேர்க்கோடு', 'x-அச்சின் மீது அமைந்த நேர்க்கோடு', 'செவ்வகம்'], explanation: 'எல்லாக் கிடை அச்சுத் தொலைவுகளும் 0; எனவே புள்ளிகள் y-அச்சின் மீது அமையும்.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 5.1.4(i), p. 193', answer: 0,
     en: { q: 'The points (0, 0), (−4, 0), (−4, −4), (0, −4) joined in order form a', options: ['square', 'trapezium', 'rhombus that is not a square', 'kite'], explanation: 'Each side is 4 units and the sides lie along or parallel to the axes, so all angles are 90°: a square.' },
-    ta: { q: '(0, 0), (−4, 0), (−4, −4), (0, −4) ஆகிய புள்ளிகளை வரிசையாக இணைத்தால் கிடைக்கும் வடிவம்', options: ['சதுரம்', 'சரிவகம்', 'சதுரமல்லாத சாய்சதுரம்', 'பட்டம்'], explanation: 'ஒவ்வொரு பக்கமும் 4 அலகு; பக்கங்கள் அச்சுகளுக்கு இணையாக உள்ளதால் எல்லாக் கோணங்களும் 90°: சதுரம்.' },
+    ta: { q: '(0, 0), (−4, 0), (−4, −4), (0, −4) ஆகிய புள்ளிகளை ஆயத்தொலைத் தளத்தில் குறித்து, வரிசைப்படி இணைத்தால் கிடைக்கும் வடிவியல் உருவம்', options: ['சதுரம்', 'சரிவகம்', 'சதுரமல்லாத சாய்சதுரம்', 'பட்டம்'], explanation: 'ஒவ்வொரு பக்கமும் 4 அலகு; பக்கங்கள் அச்சுகளுக்கு இணையாக உள்ளதால் எல்லாக் கோணங்களும் 90°: சதுரம்.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 5.1.4(ii), p. 193', answer: 0,
@@ -180,12 +180,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book example 5.8, p. 200', answer: 0,
     en: { q: 'B lies on the x-axis and its abscissa is 11. The distance between A(7, 3) and B is', options: ['5', '4', '√13', '7'], explanation: 'B = (11, 0), so AB = √(4² + (−3)²) = √25 = 5.' },
-    ta: { q: 'B ஆனது x-அச்சின் மீது உள்ளது; அதன் கிடை அச்சுத் தொலைவு 11. A(7, 3) க்கும் B க்கும் இடையே உள்ள தொலைவு', options: ['5', '4', '√13', '7'], explanation: 'B = (11, 0); AB = √(4² + (−3)²) = √25 = 5.' },
+    ta: { q: 'A(7, 3) மற்றும் x அச்சின் மீது அமைந்த புள்ளி B இன் x அச்சுத் தொலைவு 11 எனில் AB இன் தொலைவு', options: ['5', '4', '√13', '7'], explanation: 'B = (11, 0); AB = √(4² + (−3)²) = √25 = 5.' },
   },
   {
     difficulty: 'medium', source: 'Book activity, p. 193', answer: 0,
     en: { q: 'With the school as origin and 1 unit = 50 m, Shanmugam’s house is at (2, 1) and Akila’s house is at (2, 3) on the same north–south street. How far is Akila’s house from Shanmugam’s house?', options: ['100 m', '2 m', '150 m', '50 m'], explanation: 'The x-coordinates are equal, so the distance is |3 − 1| = 2 units = 2 × 50 m = 100 m.' },
-    ta: { q: 'பள்ளியை ஆதியாகவும் 1 அலகு = 50 மீ எனவும் கொண்டால், ஒரே வடக்கு–தெற்குத் தெருவில் சண்முகம் வீடு (2, 1), அகிலா வீடு (2, 3) இல் உள்ளன. இரு வீடுகளுக்கும் இடையே உள்ள தொலைவு', options: ['100 மீ', '2 மீ', '150 மீ', '50 மீ'], explanation: 'x-ஆயத்தொலைவுகள் சமம்; தொலைவு |3 − 1| = 2 அலகுகள் = 2 × 50 மீ = 100 மீ.' },
+    ta: { q: 'பள்ளியை ஆதியாகவும் 1 அலகு = 50 மீ எனவும் கொண்டால், வடக்குத் தெற்காக அமைந்த ஒரே தெருவில் சண்முகம் வீடு (2, 1), அகிலா வீடு (2, 3) இல் உள்ளன. சண்முகத்தின் வீட்டிலிருந்து அகிலாவின் வீடு எவ்வளவு தொலைவில் உள்ளது?', options: ['100 மீ', '2 மீ', '150 மீ', '50 மீ'], explanation: 'x-ஆயத்தொலைவுகள் சமம்; தொலைவு |3 − 1| = 2 அலகுகள் = 2 × 50 மீ = 100 மீ.' },
   },
   {
     difficulty: 'medium', source: '§5.3.3 Thinking corner, p. 196', answer: 0,
@@ -225,7 +225,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise 5.3.2, p. 208', answer: 0,
     en: { q: 'The centre of a circle is (−4, 2). If one end of a diameter is (−3, 7), the other end is', options: ['(−5, −3)', '(−7/2, 9/2)', '(1, 5)', '(−5, 3)'], explanation: 'The centre is the mid-point: x = 2(−4) − (−3) = −5, y = 2(2) − 7 = −3.' },
-    ta: { q: 'ஒரு வட்டத்தின் மையம் (−4, 2); விட்டத்தின் ஒரு முனை (−3, 7) எனில் மற்றொரு முனை', options: ['(−5, −3)', '(−7/2, 9/2)', '(1, 5)', '(−5, 3)'], explanation: 'மையம் நடுப்புள்ளி: x = 2(−4) − (−3) = −5, y = 2(2) − 7 = −3.' },
+    ta: { q: 'ஒரு வட்டத்தின் மையம் (−4, 2). அந்த வட்டத்தில் (−3, 7) என்பது விட்டத்தின் ஒரு முனை எனில், மற்றொரு முனை', options: ['(−5, −3)', '(−7/2, 9/2)', '(1, 5)', '(−5, 3)'], explanation: 'மையம் நடுப்புள்ளி: x = 2(−4) − (−3) = −5, y = 2(2) − 7 = −3.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 5.6.14, p. 219', answer: 0,
@@ -235,7 +235,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book example 5.12, p. 205', answer: 0,
     en: { q: '(3, −4) is the centre of a circle. If AB is a diameter and B is (5, −6), then A is', options: ['(1, −2)', '(4, −5)', '(8, −10)', '(−1, 2)'], explanation: 'A = (2 × 3 − 5, 2 × (−4) + 6) = (1, −2).' },
-    ta: { q: '(3, −4) வட்டத்தின் மையம்; AB விட்டம்; B = (5, −6) எனில் A', options: ['(1, −2)', '(4, −5)', '(8, −10)', '(−1, 2)'], explanation: 'A = (2 × 3 − 5, 2 × (−4) + 6) = (1, −2).' },
+    ta: { q: 'ஒரு வட்டத்தின் மையப்புள்ளி (3, −4). AB ஆனது அந்த வட்டத்தின் விட்டம் மற்றும் B(5, −6) எனில் A இன் ஆயத்தொலைவுகள்', options: ['(1, −2)', '(4, −5)', '(8, −10)', '(−1, 2)'], explanation: 'A = (2 × 3 − 5, 2 × (−4) + 6) = (1, −2).' },
   },
   {
     difficulty: 'medium', source: 'Book exercise 5.6.18, p. 219', answer: 0,
@@ -302,7 +302,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise 5.2.2(i), p. 202', answer: 0,
     en: { q: 'Which set of points is collinear?', options: ['(7, −2), (5, 1), (3, 4)', '(1, 2), (4, 3), (7, 5)', '(0, 0), (1, 2), (3, 5)', '(2, 1), (4, 4), (5, 6)'], explanation: 'For (7, −2), (5, 1), (3, 4): AB = BC = √13 and AC = √52 = 2√13, so AB + BC = AC. The other sets fail this test.' },
-    ta: { q: 'பின்வருவனவற்றுள் ஒரே நேர்க்கோட்டில் அமையும் புள்ளிகள் எவை?', options: ['(7, −2), (5, 1), (3, 4)', '(1, 2), (4, 3), (7, 5)', '(0, 0), (1, 2), (3, 5)', '(2, 1), (4, 4), (5, 6)'], explanation: '(7, −2), (5, 1), (3, 4) க்கு AB = BC = √13, AC = √52 = 2√13; எனவே AB + BC = AC. மற்ற தொகுப்புகள் இதனை நிறைவு செய்யாது.' },
+    ta: { q: 'பின்வருவனவற்றுள் ஒரு கோடமையும் புள்ளிகள் எவை?', options: ['(7, −2), (5, 1), (3, 4)', '(1, 2), (4, 3), (7, 5)', '(0, 0), (1, 2), (3, 5)', '(2, 1), (4, 4), (5, 6)'], explanation: '(7, −2), (5, 1), (3, 4) க்கு AB = BC = √13, AC = √52 = 2√13; எனவே AB + BC = AC. மற்ற தொகுப்புகள் இதனை நிறைவு செய்யாது.' },
   },
   {
     difficulty: 'hard', source: 'Book example 5.5, p. 198', answer: 0,
@@ -412,7 +412,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book example 5.15, p. 207', answer: 0,
     en: { q: 'The mid-points of the sides of a triangle are (5, 1), (3, −5) and (−5, −1). The vertices of the triangle are', options: ['(−3, 5), (13, −3), (−7, −7)', '(3, −5), (13, 3), (7, 7)', '(1, −5), (−3, 3), (3, −1)', '(−3, −5), (13, 3), (−7, 7)'], explanation: 'Adding the three equations gives x₁ + x₂ + x₃ = 3 and y₁ + y₂ + y₃ = −5; subtracting each pair gives (−3, 5), (13, −3), (−7, −7).' },
-    ta: { q: 'ஒரு முக்கோணத்தின் பக்கங்களின் நடுப்புள்ளிகள் (5, 1), (3, −5), (−5, −1) எனில் முக்கோணத்தின் முனைகள்', options: ['(−3, 5), (13, −3), (−7, −7)', '(3, −5), (13, 3), (7, 7)', '(1, −5), (−3, 3), (3, −1)', '(−3, −5), (13, 3), (−7, 7)'], explanation: 'மூன்று சமன்பாடுகளையும் கூட்டினால் x₁ + x₂ + x₃ = 3, y₁ + y₂ + y₃ = −5; ஒவ்வொரு சோடியையும் கழிக்க (−3, 5), (13, −3), (−7, −7).' },
+    ta: { q: 'ஒரு முக்கோணத்தின் பக்கங்களின் நடுப்புள்ளிகள் (5, 1), (3, −5), (−5, −1) எனில் அந்த முக்கோணத்தின் முனைகளின் ஆயத்தொலைவுகள்', options: ['(−3, 5), (13, −3), (−7, −7)', '(3, −5), (13, 3), (7, 7)', '(1, −5), (−3, 3), (3, −1)', '(−3, −5), (13, 3), (−7, 7)'], explanation: 'மூன்று சமன்பாடுகளையும் கூட்டினால் x₁ + x₂ + x₃ = 3, y₁ + y₂ + y₃ = −5; ஒவ்வொரு சோடியையும் கழிக்க (−3, 5), (13, −3), (−7, −7).' },
   },
   {
     difficulty: 'hard', source: 'Book progress check (i), p. 206', answer: 0,
@@ -427,7 +427,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise 5.3.4, p. 208', answer: 0,
     en: { q: 'The mid-points of the sides of a triangle are (2, 4), (−2, 3) and (5, 2). The vertices of the triangle are', options: ['(9, 3), (−5, 5), (1, 1)', '(1, 3), (−5, 5), (9, 1)', '(9, 3), (5, −5), (1, 1)', '(3, 9), (5, −5), (1, 1)'], explanation: 'Each vertex = sum of the two adjacent mid-points minus the opposite one: (−2 + 5 − 2, 3 + 2 − 4) etc., giving (9, 3), (−5, 5), (1, 1).' },
-    ta: { q: 'ஒரு முக்கோணத்தின் பக்கங்களின் நடுப்புள்ளிகள் (2, 4), (−2, 3), (5, 2) எனில் முக்கோணத்தின் முனைகள்', options: ['(9, 3), (−5, 5), (1, 1)', '(1, 3), (−5, 5), (9, 1)', '(9, 3), (5, −5), (1, 1)', '(3, 9), (5, −5), (1, 1)'], explanation: 'ஒவ்வொரு முனையும் = அடுத்துள்ள இரு நடுப்புள்ளிகளின் கூடுதல் − எதிர் நடுப்புள்ளி; முனைகள் (9, 3), (−5, 5), (1, 1).' },
+    ta: { q: 'ஒரு முக்கோணத்தின் பக்கங்களின் நடுப்புள்ளிகள் (2, 4), (−2, 3), (5, 2) எனில் அந்த முக்கோணத்தின் முனைகளின் ஆயத்தொலைவுகள்', options: ['(9, 3), (−5, 5), (1, 1)', '(1, 3), (−5, 5), (9, 1)', '(9, 3), (5, −5), (1, 1)', '(3, 9), (5, −5), (1, 1)'], explanation: 'ஒவ்வொரு முனையும் = அடுத்துள்ள இரு நடுப்புள்ளிகளின் கூடுதல் − எதிர் நடுப்புள்ளி; முனைகள் (9, 3), (−5, 5), (1, 1).' },
   },
   {
     difficulty: 'hard', source: 'Book exercise 5.3.5, p. 208', answer: 0,

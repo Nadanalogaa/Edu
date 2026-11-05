@@ -14,7 +14,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise I.3, p. 287', answer: 0,
     en: { q: 'Which one of the following is the Italian species of honey bee?', options: ['Apis mellifera', 'Apis dorsata', 'Apis florea', 'Apis indica'], explanation: 'Apis mellifera is the Italian bee and Apis adamsoni the African bee (exotic); dorsata, florea and indica are Indian.' },
-    ta: { q: 'இத்தாலிய தேனீ இனம் எது?', options: ['ஏபிஸ் மெல்லிஃபெரா', 'ஏபிஸ் டார்சேட்டா', 'ஏபிஸ் ஃப்ளோரா', 'ஏபிஸ் இண்டிகா'], explanation: 'ஏபிஸ் மெல்லிஃபெரா இத்தாலிய தேனீ, ஏபிஸ் ஆடம்சோனி ஆப்பிரிக்க தேனீ; டார்சேட்டா, ஃப்ளோரா, இண்டிகா உள்நாட்டு வகைகள்.' },
+    ta: { q: 'இத்தாலிய தேனீ இனம் எது?', options: ['ஏபிஸ் மெல்லிஃபெரா', 'ஏபிஸ் டார்சோட்டா', 'ஏபிஸ் ப்ளோரா', 'ஏபிஸ் இண்டிகா'], explanation: 'ஏபிஸ் மெல்லிஃபெரா இத்தாலிய தேனீ, ஏபிஸ் ஆடம்சோனி ஆப்பிரிக்க தேனீ; டார்சோட்டா, ப்ளோரா, இண்டிகா உள்நாட்டு வகைகள்.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise I.4, p. 287', answer: 0,
@@ -29,7 +29,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise I.9, p. 287', answer: 0,
     en: { q: 'The symbiotic association of fungi and roots of vascular plants is', options: ['mycorrhizae', 'lichen', 'Rhizobium', 'Azotobacter'], explanation: 'Mycorrhizal fungi live symbiotically with roots of vascular plants and increase phosphorus uptake.' },
-    ta: { q: 'பூஞ்சைகள் மற்றும் வாஸ்குலார் தாவரங்கள் நடத்தும் கூட்டுயிர் வாழ்க்கை', options: ['மைக்கோரைசா', 'லைக்கன்', 'ரைசோபியம்', 'அசிட்டோபாக்டர்'], explanation: 'மைக்கோரைசா பூஞ்சைகள் வாஸ்குலார் தாவர வேர்களுடன் கூட்டுயிர் வாழ்ந்து பாஸ்பரஸ் உறிஞ்சுதலை அதிகரிக்கின்றன.' },
+    ta: { q: 'பூஞ்சைகள் மற்றும் வாஸ்குலார் தாவரங்களின் வேர்கள் நடத்தும் கூட்டுயிர் வாழ்க்கை', options: ['மைக்கோரைசா', 'லைக்கன்', 'ரைசோபியம்', 'அசிட்டோபாக்டர்'], explanation: 'மைக்கோரைசா பூஞ்சைகள் வாஸ்குலார் தாவர வேர்களுடன் கூட்டுயிர் வாழ்ந்து பாஸ்பரஸ் உறிஞ்சுதலை அதிகரிக்கின்றன.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise I.10, p. 287', answer: 0,
@@ -54,7 +54,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise II.5, p. 287', answer: 0,
     en: { q: 'The largest member in a honey bee hive is the _____.', options: ['queen', 'drone', 'worker', 'larva'], explanation: 'The queen is the largest member and the fertile female of the colony.' },
-    ta: { q: 'தேன் கூட்டில் உள்ள வளமான தேனீ _____ ஆகும்.', options: ['இராணித் தேனீ', 'ஆண் தேனீ', 'வேலைக்காரத் தேனீ', 'இளம் புழு'], explanation: 'இராணித் தேனீ தேன் கூட்டின் மிகப்பெரிய உறுப்பினரும் இனப்பெருக்கம் செய்யும் பெண் தேனீயும் ஆகும்.' },
+    ta: { q: 'தேன் கூட்டில் உள்ள மிகப்பெரிய தேனீ _____ ஆகும்.', options: ['இராணித் தேனீ', 'ஆண் தேனீ', 'வேலைக்காரத் தேனீ', 'இளம் புழு'], explanation: 'இராணித் தேனீ தேன் கூட்டின் மிகப்பெரிய உறுப்பினரும் இனப்பெருக்கம் செய்யும் பெண் தேனீயும் ஆகும்.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise II.6, p. 287', answer: 0,
@@ -136,7 +136,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise I.2, p. 287', answer: 0,
     en: { q: 'Which one of the following is not an exotic breed of cow?', options: ['Sahiwal', 'Jersey', 'Holstein-Friesian', 'Brown Swiss'], explanation: 'Sahiwal is an indigenous Indian dairy breed; Jersey, Holstein-Friesian and Brown Swiss are imported (exotic).' },
-    ta: { q: 'கீழ்கண்டவற்றில் எது அயல்நாட்டு இனம் அல்ல?', options: ['சாகிவால்', 'ஜெர்சி', 'ஹோல்ஸ்டீன் – பிரிஸன்', 'ப்ரௌன் சுவிஸ்'], explanation: 'சாகிவால் இந்திய உள்நாட்டு பால் உற்பத்தி இனம்; மற்றவை வெளிநாட்டிலிருந்து இறக்குமதி செய்யப்பட்டவை.' },
+    ta: { q: 'கீழ்கண்டவற்றில் எது அயல்நாட்டு இனம் அல்ல?', options: ['ஷகிவால்', 'ஜெர்சி', 'ஹோல்ஸ்டீன் – பிரிஸன்', 'ப்ரௌன் சுவிஸ்'], explanation: 'ஷகிவால் இந்திய உள்நாட்டு பால் உற்பத்தி இனம்; மற்றவை வெளிநாட்டிலிருந்து இறக்குமதி செய்யப்பட்டவை.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise I.5, p. 287', answer: 0,
@@ -146,12 +146,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise I.6, p. 287', answer: 0,
     en: { q: 'Which of the following is a high milk yielding variety of cow?', options: ['Holstein-Friesian', 'Dorset', 'Sahiwal', 'Red Sindhi'], explanation: 'Exotic breeds like Holstein-Friesian are selected for long lactation periods and give the highest milk yield; Dorset is a sheep breed.' },
-    ta: { q: 'கீழ்க்கண்டவற்றில் அதிக அளவு பால் கொடுக்கும் பசுவினம் எது?', options: ['ஹோல்ஸ்டீன் – பிரிஸன்', 'டார்செட்', 'சாகிவால்', 'சிவப்பு சிந்தி'], explanation: 'நீண்ட பால் சுரக்கும் காலத்திற்காகத் தேர்ந்தெடுக்கப்படும் ஹோல்ஸ்டீன் – பிரிஸன் அதிக பால் தருகிறது; டார்செட் செம்மறியாட்டு இனம்.' },
+    ta: { q: 'கீழ்க்கண்டவற்றில் அதிக அளவு பால் கொடுக்கும் பசுவினம் எது?', options: ['ஹோல்ஸ்டீன் – பிரிஸன்', 'டார்செட்', 'ஷகிவால்', 'சிவப்பு சிந்தி'], explanation: 'நீண்ட பால் சுரக்கும் காலத்திற்காகத் தேர்ந்தெடுக்கப்படும் ஹோல்ஸ்டீன் – பிரிஸன் அதிக பால் தருகிறது; டார்செட் செம்மறியாட்டு இனம்.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise I.7, p. 287', answer: 0,
     en: { q: 'Which Indian variety of honey bee is commonly used for apiculture?', options: ['Apis indica', 'Apis dorsata', 'Apis florea', 'Apis mellifera'], explanation: 'Apis indica, the Indian bee, is domesticated; Apis dorsata is the wild rock bee and Apis mellifera is Italian.' },
-    ta: { q: 'தேனீ வளர்ப்பில் பொதுவாகப் பயன்படுத்தப்படும் இந்திய தேனீ எது?', options: ['ஏபிஸ் இண்டிகா', 'ஏபிஸ் டார்சேட்டா', 'ஏபிஸ் ஃப்ளோரா', 'ஏபிஸ் மெல்லிஃபெரா'], explanation: 'இந்தியத் தேனீயான ஏபிஸ் இண்டிகா வளர்க்கப்படுகிறது; டார்சேட்டா பாறைத் தேனீ, மெல்லிஃபெரா இத்தாலியத் தேனீ.' },
+    ta: { q: 'தேனீ வளர்ப்பில் பொதுவாகப் பயன்படுத்தப்படும் இந்திய தேனீ எது?', options: ['ஏபிஸ் இண்டிகா', 'ஏபிஸ் டார்சோட்டா', 'ஏபிஸ் ப்ளோரா', 'ஏபிஸ் மெல்லிஃபெரா'], explanation: 'இந்தியத் தேனீயான ஏபிஸ் இண்டிகா வளர்க்கப்படுகிறது; டார்சோட்டா பாறைத் தேனீ, மெல்லிஃபெரா இத்தாலியத் தேனீ.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise II.4, p. 287', answer: 0,
@@ -171,17 +171,17 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise III.3, p. 287', answer: 0,
     en: { q: "'Apis florea is a rock bee.' The corrected statement is", options: ['Apis florea is the little bee; Apis dorsata is the rock bee.', 'Apis florea is the Italian bee.', 'Apis florea is the African bee.', 'Apis florea is the Indian hive bee, Apis indica.'], explanation: 'Apis dorsata is the rock (wild) bee; Apis florea is the little bee.' },
-    ta: { q: "'ஏபிஸ் புளோரியா என்பது பாறைத் தேனீ' – திருத்தப்பட்ட கூற்று", options: ['ஏபிஸ் ஃப்ளோரா குட்டித் தேனீ; ஏபிஸ் டார்சேட்டா பாறைத் தேனீ.', 'ஏபிஸ் ஃப்ளோரா இத்தாலியத் தேனீ.', 'ஏபிஸ் ஃப்ளோரா ஆப்பிரிக்கத் தேனீ.', 'ஏபிஸ் ஃப்ளோரா இந்தியத் தேனீ (ஏபிஸ் இண்டிகா).'], explanation: 'ஏபிஸ் டார்சேட்டா பாறை (காட்டுத்) தேனீ; ஏபிஸ் ஃப்ளோரா குட்டித் தேனீ.' },
+    ta: { q: "'ஏபிஸ் புளோரியா என்பது பாறைத் தேனீ' – திருத்தப்பட்ட கூற்று", options: ['ஏபிஸ் புளோரியா குட்டித் தேனீ; ஏபிஸ் டார்சோட்டா பாறைத் தேனீ.', 'ஏபிஸ் புளோரியா இத்தாலியத் தேனீ.', 'ஏபிஸ் புளோரியா ஆப்பிரிக்கத் தேனீ.', 'ஏபிஸ் புளோரியா இந்தியத் தேனீ (ஏபிஸ் இண்டிகா).'], explanation: 'ஏபிஸ் டார்சோட்டா பாறை (காட்டுத்) தேனீ; ஏபிஸ் புளோரியா குட்டித் தேனீ.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise III.4–5, p. 287', answer: 0,
     en: { q: 'Which statement is correct?', options: ['Sheep manure contains more nutrients than farmyard manure.', 'Ongole is an exotic breed of cattle.', 'Farmyard manure contains 3% nitrogen.', 'Ongole is a breed imported from Europe.'], explanation: 'Sheep and goat manure (3% N) is richer than farmyard manure (0.5% N); Ongole is an Indian dual purpose breed.' },
-    ta: { q: 'சரியான கூற்று எது?', options: ['வெள்ளாட்டு எருவானது தொழு உரத்தைக் காட்டிலும் அதிக சத்தினைக் கொண்டுள்ளது.', 'ஓங்கோல் கால்நடைகள் ஒரு வெளிநாட்டு இனம்.', 'தொழு உரத்தில் 3% நைட்ரஜன் உள்ளது.', 'ஓங்கோல் ஐரோப்பாவிலிருந்து இறக்குமதி செய்யப்பட்ட இனம்.'], explanation: 'செம்மறி, வெள்ளாட்டு எருவில் 3% நைட்ரஜன், தொழு உரத்தில் 0.5% மட்டுமே; ஓங்கோல் இந்திய இரு பயன் இனம்.' },
+    ta: { q: 'சரியான கூற்று எது?', options: ['ஆட்டு எருவானது தொழு உரத்தைக் காட்டிலும் அதிக சத்தினைக் கொண்டுள்ளது.', 'ஓங்கோல் கால்நடைகள் ஒரு வெளிநாட்டு இனம்.', 'தொழு உரத்தில் 3% நைட்ரஜன் உள்ளது.', 'ஓங்கோல் ஐரோப்பாவிலிருந்து இறக்குமதி செய்யப்பட்ட இனம்.'], explanation: 'செம்மறி, வெள்ளாட்டு எருவில் 3% நைட்ரஜன், தொழு உரத்தில் 0.5% மட்டுமே; ஓங்கோல் இந்திய இரு பயன் இனம்.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise V.a, p. 288', answer: 0,
     en: { q: 'How do indigenous cattle breeds differ from exotic breeds?', options: ['Indigenous breeds are native to India with excellent disease resistance; exotic breeds are imported and selected for long lactation.', 'Indigenous breeds are imported; exotic breeds are native to India.', 'Indigenous breeds give more milk than exotic breeds.', 'Exotic breeds have a prominent hump and loose skin.'], explanation: 'Sahiwal, Red Sindhi and Gir are native and disease resistant; Jersey and Holstein-Friesian (Bos taurus) are imported for long lactation.' },
-    ta: { q: 'உள்நாட்டு இனங்கள் அயல்நாட்டு இனங்களிலிருந்து எவ்வாறு வேறுபடுகின்றன?', options: ['உள்நாட்டு இனங்கள் இந்தியாவைத் தாயகமாகக் கொண்டு சிறந்த நோய் எதிர்ப்புத் திறன் உடையவை; அயல்நாட்டு இனங்கள் நீண்ட பால் சுரக்கும் காலத்திற்காக இறக்குமதி செய்யப்படுகின்றன.', 'உள்நாட்டு இனங்கள் இறக்குமதி செய்யப்பட்டவை; அயல்நாட்டு இனங்கள் இந்தியாவைச் சார்ந்தவை.', 'உள்நாட்டு இனங்கள் அயல்நாட்டு இனங்களைவிட அதிக பால் தருகின்றன.', 'அயல்நாட்டு இனங்களுக்கு நிமிர்ந்த திமிலும் தளர்வான தோலும் உண்டு.'], explanation: 'சாகிவால், சிவப்பு சிந்தி, கிர் உள்நாட்டு இனங்கள்; ஜெர்சி, ஹோல்ஸ்டீன் – பிரிஸன் நீண்ட பால் சுரக்கும் காலத்திற்காக இறக்குமதி செய்யப்படுகின்றன.' },
+    ta: { q: 'பாரம்பரிய (உள்நாட்டு) இனங்கள் அயல்நாட்டு இனங்களிலிருந்து எவ்வாறு வேறுபடுகின்றன?', options: ['உள்நாட்டு இனங்கள் இந்தியாவைத் தாயகமாகக் கொண்டு சிறந்த நோய் எதிர்ப்புத் திறன் உடையவை; அயல்நாட்டு இனங்கள் நீண்ட பால் சுரக்கும் காலத்திற்காக இறக்குமதி செய்யப்படுகின்றன.', 'உள்நாட்டு இனங்கள் இறக்குமதி செய்யப்பட்டவை; அயல்நாட்டு இனங்கள் இந்தியாவைச் சார்ந்தவை.', 'உள்நாட்டு இனங்கள் அயல்நாட்டு இனங்களைவிட அதிக பால் தருகின்றன.', 'அயல்நாட்டு இனங்களுக்கு நிமிர்ந்த திமிலும் தளர்வான தோலும் உண்டு.'], explanation: 'ஷகிவால், சிவப்பு சிந்தி, கிர் உள்நாட்டு இனங்கள்; ஜெர்சி, ஹோல்ஸ்டீன் – பிரிஸன் நீண்ட பால் சுரக்கும் காலத்திற்காக இறக்குமதி செய்யப்படுகின்றன.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise V.c, p. 288', answer: 0,
@@ -201,7 +201,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise VI.5, p. 288', answer: 0,
     en: { q: 'Which earthworm species are used for vermiculture?', options: ['Perionyx excavatus, Eisenia fetida, Eudrilus eugeniae', 'Pheretima posthuma, Lumbricus, Ascaris', 'Penaeus indicus, Penaeus monodon, Macrobrachium', 'Apis indica, Apis florea, Apis dorsata'], explanation: 'Indian blueworm (Perionyx), red worm (Eisenia) and African night crawler (Eudrilus) are used for vermicompost production.' },
-    ta: { q: 'மண்புழு வளர்ப்பில் பயன்படும் மண்புழு சிற்றினங்கள் யாவை?', options: ['பெரியோனிக்ஸ் எக்ஸ்கவேட்டஸ், ஐசீனியா ஃபெடிடா, யூட்ரிலஸ் யூஜினியே', 'ஃபெரிட்டிமா போஸ்துமா, லம்பிரிகஸ், அஸ்காரிஸ்', 'பினேயஸ் இண்டிகஸ், பினேயஸ் மோனோடான், மேக்ரோபிராக்கியம்', 'ஏபிஸ் இண்டிகா, ஏபிஸ் ஃப்ளோரா, ஏபிஸ் டார்சேட்டா'], explanation: 'இந்திய நீலப்புழு (பெரியோனிக்ஸ்), சிவப்புப்புழு (ஐசீனியா), ஆப்பிரிக்க இரவு ஊர்வன (யூட்ரிலஸ்) மண்புழு உரம் தயாரிக்கப் பயன்படுகின்றன.' },
+    ta: { q: 'மண்புழு வளர்ப்பில் பயன்படும் மண்புழு சிற்றினங்கள் யாவை?', options: ['பெரியோனிக்ஸ் எக்ஸ்கவேட்டஸ், ஐசீனியா ஃபெடிடா, யூட்ரிலஸ் யூஜினியே', 'ஃபெரிட்டிமா போஸ்துமா, லம்பிரிகஸ், அஸ்காரிஸ்', 'பினேயஸ் இண்டிகஸ், பினேயஸ் மோனோடான், மேக்ரோபிராக்கியம்', 'ஏபிஸ் இண்டிகா, ஏபிஸ் ப்ளோரா, ஏபிஸ் டார்சோட்டா'], explanation: 'இந்திய நீலப்புழு (பெரியோனிக்ஸ்), சிவப்புப்புழு (ஐசீனியா), ஆப்பிரிக்க இரவு ஊர்வன (யூட்ரிலஸ்) மண்புழு உரம் தயாரிக்கப் பயன்படுகின்றன.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise VI.6, p. 288', answer: 0,
@@ -318,7 +318,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: '§23.9.1, p. 279', answer: 0,
     en: { q: 'A farmer wants cows that give milk and bulls that can plough. Which breeds should he choose?', options: ['Haryana or Ongole', 'Jersey or Holstein-Friesian', 'Kangayam or Umblachery', 'Sahiwal or Red Sindhi'], explanation: 'Dual purpose breeds (Haryana, Ongole, Kankrej, Tharparkar) give milk from cows and farm work from bulls.' },
-    ta: { q: 'பால் தரும் பசுக்களும் உழவுக்குப் பயன்படும் காளைகளும் வேண்டும் என விவசாயி விரும்புகிறார். அவர் தேர்ந்தெடுக்க வேண்டிய இனங்கள்', options: ['ஹரியானா அல்லது ஓங்கோல்', 'ஜெர்சி அல்லது ஹோல்ஸ்டீன் – பிரிஸன்', 'காங்கேயம் அல்லது உம்பளச்சேரி', 'சாகிவால் அல்லது சிவப்பு சிந்தி'], explanation: 'ஹரியானா, ஓங்கோல், காங்க்ரெஜ், தார்பார்கர் இரு பயன் இனங்கள் – பசுக்கள் பால் தரும், காளைகள் பண்ணை வேலை செய்யும்.' },
+    ta: { q: 'பால் தரும் பசுக்களும் உழவுக்குப் பயன்படும் காளைகளும் வேண்டும் என விவசாயி விரும்புகிறார். அவர் தேர்ந்தெடுக்க வேண்டிய இனங்கள்', options: ['ஹரியானா அல்லது ஓங்கோல்', 'ஜெர்சி அல்லது ஹோல்ஸ்டீன் – பிரிஸன்', 'காங்கேயம் அல்லது உம்பளச்சேரி', 'ஷகிவால் அல்லது சிவப்பு சிந்தி'], explanation: 'ஹரியானா, ஓங்கோல், காங்க்ரெஜ், தார்பார்கர் இரு பயன் இனங்கள் – பசுக்கள் பால் தரும், காளைகள் பண்ணை வேலை செய்யும்.' },
   },
   {
     difficulty: 'hard', source: '§23.11.4, p. 282', answer: 0,

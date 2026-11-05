@@ -10,7 +10,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise I.1 & II.4, pp. 23–24', answer: 0,
     en: { q: 'The area under a velocity–time graph represents the', options: ['displacement covered by the moving object', 'velocity of the moving object', 'speed of the moving object', 'acceleration of the moving object'], explanation: 'Velocity × time = displacement, so the area under the v–t graph gives the displacement.' },
-    ta: { q: 'திசைவேகம் – காலம் வரைபடத்தின் உள்ளடக்கும் பரப்பளவு எதனைப் பிரதிபலிக்கிறது?', options: ['நகரும் பொருள் அடைந்த இடப்பெயர்ச்சி', 'நகரும் பொருளின் திசைவேகம்', 'நகரும் பொருளின் வேகம்', 'நகரும் பொருளின் முடுக்கம்'], explanation: 'திசைவேகம் × காலம் = இடப்பெயர்ச்சி; எனவே வரைபடத்தின் கீழ் உள்ள பரப்பு இடப்பெயர்ச்சியைத் தருகிறது.' },
+    ta: { q: 'திசைவேகம் – காலம் வரைபடம் உள்ளடக்கும் பரப்பளவு எதனைப் பிரதிபலிக்கிறது?', options: ['நகரும் பொருள் அடைந்த இடப்பெயர்ச்சி', 'நகரும் பொருளின் திசைவேகம்', 'நகரும் பொருளின் வேகம்', 'நகரும் பொருளின் முடுக்கம்'], explanation: 'திசைவேகம் × காலம் = இடப்பெயர்ச்சி; எனவே வரைபடத்தின் கீழ் உள்ள பரப்பு இடப்பெயர்ச்சியைத் தருகிறது.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise II.1, p. 24', answer: 0,
@@ -55,7 +55,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise VII.2, p. 25', answer: 0,
     en: { q: 'Repetitive to-and-fro motion of an object at regular intervals of time is called', options: ['oscillatory motion', 'linear motion', 'circular motion', 'random motion'], explanation: 'A swing or a pendulum moving to and fro at regular intervals is in oscillatory motion.' },
-    ta: { q: 'ஒரு புள்ளியை மையமாகக் கொண்டு மீண்டும் மீண்டும் முன்னும் பின்னுமாக இயங்கும் பொருளின் இயக்கம்', options: ['அலைவு இயக்கம்', 'நேரான இயக்கம்', 'வட்ட இயக்கம்', 'ஒழுங்கற்ற இயக்கம்'], explanation: 'ஊஞ்சல், ஊசல் போன்றவை முன்னும் பின்னுமாக இயங்குவது அலைவு இயக்கம்.' },
+    ta: { q: 'சீரான கால இடைவெளிகளில் ஒரு பொருள் மீண்டும் மீண்டும் முன்னும் பின்னுமாக இயங்கும் இயக்கம்', options: ['அலைவு இயக்கம்', 'நேரான இயக்கம்', 'வட்ட இயக்கம்', 'ஒழுங்கற்ற இயக்கம்'], explanation: 'ஊஞ்சல், ஊசல் போன்றவை முன்னும் பின்னுமாக இயங்குவது அலைவு இயக்கம்.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise VII.1, p. 25', answer: 0,
@@ -232,12 +232,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise IV.2, p. 24', answer: 3,
     en: { q: 'Assertion: The speedometer of a car or a motorcycle measures its average speed. Reason: Average velocity is equal to total displacement divided by total time taken.', options: AR_EN, explanation: 'A speedometer measures instantaneous speed, so the assertion is false; the reason is a correct definition.' },
-    ta: { q: 'கூற்று: மகிழுந்து அல்லது மோட்டார் சைக்கிளில் உள்ள வேகமானி அதன் சராசரி வேகத்தை அளவிடுகிறது. காரணம்: மொத்த தூரத்தை நேரத்தால் வகுத்தால் அது சராசரி திசை வேகத்துக்குச் சமம்.', options: AR_TA, explanation: 'வேகமானி கணநேர வேகத்தை அளக்கிறது; எனவே கூற்று தவறு. சராசரி திசைவேகம் = மொத்த இடப்பெயர்ச்சி ÷ மொத்த நேரம்; காரணம் சரி.' },
+    ta: { q: 'கூற்று: மகிழுந்து அல்லது மோட்டார் சைக்கிளில் உள்ள வேகமானி அதன் சராசரி வேகத்தை அளவிடுகிறது. காரணம்: மொத்த இடப்பெயர்ச்சியை மொத்த நேரத்தால் வகுத்தால் அது சராசரி திசைவேகத்துக்குச் சமம்.', options: AR_TA, explanation: 'வேகமானி கணநேர வேகத்தை அளக்கிறது; எனவே கூற்று தவறு. சராசரி திசைவேகம் = மொத்த இடப்பெயர்ச்சி ÷ மொத்த நேரம்; காரணம் சரி.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise IV.3, p. 24', answer: 0,
     en: { q: 'Assertion: Displacement of a body may be zero when the distance travelled by it is not zero. Reason: The displacement is the shortest distance between the initial and final positions.', options: AR_EN, explanation: 'If the body returns to its start, the shortest distance between initial and final positions is zero – the reason explains the assertion.' },
-    ta: { q: 'கூற்று: ஒரு பொருளின் இடப்பெயர்ச்சி சுழி ஆனால் அப்பொருள் கடந்த தூரம் சுழி இல்லை. காரணம்: இடப்பெயர்ச்சி தொடக்க நிலைக்கும் முடிவு நிலைக்கும் இடையே உள்ள குறுகிய பாதை ஆகும்.', options: AR_TA, explanation: 'பொருள் தொடக்க நிலைக்கே திரும்பினால் தொடக்க, முடிவு நிலைகளுக்கு இடையேயான குறுகிய தொலைவு சுழி; காரணம் கூற்றை விளக்குகிறது.' },
+    ta: { q: 'கூற்று: ஒரு பொருள் கடந்த தூரம் சுழி இல்லாதபோதும் அதன் இடப்பெயர்ச்சி சுழி ஆகலாம். காரணம்: இடப்பெயர்ச்சி என்பது தொடக்க நிலைக்கும் முடிவு நிலைக்கும் இடையே உள்ள மிகக் குறைந்த தொலைவு ஆகும்.', options: AR_TA, explanation: 'பொருள் தொடக்க நிலைக்கே திரும்பினால் தொடக்க, முடிவு நிலைகளுக்கு இடையேயான குறுகிய தொலைவு சுழி; காரணம் கூற்றை விளக்குகிறது.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise V, p. 24', imageUrl: `${IMG}/velocity-time-graphs.png`, answer: 0,
@@ -257,12 +257,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book example (Problem 3), p. 20', answer: 0,
     en: { q: 'The brakes applied to a car produce an acceleration of 6 m s⁻² opposite to the motion. If the car takes 2 s to stop, how far does it travel during this time?', options: ['12 m', '24 m', '36 m', '6 m'], explanation: 'v = u + at gives 0 = u − 12, so u = 12 m s⁻¹; s = ut + ½at² = 24 − 12 = 12 m.' },
-    ta: { q: 'ஒரு மகிழுந்தில் தடை செலுத்தப்படும்போது இயக்கத்திற்கு எதிர்த்திசையில் 6 மீ வி⁻² முடுக்கம் ஏற்படுகிறது. மகிழுந்து நிற்க 2 வினாடிகள் ஆகின்றன எனில் இக்காலத்தில் அது கடந்த தொலைவு', options: ['12 மீ', '24 மீ', '36 மீ', '6 மீ'], explanation: 'v = u + at: 0 = u − 12; u = 12 மீ வி⁻¹; s = ut + ½at² = 24 − 12 = 12 மீ.' },
+    ta: { q: 'ஒரு மகிழுந்தில் நிறுத்தக் கருவியை (brake) பயன்படுத்தும்போது, அது செல்லும் திசைக்கு எதிர்த்திசையில் 6 மீ வி⁻² முடுக்கம் ஏற்படுகிறது. நிறுத்தக் கருவியைப் பயன்படுத்திய பிறகு மகிழுந்து நிற்க 2 வினாடிகள் ஆகின்றன எனில், இக்கால இடைவெளியில் அது கடந்த தொலைவு', options: ['12 மீ', '24 மீ', '36 மீ', '6 மீ'], explanation: 'v = u + at: 0 = u − 12; u = 12 மீ வி⁻¹; s = ut + ½at² = 24 − 12 = 12 மீ.' },
   },
   {
     difficulty: 'hard', source: 'Book example (Problem 4), p. 22', answer: 0,
     en: { q: 'A 900 kg car moving at 10 m s⁻¹ takes a turn around a circle of radius 25 m. Find its acceleration and the net force acting on it.', options: ['4 m s⁻² and 3600 N', '0.4 m s⁻² and 360 N', '2.5 m s⁻² and 2250 N', '4 m s⁻² and 225 N'], explanation: 'a = v²/r = 100 ÷ 25 = 4 m s⁻²; F = ma = 900 × 4 = 3600 N, directed towards the centre.' },
-    ta: { q: '900 கிகி நிறையுடைய மகிழுந்து 10 மீ வி⁻¹ வேகத்தில் 25 மீ ஆரமுடைய வட்டத்தைச் சுற்றுகிறது. அதன் முடுக்கம் மற்றும் நிகர விசை', options: ['4 மீ வி⁻², 3600 நியூட்டன்', '0.4 மீ வி⁻², 360 நியூட்டன்', '2.5 மீ வி⁻², 2250 நியூட்டன்', '4 மீ வி⁻², 225 நியூட்டன்'], explanation: 'a = v²/r = 100 ÷ 25 = 4 மீ வி⁻²; F = ma = 900 × 4 = 3600 நியூட்டன்; மையத்தை நோக்கிச் செயல்படும்.' },
+    ta: { q: '900 கிகி நிறையுடைய மகிழுந்து ஒன்று 10 மீ வி⁻¹ வேகத்தில் 25 மீ ஆரமுடைய வட்டத்தைச் சுற்றி வருகிறது. மகிழுந்தின் மீது செயல்படும் முடுக்கம் மற்றும் நிகர விசை', options: ['4 மீ வி⁻², 3600 நியூட்டன்', '0.4 மீ வி⁻², 360 நியூட்டன்', '2.5 மீ வி⁻², 2250 நியூட்டன்', '4 மீ வி⁻², 225 நியூட்டன்'], explanation: 'a = v²/r = 100 ÷ 25 = 4 மீ வி⁻²; F = ma = 900 × 4 = 3600 நியூட்டன்; மையத்தை நோக்கிச் செயல்படும்.' },
   },
   {
     difficulty: 'hard', source: '§2.7, p. 21', answer: 0,

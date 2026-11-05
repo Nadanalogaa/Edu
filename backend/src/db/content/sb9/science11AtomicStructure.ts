@@ -64,7 +64,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§11.3, p. 127', answer: 0,
     en: { q: 'The mass of a neutron is about', options: ['1 amu', '1/1837 amu', '0 amu', '2 amu'], explanation: 'A neutron has mass 1.676 × 10⁻²⁴ g, which is about 1 amu – nearly the same as a proton.' },
-    ta: { q: 'நியூட்ரானின் நிறை தோராயமாக', options: ['1 amu', '1/1837 amu', '0 amu', '2 amu'], explanation: 'நியூட்ரானின் நிறை 1.676 × 10⁻²⁴ கி, அதாவது சுமார் 1 amu – புரோட்டானின் நிறைக்குச் சமம்.' },
+    ta: { q: 'நியூட்ரானின் நிறை தோராயமாக', options: ['1 amu', '1/1837 amu', '0 amu', '2 amu'], explanation: 'நியூட்ரானின் நிறை 1.676 × 10⁻²⁴ கி, அதாவது சுமார் 1 amu – ஏறக்குறைய புரோட்டானின் நிறைக்குச் சமம்.' },
   },
   {
     difficulty: 'easy', source: '§11.4, Table 11.1, p. 127', answer: 0,
@@ -165,12 +165,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book problem 1, p. 128', answer: 0,
     en: { q: 'An element has mass number 39 and 20 neutrons. Its atomic number and name are', options: ['19, potassium', '20, calcium', '59, cobalt', '39, yttrium'], explanation: 'Z = A − n = 39 − 20 = 19, which is potassium (K).' },
-    ta: { q: 'ஒரு தனிமத்தின் நிறை எண் 39, நியூட்ரான்கள் 20. அதன் அணு எண்ணும் பெயரும்', options: ['19, பொட்டாசியம்', '20, கால்சியம்', '59, கோபால்ட்', '39, இட்ரியம்'], explanation: 'Z = A − n = 39 − 20 = 19; இது பொட்டாசியம் (K).' },
+    ta: { q: 'ஒரு தனிமத்தின் அணுவின் நிறை எண் 39, நியூட்ரான்களின் எண்ணிக்கை 20 எனில் அதன் அணு எண்ணும் அத்தனிமத்தின் பெயரும்', options: ['19, பொட்டாசியம்', '20, கால்சியம்', '59, கோபால்ட்', '39, இட்ரியம்'], explanation: 'Z = A − n = 39 − 20 = 19; இது பொட்டாசியம் (K).' },
   },
   {
     difficulty: 'medium', source: 'Book problem 2, p. 129', answer: 0,
     en: { q: 'The electronic configuration of aluminium (Z = 13) is', options: ['2, 8, 3', '2, 3, 8', '2, 8, 2, 1', '2, 11'], explanation: 'K shell 2, L shell 8 and M shell 3 electrons: 2, 8, 3.' },
-    ta: { q: 'அலுமினியத்தின் (Z = 13) எலக்ட்ரான் பகிர்வு', options: ['2, 8, 3', '2, 3, 8', '2, 8, 2, 1', '2, 11'], explanation: 'K கூடு 2, L கூடு 8, M கூடு 3 எலக்ட்ரான்கள்: 2, 8, 3.' },
+    ta: { q: 'அலுமினியம் அணுவின் (Z = 13) எலக்ட்ரான் பகிர்வு', options: ['2, 8, 3', '2, 3, 8', '2, 8, 2, 1', '2, 11'], explanation: 'K கூடு 2, L கூடு 8, M கூடு 3 எலக்ட்ரான்கள்: 2, 8, 3.' },
   },
   {
     difficulty: 'medium', source: 'Book problem 3, p. 130', answer: 0,
@@ -205,7 +205,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: '§11.7.1, p. 133', answer: 0,
     en: { q: 'For a fixed mass of sulphur, the ratio of the masses of oxygen in SO₂ and SO₃ is', options: ['2 : 3', '1 : 2', '3 : 2', '1 : 1'], explanation: 'SO₂ has 32 g and SO₃ 48 g of oxygen per 32 g sulphur: 32 : 48 = 2 : 3, a simple ratio (law of multiple proportions).' },
-    ta: { q: 'குறிப்பிட்ட நிறையுள்ள சல்ஃபருடன் SO₂, SO₃ ஆகியவற்றில் உள்ள ஆக்ஸிஜனின் நிறை விகிதம்', options: ['2 : 3', '1 : 2', '3 : 2', '1 : 1'], explanation: '32 கி சல்ஃபருக்கு SO₂-ல் 32 கி, SO₃-ல் 48 கி ஆக்ஸிஜன்: 32 : 48 = 2 : 3 – எளிய விகிதம் (பெருக்கல் விகித விதி).' },
+    ta: { q: 'ஒரு குறிப்பிட்ட நிறையுள்ள சல்ஃபருடன் இணைந்துள்ள, SO₂, SO₃ ஆகியவற்றிலுள்ள ஆக்ஸிஜனின் நிறை விகிதம்', options: ['2 : 3', '1 : 2', '3 : 2', '1 : 1'], explanation: '32 கி சல்ஃபருக்கு SO₂-ல் 32 கி, SO₃-ல் 48 கி ஆக்ஸிஜன்: 32 : 48 = 2 : 3 – எளிய விகிதம் (பெருக்கல் விகித விதி).' },
   },
   // ------------------------------------------------------------------ Hard
   {

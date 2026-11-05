@@ -14,7 +14,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise I.2, p. 196', answer: 0,
     en: { q: 'The antibiotic penicillin is obtained from', options: ['a microorganism', 'a plant', 'an animal', 'sunlight'], explanation: 'Penicillin comes from the mould Penicillium notatum, a microorganism (Table 16.1).' },
-    ta: { q: 'பென்சிலின் எனப்படும் நுண்ணுயிர் எதிரி எதிலிருந்து பெறப்படுகிறது?', options: ['நுண்ணுயிரிகள்', 'தாவரங்கள்', 'விலங்குகள்', 'சூரிய ஒளி'], explanation: 'பென்சிலின், பென்சிலியம் நொடேட்டம் என்ற பூஞ்சையிலிருந்து (நுண்ணுயிர்) பெறப்படுகிறது.' },
+    ta: { q: 'பென்சிலின் எனப்படும் எதிர் நுண்ணுயிரி எதிலிருந்து பெறப்படுகிறது?', options: ['நுண்ணுயிரிகள்', 'தாவரங்கள்', 'விலங்குகள்', 'சூரிய ஒளி'], explanation: 'பென்சிலின், பென்சிலியம் நொடேட்டம் என்ற பூஞ்சையிலிருந்து (நுண்ணுயிர்) பெறப்படுகிறது.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise I.7, p. 197', answer: 0,
@@ -24,7 +24,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise I.8, p. 197', answer: 0,
     en: { q: 'Radiochemistry deals with', options: ['isotopes', 'oxidants', 'batteries', 'nanoparticles'], explanation: 'Radiochemistry is the study of the chemistry of radioactive and non-radioactive isotopes.' },
-    ta: { q: 'கதிரியக்க வேதியியலுடன் தொடர்புள்ளது எது?', options: ['ஐசோடோப்புகள்', 'ஆக்சிஜனேற்றிகள்', 'மின்கலங்கள்', 'நானோதுகள்கள்'], explanation: 'கதிரியக்க வேதியியல் என்பது கதிரியக்க மற்றும் கதிரியக்கமற்ற ஐசோடோப்புகளின் வேதியியல் ஆகும்.' },
+    ta: { q: 'கதிரியக்க வேதியியலுடன் தொடர்புள்ளது எது?', options: ['ஐசோடோப்புகள்', 'ஆக்ஸிஜனேற்றிகள்', 'மின்கலங்கள்', 'நானோதுகள்கள்'], explanation: 'கதிரியக்க வேதியியல் என்பது கதிரியக்க மற்றும் கதிரியக்கமற்ற ஐசோடோப்புகளின் வேதியியல் ஆகும்.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise I.10, p. 197', answer: 0,
@@ -79,7 +79,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§16.5, p. 192', answer: 0,
     en: { q: 'Organic compounds that are used as colourants are called', options: ['dyes', 'mordants', 'lakes', 'antioxidants'], explanation: 'Organic colourants are dyes; inorganic ones like soot or hematite are pigments.' },
-    ta: { q: 'நிறமூட்டிகளாகப் பயன்படும் கரிமச் சேர்மங்கள்', options: ['சாயங்கள்', 'நிறமூன்றிகள்', 'லேக்குகள்', 'ஆக்சிஜனேற்ற எதிர்ப்பொருள்கள்'], explanation: 'நிறமூட்டிகளாகப் பயன்படும் கரிமச் சேர்மங்கள் சாயங்கள் எனப்படும்.' },
+    ta: { q: 'நிறமூட்டிகளாகப் பயன்படும் கரிமச் சேர்மங்கள்', options: ['சாயங்கள்', 'நிறமூன்றிகள்', 'லேக்குகள்', 'ஆக்ஸிஜனேற்ற எதிர்ப்பொருள்கள்'], explanation: 'நிறமூட்டிகளாகப் பயன்படும் கரிமச் சேர்மங்கள் சாயங்கள் எனப்படும்.' },
   },
   {
     difficulty: 'easy', source: '§16.6.2, p. 193', answer: 0,
@@ -135,12 +135,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise I.4, p. 196', answer: 0,
     en: { q: 'The cathode of an electrochemical cell involves', options: ['reduction', 'oxidation', 'neutralisation', 'catenation'], explanation: 'At the cathode, metal ions gain electrons: reduction. Oxidation takes place at the anode.' },
-    ta: { q: 'ஒரு மின்வேதிக்கலத்தின் எதிர் மின்வாயில் நிகழ்வது', options: ['ஒடுக்கம்', 'ஆக்சிஜனேற்றம்', 'நடுநிலையாக்கல்', 'சங்கிலி இணைப்பு'], explanation: 'எதிர் மின்வாயில் உலோக அயனிகள் எலக்ட்ரானைப் பெறுகின்றன: ஒடுக்கம். ஆக்சிஜனேற்றம் நேர் மின்வாயில் நிகழ்கிறது.' },
+    ta: { q: 'ஒரு மின்வேதிக்கலத்தின் எதிர் மின்வாயில் நிகழ்வது', options: ['ஒடுக்கம்', 'ஆக்ஸிஜனேற்றம்', 'நடுநிலையாக்கல்', 'சங்கிலி இணைப்பு'], explanation: 'எதிர் மின்வாயில் உலோக அயனிகள் எலக்ட்ரானைப் பெறுகின்றன: ஒடுக்கம். ஆக்ஸிஜனேற்றம் நேர் மின்வாயில் நிகழ்கிறது.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise I.5, p. 197', answer: 0,
     en: { q: 'The age of a dead animal can be determined by using an isotope of', options: ['carbon', 'iodine', 'phosphorus', 'oxygen'], explanation: 'Radiocarbon dating uses the C-14 isotope to find the age of fossil wood or animals.' },
-    ta: { q: 'இறந்த விலங்குகளின் வயதைத் தீர்மானிக்க எந்தத் தனிமத்தின் ஐசோடோப்பைப் பயன்படுத்தலாம்?', options: ['கார்பன்', 'அயோடின்', 'பாஸ்பரஸ்', 'ஆக்சிஜன்'], explanation: 'கார்பன் தேதியிடல் முறையில் C-14 ஐசோடோப்பைக் கொண்டு புதைபடிவங்களின் வயது கண்டறியப்படுகிறது.' },
+    ta: { q: 'இறந்த விலங்குகளின் வயதைத் தீர்மானிக்க எந்தத் தனிமத்தின் ஐசோடோப்பைப் பயன்படுத்தலாம்?', options: ['கார்பன்', 'அயோடின்', 'பாஸ்பரஸ்', 'ஆக்ஸிஜன்'], explanation: 'கார்பன் தேதியிடல் முறையில் C-14 ஐசோடோப்பைக் கொண்டு புதைபடிவங்களின் வயது கண்டறியப்படுகிறது.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise I.6, p. 197', answer: 0,
@@ -200,7 +200,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise V.2, p. 197', answer: 0,
     en: { q: 'Saccharin and cyclamate are food additives that act as', options: ['artificial sweeteners', 'preservatives', 'antioxidants', 'flavour enhancers'], explanation: 'Saccharin and cyclamate add sweet taste to food (Table 16.4).' },
-    ta: { q: 'சாக்கரின், சைக்ளமேட் ஆகிய உணவுச் சேர்க்கைகள்', options: ['செயற்கை இனிப்பூட்டிகள்', 'உணவுப் பதப்படுத்திகள்', 'ஆக்சிஜனேற்ற எதிர்ப்பொருள்கள்', 'சுவையூட்டிகள்'], explanation: 'சாக்கரின், சைக்ளமேட் ஆகியவை உணவுக்கு இனிப்புச் சுவை தருகின்றன (அட்டவணை 16.4).' },
+    ta: { q: 'சாக்கரின், சைக்ளமேட் ஆகிய உணவுச் சேர்க்கைகள்', options: ['செயற்கை இனிப்பூட்டிகள்', 'உணவுப் பதப்படுத்திகள்', 'ஆக்ஸிஜனேற்ற எதிர்ப்பொருள்கள்', 'சுவையூட்டிகள்'], explanation: 'சாக்கரின், சைக்ளமேட் ஆகியவை உணவுக்கு இனிப்புச் சுவை தருகின்றன (அட்டவணை 16.4).' },
   },
   {
     difficulty: 'medium', source: 'Book exercise V.2, p. 197', answer: 0,
@@ -210,7 +210,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise V.2, p. 197', answer: 0,
     en: { q: 'Monosodium glutamate is used in food as a', options: ['flavour enhancer', 'preservative', 'colourant', 'antioxidant'], explanation: 'Monosodium glutamate and calcium diglutamate enhance the flavour of food.' },
-    ta: { q: 'மோனோசோடியம் குளூட்டமேட் உணவில் _____ ஆகப் பயன்படுகிறது.', options: ['சுவையூட்டி', 'பதப்படுத்தி', 'நிறமி', 'ஆக்சிஜனேற்ற எதிர்ப்பொருள்'], explanation: 'மோனோசோடியம் குளூட்டமேட், கால்சியம் டைகுளூட்டமேட் ஆகியவை உணவின் சுவையைக் கூட்டுகின்றன.' },
+    ta: { q: 'மோனோசோடியம் குளூட்டமேட் உணவில் _____ ஆகப் பயன்படுகிறது.', options: ['சுவையூட்டி', 'பதப்படுத்தி', 'நிறமி', 'ஆக்ஸிஜனேற்ற எதிர்ப்பொருள்'], explanation: 'மோனோசோடியம் குளூட்டமேட், கால்சியம் டைகுளூட்டமேட் ஆகியவை உணவின் சுவையைக் கூட்டுகின்றன.' },
   },
   {
     difficulty: 'medium', source: 'Activity 1, p. 190', answer: 0,
@@ -225,7 +225,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: '§16.1.4, p. 186', answer: 0,
     en: { q: 'Which of these is a drawback of nanomaterials?', options: ['Their combustion with oxygen can cause explosion', 'They have a very small surface area', 'They cannot act as catalysts', 'They never react with impurities'], explanation: 'Nanoparticles are unstable with oxygen; their exothermic combustion can easily cause explosion.' },
-    ta: { q: 'பின்வருவனவற்றுள் நானோ பொருள்களின் குறைபாடு எது?', options: ['ஆக்சிஜனுடன் எரிதல் வினையால் வெடிக்கக்கூடும்', 'அவற்றின் மேற்பரப்பு மிகச் சிறியது', 'அவை வினையூக்கிகளாகச் செயல்படாது', 'அவை மாசுக்களுடன் வினைபுரிவதில்லை'], explanation: 'நானோ துகள்கள் ஆக்சிஜனுடன் வெப்ப உமிழ் எரிதல் வினைபுரிந்து எளிதில் வெடிக்கக்கூடும்.' },
+    ta: { q: 'பின்வருவனவற்றுள் நானோ பொருள்களின் குறைபாடு எது?', options: ['ஆக்ஸிஜனுடன் எரிதல் வினையால் வெடிக்கக்கூடும்', 'அவற்றின் மேற்பரப்பு மிகச் சிறியது', 'அவை வினையூக்கிகளாகச் செயல்படாது', 'அவை மாசுக்களுடன் வினைபுரிவதில்லை'], explanation: 'நானோ துகள்கள் ஆக்ஸிஜனுடன் வெப்ப உமிழ் எரிதல் வினைபுரிந்து எளிதில் வெடிக்கக்கூடும்.' },
   },
   {
     difficulty: 'medium', source: '§16.2.4, p. 188', answer: 0,
@@ -261,7 +261,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: 'Book exercise VI.1 (HOTS), p. 197', answer: 0,
     en: { q: 'Mobile phone batteries can be recharged. The small button cells used in watches usually cannot, because', options: ['their cell reaction cannot be reversed by passing current (primary cells)', 'they do not contain any electrolyte', 'they have no anode or cathode', 'they convert electrical energy into chemical energy'], explanation: 'Watch cells are primary cells whose redox reaction is not reversible; lithium-ion phone batteries are secondary cells whose reaction can be reversed by charging.' },
-    ta: { q: 'கைபேசியின் மின்கலங்களை மறு ஊட்டம் செய்யலாம். ஆனால் கடிகாரங்களில் பயன்படும் சிறு மின்கலங்களைப் பொதுவாக மறு ஊட்டம் செய்ய இயலாது. ஏனெனில்', options: ['அவற்றின் மின்கல வினையை மின்னோட்டம் செலுத்தி மீளச் செய்ய இயலாது (முதன்மை மின்கலங்கள்)', 'அவற்றில் மின்பகுளி இல்லை', 'அவற்றில் நேர், எதிர் மின்வாய்கள் இல்லை', 'அவை மின் ஆற்றலை வேதி ஆற்றலாக மாற்றுகின்றன'], explanation: 'கடிகார மின்கலங்கள் முதன்மை மின்கலங்கள்; அவற்றின் ஆக்சிஜனேற்ற ஒடுக்க வினை மீளாதது. கைபேசி லித்தியம் அயனி மின்கலங்களின் வினையை மறு ஊட்டத்தால் மீளச் செய்யலாம்.' },
+    ta: { q: 'கைபேசியின் மின்கலங்களை மறு ஊட்டம் செய்யலாம். ஆனால் கடிகாரங்களில் பயன்படும் சிறு மின்கலங்களைப் பொதுவாக மறு ஊட்டம் செய்ய இயலாது. ஏனெனில்', options: ['அவற்றின் மின்கல வினையை மின்னோட்டம் செலுத்தி மீளச் செய்ய இயலாது (முதன்மை மின்கலங்கள்)', 'அவற்றில் மின்பகுளி இல்லை', 'அவற்றில் நேர், எதிர் மின்வாய்கள் இல்லை', 'அவை மின் ஆற்றலை வேதி ஆற்றலாக மாற்றுகின்றன'], explanation: 'கடிகார மின்கலங்கள் முதன்மை மின்கலங்கள்; அவற்றின் ஆக்ஸிஜனேற்ற ஒடுக்க வினை மீளாதது. கைபேசி லித்தியம் அயனி மின்கலங்களின் வினையை மறு ஊட்டத்தால் மீளச் செய்யலாம்.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise VI.2 (HOTS), p. 197', answer: 0,
@@ -276,7 +276,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: '§16.2.4, p. 188', answer: 0,
     en: { q: 'Assertion: Chloroform is no longer used as an anaesthetic.\nReason: With oxygen, chloroform forms the toxic compound carbonyl chloride.', options: AR_EN, explanation: 'Both are true, and the toxic product formed with oxygen is exactly why chloroform is not used now.' },
-    ta: { q: 'கூற்று: தற்போது குளோரோஃபார்ம் மயக்க மருந்தாகப் பயன்படுத்தப்படுவதில்லை.\nகாரணம்: ஆக்சிஜனுடன் குளோரோஃபார்ம் நச்சுத்தன்மையுள்ள கார்போனைல் குளோரைடை உருவாக்குகிறது.', options: AR_TA, explanation: 'இரண்டும் சரி; ஆக்சிஜனுடன் உருவாகும் நச்சுப்பொருளே குளோரோஃபார்ம் தற்போது பயன்படாததற்குக் காரணம்.' },
+    ta: { q: 'கூற்று: தற்போது குளோரோஃபார்ம் மயக்க மருந்தாகப் பயன்படுத்தப்படுவதில்லை.\nகாரணம்: ஆக்ஸிஜனுடன் குளோரோஃபார்ம் நச்சுத்தன்மையுள்ள கார்போனைல் குளோரைடை உருவாக்குகிறது.', options: AR_TA, explanation: 'இரண்டும் சரி; ஆக்ஸிஜனுடன் உருவாகும் நச்சுப்பொருளே குளோரோஃபார்ம் தற்போது பயன்படாததற்குக் காரணம்.' },
   },
   {
     difficulty: 'hard', source: '§16.3.1, p. 190', answer: 2,
@@ -296,17 +296,17 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: '§16.3.1, p. 190', answer: 0,
     en: { q: 'Which statements about a galvanic cell are correct?\n(i) It converts chemical energy into electrical energy.\n(ii) Oxidation takes place at the cathode.\n(iii) Electrons flow from the anode to the cathode.\n(iv) The two half-cells are connected by a salt bridge.', options: ['(i), (iii) and (iv)', '(i), (ii) and (iii)', '(ii) and (iv) only', '(i) and (ii) only'], explanation: 'Oxidation happens at the anode, not the cathode; the other three statements are correct.' },
-    ta: { q: 'கால்வனிக் மின்கலம் பற்றிய சரியான கூற்றுகள் எவை?\n(i) இது வேதி ஆற்றலை மின் ஆற்றலாக மாற்றுகிறது.\n(ii) எதிர் மின்வாயில் ஆக்சிஜனேற்றம் நிகழ்கிறது.\n(iii) எலக்ட்ரான்கள் நேர் மின்வாயிலிருந்து எதிர் மின்வாய்க்குப் பாய்கின்றன.\n(iv) இரு அரைக்கலங்களும் உப்புப்பாலத்தால் இணைக்கப்படுகின்றன.', options: ['(i), (iii), (iv)', '(i), (ii), (iii)', '(ii), (iv) மட்டும்', '(i), (ii) மட்டும்'], explanation: 'ஆக்சிஜனேற்றம் நேர் மின்வாயில் நிகழ்கிறது, எதிர் மின்வாயில் அல்ல; மற்ற மூன்று கூற்றுகளும் சரி.' },
+    ta: { q: 'கால்வனிக் மின்கலம் பற்றிய சரியான கூற்றுகள் எவை?\n(i) இது வேதி ஆற்றலை மின் ஆற்றலாக மாற்றுகிறது.\n(ii) எதிர் மின்வாயில் ஆக்ஸிஜனேற்றம் நிகழ்கிறது.\n(iii) எலக்ட்ரான்கள் நேர் மின்வாயிலிருந்து எதிர் மின்வாய்க்குப் பாய்கின்றன.\n(iv) இரு அரைக்கலங்களும் உப்புப்பாலத்தால் இணைக்கப்படுகின்றன.', options: ['(i), (iii), (iv)', '(i), (ii), (iii)', '(ii), (iv) மட்டும்', '(i), (ii) மட்டும்'], explanation: 'ஆக்ஸிஜனேற்றம் நேர் மின்வாயில் நிகழ்கிறது, எதிர் மின்வாயில் அல்ல; மற்ற மூன்று கூற்றுகளும் சரி.' },
   },
   {
     difficulty: 'hard', source: '§16.6.2, p. 194', answer: 0,
     en: { q: 'Which pair of food additive and function is NOT correctly matched?', options: ['Saccharin – preservative', 'Vitamin C – antioxidant', 'Curcumin – colourant', 'Monosodium glutamate – flavour enhancer'], explanation: 'Saccharin is an artificial sweetener, not a preservative; the other three pairs match Table 16.4.' },
-    ta: { q: 'பின்வரும் உணவுச் சேர்க்கை – பணி இணைகளில் தவறாகப் பொருத்தப்பட்டது எது?', options: ['சாக்கரின் – பதப்படுத்தி', 'வைட்டமின் C – ஆக்சிஜனேற்ற எதிர்ப்பொருள்', 'குர்குமின் – நிறமி', 'மோனோசோடியம் குளூட்டமேட் – சுவையூட்டி'], explanation: 'சாக்கரின் செயற்கை இனிப்பூட்டி, பதப்படுத்தி அல்ல; மற்ற மூன்றும் அட்டவணை 16.4-உடன் பொருந்துகின்றன.' },
+    ta: { q: 'பின்வரும் உணவுச் சேர்க்கை – பணி இணைகளில் தவறாகப் பொருத்தப்பட்டது எது?', options: ['சாக்கரின் – பதப்படுத்தி', 'வைட்டமின் C – ஆக்ஸிஜனேற்ற எதிர்ப்பொருள்', 'குர்குமின் – நிறமி', 'மோனோசோடியம் குளூட்டமேட் – சுவையூட்டி'], explanation: 'சாக்கரின் செயற்கை இனிப்பூட்டி, பதப்படுத்தி அல்ல; மற்ற மூன்றும் அட்டவணை 16.4-உடன் பொருந்துகின்றன.' },
   },
   {
     difficulty: 'hard', source: '§16.7.2, p. 195', answer: 0,
     en: { q: 'In the breath alcohol test, the solution changes from orange to green because', options: ['alcohol is oxidised and dichromate is reduced to chromic ion', 'alcohol is reduced and chromic ion is oxidised to dichromate', 'sulphuric acid is neutralised by the breath', 'silver nitrate is decomposed by light'], explanation: 'Oxidation of the alcohol reduces orange dichromate to green chromic ion.' },
-    ta: { q: 'ஆல்கஹால் சோதனையில் கரைசலின் நிறம் ஆரஞ்சிலிருந்து பச்சையாக மாறக் காரணம்', options: ['ஆல்கஹால் ஆக்சிஜனேற்றம் அடைந்து டைகுரோமேட் குரோமிக் அயனியாக ஒடுக்கமடைகிறது', 'ஆல்கஹால் ஒடுக்கமடைந்து குரோமிக் அயனி டைகுரோமேட்டாக ஆக்சிஜனேற்றம் அடைகிறது', 'மூச்சுக்காற்று சல்பியூரிக் அமிலத்தை நடுநிலையாக்குகிறது', 'ஒளியால் சில்வர் நைட்ரேட் சிதைகிறது'], explanation: 'ஆல்கஹால் ஆக்சிஜனேற்றம் அடையும்போது ஆரஞ்சு நிற டைகுரோமேட் பச்சை நிறக் குரோமிக் அயனியாக ஒடுக்கமடைகிறது.' },
+    ta: { q: 'ஆல்கஹால் சோதனையில் கரைசலின் நிறம் ஆரஞ்சிலிருந்து பச்சையாக மாறக் காரணம்', options: ['ஆல்கஹால் ஆக்ஸிஜனேற்றம் அடைந்து டைகுரோமேட் குரோமிக் அயனியாக ஒடுக்கமடைகிறது', 'ஆல்கஹால் ஒடுக்கமடைந்து குரோமிக் அயனி டைகுரோமேட்டாக ஆக்ஸிஜனேற்றம் அடைகிறது', 'மூச்சுக்காற்று சல்பியூரிக் அமிலத்தை நடுநிலையாக்குகிறது', 'ஒளியால் சில்வர் நைட்ரேட் சிதைகிறது'], explanation: 'ஆல்கஹால் ஆக்ஸிஜனேற்றம் அடையும்போது ஆரஞ்சு நிற டைகுரோமேட் பச்சை நிறக் குரோமிக் அயனியாக ஒடுக்கமடைகிறது.' },
   },
   {
     difficulty: 'hard', source: '§16.4.1, p. 191', answer: 0,
@@ -331,6 +331,6 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: '§16.2.3, p. 187', answer: 0,
     en: { q: 'Which pair of drug and source is correctly matched as given in the book?', options: ['Insulin – animal', 'Liquid paraffin – plant', 'Paracetamol – microorganism', 'Human growth hormone – minerals'], explanation: 'Table 16.1: insulin and heparin come from animals; liquid paraffin from minerals, paracetamol from chemical synthesis and human growth hormone from genetic engineering.' },
-    ta: { q: 'பாடநூலின்படி சரியாகப் பொருத்தப்பட்ட மருந்து – மூலம் இணை எது?', options: ['இன்சுலின் – விலங்கு', 'திரவ பாரஃபின் – தாவரம்', 'பாராசிட்டமால் – நுண்ணுயிர்', 'மனித வளர்ச்சி ஹார்மோன் – கனிமம்'], explanation: 'அட்டவணை 16.1: இன்சுலின், ஹெபாரின் விலங்கிலிருந்து; திரவ பாரஃபின் கனிமத்திலிருந்து; பாராசிட்டமால் ரசாயனத் தொகுப்பு; மனித வளர்ச்சி ஹார்மோன் மரபுப் பொறியியல்.' },
+    ta: { q: 'பாடநூலின்படி சரியாகப் பொருத்தப்பட்ட மருந்து – மூலம் இணை எது?', options: ['இன்சுலின் – விலங்கு', 'திரவ பாரஃபின் – தாவரம்', 'பாராசிட்டமால் – நுண்ணுயிர்', 'மனித வளர்ச்சி ஹார்மோன் – கனிமம்'], explanation: 'அட்டவணை 16.1: இன்சுலின், ஹெபாரின் விலங்கிலிருந்து; திரவ பாரஃபின் கனிமத்திலிருந்து; பாராசிட்டமால் வேதித் தொகுப்பு முறையில்; மனித வளர்ச்சி ஹார்மோன் மரபுப் பொறியியல்.' },
   },
 ];

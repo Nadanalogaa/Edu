@@ -10,7 +10,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise I.1, p. 244', answer: 0,
     en: { q: 'Which of the following is NOT a salivary gland?', options: ['Lachrymal', 'Sublingual', 'Submaxillary', 'Parotid'], explanation: 'The three pairs of salivary glands are parotid, sublingual and submaxillary; lachrymal glands produce tears.' },
-    ta: { q: 'கீழ்க்காண்பனவற்றில் எது உமிழ்நீர் சுரப்பி இல்லை?', options: ['லாக்ரிமால் (கண்ணீர்ச் சுரப்பி)', 'நாவடிச் சுரப்பி', 'கீழ்த்தாடைச் சுரப்பி', 'மேலண்ணச் சுரப்பி'], explanation: 'மேலண்ணச் சுரப்பி, நாவடிச் சுரப்பி, தாடைச் சுரப்பி ஆகியவை உமிழ்நீர்ச் சுரப்பிகள்; லாக்ரிமால் கண்ணீரைச் சுரக்கிறது.' },
+    ta: { q: 'கீழ்க்காண்பனவற்றில் எது உமிழ்நீர் சுரப்பி இல்லை?', options: ['லாக்ரிமால் (கண்ணீர்ச் சுரப்பி)', 'நாவடிச் சுரப்பி', 'கீழ்த்தாடைச் சுரப்பி', 'மேலண்ணச் சுரப்பி'], explanation: 'மேலண்ணச் சுரப்பி, நாவடிச் சுரப்பி, கீழ்த்தாடைச் சுரப்பி ஆகியவை உமிழ்நீர்ச் சுரப்பிகள்; லாக்ரிமால் கண்ணீரைச் சுரக்கிறது.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise I.3, p. 244', answer: 0,
@@ -116,7 +116,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise I.7, p. 244', answer: 0,
     en: { q: 'The common passage for transporting urine and sperms in males is the', options: ['urethra', 'ureter', 'vas deferens', 'scrotum'], explanation: 'The urethra inside the penis carries both urine and sperms to the exterior.' },
-    ta: { q: 'ஆண்களில் சிறுநீரையும் விந்தையும் கடத்துவதற்கான பொதுவான பாதை', options: ['சிறுநீர்ப் புறவழிக்குழாய்', 'சிறுநீரக்குழாய்', 'விந்து நாளம்', 'விரைப்பை'], explanation: 'ஆணுறுப்பினுள் உள்ள சிறுநீர்ப் புறவழிக்குழாய் சிறுநீர், விந்து இரண்டையும் வெளியேற்றுகிறது.' },
+    ta: { q: 'ஆண்களில் சிறுநீரையும் விந்தையும் கடத்துவதற்கான பொதுவான பாதை', options: ['சிறுநீர்ப் புறவழிக்குழாய்', 'சிறுநீரக்குழாய்', 'விந்துக்குழாய்', 'விரைப்பை'], explanation: 'ஆணுறுப்பினுள் உள்ள சிறுநீர்ப் புறவழிக்குழாய் சிறுநீர், விந்து இரண்டையும் வெளியேற்றுகிறது.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise III.1, p. 244', answer: 0,
@@ -131,7 +131,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise III.3, p. 244', answer: 0,
     en: { q: 'Which statement about glomerular filtrate is correct?', options: ['It contains amino acids, vitamins, hormones, salts, glucose and other substances.', 'It contains only urea and water.', 'It contains blood cells and plasma proteins.', 'It is formed in the loop of Henle.'], explanation: 'The book statement is true: both essential and non-essential substances in blood are filtered into Bowman’s capsule.' },
-    ta: { q: 'கிளாமருலார் வடிதிரவம் பற்றிய சரியான கூற்று எது?', options: ['இதில் அமினோ அமிலங்கள், வைட்டமின்கள், ஹார்மோன்கள், உப்புகள், குளுக்கோஸ் போன்றவை உள்ளன.', 'இதில் யூரியாவும் நீரும் மட்டுமே உள்ளன.', 'இதில் இரத்த செல்களும் பிளாஸ்மா புரதங்களும் உள்ளன.', 'இது ஹென்லேயின் வளைவில் உருவாகிறது.'], explanation: 'இக்கூற்று சரி: இரத்தத்திலுள்ள தேவையான, தேவையற்ற பொருள்கள் இரண்டும் பௌமானின் கிண்ணத்தில் வடிகட்டப்படுகின்றன.' },
+    ta: { q: 'கிளாமருலார் வடிநீர் பற்றிய சரியான கூற்று எது?', options: ['இதில் அமினோ அமிலங்கள், வைட்டமின்கள், ஹார்மோன்கள், உப்புகள், குளுக்கோஸ் போன்றவை உள்ளன.', 'இதில் யூரியாவும் நீரும் மட்டுமே உள்ளன.', 'இதில் இரத்த செல்களும் பிளாஸ்மா புரதங்களும் உள்ளன.', 'இது ஹென்லேயின் வளைவில் உருவாகிறது.'], explanation: 'இக்கூற்று சரி: இரத்தத்திலுள்ள தேவையான, தேவையற்ற பொருள்கள் இரண்டும் பௌமானின் கிண்ணத்தில் வடிகட்டப்படுகின்றன.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise IV, p. 244', answer: 0,
@@ -181,7 +181,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise IX.2, p. 245', answer: 0,
     en: { q: 'The blood vessels that (a) enter and (b) leave the Malpighian capsule are', options: ['(a) afferent arteriole, (b) efferent arteriole', '(a) efferent arteriole, (b) afferent arteriole', '(a) renal vein, (b) renal artery', '(a) ureter, (b) urethra'], explanation: 'Blood enters the glomerulus through the afferent arteriole and leaves through the efferent arteriole.' },
-    ta: { q: 'மால்பீஜியன் கிண்ணத்திற்குள் (a) செல்லும், (b) வெளியேறும் இரத்த நாளங்கள்', options: ['(a) உட்செல் நுண் தமனி, (b) வெளிச்செல் நுண் தமனி', '(a) வெளிச்செல் நுண் தமனி, (b) உட்செல் நுண் தமனி', '(a) சிறுநீரகச் சிரை, (b) சிறுநீரகத் தமனி', '(a) சிறுநீரக்குழாய், (b) சிறுநீர்ப் புறவழிக்குழாய்'], explanation: 'இரத்தம் உட்செல் நுண் தமனி வழியாகக் கிளாமருலஸுக்குள் சென்று வெளிச்செல் நுண் தமனி வழியாக வெளியேறுகிறது.' },
+    ta: { q: 'மால்பீஜியன் காப்ஸ்யூலுக்குள் (a) செல்லும், (b) மால்பீஜியன் காப்ஸ்யூலை விட்டு வெளியேறும் இரத்த நாளங்கள்', options: ['(a) உட்செல் நுண் தமனி, (b) வெளிச்செல் நுண் தமனி', '(a) வெளிச்செல் நுண் தமனி, (b) உட்செல் நுண் தமனி', '(a) சிறுநீரகச் சிரை, (b) சிறுநீரகத் தமனி', '(a) சிறுநீரக்குழாய், (b) சிறுநீர்ப் புறவழிக்குழாய்'], explanation: 'இரத்தம் உட்செல் நுண் தமனி வழியாகக் கிளாமருலஸுக்குள் சென்று வெளிச்செல் நுண் தமனி வழியாக வெளியேறுகிறது.' },
   },
   {
     difficulty: 'medium', source: '§20.1.1, p. 236', answer: 0,
@@ -233,7 +233,7 @@ export const QUESTIONS: BankQuestion[] = [
     difficulty: 'hard', source: 'Book exercise X, p. 245', answer: 0,
     imageUrl: `${IMG}/female-reproductive-parts.png`,
     en: { q: 'Identify the parts numbered 1 to 5 in the figure of the female reproductive system.', options: ['1 Fallopian tube, 2 Ovary, 3 Cervix, 4 Uterus, 5 Vagina', '1 Fallopian tube, 2 Oviduct, 3 Uterus, 4 Cervix, 5 Vagina', '1 Ovary, 2 Oviduct, 3 Uterus, 4 Vagina, 5 Cervix', '1 Oviduct, 2 Cervix, 3 Vagina, 4 Ovary, 5 Uterus'], explanation: '1 is the coiled tube, 2 the almond-shaped ovary, 3 the narrow neck of the uterus (cervix), 4 the uterus and 5 the vagina.' },
-    ta: { q: 'பெண் இனப்பெருக்க மண்டலப் படத்தில் 1 முதல் 5 வரை எண்ணிடப்பட்ட பாகங்களைக் கண்டறிக.', options: ['1 கருக்குழல், 2 அண்டகம், 3 செர்விக்ஸ், 4 கர்ப்பப்பை, 5 யோனி', '1 கருக்குழல், 2 அண்டக்குழாய், 3 கர்ப்பப்பை, 4 செர்விக்ஸ், 5 யோனி', '1 அண்டகம், 2 அண்டக்குழாய், 3 கர்ப்பப்பை, 4 யோனி, 5 செர்விக்ஸ்', '1 அண்டக்குழாய், 2 செர்விக்ஸ், 3 யோனி, 4 அண்டகம், 5 கர்ப்பப்பை'], explanation: '1 சுருண்ட குழல் (கருக்குழல்), 2 பாதாம் வடிவ அண்டகம், 3 கருப்பையின் குறுகிய அடிப்பகுதி (செர்விக்ஸ்), 4 கர்ப்பப்பை, 5 யோனி.' },
+    ta: { q: 'பெண் இனப்பெருக்க மண்டலப் படத்தில் 1 முதல் 5 வரை எண்ணிடப்பட்ட பாகங்களைக் கண்டறிக.', options: ['1 கருப்பை நாளம், 2 அண்டகம், 3 செர்விக்ஸ், 4 கர்ப்பப்பை, 5 யோனி', '1 கருப்பை நாளம், 2 கருக்குழல், 3 கர்ப்பப்பை, 4 செர்விக்ஸ், 5 யோனி', '1 அண்டகம், 2 கருக்குழல், 3 கர்ப்பப்பை, 4 யோனி, 5 செர்விக்ஸ்', '1 கருக்குழல், 2 செர்விக்ஸ், 3 யோனி, 4 அண்டகம், 5 கர்ப்பப்பை'], explanation: '1 சுருண்ட குழல் (கருப்பை நாளம்), 2 பாதாம் வடிவ அண்டகம், 3 கருப்பையின் குறுகிய அடிப்பகுதி (செர்விக்ஸ்), 4 கர்ப்பப்பை, 5 யோனி.' },
   },
   {
     difficulty: 'hard', source: 'Book exercise VI.6, p. 245', answer: 0,
@@ -298,7 +298,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: '§20.3, p. 241', answer: 0,
     en: { q: 'Which of these statements are correct?\n(i) Sexual maturity is attained at 13–14 years in males and 11–13 years in females.\n(ii) The seminal vesicle fluid is rich in fructose, an energy source for sperms.\n(iii) The ovaries secrete oestrogen and progesterone.\n(iv) Fertilised eggs develop into a foetus inside the fallopian tube.', options: ['(i), (ii) and (iii) only', '(i) and (iv) only', '(ii) and (iv) only', '(i), (ii), (iii) and (iv)'], explanation: 'The foetus develops inside the uterus, so (iv) is false.' },
-    ta: { q: 'சரியான கூற்றுகள் எவை?\n(i) ஆண்களில் 13–14 வயதிலும் பெண்களில் 11–13 வயதிலும் பாலியல் முதிர்ச்சி ஏற்படுகிறது.\n(ii) விந்துப்பை திரவத்தில் உள்ள ஃப்ரக்டோஸ் விந்தணுக்களுக்கு ஆற்றல் அளிக்கிறது.\n(iii) அண்டகங்கள் ஈஸ்ட்ரோஜன், புரோஜெஸ்டிரானைச் சுரக்கின்றன.\n(iv) கரு வளர்ச்சி அண்டக் குழாயினுள் நடைபெறுகிறது.', options: ['(i), (ii), (iii) மட்டும்', '(i), (iv) மட்டும்', '(ii), (iv) மட்டும்', '(i), (ii), (iii), (iv)'], explanation: 'கரு வளர்ச்சி கர்ப்பப்பையினுள் நடைபெறுகிறது; எனவே (iv) தவறு.' },
+    ta: { q: 'சரியான கூற்றுகள் எவை?\n(i) ஆண்களில் 13–14 வயதிலும் பெண்களில் 11–13 வயதிலும் பாலியல் முதிர்ச்சி ஏற்படுகிறது.\n(ii) விந்துப்பை திரவத்தில் உள்ள ஃப்ரக்டோஸ் விந்தணுக்களுக்கு ஆற்றல் அளிக்கிறது.\n(iii) அண்டகங்கள் ஈஸ்ட்ரோஜன், புரோஜெஸ்டிரானைச் சுரக்கின்றன.\n(iv) கருவுற்ற முட்டை அண்டக் குழாயினுள் சிசுவாக வளர்கிறது.', options: ['(i), (ii), (iii) மட்டும்', '(i), (iv) மட்டும்', '(ii), (iv) மட்டும்', '(i), (ii), (iii), (iv)'], explanation: 'சிசு கர்ப்பப்பையினுள் வளர்கிறது; எனவே (iv) தவறு.' },
   },
   {
     difficulty: 'hard', source: 'Introduction, p. 234', answer: 0,

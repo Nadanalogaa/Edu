@@ -201,7 +201,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise VIII.2, p. 12', answer: 0,
     en: { q: 'When you find the thickness of a one-rupee coin with a screw gauge, the observed reading is', options: ['PSR + (HSC × LC)', 'PSR × HSC × LC', 'PSR + HSC', '(PSR + HSC) × LC'], explanation: 'Reading = pitch scale reading + head scale coincidence × least count, then apply the zero correction.' },
-    ta: { q: 'ஒரு ரூபாய் நாணயத்தின் தடிமனைத் திருகு அளவியால் அளக்கும்போது அளவீடு', options: ['PSR + (HSC × LC)', 'PSR × HSC × LC', 'PSR + HSC', '(PSR + HSC) × LC'], explanation: 'அளவீடு = புரிக்கோல் அளவு + தலைக்கோல் ஒன்றிப்பு × மீச்சிற்றளவு; பின் சுழித்திருத்தம் செய்யப்படும்.' },
+    ta: { q: 'ஒரு ரூபாய் நாணயத்தின் தடிமனைத் திருகு அளவியால் அளக்கும்போது காணப்படும் அளவு', options: ['PSR + (HSC × LC)', 'PSR × HSC × LC', 'PSR + HSC', '(PSR + HSC) × LC'], explanation: 'அளவீடு = புரிக்கோல் அளவு + தலைக்கோல் ஒன்றிப்பு × மீச்சிற்றளவு; பின் சுழித்திருத்தம் செய்யப்படும்.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise IX.3, p. 12', answer: 0,
@@ -241,7 +241,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: '§1.7.2, p. 7', answer: 0,
     en: { q: 'A screw gauge works on the principle that, when a screw rotates in a nut, the distance moved by its tip is', options: ['directly proportional to the number of rotations', 'inversely proportional to the number of rotations', 'independent of the number of rotations', 'proportional to the square of the rotations'], explanation: 'Each full rotation moves the tip by one pitch, so distance ∝ number of rotations.' },
-    ta: { q: 'நிலையான உலோக உருளைக்குள் திருகு சுற்றும்போது, அதன் முனை நகரும் தொலைவு', options: ['சுற்றுகளின் எண்ணிக்கைக்கு நேர்தகவில் இருக்கும்', 'சுற்றுகளின் எண்ணிக்கைக்கு எதிர்தகவில் இருக்கும்', 'சுற்றுகளின் எண்ணிக்கையைச் சார்ந்தது அல்ல', 'சுற்றுகளின் இருமடிக்கு நேர்தகவில் இருக்கும்'], explanation: 'ஒவ்வொரு முழுச்சுற்றுக்கும் முனை ஒரு புரியிடைத் தூரம் நகர்கிறது; எனவே தொலைவு சுற்றுகளின் எண்ணிக்கைக்கு நேர்தகவு.' },
+    ta: { q: 'திருகு அளவி இயங்கும் திருகுத் தத்துவத்தின்படி, நிலையான உலோக உருளையினுள் (நட்டு) திருகைச் சுற்றும்போது அதன் முனை நகரும் தொலைவு', options: ['சுற்றுகளின் எண்ணிக்கைக்கு நேர்தகவில் இருக்கும்', 'சுற்றுகளின் எண்ணிக்கைக்கு எதிர்தகவில் இருக்கும்', 'சுற்றுகளின் எண்ணிக்கையைச் சார்ந்தது அல்ல', 'சுற்றுகளின் இருமடிக்கு நேர்தகவில் இருக்கும்'], explanation: 'ஒவ்வொரு முழுச்சுற்றுக்கும் முனை ஒரு புரியிடைத் தூரம் நகர்கிறது; எனவே தொலைவு சுற்றுகளின் எண்ணிக்கைக்கு நேர்தகவு.' },
   },
   {
     difficulty: 'medium', source: '§1.7.1, p. 7', answer: 0,

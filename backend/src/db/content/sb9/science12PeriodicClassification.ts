@@ -7,7 +7,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise I.1, p. 146', answer: 0,
     en: { q: 'If Dobereiner is related with the "law of triads", then Newlands is related with the', options: ['law of octaves', 'modern periodic law', 'Hund’s rule', 'Pauli’s exclusion principle'], explanation: 'In 1866 John Newlands proposed the law of octaves.' },
-    ta: { q: 'டாபர்னீர் மும்மை விதியோடு தொடர்பு கொண்டிருந்தால், நியூலாந்து தொடர்புடையது', options: ['எண்ம விதி', 'நவீன தனிம அட்டவணை (ஆவர்த்தன விதி)', 'ஹூண்ட்ஸ் விதி', 'பௌலீயின் விலக்கல் கோட்பாடு'], explanation: '1866-ல் ஜான் நியூலாந்து எண்ம விதியை முன்மொழிந்தார்.' },
+    ta: { q: 'டாபர்னீர் மும்மை விதியோடு தொடர்பு கொண்டிருந்தால், நியூலாந்தோடு தொடர்புடையது', options: ['எண்ம விதி', 'நவீன ஆவர்த்தன விதி', 'ஹூண்ட்ஸ் விதி', 'பௌலீயின் விலக்கல் கோட்பாடு'], explanation: '1866-ல் ஜான் நியூலாந்து எண்ம விதியை முன்மொழிந்தார்.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise I.2, p. 146', answer: 0,
@@ -27,7 +27,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise II.3, p. 146', answer: 0,
     en: { q: 'The basis of the classifications proposed by Dobereiner, Newlands and Mendeleev was _____.', options: ['atomic mass', 'atomic number', 'electronic configuration', 'valency'], explanation: 'All three early classifications arranged elements by their atomic masses.' },
-    ta: { q: 'டாபர்னீர், நியூலாந்து, மெண்டலீவ் ஆகியோரின் வகைப்பாட்டின் அடிப்படைக் கொள்கை _____.', options: ['அணு நிறை', 'அணு எண்', 'எலக்ட்ரான் அமைப்பு', 'இணைதிறன்'], explanation: 'இம்மூன்று ஆரம்பகால வகைப்பாடுகளும் தனிமங்களை அவற்றின் அணு நிறையின் அடிப்படையில் அமைத்தன.' },
+    ta: { q: 'தனிமங்களை அட்டவணைப்படுத்துவதில் டாபர்னீர், நியூலாந்து, மெண்டலீவ் ஆகியோரின் அடிப்படைக் கொள்கை _____ ஆகும்.', options: ['அணு நிறை', 'அணு எண்', 'எலக்ட்ரான் அமைப்பு', 'இணைதிறன்'], explanation: 'இம்மூன்று ஆரம்பகால வகைப்பாடுகளும் தனிமங்களை அவற்றின் அணு நிறையின் அடிப்படையில் அமைத்தன.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise II.4, p. 146', answer: 0,
@@ -148,7 +148,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: '§12.1.3, p. 140', answer: 0,
     en: { q: 'Mendeleev corrected the atomic mass of beryllium from 14 to', options: ['9', '7', '12', '4'], explanation: 'He reassessed the wrongly determined atomic mass of beryllium as 9 and gave it a proper place.' },
-    ta: { q: 'பெரிலியத்தின் அணு நிறையை 14 என்பதிலிருந்து மெண்டலீவ் எவ்வாறு திருத்தினார்?', options: ['9', '7', '12', '4'], explanation: 'தவறாகக் கணக்கிடப்பட்ட பெரிலியத்தின் அணு நிறையை 9 என மறுமதிப்பீடு செய்து அதற்குச் சரியான இடம் அளித்தார்.' },
+    ta: { q: 'பெரிலியத்தின் அணு நிறையை 14 என்பதிலிருந்து மெண்டலீவ் எந்த மதிப்பாகத் திருத்தினார்?', options: ['9', '7', '12', '4'], explanation: 'தவறாகக் கணக்கிடப்பட்ட பெரிலியத்தின் அணு நிறையை 9 என மறுமதிப்பீடு செய்து அதற்குச் சரியான இடம் அளித்தார்.' },
   },
   {
     difficulty: 'medium', source: '§12.2.3, p. 143', answer: 0,

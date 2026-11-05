@@ -17,7 +17,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise I.4, p. 308', answer: 0,
     en: { q: 'Which key should be pressed to run a slide show from the first slide?', options: ['F5', 'F1', 'Tab', 'F2'], explanation: 'Pressing F5 starts the slide show from the first slide.' },
-    ta: { q: 'விசைப்பலகையில் எந்த விசையைப் பயன்படுத்தினால் Slide Show வைப் பார்க்க முடியும்?', options: ['F5', 'F1', 'Tab', 'F2'], explanation: 'F5 விசையை அழுத்தினால் முதல் சில்லிலிருந்து slide show தொடங்கும்.' },
+    ta: { q: 'விசைப்பலகையில் எந்த விசையைப் பயன்படுத்தினால் முதல் சில்லிலிருந்து Slide Show வைப் பார்க்க முடியும்?', options: ['F5', 'F1', 'Tab', 'F2'], explanation: 'F5 விசையை அழுத்தினால் முதல் சில்லிலிருந்து slide show தொடங்கும்.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise II.1, p. 308', answer: 0,
@@ -146,7 +146,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'hard', source: '§25.1.7, p. 306', answer: 0,
     en: { q: "Effects such as 'Roll down from top' or 'Fly in from left' that appear when one slide gives way to the next are", options: ['slide transitions', 'text boxes', 'placeholders', 'WordArt'], explanation: 'Slide transitions add dynamic flair to a slideshow, smoothing the change between slides.' },
-    ta: { q: "ஒரு சில்லிலிருந்து அடுத்த சில்லுக்கு மாறும்போது தோன்றும் 'மேலிருந்து சுழன்று வருதல்', 'இடப்புறமிருந்து பறந்து வருதல்' போன்ற விளைவுகள்", options: ['சில்லு மாற்று விளைவுகள் (Slide Transition)', 'உரைப்பெட்டிகள்', 'இடம் ஒதுக்கிகள்', 'WordArt'], explanation: 'சில்லு மாற்று விளைவுகள் slide show-க்குப் பரிமாணத்தையும் தடங்கலற்ற தொடர்ச்சியையும் தருகின்றன.' },
+    ta: { q: "ஒரு சில்லிலிருந்து அடுத்த சில்லுக்கு மாறும்போது தோன்றும் 'மேலிருந்து உருண்டு இறங்குதல் (Roll down from top)', 'இடப்புறமிருந்து பறந்து வருதல் (Fly in from left)' போன்ற விளைவுகள்", options: ['சில்லு மாற்று விளைவுகள் (Slide Transition)', 'உரைப்பெட்டிகள்', 'இடம் ஒதுக்கிகள்', 'WordArt'], explanation: 'சில்லு மாற்று விளைவுகள் slide show-க்குப் பரிமாணத்தையும் தடங்கலற்ற தொடர்ச்சியையும் தருகின்றன.' },
   },
   {
     difficulty: 'hard', source: '§25.1.2, p. 303', answer: 0,

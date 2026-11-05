@@ -3,7 +3,7 @@ import { schemaSql } from './schema';
 import { class9ContentSql, buildContentSql } from './content/class9';
 import { CHAPTERS_9_SB, QUESTIONS_9_SB } from './content/class9StateBoard';
 import { CHAPTERS_9_CBSE, QUESTIONS_9_CBSE } from './content/class9Cbse';
-import { bankChapterSql } from './content/sb9';
+import { bankChapterSql, bankSyncSql } from './content/sb9';
 import { FLUIDS_QUESTIONS } from './content/sb9/science03Fluids';
 import { SB9_BANK } from './content/sb9/chapters';
 
@@ -248,6 +248,11 @@ export const migrations: Migration[] = [
       ) r WHERE m.id = r.id AND r.rn > 1;
       CREATE UNIQUE INDEX mistakes_open_question_idx ON mistake_book (student_id, question_id) WHERE NOT is_reviewed;
     `,
+  },
+  {
+    version: 11,
+    name: 'State Board 9th question bank: Tamil wording checked against the Tamil-medium textbook',
+    sql: SB9_BANK.map((c) => bankSyncSql('state_board', 9, c.subject, c.chapter, c.questions)).join('\n'),
   },
 ];
 

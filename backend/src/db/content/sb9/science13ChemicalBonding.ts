@@ -17,12 +17,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise I.2, p. 159', answer: 0,
     en: { q: 'Sodium (atomic number 11) attains the nearest noble gas configuration by', options: ['losing one electron', 'gaining one electron', 'gaining two electrons', 'losing two electrons'], explanation: 'Sodium is 2, 8, 1; losing its one valence electron gives the neon configuration 2, 8.' },
-    ta: { q: 'சோடியம் (அணு எண் 11) நெருக்கமான மந்த வாயுவின் எலக்ட்ரான் அமைப்பைப் பெறுவது', options: ['ஒரு எலக்ட்ரானை இழந்து', 'ஒரு எலக்ட்ரானை ஏற்று', 'இரண்டு எலக்ட்ரான்களை ஏற்று', 'இரண்டு எலக்ட்ரான்களை இழந்து'], explanation: 'சோடியத்தின் அமைப்பு 2, 8, 1; ஒரு இணைதிறன் எலக்ட்ரானை இழந்து நியானின் அமைப்பு 2, 8 ஐப் பெறுகிறது.' },
+    ta: { q: 'சோடியம் (அணு எண் 11) நெருக்கமான மந்த வாயுவின் நிலையான எலக்ட்ரான் அமைப்பைப் பெறுவது', options: ['ஒரு எலக்ட்ரானை இழந்து', 'ஒரு எலக்ட்ரானை ஏற்று', 'இரண்டு எலக்ட்ரான்களை ஏற்று', 'இரண்டு எலக்ட்ரான்களை இழந்து'], explanation: 'சோடியத்தின் அமைப்பு 2, 8, 1; ஒரு இணைதிறன் எலக்ட்ரானை இழந்து நியானின் அமைப்பு 2, 8 ஐப் பெறுகிறது.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise I.3, p. 159', answer: 0,
     en: { q: 'Which element forms an anion by gaining electrons in a chemical reaction?', options: ['Fluorine', 'Potassium', 'Calcium', 'Iron'], explanation: 'Fluorine is a non-metal with 7 valence electrons; it gains one electron to form F⁻. The others are metals that lose electrons.' },
-    ta: { q: 'வேதிவினையில் எலக்ட்ரான்களை ஏற்று எதிர் அயனியாக மாறும் தனிமம் எது?', options: ['புளூரின்', 'பொட்டாசியம்', 'கால்சியம்', 'இரும்பு'], explanation: 'புளூரின் 7 இணைதிறன் எலக்ட்ரான்கள் கொண்ட அலோகம்; ஒரு எலக்ட்ரானை ஏற்று F⁻ ஆகிறது. மற்றவை எலக்ட்ரானை இழக்கும் உலோகங்கள்.' },
+    ta: { q: 'வேதிவினைகளில் எலக்ட்ரான்களை ஏற்று எதிர் அயனியாக மாறக்கூடிய தனிமம் எது?', options: ['புளூரின்', 'பொட்டாசியம்', 'கால்சியம்', 'இரும்பு'], explanation: 'புளூரின் 7 இணைதிறன் எலக்ட்ரான்கள் கொண்ட அலோகம்; ஒரு எலக்ட்ரானை ஏற்று F⁻ ஆகிறது. மற்றவை எலக்ட்ரானை இழக்கும் உலோகங்கள்.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise I.4, p. 159', answer: 0,
@@ -107,12 +107,12 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: '§13.4, p. 157', answer: 0,
     en: { q: 'Spoiling of food left open for a long time, due to oxidation, is called', options: ['rancidity', 'corrosion', 'neutralisation', 'reduction'], explanation: 'Oxidation of food materials left open causes them to spoil; this is rancidity.' },
-    ta: { q: 'நீண்ட நேரம் திறந்து வைக்கப்பட்ட உணவுப்பொருள்கள் ஆக்ஸிஜனேற்றத்தால் கெட்டுப்போவது', options: ['கெட்டுப்போதல் (Rancidity)', 'அரிமானம்', 'நடுநிலையாக்கல்', 'ஒடுக்கம்'], explanation: 'திறந்து வைக்கப்பட்ட உணவுப்பொருள்கள் ஆக்ஸிஜனேற்றம் அடைவதால் கெட்டுப்போகின்றன; இதுவே Rancidity.' },
+    ta: { q: 'நீண்ட நேரம் திறந்து வைக்கப்பட்ட உணவுப்பொருள்கள் ஆக்ஸிஜனேற்றத்தால் பாழாவது இவ்வாறு அழைக்கப்படுகிறது', options: ['கெட்டுப்போதல் (Rancidity)', 'அரிமானம்', 'நடுநிலையாக்கல்', 'ஒடுக்கம்'], explanation: 'திறந்து வைக்கப்பட்ட உணவுப்பொருள்கள் ஆக்ஸிஜனேற்றம் அடைவதால் கெட்டுப்போகின்றன; இதுவே Rancidity.' },
   },
   {
     difficulty: 'easy', source: '§13.4, p. 157', answer: 0,
     en: { q: 'The tarnishing of a shining metal surface due to formation of its oxide is called', options: ['corrosion', 'rancidity', 'catenation', 'hydration'], explanation: 'Atmospheric oxygen forms metal oxides on the surface; this is corrosion.' },
-    ta: { q: 'உலோகங்களின் மேற்பரப்பில் ஆக்சைடு உருவாகி பளபளப்பு இழப்பது', options: ['அரிமானம்', 'கெட்டுப்போதல்', 'சங்கிலித் தொடராக்கம்', 'நீரேற்றம்'], explanation: 'காற்றிலுள்ள ஆக்ஸிஜனுடன் வினைபுரிந்து உலோக ஆக்சைடுகள் உருவாவது அரிமானம் (Corrosion).' },
+    ta: { q: 'பளபளக்கும் உலோகப் பரப்பில் அதன் ஆக்சைடு உருவாவதால் பளபளப்பு இழப்பது இவ்வாறு அழைக்கப்படுகிறது', options: ['அரிமானம்', 'கெட்டுப்போதல்', 'சங்கிலித் தொடராக்கம்', 'நீரேற்றம்'], explanation: 'காற்றிலுள்ள ஆக்ஸிஜனுடன் வினைபுரிந்து உலோக ஆக்சைடுகள் உருவாவது அரிமானம் (Corrosion).' },
   },
 
   // ------------------------------------------------------------------ Medium
@@ -174,7 +174,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'medium', source: 'Book exercise II.13, p. 160', answer: 0,
     en: { q: 'Which correctly compares MgCl₂ (ionic) with CH₄ (covalent)?', options: ['MgCl₂ has a high melting point and dissolves in water; CH₄ has a low melting point.', 'MgCl₂ is a gas; CH₄ is a crystalline solid.', 'MgCl₂ is soluble in benzene; CH₄ is soluble in water.', 'Both conduct electricity in solid state.'], explanation: 'Ionic MgCl₂ is a high-melting solid soluble in water; covalent CH₄ is a low-melting gas soluble in non-polar solvents.' },
-    ta: { q: 'MgCl₂ (அயனிச் சேர்மம்), CH₄ (சகப்பிணைப்புச் சேர்மம்) ஆகியவற்றைச் சரியாக ஒப்பிடுவது எது?', options: ['MgCl₂ அதிக உருகுநிலை கொண்டு நீரில் கரையும்; CH₄ குறைந்த உருகுநிலை கொண்டது.', 'MgCl₂ ஒரு வாயு; CH₄ ஒரு படிகத் திண்மம்.', 'MgCl₂ பென்சீனில் கரையும்; CH₄ நீரில் கரையும்.', 'இரண்டும் திண்ம நிலையில் மின்சாரத்தைக் கடத்தும்.'], explanation: 'அயனிச் சேர்மமான MgCl₂ அதிக உருகுநிலை கொண்ட, நீரில் கரையும் திண்மம்; CH₄ குறைந்த உருகுநிலை கொண்ட வாயு.' },
+    ta: { q: 'MgCl₂ (அயனிச் சேர்மம்), CH₄ (சகப்பிணைப்புச் சேர்மம்) ஆகியவற்றைச் சரியாக ஒப்பிடுவது எது?', options: ['MgCl₂ அதிக உருகுநிலை கொண்டு நீரில் கரையும்; CH₄ குறைந்த உருகுநிலை கொண்டது.', 'MgCl₂ ஒரு வாயு; CH₄ ஒரு படிகத் திண்மம்.', 'MgCl₂ பென்சீனில் கரையும்; CH₄ நீரில் கரையும்.', 'இரண்டும் திண்ம நிலையில் மின்சாரத்தைக் கடத்தும்.'], explanation: 'அயனிச் சேர்மமான MgCl₂ அதிக உருகுநிலை கொண்ட, நீரில் கரையும் திண்மம்; CH₄ குறைந்த உருகுநிலை கொண்ட, முனைவற்ற கரைப்பான்களில் கரையும் வாயு.' },
   },
   {
     difficulty: 'medium', source: 'Book exercise II.14, p. 160', answer: 0,
