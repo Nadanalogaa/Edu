@@ -296,6 +296,7 @@ export const recordPracticeAnswer = async (req: AuthRequest, res: Response) => {
          last_seen_at = now()`,
       [student._id, questionId, correct ? 1 : 0, correct]
     );
+    await query(`INSERT INTO practice_log (user_id, question_id, correct) VALUES ($1, $2, $3)`, [student._id, questionId, correct]);
     let fixed = false;
     if (correct) fixed = await fixMistake(student._id, questionId, 'practice');
     else await recordMistake({ studentId: student._id, questionId, selectedAnswer, correctAnswer: question.correct_answer, source: 'practice' });
@@ -303,5 +304,63 @@ export const recordPracticeAnswer = async (req: AuthRequest, res: Response) => {
   } catch (error: any) {
     console.error('Practice answer error:', error);
     res.status(500).json({ success: false, message: error.message || 'Error saving the answer' });
+  }
+};
+
+// @desc    Practice summary for the student home: totals, last 7 days, streak, Mistake Book
+// @route   GET /api/student/practice/summary
+export const practiceSummary = async (req: AuthRequest, res: Response) => {
+  try {
+    const userId = req.user._id;
+    const [totals] = await query(
+      `SELECT count(*)::int AS answers, count(*) FILTER (WHERE correct)::int AS correct,
+              count(DISTINCT question_id)::int AS questions
+       FROM practice_log WHERE user_id = $1`,
+      [userId]
+    );
+    // Days in India time, so "today" matches the student's day
+    const days = await query(
+      `SELECT to_char(d, 'YYYY-MM-DD') AS day, count(l.id)::int AS answers, count(l.id) FILTER (WHERE l.correct)::int AS correct
+       FROM generate_series((now() AT TIME ZONE 'Asia/Kolkata')::date - 6, (now() AT TIME ZONE 'Asia/Kolkata')::date, interval '1 day') d
+       LEFT JOIN practice_log l ON l.user_id = $1 AND (l.answered_at AT TIME ZONE 'Asia/Kolkata')::date = d::date
+       GROUP BY d ORDER BY d`,
+      [userId]
+    );
+    // Practice streak: days in a row up to today (or yesterday) with at least one answer
+    const active = await query(
+      `SELECT DISTINCT to_char((answered_at AT TIME ZONE 'Asia/Kolkata')::date, 'YYYY-MM-DD') AS day FROM practice_log
+       WHERE user_id = $1 AND answered_at > now() - interval '120 days' ORDER BY day DESC`,
+      [userId]
+    );
+    const today = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
+    const key = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    const activeDays = new Set(active.map((r) => r.day as string));
+    let streak = 0;
+    const cursor = new Date(today);
+    if (!activeDays.has(key(cursor))) cursor.setDate(cursor.getDate() - 1);
+    while (activeDays.has(key(cursor))) {
+      streak++;
+      cursor.setDate(cursor.getDate() - 1);
+    }
+    const [mistakes] = await query(
+      `SELECT count(*) FILTER (WHERE NOT is_reviewed)::int AS open, count(*) FILTER (WHERE fixed_in IS NOT NULL)::int AS fixed
+       FROM mistake_book WHERE student_id = $1`,
+      [userId]
+    );
+    res.status(200).json({
+      success: true,
+      data: {
+        answers: totals.answers,
+        correct: totals.correct,
+        questions: totals.questions,
+        accuracy: totals.answers ? Math.round((totals.correct / totals.answers) * 1000) / 10 : null,
+        days,
+        streak,
+        mistakes,
+      },
+    });
+  } catch (error: any) {
+    console.error('Practice summary error:', error);
+    res.status(500).json({ success: false, message: error.message || 'Error loading practice summary' });
   }
 };

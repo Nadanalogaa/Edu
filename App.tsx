@@ -218,9 +218,13 @@ const DashboardLayout: React.FC = () => {
     const fetchGamificationStats = async () => {
       if (currentUser?.role === 'student') {
         try {
-          const analyticsRes = await api.get('/student/analytics');
+          const [analyticsRes, practiceRes] = await Promise.all([
+            api.get('/student/analytics'),
+            api.get('/student/practice/summary').catch(() => null),
+          ]);
           if (analyticsRes.data.success) {
-            setStreak(analyticsRes.data.data.userStats?.streak || 0);
+            // Days in a row with practice (the same streak the home screen shows)
+            setStreak(Math.max(analyticsRes.data.data.userStats?.streak || 0, practiceRes?.data?.data?.streak || 0));
             setCoins(analyticsRes.data.data.userStats?.coins || 0);
           }
         } catch (error) {

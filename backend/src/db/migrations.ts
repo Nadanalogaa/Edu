@@ -254,6 +254,21 @@ export const migrations: Migration[] = [
     name: 'State Board 9th question bank: Tamil wording checked against the Tamil-medium textbook',
     sql: SB9_BANK.map((c) => bankSyncSql('state_board', 9, c.subject, c.chapter, c.questions)).join('\n'),
   },
+  {
+    version: 12,
+    name: 'practice answer log for the student home dashboard',
+    sql: `
+      -- One row per practice answer: daily activity, streaks and accuracy over time
+      CREATE TABLE practice_log (
+        id BIGSERIAL PRIMARY KEY,
+        user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        question_id UUID NOT NULL REFERENCES questions(id) ON DELETE CASCADE,
+        correct BOOLEAN NOT NULL,
+        answered_at TIMESTAMPTZ NOT NULL DEFAULT now()
+      );
+      CREATE INDEX practice_log_user_time_idx ON practice_log (user_id, answered_at);
+    `,
+  },
 ];
 
 export const runMigrations = async (client: PoolClient) => {
