@@ -1,4 +1,5 @@
 import React from 'react';
+import { isUpdateError } from '../../utils/lazyWithReload';
 
 // Keeps one broken screen from blanking the whole app: shows a message with a
 // retry button instead. Reset it by changing `resetKey` (e.g. the open screen).
@@ -28,7 +29,12 @@ class ScreenErrorBoundary extends React.Component<Props, State> {
         <p className="text-4xl" aria-hidden="true">😕</p>
         <p className="mt-2 text-lg font-bold text-slate-800 dark:text-slate-100">This page could not open</p>
         <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Please try again. If it keeps happening, tell your teacher.</p>
-        <button type="button" onClick={() => this.setState({ error: null })} className="mt-4 px-5 py-2 rounded-xl bg-indigo-600 text-white font-semibold">
+        <button
+          type="button"
+          // A new version was deployed: a full reload fetches it
+          onClick={() => (isUpdateError(this.state.error) ? window.location.reload() : this.setState({ error: null }))}
+          className="mt-4 px-5 py-2 rounded-xl bg-indigo-600 text-white font-semibold"
+        >
           Try again
         </button>
       </div>

@@ -9,22 +9,22 @@ import GamificationStats from './components/GamificationStats';
 import api from './services/api';
 
 // Pages most users never open are loaded on demand, so students download less
-const LandingPage = lazy(() => import('./components/landing/LandingPage'));
-const RegistrationLanding = lazy(() => import('./components/landing/RegistrationLanding'));
-const StudentRegistrationForm = lazy(() => import('./components/registration/StudentRegistrationForm'));
-const TeacherRegistrationForm = lazy(() => import('./components/registration/TeacherRegistrationForm'));
-const SchoolRegistrationForm = lazy(() => import('./components/registration/SchoolRegistrationForm'));
-const QuestionBank = lazy(() => import('./components/admin/QuestionBank'));
-const TNSchoolsPage = lazy(() => import('./pages/TNSchoolsPage'));
-const SuperAdminLogin = lazy(() => import('./components/SuperAdminLogin'));
+const LandingPage = lazyWithReload(() => import('./components/landing/LandingPage'));
+const RegistrationLanding = lazyWithReload(() => import('./components/landing/RegistrationLanding'));
+const StudentRegistrationForm = lazyWithReload(() => import('./components/registration/StudentRegistrationForm'));
+const TeacherRegistrationForm = lazyWithReload(() => import('./components/registration/TeacherRegistrationForm'));
+const SchoolRegistrationForm = lazyWithReload(() => import('./components/registration/SchoolRegistrationForm'));
+const QuestionBank = lazyWithReload(() => import('./components/admin/QuestionBank'));
+const TNSchoolsPage = lazyWithReload(() => import('./pages/TNSchoolsPage'));
+const SuperAdminLogin = lazyWithReload(() => import('./components/SuperAdminLogin'));
 // NEET / JEE Zone (sample content screens with 3D/AR/VR and videos)
-const NeetDashboard = lazy(() => import('./components/dashboards/StudentDashboard'));
-const NeetPractice = lazy(() => import('./components/student/PracticeModeNew'));
-const NeetExam = lazy(() => import('./components/student/ExamModeNew'));
-const NeetDailyChallenge = lazy(() => import('./components/student/DailyChallengeContainer'));
-const NeetShorts = lazy(() => import('./components/student/Shorts'));
-const NeetLiveClasses = lazy(() => import('./components/student/LiveClassesView'));
-const NeetMistakeBook = lazy(() => import('./components/student/MistakeBook'));
+const NeetDashboard = lazyWithReload(() => import('./components/dashboards/StudentDashboard'));
+const NeetPractice = lazyWithReload(() => import('./components/student/PracticeModeNew'));
+const NeetExam = lazyWithReload(() => import('./components/student/ExamModeNew'));
+const NeetDailyChallenge = lazyWithReload(() => import('./components/student/DailyChallengeContainer'));
+const NeetShorts = lazyWithReload(() => import('./components/student/Shorts'));
+const NeetLiveClasses = lazyWithReload(() => import('./components/student/LiveClassesView'));
+const NeetMistakeBook = lazyWithReload(() => import('./components/student/MistakeBook'));
 import SchoolOverview from './components/school/SchoolOverview';
 import PeopleManager from './components/school/PeopleManager';
 import OwnerOverview from './components/owner/OwnerOverview';
@@ -42,6 +42,7 @@ import StudentReport from './components/reports/StudentReport';
 import { boardLabel, classLabel } from './components/common/ui';
 import InstallApp from './components/common/InstallApp';
 import ScreenErrorBoundary from './components/common/ScreenErrorBoundary';
+import { lazyWithReload } from './utils/lazyWithReload';
 import {
     SunIcon, MoonIcon, LayoutDashboardIcon, UsersIcon, UserIcon, LogOutIcon,
     SchoolIcon, FileTextIcon, ClipboardCheckIcon, GraduationCapIcon, PenSquareIcon, BookOpenIcon, VideoIcon, StethoscopeIcon,

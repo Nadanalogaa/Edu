@@ -3,7 +3,7 @@
 // - Built files (/assets, hashed names), icons, diagrams: cache first.
 // - Textbook page pictures: cached as they are opened (kept to the newest 300).
 // - API calls are never cached (marks, answers and tests must always be live).
-const VERSION = 'educore-v3';
+const VERSION = 'educore-v4';
 const SHELL = `${VERSION}-shell`;
 const STATIC = `${VERSION}-static`;
 const PAGES = `${VERSION}-textbook`;
@@ -70,7 +70,9 @@ self.addEventListener('fetch', (event) => {
       (hit) =>
         hit ||
         fetch(request).then((res) => {
-          if (res.ok) {
+          // Only real files: never keep an HTML page in place of a script or picture
+          const type = res.headers.get('Content-Type') || '';
+          if (res.ok && !type.includes('text/html')) {
             const copy = res.clone();
             caches.open(name).then((c) => c.put(request, copy)).then(() => after && after());
           }

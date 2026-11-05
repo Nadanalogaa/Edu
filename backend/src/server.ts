@@ -114,7 +114,10 @@ if (fs.existsSync(path.join(frontendDist, 'index.html'))) {
       },
     })
   );
+  // App routes get the app page; a missing file (old build, wrong path) is a real 404,
+  // never the app page, or browsers would try to run HTML as a script
   app.get(/^\/(?!api\/|uploads\/).*/, (req, res) => {
+    if (req.path.startsWith('/assets/') || /\.[a-z0-9]{2,5}$/i.test(req.path)) return res.status(404).end();
     res.setHeader('Cache-Control', 'no-cache');
     res.sendFile(path.join(frontendDist, 'index.html'));
   });
