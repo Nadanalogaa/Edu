@@ -224,8 +224,18 @@ const PracticeRunner: React.FC<{
   const rightSoFar = questions.filter((x, i) => picked[i] !== null && picked[i] !== undefined && picked[i] === x.correctAnswer).length;
   const wrongSoFar = questions.filter((x, i) => picked[i] !== null && picked[i] !== undefined && picked[i] !== x.correctAnswer).length;
   const fb = feedback[index];
+  const timerProps = {
+    seconds: answered ? spent[index] : Math.max(0, Math.round((now - shownAt) / 1000)),
+    target: SUGGESTED[q.difficulty] || 60,
+    total: elapsed,
+    paused: answered,
+    labels: { thisQuestion: t.thisQuestion, suggested: t.suggested, total: t.total },
+  };
+  // Short options sit two per row on wide screens
+  const shortOptions = q.options.en.every((o: string, i: number) => o.length <= 48 && (option(ta, q.options, i) || '').length <= 48);
   return (
-    <div className="max-w-3xl mx-auto space-y-3">
+    <div className="max-w-6xl mx-auto lg:grid lg:grid-cols-[minmax(0,1fr)_8.5rem] lg:gap-5 lg:items-start">
+     <div className="min-w-0 space-y-3">
       {/* Session header: subject, chapter, level, progress, score and the liquid timer */}
       <div className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 sm:px-4 py-3 space-y-3">
         <div className="flex items-start gap-3">
@@ -253,13 +263,10 @@ const PracticeRunner: React.FC<{
             ✕ <span className="hidden sm:inline">{t.exit}</span>
           </button>
         </div>
-        <LiquidTimer
-          seconds={answered ? spent[index] : Math.max(0, Math.round((now - shownAt) / 1000))}
-          target={SUGGESTED[q.difficulty] || 60}
-          total={elapsed}
-          paused={answered}
-          labels={{ thisQuestion: t.thisQuestion, suggested: t.suggested, total: t.total }}
-        />
+        {/* On phones and tablets the timer sits here; on wide screens it is the tube on the right */}
+        <div className="lg:hidden">
+          <LiquidTimer {...timerProps} />
+        </div>
         <div className="flex gap-1" aria-hidden="true">
           {questions.map((x, i) => {
             const p = picked[i];
@@ -282,7 +289,7 @@ const PracticeRunner: React.FC<{
         <h2 className="mt-3 text-lg sm:text-xl font-semibold leading-relaxed text-slate-800 dark:text-slate-100 whitespace-pre-line">{text(ta, q.question)}</h2>
         <QuestionImage src={q.imageUrl} />
 
-        <div className="mt-4 grid gap-2.5" role="radiogroup">
+        <div className={`mt-4 grid gap-2.5 ${shortOptions ? 'lg:grid-cols-2' : ''}`} role="radiogroup">
           {q.options.en.map((_: string, i: number) => {
             const isAnswer = i === q.correctAnswer;
             const isPicked = i === answer;
@@ -350,6 +357,12 @@ const PracticeRunner: React.FC<{
           </div>
         </div>
       )}
+     </div>
+
+      {/* Vertical liquid timer beside the question (wide screens) */}
+      <aside className="hidden lg:block sticky top-24 h-[calc(100vh-8rem)] max-h-[640px] rounded-3xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm px-3 py-4">
+        <LiquidTimer {...timerProps} vertical />
+      </aside>
     </div>
   );
 };

@@ -178,10 +178,10 @@ const Practice: React.FC<{ onOpenMistakes?: () => void }> = ({ onOpenMistakes })
   );
 
   return (
-    <div className="space-y-5 pb-4">
+    <div className="space-y-4 pb-4">
       <div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-slate-100">{t.title}</h1>
-        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{t.subtitle}</p>
+        <h1 className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-100">{t.title}</h1>
+        <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400">{t.subtitle}</p>
       </div>
       {error && <Alert onClose={() => setError('')}>{error}</Alert>}
 

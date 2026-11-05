@@ -43,7 +43,7 @@ import { boardLabel, classLabel } from './components/common/ui';
 import {
     SunIcon, MoonIcon, LayoutDashboardIcon, UsersIcon, UserIcon, LogOutIcon,
     SchoolIcon, FileTextIcon, ClipboardCheckIcon, GraduationCapIcon, PenSquareIcon, BookOpenIcon, VideoIcon, StethoscopeIcon,
-    MenuIcon, XIcon, KeyIcon, TrendingUpIcon
+    MenuIcon, XIcon, KeyIcon, TrendingUpIcon, ChevronDownIcon
 } from './components/icons';
 
 const NavItem: React.FC<{
@@ -51,21 +51,57 @@ const NavItem: React.FC<{
   label: string;
   isActive: boolean;
   onClick: () => void;
-}> = ({ icon, label, isActive, onClick }) => (
+  compact?: boolean;
+}> = ({ icon, label, isActive, onClick, compact }) => (
   <button
     onClick={onClick}
     title={label}
-    className={`flex items-center w-full px-4 py-3 text-sm font-medium rounded-lg transition-colors duration-200 ${
+    className={`group flex items-center gap-3 w-full ${compact ? 'px-2.5 py-0.5 text-[13px]' : 'px-3 py-1.5 text-sm'} font-medium rounded-xl transition-colors duration-150 ${
       isActive
-        ? 'bg-indigo-600 text-white shadow-lg'
-        : 'text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+        ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
+        : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/60'
     }`}
     aria-current={isActive ? 'page' : undefined}
   >
-    {icon}
-    <span className="ml-3">{label}</span>
+    <span className={`flex-shrink-0 ${compact ? 'w-7 h-7' : 'w-8 h-8'} rounded-lg flex items-center justify-center ${isActive ? 'bg-white/15' : 'bg-slate-100 dark:bg-slate-700/60 text-slate-500 dark:text-slate-300 group-hover:bg-white dark:group-hover:bg-slate-700'}`}>
+      {icon}
+    </span>
+    <span className="truncate">{label}</span>
   </button>
 );
+
+/** A titled group of menu items; collapsible ones remember whether they are open. */
+const NavGroup: React.FC<{ title: string; icon?: React.ReactNode; collapsible?: boolean; storageKey?: string; forceOpen?: boolean; count?: number; children: React.ReactNode }> = ({
+  title, icon, collapsible, storageKey, forceOpen, count, children,
+}) => {
+  const [open, setOpen] = useState(() => !collapsible || (storageKey ? localStorage.getItem(storageKey) === 'open' : false));
+  const shown = !collapsible || open || forceOpen;
+  const toggle = () => {
+    const next = !open;
+    setOpen(next);
+    if (storageKey) localStorage.setItem(storageKey, next ? 'open' : 'closed');
+  };
+  if (!collapsible) {
+    return (
+      <div>
+        <p className="px-3 pb-1.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">{title}</p>
+        <div className="space-y-1">{children}</div>
+      </div>
+    );
+  }
+  return (
+    <div className="rounded-2xl bg-gradient-to-br from-violet-50 to-indigo-50 dark:from-violet-500/10 dark:to-indigo-500/10 border border-violet-100 dark:border-violet-500/20 p-1.5">
+      <button type="button" onClick={toggle} aria-expanded={!!shown}
+        className="flex items-center gap-2.5 w-full px-2 py-2 rounded-xl text-sm font-semibold text-violet-800 dark:text-violet-200 hover:bg-white/70 dark:hover:bg-white/5">
+        <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 text-white flex items-center justify-center shadow-sm">{icon}</span>
+        <span className="flex-1 text-left truncate">{title}</span>
+        {count ? <span className="px-1.5 py-0.5 rounded-md bg-white/80 dark:bg-white/10 text-[11px] text-violet-700 dark:text-violet-200">{count}</span> : null}
+        <ChevronDownIcon className={`w-4 h-4 transition-transform ${shown ? 'rotate-180' : ''}`} />
+      </button>
+      {shown && <div className="mt-0.5 space-y-0.5">{children}</div>}
+    </div>
+  );
+};
 
 const ThemeToggle: React.FC<{
     theme: 'light' | 'dark';
@@ -201,7 +237,7 @@ const DashboardLayout: React.FC = () => {
       { label: language === 'ta' ? 'பயிற்சி' : 'Practice', icon: <PenSquareIcon className="w-5 h-5" />, view: 'practice' },
       { label: language === 'ta' ? 'என் முன்னேற்றம்' : 'My Progress', icon: <TrendingUpIcon className="w-5 h-5" />, view: 'progress' },
       { label: language === 'ta' ? 'தவறுப் புத்தகம்' : 'Mistake Book', icon: <BookOpenIcon className="w-5 h-5" />, view: 'mistakes' },
-      { section: 'NEET / JEE Zone', label: language === 'ta' ? 'NEET/JEE முகப்பு' : 'NEET/JEE Dashboard', icon: <StethoscopeIcon className="w-5 h-5" />, view: 'neet-home' },
+      { section: 'NEET / JEE', label: language === 'ta' ? 'NEET/JEE முகப்பு' : 'NEET/JEE Dashboard', icon: <StethoscopeIcon className="w-5 h-5" />, view: 'neet-home' },
       { label: t('practiceMode'), icon: <PenSquareIcon className="w-5 h-5" />, view: 'neet-practice' },
       { label: t('takeAnExam'), icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'exam' },
       { label: t('dailyChallenge'), icon: <FileTextIcon className="w-5 h-5" />, view: 'daily-challenge' },
@@ -334,7 +370,7 @@ const DashboardLayout: React.FC = () => {
       <aside
         className={`
           fixed lg:static inset-y-0 left-0 z-40
-          w-72 lg:w-64 bg-white dark:bg-slate-800/50 p-4 lg:p-6
+          w-72 lg:w-64 h-full bg-white dark:bg-slate-800/50 px-3 py-4
           flex flex-col border-r border-slate-200 dark:border-slate-800
           transform transition-transform duration-300 ease-in-out
           ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
@@ -342,16 +378,16 @@ const DashboardLayout: React.FC = () => {
         `}
       >
         {/* Logo + close (mobile) */}
-        <div className="flex-shrink-0 flex items-center justify-between mb-6">
+        <div className="flex-shrink-0 flex items-center justify-between mb-4 px-1">
             <div className="flex items-center">
               <img
                 src="/logo.svg"
                 alt="EduCore Logo"
-                className="w-10 h-10 lg:w-12 lg:h-12"
+                className="w-10 h-10"
               />
               <div className="ml-3 flex flex-col">
                 <h1 className="text-base lg:text-lg font-bold text-slate-800 dark:text-slate-100">{t('appTitle')}</h1>
-                <span className="text-xs text-indigo-600 dark:text-indigo-400">{t('landing.nav.tagline')}</span>
+                <span className="text-[11px] leading-tight text-indigo-600 dark:text-indigo-400">{t('landing.nav.tagline')}</span>
               </div>
             </div>
             <button
@@ -364,28 +400,52 @@ const DashboardLayout: React.FC = () => {
             </button>
         </div>
 
-        {/* Navigation — scrollable middle */}
-        <nav className="flex-1 overflow-y-auto space-y-2 mb-4 pr-1 scrollbar-thin">
-           {navConfig[currentUser.role].map(item => (
-               <React.Fragment key={item.view}>
-                 {item.section && (
-                   <p className="pt-4 pb-1 px-4 text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500">{item.section}</p>
-                 )}
-                 <NavItem
-                      icon={item.icon}
-                      label={item.label}
-                      isActive={activeView === item.view}
-                      onClick={() => handleNavClick(item.view)}
-                 />
-               </React.Fragment>
-           ))}
+        {/* Navigation: main items, then collapsible groups (e.g. NEET / JEE Zone) */}
+        <nav className="flex-1 min-h-0 overflow-y-auto space-y-3 pr-0.5 -mr-1 scrollbar-thin">
+          {(() => {
+            const items = navConfig[currentUser.role];
+            const groups: { title: string | null; items: typeof items }[] = [];
+            for (const item of items) {
+              if (item.section || !groups.length) groups.push({ title: item.section || null, items: [] });
+              groups[groups.length - 1].items.push(item);
+            }
+            return groups.map((group, g) => (
+              <NavGroup
+                key={group.title || 'main'}
+                title={group.title || (language === 'ta' ? 'மெனு' : currentUser.role === 'student' ? 'My learning' : 'Menu')}
+                collapsible={!!group.title}
+                storageKey={group.title ? `nav-group-${g}` : undefined}
+                forceOpen={group.items.some((i) => i.view === activeView)}
+                icon={<StethoscopeIcon className="w-4 h-4" />}
+                count={group.title ? group.items.length : undefined}
+              >
+                {group.items.map((item) => (
+                  <NavItem key={item.view} icon={item.icon} label={item.label} compact={!!group.title} isActive={activeView === item.view} onClick={() => handleNavClick(item.view)} />
+                ))}
+              </NavGroup>
+            ));
+          })()}
         </nav>
 
+        {/* Who is signed in */}
+        <div className="flex-shrink-0 mt-3 pt-3 border-t border-slate-200 dark:border-slate-700/70 flex items-center gap-3 px-1">
+          <span className="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 text-white text-sm font-bold flex items-center justify-center">
+            {(currentUser.name || '?').trim().charAt(0).toUpperCase()}
+          </span>
+          <div className="min-w-0">
+            <p className="text-sm font-semibold text-slate-800 dark:text-slate-100 truncate">{currentUser.name}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
+              {currentUser.role === 'student' && currentUser.classGrade
+                ? `${language === 'ta' ? 'வகுப்பு' : 'Class'} ${classLabel(currentUser.classGrade, currentUser.section)}`
+                : currentUser.role === 'owner' ? 'Owner' : currentUser.role === 'admin' ? 'School admin' : currentUser.role === 'teacher' ? 'Teacher' : ''}
+            </p>
+          </div>
+        </div>
       </aside>
 
       <main className="flex-1 overflow-y-auto w-full">
         {/* Compact Universal Header */}
-        <div className="sticky top-0 z-20 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700 px-3 sm:px-6 lg:px-10 py-2.5 sm:py-3">
+        <div className="sticky top-0 z-20 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700 px-3 sm:px-5 lg:px-8 py-2.5">
           <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
             {/* Hamburger (mobile only) */}
             <button
@@ -452,7 +512,7 @@ const DashboardLayout: React.FC = () => {
         {showChangePassword && <ChangePasswordModal onClose={() => setShowChangePassword(false)} />}
 
         {/* Main Content */}
-        <div className="p-3 sm:p-6 lg:p-10">
+        <div className="px-3 py-3 sm:px-5 sm:py-4 lg:px-8 lg:py-5">
           <div className="max-w-7xl mx-auto">
             <Suspense fallback={<PageLoading />}>{renderContent()}</Suspense>
           </div>
