@@ -16,6 +16,9 @@ const TEXT = {
     neetHint: 'Entrance exam practice for 11th and 12th.', pickTrack: 'Exam', pickSubject: 'Subject',
     level: 'Level', levels: { '': 'All levels', easy: 'Easy', medium: 'Medium', hard: 'Hard' } as Record<string, string>,
     howMany: 'How many questions', all: 'All', time: 'Time', timeTaken: 'Time taken', perQuestion: 'per question',
+    step1: 'Subject', step2: 'Level', step3: 'Questions', chapter: 'Choose a chapter', allChaptersHint: 'A mix from the whole subject',
+    hints: { '': 'A mix of every level', easy: 'Facts and definitions', medium: 'Understand and apply', hard: 'Problems and reasoning' } as Record<string, string>,
+    ready: 'Ready', noneAtLevel: 'No questions at this level here yet', mins: 'about {n} min',
   },
   ta: {
     title: 'பயிற்சி', subtitle: 'எந்தப் பாடப்பகுதியையும் விரும்பும் அளவு பயிற்சி செய்யுங்கள். இவை மதிப்பெண்ணுக்கானவை அல்ல.', school: 'என் பாடங்கள்', neet: 'NEET / JEE',
@@ -25,6 +28,9 @@ const TEXT = {
     neetHint: '11, 12 ஆம் வகுப்புக்கான நுழைவுத் தேர்வுப் பயிற்சி.', pickTrack: 'தேர்வு', pickSubject: 'பாடம்',
     level: 'நிலை', levels: { '': 'எல்லா நிலைகளும்', easy: 'எளிது', medium: 'நடுத்தரம்', hard: 'கடினம்' } as Record<string, string>,
     howMany: 'எத்தனை கேள்விகள்', all: 'அனைத்தும்', time: 'நேரம்', timeTaken: 'எடுத்த நேரம்', perQuestion: 'ஒரு கேள்விக்கு',
+    step1: 'பாடம்', step2: 'நிலை', step3: 'கேள்விகள்', chapter: 'பாடப்பகுதியைத் தேர்ந்தெடுங்கள்', allChaptersHint: 'முழுப் பாடத்திலிருந்தும் கலவை',
+    hints: { '': 'எல்லா நிலைகளின் கலவை', easy: 'உண்மைகள், வரையறைகள்', medium: 'புரிந்து பயன்படுத்துதல்', hard: 'கணக்குகள், காரணம் அறிதல்' } as Record<string, string>,
+    ready: 'தயார்', noneAtLevel: 'இந்த நிலையில் இங்கே இன்னும் கேள்விகள் இல்லை', mins: 'சுமார் {n} நிமிடம்',
   },
 };
 
@@ -33,6 +39,26 @@ const pick = (ta: boolean, v: { en: string; ta: string }) => (ta && v?.ta ? v.ta
 const pickOpt = (ta: boolean, o: { en: string[]; ta: string[] }, i: number) => (ta && o.ta?.[i] ? o.ta[i] : o.en[i]);
 const LEVELS = ['', 'easy', 'medium', 'hard'];
 const COUNTS = [10, 20, 30];
+// Look of each subject tile and level card (full class names so Tailwind keeps them)
+const SUBJECT_LOOK: Record<string, { icon: string; tone: string }> = {
+  Maths: { icon: '📐', tone: 'from-sky-500 to-indigo-600' },
+  Mathematics: { icon: '📐', tone: 'from-sky-500 to-indigo-600' },
+  Science: { icon: '🔬', tone: 'from-emerald-500 to-teal-600' },
+  'Social Science': { icon: '🌍', tone: 'from-amber-500 to-orange-600' },
+  English: { icon: '📖', tone: 'from-violet-500 to-fuchsia-600' },
+  Tamil: { icon: 'அ', tone: 'from-rose-500 to-pink-600' },
+  Physics: { icon: '⚛️', tone: 'from-sky-500 to-indigo-600' },
+  Chemistry: { icon: '⚗️', tone: 'from-emerald-500 to-teal-600' },
+  Biology: { icon: '🧬', tone: 'from-lime-500 to-green-600' },
+};
+const subjectLook = (name: string) => SUBJECT_LOOK[name] || { icon: '📘', tone: 'from-slate-500 to-slate-700' };
+const LEVEL_LOOK: Record<string, { on: string; dot: string; icon: string }> = {
+  '': { on: 'border-indigo-500 bg-indigo-50 dark:bg-indigo-500/15 ring-2 ring-indigo-500/30', dot: 'bg-indigo-500', icon: '🎯' },
+  easy: { on: 'border-emerald-500 bg-emerald-50 dark:bg-emerald-500/15 ring-2 ring-emerald-500/30', dot: 'bg-emerald-500', icon: '🌱' },
+  medium: { on: 'border-amber-500 bg-amber-50 dark:bg-amber-500/15 ring-2 ring-amber-500/30', dot: 'bg-amber-500', icon: '⚡' },
+  hard: { on: 'border-rose-500 bg-rose-50 dark:bg-rose-500/15 ring-2 ring-rose-500/30', dot: 'bg-rose-500', icon: '🔥' },
+};
+const OFF = 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600';
 const clock = (seconds: number) => `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
 
 const Practice: React.FC = () => {
@@ -222,11 +248,48 @@ const Practice: React.FC = () => {
   // Questions available for the chosen level
   const available = (row: any) => (difficulty ? row?.byLevel?.[difficulty] ?? 0 : row?.questions ?? 0);
   const chosenRow = chapterId ? subject?.chapters.find((c: any) => c.chapterId === chapterId) : subject;
-  const pillClass = (on: boolean) =>
-    `px-4 py-1.5 rounded-full text-sm font-medium border-2 ${on ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300' : 'border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200'}`;
+  const neetCount = neetRow ? (track === 'NEET' ? neetRow.neet : neetRow.jee) : 0;
+  const pool = mode === 'school' ? available(chosenRow) : neetCount;
+  const sessionSize = count === 'all' ? pool : Math.min(count, pool);
+  const subjectName = (s: any) => (ta && s.nameTa ? s.nameTa : s.nameEn);
+  const chapterLabel = mode === 'school'
+    ? chapterId ? `${chosenRow?.number}. ${ta && chosenRow?.nameTa ? chosenRow.nameTa : chosenRow?.nameEn}` : `${subject ? subjectName(subject) : ''} · ${t.allChapters}`
+    : `${track} · ${neetSubject}`;
+  const levelCount = (level: string) =>
+    mode === 'school' ? (level ? chosenRow?.byLevel?.[level] ?? 0 : chosenRow?.questions ?? 0) : level ? null : neetCount;
+
+  const StepTitle: React.FC<{ n: number; label: string }> = ({ n, label }) => (
+    <h2 className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200">
+      <span className="w-6 h-6 rounded-full bg-indigo-600 text-white text-xs flex items-center justify-center">{n}</span>
+      {label}
+    </h2>
+  );
+
+  const subjectTiles = (items: { key: string; name: string; label: string; count: number; on: boolean; pick: () => void }[]) => (
+    <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 sm:gap-3">
+      {items.map((it) => {
+        const look = subjectLook(it.name);
+        return (
+          <button
+            key={it.key}
+            type="button"
+            aria-pressed={it.on}
+            onClick={it.pick}
+            className={`p-2.5 sm:p-3 rounded-2xl border-2 text-left transition ${it.on ? 'border-indigo-500 ring-2 ring-indigo-500/30 bg-indigo-50 dark:bg-indigo-500/15' : OFF}`}
+          >
+            <span className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br ${look.tone} text-white text-lg font-bold flex items-center justify-center shadow-sm`}>{look.icon}</span>
+            <span className="mt-2 block text-sm font-semibold text-slate-800 dark:text-slate-100 leading-tight">{it.label}</span>
+            <span className="block text-xs text-slate-500 dark:text-slate-400">
+              {it.count} {t.questions}
+            </span>
+          </button>
+        );
+      })}
+    </div>
+  );
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5 pb-4">
       <div>
         <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-slate-100">{t.title}</h1>
         <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{t.subtitle}</p>
@@ -234,7 +297,7 @@ const Practice: React.FC = () => {
       {error && <Alert onClose={() => setError('')}>{error}</Alert>}
 
       {options.neet && (
-        <div className="flex gap-1 p-1 bg-slate-200/60 dark:bg-slate-800 rounded-lg w-fit" role="tablist">
+        <div className="flex gap-1 p-1 bg-slate-200/60 dark:bg-slate-800 rounded-xl w-fit" role="tablist">
           {(['school', 'neet'] as const).map((m) => (
             <button
               key={m}
@@ -242,7 +305,7 @@ const Practice: React.FC = () => {
               role="tab"
               aria-selected={mode === m}
               onClick={() => setMode(m)}
-              className={`px-3 py-1.5 text-sm rounded-md font-medium ${mode === m ? 'bg-white dark:bg-slate-700 shadow text-indigo-700 dark:text-indigo-300' : 'text-slate-600 dark:text-slate-300'}`}
+              className={`px-4 py-2 text-sm rounded-lg font-semibold ${mode === m ? 'bg-white dark:bg-slate-700 shadow text-indigo-700 dark:text-indigo-300' : 'text-slate-600 dark:text-slate-300'}`}
             >
               {m === 'school' ? t.school : t.neet}
             </button>
@@ -250,118 +313,147 @@ const Practice: React.FC = () => {
         </div>
       )}
 
-      <Panel>
-        <fieldset>
-          <legend className="mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">{t.level}</legend>
-          <div className="flex flex-wrap gap-2">
-            {LEVELS.map((level) => (
-              <button key={level || 'all'} type="button" aria-pressed={difficulty === level} onClick={() => setDifficulty(level)} className={pillClass(difficulty === level)}>
-                {t.levels[level]}
-                {mode === 'school' && subject && <span className="ml-1 text-xs opacity-70">({level ? subject.byLevel?.[level] ?? 0 : subject.questions})</span>}
-              </button>
-            ))}
-          </div>
-        </fieldset>
-      </Panel>
-
-      {mode === 'school' ? (
-        options.subjects.length === 0 ? (
-          <Panel>
-            <EmptyState>{t.none}</EmptyState>
-          </Panel>
-        ) : (
-          <Panel>
-            <p className="mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">{t.choose}</p>
-            <div className="flex flex-wrap gap-2">
-              {options.subjects.map((s: any) => (
-                <button
-                  key={s.subjectId}
-                  type="button"
-                  onClick={() => {
-                    setSubjectId(s.subjectId);
-                    setChapterId('');
-                  }}
-                  aria-pressed={s.subjectId === subjectId}
-                  className={`px-4 py-2 rounded-xl text-sm font-medium border-2 ${s.subjectId === subjectId ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300' : 'border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200'}`}
-                >
-                  {ta && s.nameTa ? s.nameTa : s.nameEn}
-                </button>
-              ))}
+      {mode === 'school' && options.subjects.length === 0 ? (
+        <Panel>
+          <EmptyState>{t.none}</EmptyState>
+        </Panel>
+      ) : (
+        <>
+          {/* Set-up: subject, level and how many, all in one place at the top */}
+          <section className="rounded-3xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm p-4 sm:p-6 space-y-6">
+            <div className="space-y-3">
+              <StepTitle n={1} label={mode === 'school' ? t.step1 : `${t.pickTrack} · ${t.pickSubject}`} />
+              {mode === 'school' ? (
+                subjectTiles(
+                  options.subjects.map((s: any) => ({
+                    key: s.subjectId, name: s.nameEn, label: subjectName(s), count: s.questions, on: s.subjectId === subjectId,
+                    pick: () => { setSubjectId(s.subjectId); setChapterId(''); },
+                  }))
+                )
+              ) : (
+                <>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">{t.neetHint}</p>
+                  <div className="flex gap-2">
+                    {(['NEET', 'JEE'] as const).map((tr) => (
+                      <button key={tr} type="button" aria-pressed={track === tr} onClick={() => setTrack(tr)}
+                        className={`px-5 py-2 rounded-xl text-sm font-bold border-2 ${track === tr ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-500/15 text-indigo-700 dark:text-indigo-300' : OFF + ' text-slate-700 dark:text-slate-200'}`}>
+                        {tr}
+                      </button>
+                    ))}
+                  </div>
+                  {subjectTiles(
+                    options.neet.map((s: any) => ({
+                      key: s.subject, name: s.subject, label: s.subject, count: track === 'NEET' ? s.neet : s.jee, on: neetSubject === s.subject,
+                      pick: () => setNeetSubject(s.subject),
+                    }))
+                  )}
+                </>
+              )}
             </div>
-            {subject && (
-              <ul className="mt-4 space-y-1">
-                {[{ chapterId: '', number: null, nameEn: t.allChapters, nameTa: t.allChapters, questions: subject.questions, byLevel: subject.byLevel }, ...subject.chapters].map((c: any) => (
-                  <li key={c.chapterId || 'all'}>
-                    <label className={`flex items-center justify-between gap-3 px-3 py-2 rounded-lg text-sm cursor-pointer ${available(c) ? '' : 'opacity-50'} ${chapterId === c.chapterId ? 'bg-indigo-50 dark:bg-indigo-500/20' : 'hover:bg-slate-50 dark:hover:bg-slate-700/40'}`}>
-                      <span className="flex items-center gap-2 text-slate-700 dark:text-slate-200">
-                        <input type="radio" name="chapter" disabled={!available(c)} checked={chapterId === c.chapterId} onChange={() => setChapterId(c.chapterId)} />
-                        {c.number ? `${c.number}. ` : ''}
-                        {ta && c.nameTa ? c.nameTa : c.nameEn}
+
+            <div className="space-y-3">
+              <StepTitle n={2} label={t.step2} />
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                {LEVELS.map((level) => {
+                  const on = difficulty === level;
+                  const n = levelCount(level);
+                  return (
+                    <button
+                      key={level || 'all'}
+                      type="button"
+                      aria-pressed={on}
+                      onClick={() => setDifficulty(level)}
+                      className={`p-3 rounded-2xl border-2 text-left transition ${on ? LEVEL_LOOK[level].on : OFF}`}
+                    >
+                      <span className="flex items-center justify-between gap-2">
+                        <span className="text-base font-bold text-slate-800 dark:text-slate-100">
+                          {LEVEL_LOOK[level].icon} {t.levels[level]}
+                        </span>
+                        {n !== null && <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">{n}</span>}
                       </span>
-                      <span className="text-xs text-slate-500 whitespace-nowrap">
-                        {available(c)} {t.questions}
-                      </span>
-                    </label>
-                  </li>
-                ))}
-              </ul>
-            )}
-            <fieldset className="mt-4">
-              <legend className="mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">{t.howMany}</legend>
-              <div className="flex flex-wrap gap-2">
-                {COUNTS.filter((n) => n < available(chosenRow)).map((n) => (
-                  <button key={n} type="button" aria-pressed={count === n} onClick={() => setCount(n)} className={pillClass(count === n)}>
+                      <span className="mt-1 block text-xs text-slate-500 dark:text-slate-400">{t.hints[level]}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <StepTitle n={3} label={t.howMany} />
+              <div className="inline-flex flex-wrap gap-1 p-1 rounded-2xl bg-slate-100 dark:bg-slate-900/60">
+                {COUNTS.filter((n) => n < pool).map((n) => (
+                  <button key={n} type="button" aria-pressed={count === n} onClick={() => setCount(n)}
+                    className={`min-w-[3.5rem] px-4 py-2 rounded-xl text-sm font-bold ${count === n ? 'bg-white dark:bg-slate-700 shadow text-indigo-700 dark:text-indigo-300' : 'text-slate-600 dark:text-slate-300'}`}>
                     {n}
                   </button>
                 ))}
-                <button
-                  type="button"
-                  aria-pressed={count === 'all' || available(chosenRow) <= Number(count)}
-                  onClick={() => setCount('all')}
-                  className={pillClass(count === 'all' || available(chosenRow) <= Number(count))}
-                >
-                  {t.all} ({available(chosenRow)})
+                <button type="button" aria-pressed={count === 'all' || pool <= Number(count)} onClick={() => setCount('all')}
+                  className={`px-4 py-2 rounded-xl text-sm font-bold ${count === 'all' || pool <= Number(count) ? 'bg-white dark:bg-slate-700 shadow text-indigo-700 dark:text-indigo-300' : 'text-slate-600 dark:text-slate-300'}`}>
+                  {t.all} ({pool})
                 </button>
               </div>
-            </fieldset>
-            <div className="mt-4">
-              <Button disabled={loading || !subjectId || !available(chosenRow)} onClick={start}>
-                {t.start}
+            </div>
+          </section>
+
+          {/* Chapters */}
+          {mode === 'school' && subject && (
+            <section className="space-y-3">
+              <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100">{t.chapter}</h2>
+              <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-3" role="radiogroup" aria-label={t.chapter}>
+                {[{ chapterId: '', number: null, nameEn: t.allChapters, nameTa: t.allChapters, questions: subject.questions, byLevel: subject.byLevel }, ...subject.chapters].map((c: any) => {
+                  const n = available(c);
+                  const on = chapterId === c.chapterId;
+                  const mix = c.byLevel || { easy: 0, medium: 0, hard: 0 };
+                  const total = mix.easy + mix.medium + mix.hard || 1;
+                  return (
+                    <button
+                      key={c.chapterId || 'all'}
+                      type="button"
+                      role="radio"
+                      aria-checked={on}
+                      disabled={!n}
+                      onClick={() => setChapterId(c.chapterId)}
+                      className={`flex items-start gap-3 p-3 rounded-2xl border-2 text-left transition disabled:opacity-45 disabled:cursor-not-allowed ${on ? 'border-indigo-500 ring-2 ring-indigo-500/30 bg-indigo-50 dark:bg-indigo-500/15' : OFF}`}
+                    >
+                      <span className={`flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold ${on ? 'bg-indigo-600 text-white' : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-200'}`}>
+                        {c.number ?? '★'}
+                      </span>
+                      <span className="flex-1 min-w-0">
+                        <span className="block text-sm font-semibold text-slate-800 dark:text-slate-100 leading-snug">{ta && c.nameTa ? c.nameTa : c.nameEn}</span>
+                        <span className="block mt-0.5 text-xs text-slate-500 dark:text-slate-400">
+                          {n ? `${n} ${t.questions}` : t.noneAtLevel}
+                          {!c.chapterId && n ? ` · ${t.allChaptersHint}` : ''}
+                        </span>
+                        <span className="mt-2 flex h-1.5 rounded-full overflow-hidden bg-slate-100 dark:bg-slate-700" aria-hidden="true">
+                          <span className="bg-emerald-500" style={{ width: `${(mix.easy / total) * 100}%` }} />
+                          <span className="bg-amber-500" style={{ width: `${(mix.medium / total) * 100}%` }} />
+                          <span className="bg-rose-500" style={{ width: `${(mix.hard / total) * 100}%` }} />
+                        </span>
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+
+          {/* Start bar stays in view while scrolling the chapters */}
+          <div className="sticky bottom-3 z-10">
+            <div className="flex items-center gap-3 p-3 sm:p-4 rounded-2xl bg-slate-900 dark:bg-slate-950 text-white shadow-xl">
+              <span className={`flex-shrink-0 w-2.5 h-10 rounded-full ${LEVEL_LOOK[difficulty].dot}`} aria-hidden="true" />
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold truncate">{chapterLabel}</p>
+                <p className="text-xs text-slate-300">
+                  {t.levels[difficulty]} · {sessionSize} {t.questions}
+                  {sessionSize > 0 && ` · ${t.mins.replace('{n}', String(Math.max(1, Math.round(sessionSize * 0.75))))}`}
+                </p>
+              </div>
+              <Button disabled={loading || !sessionSize} onClick={start}>
+                {t.start} →
               </Button>
             </div>
-          </Panel>
-        )
-      ) : (
-        <Panel>
-          <p className="mb-3 text-sm text-slate-500 dark:text-slate-400">{t.neetHint}</p>
-          <div className="flex flex-wrap gap-6">
-            <fieldset>
-              <legend className="mb-1 text-sm font-medium text-slate-700 dark:text-slate-300">{t.pickTrack}</legend>
-              <div className="flex gap-2">
-                {(['NEET', 'JEE'] as const).map((tr) => (
-                  <button key={tr} type="button" aria-pressed={track === tr} onClick={() => setTrack(tr)} className={`px-4 py-2 rounded-xl text-sm font-medium border-2 ${track === tr ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300' : 'border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200'}`}>
-                    {tr}
-                  </button>
-                ))}
-              </div>
-            </fieldset>
-            <fieldset>
-              <legend className="mb-1 text-sm font-medium text-slate-700 dark:text-slate-300">{t.pickSubject}</legend>
-              <div className="flex flex-wrap gap-2">
-                {options.neet.map((s: any) => (
-                  <button key={s.subject} type="button" aria-pressed={neetSubject === s.subject} onClick={() => setNeetSubject(s.subject)} className={`px-4 py-2 rounded-xl text-sm font-medium border-2 ${neetSubject === s.subject ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300' : 'border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200'}`}>
-                    {s.subject} <span className="text-xs text-slate-500">({track === 'NEET' ? s.neet : s.jee})</span>
-                  </button>
-                ))}
-              </div>
-            </fieldset>
           </div>
-          <div className="mt-4">
-            <Button disabled={loading || !neetRow || !(track === 'NEET' ? neetRow.neet : neetRow.jee)} onClick={start}>
-              {t.start}
-            </Button>
-          </div>
-        </Panel>
+        </>
       )}
     </div>
   );
