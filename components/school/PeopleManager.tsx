@@ -5,6 +5,7 @@ import {
   PageHeader, Panel, Button, Field, TextInput, SelectInput, Badge, Alert, Modal, Spinner, Table, EmptyState, UsageBar,
   apiError, classLabel, CLASS_GRADES,
 } from '../common/ui';
+import ExcelFormatButton, { SAMPLE_FILES } from '../common/ExcelFormatButton';
 import { Assignment, AssignmentChips, AssignmentEditor, AssignmentValue, TeacherClassesModal, toPayload } from './TeacherClasses';
 
 type Role = 'student' | 'teacher' | 'admin';
@@ -112,6 +113,8 @@ const PeopleManager: React.FC<{ role: Role }> = ({ role }) => {
         subtitle={label.subtitle}
         actions={
           <>
+            {isStudent && <ExcelFormatButton path="/school/students/import-template" sample={SAMPLE_FILES.students} filename="students-import-template.xlsx" />}
+            {isTeacher && <ExcelFormatButton path="/school/teachers/import-template" sample={SAMPLE_FILES.teachers} filename="teachers-import-template.xlsx" />}
             {(isStudent || isTeacher) && (
               <Button variant="secondary" onClick={() => setModal({ kind: 'import' })}>
                 Import from Excel

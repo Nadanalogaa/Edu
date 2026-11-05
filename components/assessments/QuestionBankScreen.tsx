@@ -7,6 +7,7 @@ import {
 } from '../common/ui';
 import { useSubjects, useChapters, SyllabusFilters, OPTION_LETTERS, chapterLabel, downloadFromApi, Chapter, Subject } from './syllabus';
 import QuestionImage from '../common/QuestionImage';
+import ExcelFormatButton, { SAMPLE_FILES } from '../common/ExcelFormatButton';
 
 interface Question {
   _id: string;
@@ -108,6 +109,11 @@ const QuestionBankScreen: React.FC = () => {
         }
         actions={
           <>
+            <ExcelFormatButton
+              path={subject ? `/assessments/questions/template?subjectId=${subject._id}` : undefined}
+              sample={SAMPLE_FILES.questions}
+              filename={subject ? `questions-${subject.nameEn.toLowerCase().replace(/\W+/g, '-')}-${subject.classGrade}th.xlsx` : 'question-bank-sample.xlsx'}
+            />
             <Button variant="secondary" disabled={!subject} onClick={() => setModal({ kind: 'upload' })}>
               Upload Excel
             </Button>
