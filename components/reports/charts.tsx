@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine, ResponsiveContainer } from 'recharts';
 
 // Chart colours from the validated reference palette (categorical slots 1 and 2),
 // stepped separately for light and dark surfaces. Text never uses series colours.
@@ -128,11 +128,11 @@ export const PercentBars: React.FC<{ items: BarItem[]; passMark?: number; emptyT
               title={`${item.label}: ${item.value ?? '—'}%`}
             >
               <div className="flex items-baseline justify-between gap-2 text-sm">
-                <span className="text-slate-700 dark:text-slate-200 truncate">
+                <span className="min-w-0 text-slate-700 dark:text-slate-200 truncate">
                   {item.label}
                   {item.sublabel && <span className="ml-1.5 text-xs text-slate-500 dark:text-slate-400">{item.sublabel}</span>}
                 </span>
-                <span className="font-semibold text-slate-800 dark:text-slate-100 tabular-nums">
+                <span className="shrink-0 font-semibold text-slate-800 dark:text-slate-100 tabular-nums">
                   {item.value !== null ? `${item.value}%` : '—'}
                   {below && <span className="ml-1 text-xs font-medium text-red-600 dark:text-red-400">below pass</span>}
                 </span>
@@ -152,3 +152,44 @@ export const PercentBars: React.FC<{ items: BarItem[]; passMark?: number; emptyT
 };
 
 export const weekLabel = (iso: string) => new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+
+export interface DailyPoint {
+  label: string;
+  value: number;
+  detail?: string;
+}
+
+/**
+ * One count per day as thin rounded bars (single series, so no legend: the
+ * panel title names it). Hover shows the day's details.
+ */
+export const DailyBars: React.FC<{ data: DailyPoint[]; valueLabel: string; height?: number }> = ({ data, valueLabel, height = 200 }) => {
+  const c = useChartColors();
+  if (data.length === 0) return null;
+  const TooltipBox = ({ active, payload }: any) => {
+    if (!active || !payload?.length) return null;
+    const p: DailyPoint = payload[0].payload;
+    return (
+      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-xs shadow-lg text-slate-700 dark:text-slate-200">
+        <p className="font-semibold text-slate-800 dark:text-slate-100">{p.label}</p>
+        <p className="mt-0.5">
+          {valueLabel}: <b>{p.value}</b>
+        </p>
+        {p.detail && <p className="text-slate-500 dark:text-slate-400">{p.detail}</p>}
+      </div>
+    );
+  };
+  return (
+    <div style={{ height }}>
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={data} margin={{ top: 8, right: 8, bottom: 4, left: -20 }} barCategoryGap={2}>
+          <CartesianGrid stroke={c.grid} vertical={false} />
+          <XAxis dataKey="label" tick={{ fill: c.axis, fontSize: 11 }} tickLine={false} axisLine={{ stroke: c.grid }} interval="preserveStartEnd" minTickGap={12} />
+          <YAxis allowDecimals={false} tick={{ fill: c.axis, fontSize: 11 }} tickLine={false} axisLine={false} />
+          <Tooltip content={<TooltipBox />} cursor={{ fill: c.grid, opacity: 0.5 }} />
+          <Bar dataKey="value" fill={c.primary} radius={[4, 4, 0, 0]} maxBarSize={28} isAnimationActive={false} />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  );
+};

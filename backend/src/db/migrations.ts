@@ -269,6 +269,30 @@ export const migrations: Migration[] = [
       CREATE INDEX practice_log_user_time_idx ON practice_log (user_id, answered_at);
     `,
   },
+  {
+    version: 13,
+    name: 'teacher assignments: which classes, sections and subjects each teacher looks after',
+    sql: `
+      -- One row per class/section/subject a teacher looks after. NULL means "all":
+      -- a row with every column NULL is a teacher who manages the whole school.
+      CREATE TABLE teacher_assignments (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        school_id UUID NOT NULL REFERENCES schools(id) ON DELETE CASCADE,
+        teacher_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        class_grade INTEGER CHECK (class_grade BETWEEN 6 AND 12),
+        section TEXT,
+        subject_id UUID REFERENCES subjects(id) ON DELETE CASCADE,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+      );
+      CREATE UNIQUE INDEX teacher_assignments_unique_idx
+        ON teacher_assignments (teacher_id, COALESCE(class_grade, 0), COALESCE(section, ''), COALESCE(subject_id, '00000000-0000-0000-0000-000000000000'));
+      CREATE INDEX teacher_assignments_school_idx ON teacher_assignments (school_id);
+      -- Teachers who already exist keep seeing the whole school until the admin assigns them
+      INSERT INTO teacher_assignments (school_id, teacher_id)
+        SELECT school_id, id FROM users WHERE role = 'teacher' AND school_id IS NOT NULL;
+      CREATE INDEX mistake_book_question_open_idx ON mistake_book (question_id) WHERE NOT is_reviewed;
+    `,
+  },
 ];
 
 export const runMigrations = async (client: PoolClient) => {

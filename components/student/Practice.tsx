@@ -9,7 +9,7 @@ import PracticeRunner from './PracticeRunner';
 
 const TEXT = {
   en: {
-    title: 'Practice', subtitle: 'Practise any chapter as often as you like. These answers are not marked.', school: 'My subjects', neet: 'NEET / JEE',
+    title: 'Practice', subtitle: 'Practise any chapter as often as you like. Not marked, but your teacher can see how much you practise.', school: 'My subjects', neet: 'NEET / JEE',
     allChapters: 'All chapters', questions: 'questions', start: 'Start practice', none: 'No practice questions yet for your class.', choose: 'Choose a subject',
     question: 'Question', of: 'of', correct: 'Correct!', wrong: 'Not quite. The correct answer is', explanation: 'Explanation', next: 'Next question',
     finish: 'See my score', score: 'You got', outOf: 'out of', again: 'Practise again', change: 'Choose another chapter', noQuestions: 'No questions available here right now.',
@@ -23,7 +23,7 @@ const TEXT = {
     sessionMix: '{new} new · {retry} to try again', fixed: 'You fixed {n} earlier mistakes!',
   },
   ta: {
-    title: 'பயிற்சி', subtitle: 'எந்தப் பாடப்பகுதியையும் விரும்பும் அளவு பயிற்சி செய்யுங்கள். இவை மதிப்பெண்ணுக்கானவை அல்ல.', school: 'என் பாடங்கள்', neet: 'NEET / JEE',
+    title: 'பயிற்சி', subtitle: 'எந்தப் பாடப்பகுதியையும் விரும்பும் அளவு பயிற்சி செய்யுங்கள். இவை மதிப்பெண்ணுக்கானவை அல்ல, ஆனால் நீங்கள் எவ்வளவு பயிற்சி செய்கிறீர்கள் என்பதை உங்கள் ஆசிரியர் பார்க்கலாம்.', school: 'என் பாடங்கள்', neet: 'NEET / JEE',
     allChapters: 'எல்லா பாடப்பகுதிகளும்', questions: 'கேள்விகள்', start: 'பயிற்சியைத் தொடங்கு', none: 'உங்கள் வகுப்புக்கு இன்னும் பயிற்சிக் கேள்விகள் இல்லை.', choose: 'பாடத்தைத் தேர்ந்தெடுங்கள்',
     question: 'கேள்வி', of: '/', correct: 'சரி!', wrong: 'தவறு. சரியான விடை', explanation: 'விளக்கம்', next: 'அடுத்த கேள்வி',
     finish: 'என் மதிப்பெண்', score: 'நீங்கள் பெற்றது', outOf: 'இல்', again: 'மீண்டும் பயிற்சி', change: 'வேறு பாடப்பகுதி', noQuestions: 'இப்போது இங்கே கேள்விகள் இல்லை.',

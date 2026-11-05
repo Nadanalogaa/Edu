@@ -19,6 +19,7 @@ interface Demo {
   schoolCode: string;
   admin: { email: string; password: string };
   teacher: { email: string; password: string };
+  teachers?: { name: string; email: string; password: string }[];
   student: { schoolCode: string; admissionNumber: string; password: string };
 }
 
@@ -66,7 +67,15 @@ const DemoPanel: React.FC = () => {
                   <p className="text-xs text-slate-500">code {d.schoolCode}</p>
                 </td>
                 <td className="px-4 py-2 text-xs">{d.admin.email}<br />{d.admin.password}</td>
-                <td className="px-4 py-2 text-xs">{d.teacher.email}<br />{d.teacher.password}</td>
+                <td className="px-4 py-2 text-xs">
+                  {(d.teachers || [{ name: 'Teacher', ...d.teacher }]).map((t) => (
+                    <p key={t.email} className="mb-1">
+                      <span className="text-slate-500">{t.name}</span>
+                      <br />
+                      {t.email} · {t.password}
+                    </p>
+                  ))}
+                </td>
                 <td className="px-4 py-2 text-xs">
                   school code {d.student.schoolCode}<br />admission no. {d.student.admissionNumber} · {d.student.password}
                 </td>

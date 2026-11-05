@@ -8,6 +8,7 @@ import {
   getSections,
   bulkUploadStudents,
   getImportTemplate,
+  setTeacherAssignments,
 } from '../controllers/schoolController';
 import { uploadBulkFile } from '../config/multer';
 import { protect, authorize } from '../middleware/auth';
@@ -32,6 +33,7 @@ router.get('/teachers', listPeople('teacher'));
 router.post('/teachers', addPerson('teacher'));
 router.patch('/teachers/:id', updatePerson('teacher'));
 router.post('/teachers/:id/reset-password', resetPersonPassword('teacher'));
+router.put('/teachers/:id/assignments', setTeacherAssignments);
 
 router.get('/admins', listPeople('admin'));
 router.post('/admins', addPerson('admin'));

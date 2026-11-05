@@ -7,6 +7,8 @@ import { Users, createUser, findUserByEmail, hashPassword } from '../models/User
 import { query, withTransaction } from '../config/database';
 import { assertStudentSeats, HttpError } from '../utils/tenancy';
 import { parseClassGrade } from './registrationController';
+import { Queryable } from '../config/database';
+import { isUuid } from '../db/table';
 
 // School admins manage their own school's students, teachers and fellow admins.
 // Every query is limited to req.user.schoolId; active students count against
@@ -136,6 +138,69 @@ export const getOverview = async (req: AuthRequest, res: Response) => {
   }
 };
 
+/** Each teacher's classes, sections and subjects, with subject names, keyed by teacher id. */
+const assignmentsByTeacher = async (schoolId: string, teacherIds: string[]) => {
+  if (!teacherIds.length) return new Map<string, any[]>();
+  const rows = await query(
+    `SELECT a.id, a.teacher_id, a.class_grade, a.section, a.subject_id, s.name_en, s.name_ta
+     FROM teacher_assignments a LEFT JOIN subjects s ON s.id = a.subject_id
+     WHERE a.school_id = $1 AND a.teacher_id = ANY($2::uuid[])
+     ORDER BY a.class_grade NULLS FIRST, a.section NULLS FIRST, s.sort_order NULLS FIRST`,
+    [schoolId, teacherIds]
+  );
+  const map = new Map<string, any[]>();
+  for (const r of rows) {
+    const list = map.get(r.teacher_id) || [];
+    list.push({ _id: r.id, classGrade: r.class_grade, section: r.section, subjectId: r.subject_id, subjectEn: r.name_en, subjectTa: r.name_ta });
+    map.set(r.teacher_id, list);
+  }
+  return map;
+};
+
+/**
+ * Checks and stores a teacher's assignments, replacing the old ones.
+ * `all: true` = the whole school. Each item: a class, optionally a section
+ * and a subject of that class (empty = every section / every subject).
+ */
+const saveAssignments = async (client: Queryable, schoolId: string, board: string, teacherId: string, input: any) => {
+  const items: { classGrade: number | null; section: string | null; subjectId: string | null }[] = [];
+  if (input?.all) {
+    items.push({ classGrade: null, section: null, subjectId: null });
+  } else {
+    for (const raw of Array.isArray(input?.items) ? input.items : []) {
+      const classGrade = parseClassGrade(raw?.classGrade);
+      if (classGrade === null) throw new HttpError(400, 'Each class must be between 6th and 12th');
+      const section = clean(raw?.section).toUpperCase() || null;
+      let subjectId: string | null = null;
+      if (raw?.subjectId) {
+        if (!isUuid(raw.subjectId)) throw new HttpError(400, 'Please choose a subject');
+        const [subject] = await query('SELECT class_grade, board FROM subjects WHERE id = $1', [raw.subjectId], client);
+        if (!subject || subject.board !== board || subject.class_grade !== classGrade) {
+          throw new HttpError(400, `The subject chosen for ${classGrade}th does not belong to that class`);
+        }
+        subjectId = raw.subjectId;
+      }
+      if (!items.some((i) => i.classGrade === classGrade && i.section === section && i.subjectId === subjectId)) {
+        items.push({ classGrade, section, subjectId });
+      }
+    }
+  }
+  if (items.length > 60) throw new HttpError(400, 'Too many classes for one teacher');
+  await query('DELETE FROM teacher_assignments WHERE teacher_id = $1', [teacherId], client);
+  for (const i of items) {
+    await query(
+      'INSERT INTO teacher_assignments (school_id, teacher_id, class_grade, section, subject_id) VALUES ($1, $2, $3, $4, $5)',
+      [schoolId, teacherId, i.classGrade, i.section, i.subjectId],
+      client
+    );
+  }
+};
+
+const schoolBoard = async (schoolId: string, client?: Queryable) => {
+  const [school] = await query('SELECT board FROM schools WHERE id = $1', [schoolId], client);
+  return school?.board;
+};
+
 // @desc    List the school's students, teachers or admins
 // @route   GET /api/school/students | teachers | admins
 export const listPeople = (role: PersonRole) => async (req: AuthRequest, res: Response) => {
@@ -165,6 +230,11 @@ export const listPeople = (role: PersonRole) => async (req: AuthRequest, res: Re
       params
     );
 
+    if (role === 'teacher') {
+      const assignments = await assignmentsByTeacher(req.user.schoolId, people.map((p) => p._id));
+      people.forEach((p) => (p.assignments = assignments.get(p._id) || []));
+    }
+
     res.status(200).json({ success: true, count: people.length, data: people });
   } catch (error: any) {
     sendError(res, error, `List ${role}s`);
@@ -179,7 +249,13 @@ export const addPerson = (role: PersonRole) => async (req: AuthRequest, res: Res
 
     const person = await withTransaction(async (client) => {
       if (role === 'student') await assertStudentSeats(client, req.user.schoolId);
-      return createUser({ ...fields, schoolId: req.user.schoolId, isActive: true }, client);
+      const created = await createUser({ ...fields, schoolId: req.user.schoolId, isActive: true }, client);
+      // A new teacher looks after the whole school unless the admin chose classes
+      if (role === 'teacher') {
+        const board = await schoolBoard(req.user.schoolId, client);
+        await saveAssignments(client, req.user.schoolId, board, created._id, req.body.assignments ?? { all: true });
+      }
+      return created;
     });
 
     res.status(201).json({
@@ -250,6 +326,23 @@ export const updatePerson = (role: PersonRole) => async (req: AuthRequest, res: 
     res.status(200).json({ success: true, message: 'Saved', data: updated });
   } catch (error: any) {
     sendError(res, error, `Update ${role}`);
+  }
+};
+
+// @desc    Replace a teacher's classes, sections and subjects
+// @route   PUT /api/school/teachers/:id/assignments  { all: true } | { items: [{ classGrade, section?, subjectId? }] }
+export const setTeacherAssignments = async (req: AuthRequest, res: Response) => {
+  try {
+    const teacher = await findPerson(req, 'teacher');
+    if (!teacher) throw new HttpError(404, 'Teacher not found');
+    await withTransaction(async (client) => {
+      const board = await schoolBoard(req.user.schoolId, client);
+      await saveAssignments(client, req.user.schoolId, board, teacher._id, req.body);
+    });
+    const assignments = (await assignmentsByTeacher(req.user.schoolId, [teacher._id])).get(teacher._id) || [];
+    res.status(200).json({ success: true, message: 'Classes saved', data: assignments });
+  } catch (error: any) {
+    sendError(res, error, 'Save teacher classes');
   }
 };
 

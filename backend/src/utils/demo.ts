@@ -3,8 +3,9 @@ import { query, withTransaction } from '../config/database';
 import { hashPassword } from '../models/User';
 
 // The 9th standard demo: one school per board with students who already have
-// five weeks of test results, so the dashboards and reports have something to
-// show. Running it again resets the demo schools (and only them).
+// eight weeks of test results and three weeks of practice, and three teachers
+// (whole school, 9th Maths, 9A Science), so the dashboards and reports have
+// something to show. Running it again resets the demo schools (and only them).
 
 export const DEMO_PASSWORD = 'demo1234';
 
@@ -102,8 +103,12 @@ const setupOne = async (client: PoolClient, demo: (typeof DEMOS)[number], passwo
 
   const adminEmail = `demo.admin.${demo.slug}@educore.demo`;
   const teacherEmail = `demo.teacher.${demo.slug}@educore.demo`;
-  const adminId = await addUser({ name: 'Demo Admin', email: adminEmail, role: 'admin' });
-  await addUser({ name: 'Demo Teacher', email: teacherEmail, role: 'teacher' });
+  await addUser({ name: 'Demo Admin', email: adminEmail, role: 'admin' });
+  const teacherId = await addUser({ name: 'Demo Teacher', email: teacherEmail, role: 'teacher' });
+  const mathsEmail = `demo.maths.${demo.slug}@educore.demo`;
+  const scienceEmail = `demo.science.${demo.slug}@educore.demo`;
+  const mathsId = await addUser({ name: 'Maths Teacher', email: mathsEmail, role: 'teacher' });
+  const scienceId = await addUser({ name: 'Science Teacher', email: scienceEmail, role: 'teacher' });
 
   // Each student: overall ability, how fast they improve, and a Maths/Science lean
   const students: Array<{ id: string; ability: number; trend: number; lean: number; reliability: number }> = [];
@@ -152,7 +157,7 @@ const setupOne = async (client: PoolClient, demo: (typeof DEMOS)[number], passwo
                           start_time, end_time, is_published, is_active, board, class_grade, subject_id, chapter_ids, sections, created_at)
        VALUES ($1, '', $2, $3, 'exam', 'Both', $4, 15, $5, $6, $7, $8, true, true, $9, 9, $10, $11, '{}', $7)
        RETURNING id`,
-      [title, adminId, school.id, [subject.name_en], picked.reduce((s, q) => s + q.marks, 0), picked.map((q) => q.id),
+      [title, code === 'maths' ? mathsId : code === 'science' ? scienceId : teacherId, school.id, [subject.name_en], picked.reduce((s, q) => s + q.marks, 0), picked.map((q) => q.id),
         start, end, demo.board, subject.id, chapterIds.map((c) => c.id)],
       client
     );
@@ -220,6 +225,19 @@ const setupOne = async (client: PoolClient, demo: (typeof DEMOS)[number], passwo
     await createTest(code, chapters, title, new Date(now - 3600000), new Date(now + 14 * DAY));
   }
 
+  // Teachers: one looks after the whole school, one 9th Maths (both sections), one 9A Science
+  const assign = (id: string, classGrade: number | null, section: string | null, code: string | null) =>
+    query(
+      'INSERT INTO teacher_assignments (school_id, teacher_id, class_grade, section, subject_id) VALUES ($1, $2, $3, $4, $5)',
+      [school.id, id, classGrade, section, code ? subjectByCode.get(code)?.id ?? null : null],
+      client
+    );
+  await assign(teacherId, null, null, null);
+  if (subjectByCode.has('maths')) await assign(mathsId, 9, null, 'maths');
+  if (subjectByCode.has('science')) await assign(scienceId, 9, 'A', 'science');
+
+  await seedPractice(client, rand, students, questions, now);
+
   await query(
     `UPDATE users u SET total_points = s.points, coins = s.points / 4
      FROM (SELECT student_id, sum(marks_obtained)::int AS points FROM student_attempts GROUP BY student_id) s
@@ -234,10 +252,117 @@ const setupOne = async (client: PoolClient, demo: (typeof DEMOS)[number], passwo
     schoolCode: demo.code,
     admin: { email: adminEmail, password: DEMO_PASSWORD },
     teacher: { email: teacherEmail, password: DEMO_PASSWORD },
+    teachers: [
+      { name: 'Demo Teacher (whole school)', email: teacherEmail, password: DEMO_PASSWORD },
+      { name: 'Maths Teacher (9th Maths)', email: mathsEmail, password: DEMO_PASSWORD },
+      { name: 'Science Teacher (9A Science)', email: scienceEmail, password: DEMO_PASSWORD },
+    ],
     student: { schoolCode: demo.code, admissionNumber: '9A01', password: DEMO_PASSWORD },
     students: STUDENT_NAMES.length,
     pastTests: past.length,
   };
+};
+
+/**
+ * Three weeks of practice in Maths and Science: keen students practise most
+ * days, a few hardly at all. Wrong answers go to the Mistake Book; answering a
+ * question right later fixes it, as in the app.
+ */
+const seedPractice = async (
+  client: PoolClient,
+  rand: () => number,
+  students: Array<{ id: string; ability: number; trend: number; lean: number; reliability: number }>,
+  questions: any[],
+  now: number
+) => {
+  const pool = questions.filter((q) => (q.code === 'maths' || q.code === 'science') && q.number <= 6);
+  if (!pool.length) return;
+  const byId = new Map(pool.map((q) => [q.id, q]));
+  const ids = students.map((s) => s.id);
+  // Open mistakes from the tests, which practice can fix
+  const open = new Map<string, { id?: string; wrong: number; source: string; at: Date; created?: Date }>();
+  for (const m of await query('SELECT id, student_id, question_id, wrong_count FROM mistake_book WHERE student_id = ANY($1::uuid[]) AND NOT is_reviewed', [ids], client)) {
+    open.set(`${m.student_id}|${m.question_id}`, { id: m.id, wrong: m.wrong_count, source: 'test', at: new Date() });
+  }
+  const closed: Array<{ studentId: string; questionId: string; wrong: number; created: Date; fixedAt: Date }> = [];
+  const log: { u: string[]; q: string[]; c: boolean[]; t: Date[] } = { u: [], q: [], c: [], t: [] };
+  const progress = new Map<string, { seen: number; correct: number; last: boolean; at: Date }>();
+
+  students.forEach((student, i) => {
+    // How keen: a few rarely practise (and two have stopped), most do several days a week
+    const keen = i === 3 || i === 18 ? 0.04 : i === 10 || i === 7 ? 0.12 : 0.25 + rand() * 0.6;
+    const stoppedDaysAgo = i === 7 || i === 15 ? 9 + Math.floor(rand() * 4) : 0;
+    for (let daysAgo = 20; daysAgo >= 0; daysAgo--) {
+      if (daysAgo < stoppedDaysAgo || rand() > keen) continue;
+      const count = 5 + Math.floor(rand() * 16);
+      const start = now - daysAgo * DAY - (2 + rand() * 10) * 3600000;
+      for (let k = 0; k < count; k++) {
+        // As in the app, about a third of practice brings back questions the student got wrong
+        const mine = rand() < 0.3 ? [...open.keys()].filter((key) => key.startsWith(student.id)) : [];
+        const retry = mine.length ? byId.get(mine[Math.floor(rand() * mine.length)].split('|')[1]) : null;
+        const q = retry || pool[Math.floor(rand() * pool.length)];
+        const lean = q.code === 'maths' ? student.lean : -student.lean;
+        const diff = q.difficulty === 'easy' ? 0.15 : q.difficulty === 'hard' ? -0.2 : 0;
+        const at = new Date(Math.min(now - 60000, start + k * (40 + rand() * 50) * 1000));
+        const key = `${student.id}|${q.id}`;
+        const prev = progress.get(key);
+        // Seeing a question again helps
+        const chance = Math.min(0.95, Math.max(0.08, student.ability + student.trend * 8 + lean + diff + (prev ? 0.12 : 0)));
+        const correct = rand() < chance;
+        log.u.push(student.id); log.q.push(q.id); log.c.push(correct); log.t.push(at);
+        progress.set(key, { seen: (prev?.seen || 0) + 1, correct: (prev?.correct || 0) + (correct ? 1 : 0), last: correct, at });
+        const entry = open.get(key);
+        if (correct && entry) {
+          // A test mistake (stored already, by id) or a practice one, now fixed
+          if (entry.id) closed.push({ studentId: '', questionId: entry.id, wrong: entry.wrong, created: at, fixedAt: at });
+          else closed.push({ studentId: student.id, questionId: q.id, wrong: entry.wrong, created: entry.created!, fixedAt: at });
+          open.delete(key);
+        } else if (!correct) {
+          if (entry) open.set(key, { ...entry, wrong: entry.wrong + 1, at, source: 'practice' });
+          else open.set(key, { wrong: 1, source: 'practice', at, created: at });
+        }
+      }
+    }
+  });
+
+  await query(
+    `INSERT INTO practice_log (user_id, question_id, correct, answered_at)
+     SELECT * FROM unnest($1::uuid[], $2::uuid[], $3::boolean[], $4::timestamptz[])`,
+    [log.u, log.q, log.c, log.t],
+    client
+  );
+  const pk = [...progress.entries()];
+  await query(
+    `INSERT INTO practice_progress (user_id, question_id, times_seen, times_correct, last_correct, last_seen_at)
+     SELECT * FROM unnest($1::uuid[], $2::uuid[], $3::int[], $4::int[], $5::boolean[], $6::timestamptz[])`,
+    [pk.map(([k]) => k.split('|')[0]), pk.map(([k]) => k.split('|')[1]), pk.map(([, v]) => v.seen), pk.map(([, v]) => v.correct), pk.map(([, v]) => v.last), pk.map(([, v]) => v.at)],
+    client
+  );
+  // Test mistakes fixed in practice (questionId holds the mistake id), then still-open ones that got more wrong answers
+  const fixedTest = closed.filter((c) => !c.studentId);
+  for (const f of fixedTest) {
+    await query(`UPDATE mistake_book SET is_reviewed = true, reviewed_at = $2, fixed_in = 'practice', updated_at = $2 WHERE id = $1`, [f.questionId, f.fixedAt], client);
+  }
+  for (const [, e] of open) {
+    if (e.id && e.source === 'practice') {
+      await query(`UPDATE mistake_book SET wrong_count = $2, source = 'practice', updated_at = $3 WHERE id = $1`, [e.id, e.wrong, e.at], client);
+    }
+  }
+  // Practice-only mistakes: fixed ones, then open ones
+  const rows = [
+    ...closed.filter((c) => c.studentId).map((c) => ({ ...c, reviewed: true })),
+    ...[...open.entries()].filter(([, e]) => !e.id).map(([k, e]) => ({ studentId: k.split('|')[0], questionId: k.split('|')[1], wrong: e.wrong, created: e.created!, fixedAt: null as Date | null, reviewed: false, updated: e.at })),
+  ];
+  const answerOf = new Map(questions.map((q) => [q.id, q.correct_answer]));
+  for (const r of rows) {
+    const correct = answerOf.get(r.questionId) ?? 0;
+    await query(
+      `INSERT INTO mistake_book (student_id, question_id, selected_answer, correct_answer, source, wrong_count, is_reviewed, reviewed_at, fixed_in, created_at, updated_at)
+       VALUES ($1, $2, $3, $4, 'practice', $5, $6, $7, $8, $9, $10)`,
+      [r.studentId, r.questionId, (correct + 1) % 4, correct, r.wrong, r.reviewed, r.fixedAt, r.reviewed ? 'practice' : null, r.created, (r as any).updated || r.fixedAt || r.created],
+      client
+    );
+  }
 };
 
 /** Creates (or resets) the demo schools of both boards. */

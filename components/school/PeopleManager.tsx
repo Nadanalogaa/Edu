@@ -5,6 +5,7 @@ import {
   PageHeader, Panel, Button, Field, TextInput, SelectInput, Badge, Alert, Modal, Spinner, Table, EmptyState, UsageBar,
   apiError, classLabel, CLASS_GRADES,
 } from '../common/ui';
+import { Assignment, AssignmentChips, AssignmentEditor, AssignmentValue, TeacherClassesModal, toPayload } from './TeacherClasses';
 
 type Role = 'student' | 'teacher' | 'admin';
 
@@ -18,6 +19,7 @@ interface Person {
   section?: string | null;
   isActive: boolean;
   createdAt: string;
+  assignments?: Assignment[];
 }
 
 /** Login details to hand out after adding students or resetting a password. */
@@ -31,7 +33,7 @@ interface Credential {
 
 const LABELS: Record<Role, { one: string; many: string; path: string; subtitle: string }> = {
   student: { one: 'student', many: 'Students', path: '/school/students', subtitle: 'Students sign in with your school code and their admission number. Only active students count towards your licence.' },
-  teacher: { one: 'teacher', many: 'Teachers', path: '/school/teachers', subtitle: 'Teachers sign in with their email.' },
+  teacher: { one: 'teacher', many: 'Teachers', path: '/school/teachers', subtitle: 'Teachers sign in with their email. Each teacher sees only the classes and subjects you assign them.' },
   admin: { one: 'admin', many: 'School admins', path: '/school/admins', subtitle: 'Admins manage students, teachers, questions and tests for your school. They sign in with their email.' },
 };
 
@@ -62,7 +64,8 @@ const PeopleManager: React.FC<{ role: Role }> = ({ role }) => {
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
   const [credentials, setCredentials] = useState<Credential[] | null>(null);
-  const [modal, setModal] = useState<{ kind: 'add' | 'edit' | 'password' | 'import'; person?: Person } | null>(null);
+  const [modal, setModal] = useState<{ kind: 'add' | 'edit' | 'password' | 'import' | 'classes'; person?: Person } | null>(null);
+  const isTeacher = role === 'teacher';
 
   const load = useCallback(async () => {
     try {
@@ -197,7 +200,7 @@ const PeopleManager: React.FC<{ role: Role }> = ({ role }) => {
         ) : people.length === 0 ? (
           <EmptyState>No {label.many.toLowerCase()} found.</EmptyState>
         ) : (
-          <Table head={isStudent ? ['Admission no.', 'Name', 'Class', 'Phone', 'Status', ''] : ['Name', 'Phone', 'Status', '']}>
+          <Table head={isStudent ? ['Admission no.', 'Name', 'Class', 'Phone', 'Status', ''] : isTeacher ? ['Name', 'Classes and subjects', 'Phone', 'Status', ''] : ['Name', 'Phone', 'Status', '']}>
             {people.map((p) => {
               const isMe = p._id === currentUser?.id;
               return (
@@ -211,6 +214,11 @@ const PeopleManager: React.FC<{ role: Role }> = ({ role }) => {
                     {p.email && <p className="text-xs text-slate-500 dark:text-slate-400">{p.email}</p>}
                   </td>
                   {isStudent && <td className="px-4 py-3 whitespace-nowrap">{classLabel(p.classGrade, p.section)}</td>}
+                  {isTeacher && (
+                    <td className="px-4 py-3 max-w-xs">
+                      <AssignmentChips assignments={p.assignments} />
+                    </td>
+                  )}
                   <td className="px-4 py-3 whitespace-nowrap">{p.phone || '—'}</td>
                   <td className="px-4 py-3">{p.isActive ? <Badge tone="green">Active</Badge> : <Badge tone="amber">Waiting / inactive</Badge>}</td>
                   <td className="px-4 py-3">
@@ -224,6 +232,11 @@ const PeopleManager: React.FC<{ role: Role }> = ({ role }) => {
                       ) : (
                         <Button size="sm" onClick={() => setActive(p, true)}>
                           Approve
+                        </Button>
+                      )}
+                      {isTeacher && (
+                        <Button size="sm" variant="ghost" onClick={() => setModal({ kind: 'classes', person: p })}>
+                          Classes
                         </Button>
                       )}
                       <Button size="sm" variant="ghost" onClick={() => setModal({ kind: 'edit', person: p })}>
@@ -253,6 +266,7 @@ const PeopleManager: React.FC<{ role: Role }> = ({ role }) => {
           onDone={done}
         />
       )}
+      {modal?.kind === 'classes' && modal.person && <TeacherClassesModal teacher={modal.person} onClose={() => setModal(null)} onDone={done} />}
       {modal?.kind === 'import' && <ImportStudents onClose={() => setModal(null)} onDone={done} schoolCode={usage?.schoolCode} />}
     </div>
   );
@@ -274,6 +288,7 @@ const PersonForm: React.FC<{ role: Role; person?: Person; onClose: () => void; o
     classGrade: person?.classGrade ? String(person.classGrade) : '',
     section: person?.section || '',
   });
+  const [classes, setClasses] = useState<AssignmentValue>({ all: true, items: [] });
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
   const set = (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => setForm({ ...form, [key]: e.target.value });
@@ -289,6 +304,11 @@ const PersonForm: React.FC<{ role: Role; person?: Person; onClose: () => void; o
         await api.patch(`${LABELS[role].path}/${person._id}`, body);
         onDone(`${form.name} saved`);
       } else {
+        if (role === 'teacher') {
+          const assignments = toPayload(classes);
+          if (!assignments.all && !assignments.items!.length) return setError('Choose at least one class, or Whole school');
+          body.assignments = assignments;
+        }
         const res = await api.post(LABELS[role].path, { ...body, password: form.password });
         const login = isStudent ? form.admissionNumber.trim() : form.email.trim().toLowerCase();
         onDone(`${form.name} added.`, [
@@ -303,7 +323,7 @@ const PersonForm: React.FC<{ role: Role; person?: Person; onClose: () => void; o
   };
 
   return (
-    <Modal title={person ? `Edit ${person.name}` : `Add ${LABELS[role].one}`} onClose={onClose}>
+    <Modal title={person ? `Edit ${person.name}` : `Add ${LABELS[role].one}`} onClose={onClose} wide={role === 'teacher' && !person}>
       <form onSubmit={submit} className="space-y-4">
         <Field label="Full name">
           <TextInput required value={form.name} onChange={set('name')} />
@@ -341,6 +361,7 @@ const PersonForm: React.FC<{ role: Role; person?: Person; onClose: () => void; o
         <Field label={isStudent ? 'Parent phone' : 'Phone'}>
           <TextInput type="tel" value={form.phone} onChange={set('phone')} />
         </Field>
+        {role === 'teacher' && !person && <AssignmentEditor value={classes} onChange={setClasses} />}
         {error && <Alert>{error}</Alert>}
         <div className="flex justify-end gap-2">
           <Button variant="secondary" onClick={onClose}>

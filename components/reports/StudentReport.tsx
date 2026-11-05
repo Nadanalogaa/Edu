@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
 import { useLanguage } from '../../context/LanguageContext';
 import { Panel, Button, Badge, Alert, Spinner, StatTile, Table, EmptyState, apiError, classLabel, formatDate } from '../common/ui';
-import { TrendChart, PercentBars } from './charts';
+import { TrendChart, PercentBars, DailyBars, weekLabel } from './charts';
 
 // One student's progress: used by school staff (any student of the school) and
 // by the student (their own, at /student/progress).
@@ -40,7 +40,89 @@ interface Report {
   weakChapters: { chapterId: string; number: number; nameEn: string; nameTa: string; subjectEn: string; subjectTa: string; accuracy: number; answered: number }[];
   strongChapters: Report['weakChapters'];
   missed: { testId: string; title: string; closedAt: string; subjectEn: string; subjectTa: string }[];
+  practice?: {
+    total: number; week: number; month: number; accuracy: number | null; activeDays30: number; lastAt: string | null;
+    weeks: { week: string; answered: number; accuracy: number }[];
+    chapters: { chapterId: string; number: number; nameEn: string; subjectEn: string; accuracy: number; answered: number }[];
+  };
+  mistakes?: {
+    open: number; openFromTests: number; openFromPractice: number; fixed: number;
+    byChapter: { chapterId: string; number: number; nameEn: string; subjectEn: string; open: number }[];
+    top: { _id: string; source: string; wrongCount: number; text: string; chapter: string | null; subjectEn: string }[];
+  };
 }
+
+/** Staff view: how much the student practises and what is waiting in their Mistake Book. */
+const PracticeAndMistakes: React.FC<{ report: Report }> = ({ report }) => {
+  const p = report.practice!;
+  const m = report.mistakes!;
+  const weakPractice = p.chapters.filter((c) => c.answered >= 5).sort((a, b) => a.accuracy - b.accuracy).slice(0, 5);
+  return (
+    <Panel title="Practice and Mistake Book">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
+        <StatTile label="Practised this week" value={`${p.week} Qs`} tone={p.week === 0 ? 'warn' : 'default'} hint={`${p.month} in the last 30 days`} />
+        <StatTile label="Practice correct" value={p.accuracy !== null ? `${p.accuracy}%` : '—'} hint="last 30 days" tone={p.accuracy !== null && p.accuracy < 50 ? 'warn' : 'default'} />
+        <StatTile label="Days practised" value={p.activeDays30} hint={`of the last 30 · last ${p.lastAt ? formatDate(p.lastAt) : 'never'}`} />
+        <StatTile label="Open mistakes" value={m.open} hint={`${m.openFromTests} from tests · ${m.openFromPractice} from practice`} tone={m.open >= 15 ? 'warn' : 'default'} />
+        <StatTile label="Mistakes fixed" value={m.fixed} hint="answered right later or understood" />
+      </div>
+      <div className="mt-6 grid lg:grid-cols-3 gap-6">
+        <div>
+          <h3 className="mb-2 text-sm font-semibold text-slate-700 dark:text-slate-200">Questions practised per week</h3>
+          {p.weeks.length ? (
+            <DailyBars
+              height={180}
+              valueLabel="Questions"
+              data={p.weeks.map((w) => ({ label: weekLabel(w.week), value: w.answered, detail: `Week of ${weekLabel(w.week)} · ${w.accuracy}% correct` }))}
+            />
+          ) : (
+            <p className="py-6 text-center text-sm text-slate-500 dark:text-slate-400">No practice in the last 8 weeks</p>
+          )}
+        </div>
+        <div>
+          <h3 className="mb-3 text-sm font-semibold text-slate-700 dark:text-slate-200">Weakest chapters in practice</h3>
+          <PercentBars items={weakPractice.map((c) => ({ key: c.chapterId, label: `Ch. ${c.number} ${c.nameEn}`, sublabel: `${c.subjectEn} · ${c.answered} answers`, value: c.accuracy }))} emptyText="Not enough practice yet" />
+        </div>
+        <div>
+          <h3 className="mb-3 text-sm font-semibold text-slate-700 dark:text-slate-200">Open mistakes by chapter</h3>
+          {m.byChapter.length === 0 ? (
+            <p className="py-6 text-center text-sm text-slate-500 dark:text-slate-400">✓ Mistake Book is clear</p>
+          ) : (
+            <ul className="space-y-1.5 text-sm">
+              {m.byChapter.map((c) => (
+                <li key={c.chapterId} className="flex items-center justify-between gap-2">
+                  <span className="truncate text-slate-700 dark:text-slate-200">
+                    Ch. {c.number} {c.nameEn} <span className="text-xs text-slate-500">· {c.subjectEn}</span>
+                  </span>
+                  <span className="shrink-0 font-semibold tabular-nums text-slate-800 dark:text-slate-100">{c.open}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+      {m.top.length > 0 && (
+        <div className="mt-6">
+          <h3 className="mb-2 text-sm font-semibold text-slate-700 dark:text-slate-200">Mistakes repeated most often</h3>
+          <ul className="divide-y divide-slate-100 dark:divide-slate-700/60">
+            {m.top.map((q) => (
+              <li key={q._id} className="py-2 flex items-start gap-3 text-sm">
+                <span className="shrink-0 mt-0.5 text-xs font-bold px-2 py-0.5 rounded-full bg-red-50 text-red-800 dark:bg-red-950/50 dark:text-red-200">Wrong {q.wrongCount}×</span>
+                <span className="min-w-0">
+                  <span className="block text-slate-800 dark:text-slate-100 line-clamp-2">{q.text}</span>
+                  <span className="text-xs text-slate-500 dark:text-slate-400">
+                    {q.subjectEn}
+                    {q.chapter && ` · ${q.chapter}`} · from {q.source === 'test' ? 'a test' : 'practice'}
+                  </span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </Panel>
+  );
+};
 
 const StudentReport: React.FC<{ studentId?: string; onBack?: () => void }> = ({ studentId, onBack }) => {
   const { language } = useLanguage();
@@ -97,6 +179,8 @@ const StudentReport: React.FC<{ studentId?: string; onBack?: () => void }> = ({ 
         <StatTile label={t.last} value={kpis.last !== null ? `${kpis.last}%` : '—'} />
         <StatTile label={t.missed} value={kpis.missed} tone={kpis.missed >= 2 ? 'warn' : 'default'} />
       </div>
+
+      {studentId && report.practice && report.mistakes && <PracticeAndMistakes report={report} />}
 
       {report.history.length === 0 ? (
         <Panel>

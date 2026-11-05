@@ -25,7 +25,7 @@ const NeetDailyChallenge = lazyWithReload(() => import('./components/student/Dai
 const NeetShorts = lazyWithReload(() => import('./components/student/Shorts'));
 const NeetLiveClasses = lazyWithReload(() => import('./components/student/LiveClassesView'));
 const NeetMistakeBook = lazyWithReload(() => import('./components/student/MistakeBook'));
-import SchoolOverview from './components/school/SchoolOverview';
+import StaffDashboard from './components/reports/StaffDashboard';
 import PeopleManager from './components/school/PeopleManager';
 import OwnerOverview from './components/owner/OwnerOverview';
 import SchoolsManager from './components/owner/SchoolsManager';
@@ -253,7 +253,8 @@ const DashboardLayout: React.FC = () => {
       { label: t('liveClasses'), icon: <UsersIcon className="w-5 h-5" />, view: 'classes' },
     ],
     teacher: [
-      { label: 'Tests', icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'dashboard' },
+      { label: t('dashboard'), icon: <LayoutDashboardIcon className="w-5 h-5" />, view: 'dashboard' },
+      { label: 'Tests', icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'tests' },
       { label: 'Reports', icon: <TrendingUpIcon className="w-5 h-5" />, view: 'reports' },
       { label: t('questionBank'), icon: <BookOpenIcon className="w-5 h-5" />, view: 'question-bank' },
     ],
@@ -292,12 +293,12 @@ const DashboardLayout: React.FC = () => {
   // Bottom tab bar on phones: the main screens, plus More for the full menu
   const bottomTabs: Record<Role, string[]> = {
     student: ['dashboard', 'my-tests', 'practice', 'mistakes'],
-    teacher: ['dashboard', 'reports', 'question-bank'],
+    teacher: ['dashboard', 'tests', 'reports', 'question-bank'],
     admin: ['dashboard', 'students', 'tests', 'reports'],
     owner: ['dashboard', 'schools', 'question-bank', 'tests'],
   };
   const shortLabels: Record<string, [string, string]> = {
-    dashboard: currentUser.role === 'teacher' ? ['Tests', 'தேர்வுகள்'] : ['Home', 'முகப்பு'],
+    dashboard: ['Home', 'முகப்பு'],
     'my-tests': ['Tests', 'தேர்வுகள்'], practice: ['Practice', 'பயிற்சி'], mistakes: ['Mistakes', 'தவறுகள்'],
     reports: ['Reports', 'அறிக்கைகள்'], 'question-bank': ['Questions', 'கேள்விகள்'], students: ['Students', 'மாணவர்கள்'],
     tests: ['Tests', 'தேர்வுகள்'], schools: ['Schools', 'பள்ளிகள்'],
@@ -328,7 +329,7 @@ const DashboardLayout: React.FC = () => {
     if (currentUser.role === 'admin') {
       switch (activeView) {
         case 'dashboard':
-          return <SchoolOverview onNavigate={handleNavClick} />;
+          return <StaffDashboard onNavigate={handleNavClick} />;
         case 'students':
           return <PeopleManager key="students" role="student" />;
         case 'teachers':
@@ -342,14 +343,15 @@ const DashboardLayout: React.FC = () => {
         case 'reports':
           return <ReportsScreen />;
         default:
-          return <SchoolOverview onNavigate={handleNavClick} />;
+          return <StaffDashboard onNavigate={handleNavClick} />;
       }
     }
 
     if (currentUser.role === 'teacher') {
       if (activeView === 'question-bank') return <QuestionBankScreen />;
       if (activeView === 'reports') return <ReportsScreen />;
-      return <TestsScreen />;
+      if (activeView === 'tests') return <TestsScreen />;
+      return <StaffDashboard onNavigate={handleNavClick} />;
     }
 
     if (currentUser.role === 'student') {

@@ -18,6 +18,11 @@ interface StudentRow {
   lastPercentage: number | null;
   trend: number | null;
   atRisk: boolean;
+  // Flattened from practice / mistakes so the table can sort by them
+  practiceWeek: number;
+  practiceAccuracy: number | null;
+  openMistakes: number;
+  attentionScore: number;
 }
 
 interface Overview {
@@ -74,7 +79,13 @@ const ReportsScreen: React.FC = () => {
     setOverview(null);
     setStudents(null);
     api.get('/reports/overview', { params }).then((res) => setOverview(res.data.data)).catch((err) => setError(apiError(err, 'Could not load reports')));
-    api.get('/reports/students', { params }).then((res) => setStudents(res.data.data)).catch(() => setStudents([]));
+    api
+      .get('/reports/students', { params })
+      .then((res) =>
+        setStudents(
+          res.data.data.map((s: any) => ({ ...s, practiceWeek: s.practice?.week ?? 0, practiceAccuracy: s.practice?.accuracy ?? null, openMistakes: s.mistakes?.open ?? 0 }))
+        )
+      ).catch(() => setStudents([]));
   }, [params]);
 
   const sortedStudents = useMemo(() => {
@@ -97,8 +108,8 @@ const ReportsScreen: React.FC = () => {
   const exportStudents = () => {
     const escape = (v: any) => `"${String(v ?? '').replace(/"/g, '""')}"`;
     const lines = [
-      ['Admission no.', 'Name', 'Class', 'Section', 'Tests taken', 'Tests given', 'Missed', 'Average %', 'Last %', 'Trend', 'Needs attention'],
-      ...sortedStudents.map((s) => [s.admissionNumber, s.name, s.classGrade, s.section, s.testsTaken, s.assigned, s.missed, s.average, s.lastPercentage, s.trend, s.atRisk ? 'Yes' : '']),
+      ['Admission no.', 'Name', 'Class', 'Section', 'Tests taken', 'Tests given', 'Missed', 'Average %', 'Last %', 'Trend', 'Practice this week', 'Practice correct %', 'Open mistakes', 'Needs attention'],
+      ...sortedStudents.map((s) => [s.admissionNumber, s.name, s.classGrade, s.section, s.testsTaken, s.assigned, s.missed, s.average, s.lastPercentage, s.trend, s.practiceWeek, s.practiceAccuracy, s.openMistakes, s.atRisk ? 'Yes' : '']),
     ];
     const url = URL.createObjectURL(new Blob(['﻿' + lines.map((l) => l.map(escape).join(',')).join('\r\n')], { type: 'text/csv;charset=utf-8' }));
     const a = document.createElement('a');
@@ -119,7 +130,7 @@ const ReportsScreen: React.FC = () => {
 
   return (
     <div className="space-y-4">
-      <PageHeader title="Reports" subtitle={`Results of class tests. Pass mark ${overview?.passMark ?? 35}%.`} />
+      <PageHeader title="Reports" subtitle={`Class tests, practice and Mistake Books. Pass mark ${overview?.passMark ?? 35}%.`} />
 
       <div className="flex flex-wrap items-center gap-2">
         <div className="flex gap-1 p-1 bg-slate-200/60 dark:bg-slate-800 rounded-lg" role="tablist">
@@ -306,6 +317,8 @@ const ReportsScreen: React.FC = () => {
                 <SortHeader k="average">Average</SortHeader>,
                 <SortHeader k="lastPercentage">Last</SortHeader>,
                 <SortHeader k="trend">Trend</SortHeader>,
+                <SortHeader k="practiceWeek">Practice (7 days)</SortHeader>,
+                <SortHeader k="openMistakes">Open mistakes</SortHeader>,
                 '',
               ]}
             >
@@ -323,6 +336,11 @@ const ReportsScreen: React.FC = () => {
                   </td>
                   <td className="px-4 py-2">{s.lastPercentage !== null ? `${s.lastPercentage}%` : '—'}</td>
                   <td className="px-4 py-2 whitespace-nowrap text-xs">{trendBadge(s.trend)}</td>
+                  <td className="px-4 py-2 whitespace-nowrap">
+                    <span className={s.practiceWeek === 0 ? 'text-red-600 dark:text-red-400 font-semibold' : ''}>{s.practiceWeek} Qs</span>
+                    {s.practiceAccuracy !== null && <span className="ml-1 text-xs text-slate-500">· {s.practiceAccuracy}% correct</span>}
+                  </td>
+                  <td className="px-4 py-2">{s.openMistakes}</td>
                   <td className="px-4 py-2">{s.atRisk && <Badge tone="red">⚠ Attention</Badge>}</td>
                 </tr>
               ))}

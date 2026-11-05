@@ -8,6 +8,7 @@ import { Subjects, Chapters, isBoard, isClassGrade } from '../models/Syllabus';
 import { query, withTransaction } from '../config/database';
 import { isUuid, pick, Doc } from '../db/table';
 import { HttpError, contentSchoolId, visibleTo, ownedBy, canChange, isOwner } from '../utils/tenancy';
+import { staffScopeOf, testInScope, canTeach, sectionsFor, coversAll, StaffScope } from '../utils/staffScope';
 
 // Class-wise assessments for school admins and teachers (their school's
 // content) and the owner (ready-made content every school of a board can use).
@@ -444,10 +445,44 @@ const decorateTests = async (tests: Doc[]) => {
   }));
 };
 
-/** A school test the user manages, or (owner) a ready-made test. */
-const findOwnTest = async (req: AuthRequest, id: string) => {
+/** A test a teacher may see: its class and subject are theirs and it is open to one of their sections. */
+const testVisible = (scope: StaffScope, test: Doc) =>
+  coversAll(scope) ||
+  scope!.some(
+    (a) =>
+      (!a.classGrade || a.classGrade === test.classGrade) &&
+      (!a.subjectId || a.subjectId === test.subjectId) &&
+      (!a.section || !test.sections?.length || test.sections.includes(a.section))
+  );
+
+/**
+ * A school test the user manages, or (owner) a ready-made test. Teachers only
+ * reach tests of their own classes and subjects; to change one, it must be for
+ * sections they look after.
+ */
+const findOwnTest = async (req: AuthRequest, id: string, purpose: 'view' | 'change' = 'change') => {
   const test = await Tests.findById(id);
-  return test && test.isActive && test.classGrade && canChange(req.user, test) ? test : null;
+  if (!test || !test.isActive || !test.classGrade || !canChange(req.user, test)) return null;
+  if (req.user.role === 'teacher') {
+    const scope = await staffScopeOf(req);
+    const allowed = purpose === 'view' ? testVisible(scope, test) : canTeach(scope, test.classGrade, test.subjectId, test.sections || []);
+    if (!allowed) return null;
+  }
+  return test;
+};
+
+/**
+ * Sections a teacher's new test goes to: the ones chosen, or when none are
+ * chosen, the sections they look after. Throws if the class or subject is not theirs.
+ */
+const teacherSections = async (req: AuthRequest, classGrade: number, subjectId: string, chosen: string[]) => {
+  if (req.user.role !== 'teacher') return chosen;
+  const scope = await staffScopeOf(req);
+  const sections = chosen.length ? chosen : sectionsFor(scope, classGrade, subjectId);
+  if (!canTeach(scope, classGrade, subjectId, sections)) {
+    throw new HttpError(403, 'You can only set tests for the classes and subjects you are assigned. Ask your school admin to assign them.');
+  }
+  return sections;
 };
 
 // @desc    Class assessments of the school (owner: ready-made tests)
@@ -456,6 +491,7 @@ export const listTests = async (req: AuthRequest, res: Response) => {
   try {
     const params: any[] = [];
     const where = ['is_active', 'class_grade IS NOT NULL', ownedBy(req.user, params)];
+    if (req.user.role === 'teacher') where.push(testInScope(await staffScopeOf(req), params, 'tests'));
     if (isOwner(req.user) && isBoard(req.query.board)) {
       params.push(req.query.board);
       where.push(`board = $${params.length}`);
@@ -508,6 +544,7 @@ export const createTest = async (req: AuthRequest, res: Response) => {
     if (req.body.classGrade !== undefined && Number(req.body.classGrade) !== subject.classGrade) {
       throw new HttpError(400, 'The subject does not belong to this class');
     }
+    const sections = isOwner(req.user) ? [] : await teacherSections(req, subject.classGrade, subject._id, parseSections(req.body.sections));
     const chapters = await loadChapters(subject);
     const chosenChapters: string[] = (Array.isArray(chapterIds) ? chapterIds : []).filter((id: any) => chapters.some((c) => c._id === id));
 
@@ -558,7 +595,7 @@ export const createTest = async (req: AuthRequest, res: Response) => {
       classGrade: subject.classGrade,
       subjectId: subject._id,
       chapterIds: chosenChapters.length ? chosenChapters : [...new Set(questions.map((q) => q.chapterId).filter(Boolean))],
-      sections: isOwner(req.user) ? [] : parseSections(req.body.sections),
+      sections,
       questions: questions.map((q) => q._id),
       totalMarks: questions.reduce((sum, q) => sum + q.marks, 0),
       isPublished: Boolean(isPublished),
@@ -585,7 +622,7 @@ export const copyReadyMade = async (req: AuthRequest, res: Response) => {
       title: clean(req.body.title) || source.title,
       createdBy: req.user._id,
       schoolId: req.user.schoolId,
-      sections: parseSections(req.body.sections),
+      sections: await teacherSections(req, source.classGrade, source.subjectId, parseSections(req.body.sections)),
       copiedFrom: source._id,
       isPublished: req.body.isPublished === undefined ? true : Boolean(req.body.isPublished),
       isActive: true,
@@ -606,6 +643,7 @@ export const getTest = async (req: AuthRequest, res: Response) => {
     if (!test || !test.isActive || !test.classGrade || !(canChange(req.user, test) || readyMadeForMe)) {
       throw new HttpError(404, 'Test not found');
     }
+    if (req.user.role === 'teacher' && test.schoolId && !testVisible(await staffScopeOf(req), test)) throw new HttpError(404, 'Test not found');
     const [decorated] = await decorateTests([test]);
     res.status(200).json({ success: true, data: { ...decorated, questions: await questionsInOrder(test.questions) } });
   } catch (error: any) {
@@ -625,7 +663,9 @@ export const updateTest = async (req: AuthRequest, res: Response) => {
       updates.title = clean(req.body.title);
     }
     if (req.body.description !== undefined) updates.description = clean(req.body.description);
-    if (req.body.sections !== undefined && !isOwner(req.user)) updates.sections = parseSections(req.body.sections);
+    if (req.body.sections !== undefined && !isOwner(req.user)) {
+      updates.sections = await teacherSections(req, test.classGrade, test.subjectId, parseSections(req.body.sections));
+    }
     if (req.body.isPublished !== undefined) updates.isPublished = Boolean(req.body.isPublished);
     const updated = await Tests.updateById(test._id, updates);
     res.status(200).json({ success: true, message: 'Test saved', data: (await decorateTests([updated!]))[0] });
@@ -651,7 +691,7 @@ export const deleteTest = async (req: AuthRequest, res: Response) => {
 // @route   GET /api/assessments/tests/:id/results
 export const testResults = async (req: AuthRequest, res: Response) => {
   try {
-    const test = await findOwnTest(req, req.params.id);
+    const test = await findOwnTest(req, req.params.id, 'view');
     if (!test || !test.schoolId) throw new HttpError(404, 'Test not found');
 
     const students = await query(
