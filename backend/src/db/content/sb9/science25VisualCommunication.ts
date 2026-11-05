@@ -17,7 +17,7 @@ export const QUESTIONS: BankQuestion[] = [
   {
     difficulty: 'easy', source: 'Book exercise I.4, p. 308', answer: 0,
     en: { q: 'Which key should be pressed to run a slide show from the first slide?', options: ['F5', 'F1', 'Tab', 'F2'], explanation: 'Pressing F5 starts the slide show from the first slide.' },
-    ta: { q: 'விசைப்பலகையில் எந்த விசையைப் பயன்படுத்தினால் Slide Show வைப் பார்க்க முடியும்?', options: ['F5', 'F1', 'Tab', 'F12'], explanation: 'F5 விசையை அழுத்தினால் முதல் சில்லிலிருந்து slide show தொடங்கும்.' },
+    ta: { q: 'விசைப்பலகையில் எந்த விசையைப் பயன்படுத்தினால் Slide Show வைப் பார்க்க முடியும்?', options: ['F5', 'F1', 'Tab', 'F2'], explanation: 'F5 விசையை அழுத்தினால் முதல் சில்லிலிருந்து slide show தொடங்கும்.' },
   },
   {
     difficulty: 'easy', source: 'Book exercise II.1, p. 308', answer: 0,
