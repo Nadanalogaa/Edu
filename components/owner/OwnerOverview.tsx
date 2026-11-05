@@ -52,7 +52,7 @@ const DemoPanel: React.FC = () => {
       }
     >
       <p className="text-sm text-slate-600 dark:text-slate-300">
-        Two demo schools (State Board and CBSE), each with 24 students in 9th A and B, five weeks of test results and one test open now. Use them to show
+        Two demo schools (State Board and CBSE), each with 24 students in 9th A and B, eight weeks of results in Maths, Science, Social Science, English and Tamil, and two tests open now. Use them to show
         schools the reports and the student experience. Resetting only touches the demo schools.
       </p>
       {error && <div className="mt-3"><Alert>{error}</Alert></div>}

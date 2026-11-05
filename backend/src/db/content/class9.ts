@@ -7,7 +7,7 @@ type Board = 'state_board' | 'cbse';
 
 export interface ChapterSeed {
   board: Board;
-  subject: 'maths' | 'science';
+  subject: string; // subject code, e.g. maths, science, social_science, english, tamil
   chapters: Array<[string, string]>; // [English, Tamil] in textbook order
 }
 
@@ -107,7 +107,7 @@ export interface QuestionSeed {
 
 export interface ChapterQuestions {
   board: Board;
-  subject: 'maths' | 'science';
+  subject: string;
   chapter: number;
   questions: QuestionSeed[];
 }
@@ -226,10 +226,10 @@ export const QUESTIONS_9: ChapterQuestions[] = [
 const quote = (value: string) => `'${value.replace(/'/g, "''")}'`;
 const json = (value: unknown) => `${quote(JSON.stringify(value))}::jsonb`;
 
-/** SQL that adds the chapters (keeping any already there) and the sample questions to the shared bank. */
-export const class9ContentSql = () => {
+/** SQL that adds 9th chapters (keeping any already there) and sample questions to the shared bank. */
+export const buildContentSql = (chapterSeeds: ChapterSeed[], questionGroups: ChapterQuestions[]) => {
   const statements: string[] = [];
-  for (const seed of CHAPTERS_9) {
+  for (const seed of chapterSeeds) {
     seed.chapters.forEach(([en, ta], i) => {
       statements.push(
         `INSERT INTO chapters (subject_id, number, name_en, name_ta)
@@ -239,7 +239,7 @@ export const class9ContentSql = () => {
       );
     });
   }
-  for (const group of QUESTIONS_9) {
+  for (const group of questionGroups) {
     for (const item of group.questions) {
       const [qEn, qTa] = item.q;
       const optionsTa = qTa ? item.optionsTa || item.options : ['', '', '', ''];
@@ -257,3 +257,5 @@ export const class9ContentSql = () => {
   }
   return statements.join('\n');
 };
+
+export const class9ContentSql = () => buildContentSql(CHAPTERS_9, QUESTIONS_9);

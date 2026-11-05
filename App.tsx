@@ -17,6 +17,14 @@ const SchoolRegistrationForm = lazy(() => import('./components/registration/Scho
 const QuestionBank = lazy(() => import('./components/admin/QuestionBank'));
 const TNSchoolsPage = lazy(() => import('./pages/TNSchoolsPage'));
 const SuperAdminLogin = lazy(() => import('./components/SuperAdminLogin'));
+// NEET / JEE Zone (sample content screens with 3D/AR/VR and videos)
+const NeetDashboard = lazy(() => import('./components/dashboards/StudentDashboard'));
+const NeetPractice = lazy(() => import('./components/student/PracticeModeNew'));
+const NeetExam = lazy(() => import('./components/student/ExamModeNew'));
+const NeetDailyChallenge = lazy(() => import('./components/student/DailyChallengeContainer'));
+const NeetShorts = lazy(() => import('./components/student/Shorts'));
+const NeetLiveClasses = lazy(() => import('./components/student/LiveClassesView'));
+const NeetMistakeBook = lazy(() => import('./components/student/MistakeBook'));
 import SchoolOverview from './components/school/SchoolOverview';
 import PeopleManager from './components/school/PeopleManager';
 import OwnerOverview from './components/owner/OwnerOverview';
@@ -34,7 +42,7 @@ import StudentReport from './components/reports/StudentReport';
 import { boardLabel, classLabel } from './components/common/ui';
 import {
     SunIcon, MoonIcon, LayoutDashboardIcon, UsersIcon, UserIcon, LogOutIcon,
-    SchoolIcon, FileTextIcon, ClipboardCheckIcon, GraduationCapIcon, PenSquareIcon, BookOpenIcon,
+    SchoolIcon, FileTextIcon, ClipboardCheckIcon, GraduationCapIcon, PenSquareIcon, BookOpenIcon, VideoIcon, StethoscopeIcon,
     MenuIcon, XIcon, KeyIcon, TrendingUpIcon
 } from './components/icons';
 
@@ -186,13 +194,20 @@ const DashboardLayout: React.FC = () => {
     fetchGamificationStats();
   }, [currentUser]);
 
-  const navConfig: Record<Role, { label: string; icon: React.ReactNode; view: string }[]> = {
+  const navConfig: Record<Role, { label: string; icon: React.ReactNode; view: string; section?: string }[]> = {
     student: [
       { label: language === 'ta' ? 'முகப்பு' : 'Home', icon: <LayoutDashboardIcon className="w-5 h-5" />, view: 'dashboard' },
       { label: language === 'ta' ? 'என் தேர்வுகள்' : 'My Tests', icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'my-tests' },
       { label: language === 'ta' ? 'பயிற்சி' : 'Practice', icon: <PenSquareIcon className="w-5 h-5" />, view: 'practice' },
       { label: language === 'ta' ? 'என் முன்னேற்றம்' : 'My Progress', icon: <TrendingUpIcon className="w-5 h-5" />, view: 'progress' },
       { label: language === 'ta' ? 'தவறுப் புத்தகம்' : 'Mistake Book', icon: <BookOpenIcon className="w-5 h-5" />, view: 'mistakes' },
+      { section: 'NEET / JEE Zone', label: language === 'ta' ? 'NEET/JEE முகப்பு' : 'NEET/JEE Dashboard', icon: <StethoscopeIcon className="w-5 h-5" />, view: 'neet-home' },
+      { label: t('practiceMode'), icon: <PenSquareIcon className="w-5 h-5" />, view: 'neet-practice' },
+      { label: t('takeAnExam'), icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'exam' },
+      { label: t('dailyChallenge'), icon: <FileTextIcon className="w-5 h-5" />, view: 'daily-challenge' },
+      { label: language === 'ta' ? 'குறும்படங்கள்' : 'Shorts', icon: <VideoIcon className="w-5 h-5" />, view: 'shorts' },
+      { label: language === 'ta' ? 'AR/VR திருப்புதல்' : 'AR/VR Revision', icon: <BookOpenIcon className="w-5 h-5" />, view: 'neet-mistakes' },
+      { label: t('liveClasses'), icon: <UsersIcon className="w-5 h-5" />, view: 'classes' },
     ],
     teacher: [
       { label: 'Tests', icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'dashboard' },
@@ -280,6 +295,20 @@ const DashboardLayout: React.FC = () => {
           return <StudentReport />;
         case 'mistakes':
           return <Mistakes />;
+        case 'neet-home':
+          return <NeetDashboard />;
+        case 'neet-practice':
+          return <NeetPractice />;
+        case 'exam':
+          return <NeetExam />;
+        case 'daily-challenge':
+          return <NeetDailyChallenge />;
+        case 'shorts':
+          return <NeetShorts />;
+        case 'neet-mistakes':
+          return <NeetMistakeBook />;
+        case 'classes':
+          return <NeetLiveClasses />;
         default:
           return <StudentHome onNavigate={handleNavClick} />;
       }
@@ -338,13 +367,17 @@ const DashboardLayout: React.FC = () => {
         {/* Navigation — scrollable middle */}
         <nav className="flex-1 overflow-y-auto space-y-2 mb-4 pr-1 scrollbar-thin">
            {navConfig[currentUser.role].map(item => (
-               <NavItem
-                    key={item.view}
-                    icon={item.icon}
-                    label={item.label}
-                    isActive={activeView === item.view}
-                    onClick={() => handleNavClick(item.view)}
-               />
+               <React.Fragment key={item.view}>
+                 {item.section && (
+                   <p className="pt-4 pb-1 px-4 text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500">{item.section}</p>
+                 )}
+                 <NavItem
+                      icon={item.icon}
+                      label={item.label}
+                      isActive={activeView === item.view}
+                      onClick={() => handleNavClick(item.view)}
+                 />
+               </React.Fragment>
            ))}
         </nav>
 

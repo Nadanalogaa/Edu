@@ -68,7 +68,7 @@ Database changes are applied automatically when the app starts (see `backend/src
 ## 9th standard demo for showing schools
 
 Owner dashboard → **Set up / reset demo** creates two demo schools with 24 students in 9th A/B,
-five weeks of test results and one test open now. All demo passwords are `demo1234`:
+eight weeks of results across Maths, Science, Social Science, English and Tamil, and two tests open now. All demo passwords are `demo1234`:
 
 | | State Board | CBSE |
 |---|---|---|

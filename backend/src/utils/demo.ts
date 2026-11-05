@@ -19,21 +19,39 @@ const STUDENT_NAMES = [
   'Tamilselvan K', 'Varsha N', 'Vignesh S', 'Yazhini L',
 ];
 
-// Tests already held, oldest first: [subject code, chapter number(s)]
+// Tests already held, oldest first (one a week): [subject code, chapter number(s), title]
 const PAST_TESTS: Record<string, Array<[string, number[], string]>> = {
   state_board: [
     ['maths', [1], 'Set Language – Unit Test'],
     ['science', [1], 'Measurement – Unit Test'],
+    ['tamil', [1], 'தமிழ் – எழுத்து இலக்கணம்'],
     ['maths', [2], 'Real Number System – Unit Test'],
+    ['social_science', [1, 2, 3], 'History – Units 1 to 3'],
+    ['english', [2], 'English Grammar – Tenses'],
     ['science', [2], 'Motion – Unit Test'],
     ['maths', [3], 'Algebra – Unit Test'],
   ],
   cbse: [
     ['maths', [1], 'Number Systems – Unit Test'],
     ['science', [1], 'Matter in Our Surroundings – Unit Test'],
+    ['english', [2], 'English Grammar – Tenses'],
     ['maths', [2], 'Polynomials – Unit Test'],
+    ['social_science', [1, 2, 3], 'History – Chapters 1 to 3'],
+    ['tamil', [1], 'தமிழ் – எழுத்து இலக்கணம்'],
     ['science', [5], 'The Fundamental Unit of Life – Unit Test'],
     ['maths', [1, 2], 'Maths Revision 1'],
+  ],
+};
+
+// Tests open right now, to take live during a demo
+const LIVE_TESTS: Record<string, Array<[string, number[], string]>> = {
+  state_board: [
+    ['maths', [4, 5, 6], 'Maths Revision Test (open now)'],
+    ['english', [1, 3, 6], 'English Grammar & Vocabulary (open now)'],
+  ],
+  cbse: [
+    ['maths', [3, 4, 5], 'Maths Revision Test (open now)'],
+    ['english', [1, 3, 6], 'English Grammar & Vocabulary (open now)'],
   ],
 };
 
@@ -112,7 +130,7 @@ const setupOne = async (client: PoolClient, demo: (typeof DEMOS)[number], passwo
   const questions = await query(
     `SELECT q.id, q.correct_answer, q.marks, q.difficulty, s.code, c.number
      FROM questions q JOIN subjects s ON s.id = q.subject_id JOIN chapters c ON c.id = q.chapter_id
-     WHERE q.school_id IS NULL AND q.is_active AND s.board = $1 AND s.class_grade = 9 AND s.code IN ('maths', 'science')
+     WHERE q.school_id IS NULL AND q.is_active AND s.board = $1 AND s.class_grade = 9
      ORDER BY c.number, q.created_at`,
     [demo.board],
     client
@@ -195,9 +213,9 @@ const setupOne = async (client: PoolClient, demo: (typeof DEMOS)[number], passwo
     }
   }
 
-  // One test open right now, to take live during a demo
-  const liveChapters = demo.board === 'state_board' ? [1, 2, 3] : [1, 2];
-  await createTest('maths', liveChapters, 'Maths Revision Test (open now)', new Date(now - 3600000), new Date(now + 14 * DAY));
+  for (const [code, chapters, title] of LIVE_TESTS[demo.board]) {
+    await createTest(code, chapters, title, new Date(now - 3600000), new Date(now + 14 * DAY));
+  }
 
   await query(
     `UPDATE users u SET total_points = s.points, coins = s.points / 4

@@ -1,6 +1,8 @@
 import { PoolClient } from 'pg';
 import { schemaSql } from './schema';
-import { class9ContentSql } from './content/class9';
+import { class9ContentSql, buildContentSql } from './content/class9';
+import { CHAPTERS_9_SB, QUESTIONS_9_SB } from './content/class9StateBoard';
+import { CHAPTERS_9_CBSE, QUESTIONS_9_CBSE } from './content/class9Cbse';
 
 // Database changes, applied in order on startup. Each runs once (recorded in
 // schema_migrations) inside a transaction. Never edit a migration that has been
@@ -184,6 +186,11 @@ export const migrations: Migration[] = [
     version: 5,
     name: '9th standard chapters and sample questions (shared bank)',
     sql: class9ContentSql(),
+  },
+  {
+    version: 6,
+    name: '9th standard: all subjects (Social Science, English, Tamil) and questions for every chapter',
+    sql: buildContentSql([...CHAPTERS_9_SB, ...CHAPTERS_9_CBSE], [...QUESTIONS_9_SB, ...QUESTIONS_9_CBSE]),
   },
 ];
 
