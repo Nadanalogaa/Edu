@@ -563,6 +563,7 @@ export const reviewAttempt = async (req: AuthRequest, res: Response) => {
             explanation: q.explanation,
             correctAnswer: q.correctAnswer,
             marks: q.marks,
+            imageUrl: q.imageUrl || null,
             selectedAnswer: a ? a.selectedAnswer : -1,
             isCorrect: Boolean(a?.isCorrect),
           };

@@ -3,6 +3,8 @@ import { schemaSql } from './schema';
 import { class9ContentSql, buildContentSql } from './content/class9';
 import { CHAPTERS_9_SB, QUESTIONS_9_SB } from './content/class9StateBoard';
 import { CHAPTERS_9_CBSE, QUESTIONS_9_CBSE } from './content/class9Cbse';
+import { bankChapterSql } from './content/sb9';
+import { FLUIDS_QUESTIONS } from './content/sb9/science03Fluids';
 
 // Database changes, applied in order on startup. Each runs once (recorded in
 // schema_migrations) inside a transaction. Never edit a migration that has been
@@ -191,6 +193,16 @@ export const migrations: Migration[] = [
     version: 6,
     name: '9th standard: all subjects (Social Science, English, Tamil) and questions for every chapter',
     sql: buildContentSql([...CHAPTERS_9_SB, ...CHAPTERS_9_CBSE], [...QUESTIONS_9_SB, ...QUESTIONS_9_CBSE]),
+  },
+  {
+    version: 7,
+    name: 'question pictures and textbook references; State Board 9th Science Unit 3 question bank',
+    sql: `
+      ALTER TABLE questions ADD COLUMN image_url TEXT;
+      -- Where the question comes from in the textbook, e.g. "§3.4.1, p. 31"
+      ALTER TABLE questions ADD COLUMN source TEXT;
+      ${bankChapterSql('state_board', 9, 'science', 3, FLUIDS_QUESTIONS)}
+    `,
   },
 ];
 

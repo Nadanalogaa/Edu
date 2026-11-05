@@ -16,6 +16,7 @@ const TEXT = {
     missedList: 'Missed tests', chapterHint: 'Chapters answered at least 3 times', back: 'Back', accuracy: 'correct', ch: 'Ch.',
     showTable: 'Show as table', hideTable: 'Hide table',
     noStrong: 'No chapter at 60% or more yet', noWeak: 'Every chapter is at 60% or more',
+    byLevel: 'Correct answers by level', levels: { easy: 'Easy', medium: 'Medium', hard: 'Hard' } as Record<string, string>,
   },
   ta: {
     progress: 'என் முன்னேற்றம்', testsTaken: 'எழுதிய தேர்வுகள்', average: 'சராசரி', best: 'அதிகபட்சம்', last: 'கடைசி தேர்வு', missed: 'தவறவிட்டவை',
@@ -25,6 +26,7 @@ const TEXT = {
     missedList: 'தவறவிட்ட தேர்வுகள்', chapterHint: 'குறைந்தது 3 முறை பதிலளித்த பாடங்கள்', back: 'பின்செல்', accuracy: 'சரி', ch: 'பா.',
     showTable: 'அட்டவணையாகக் காட்டு', hideTable: 'அட்டவணையை மறை',
     noStrong: 'இன்னும் 60% எட்டிய பாடம் இல்லை', noWeak: 'எல்லா பாடங்களும் 60% அல்லது அதற்கு மேல்',
+    byLevel: 'நிலைவாரியான சரியான விடைகள்', levels: { easy: 'எளிது', medium: 'நடுத்தரம்', hard: 'கடினம்' } as Record<string, string>,
   },
 };
 
@@ -34,6 +36,7 @@ interface Report {
   kpis: { testsTaken: number; average: number | null; best: number | null; last: number | null; missed: number; atRisk: boolean };
   history: { attemptId: string; title: string; subjectEn: string; subjectTa: string; submittedAt: string; percentage: number; marksObtained: number; totalMarks: number; correct: number; wrong: number; skipped: number; classAverage: number | null }[];
   bySubject: { subjectId: string; nameEn: string; nameTa: string; average: number | null; tests: number }[];
+  byDifficulty?: { difficulty: string; accuracy: number; answered: number }[];
   weakChapters: { chapterId: string; number: number; nameEn: string; nameTa: string; subjectEn: string; subjectTa: string; accuracy: number; answered: number }[];
   strongChapters: Report['weakChapters'];
   missed: { testId: string; title: string; closedAt: string; subjectEn: string; subjectTa: string }[];
@@ -129,6 +132,12 @@ const StudentReport: React.FC<{ studentId?: string; onBack?: () => void }> = ({ 
           <div className="grid lg:grid-cols-3 gap-4">
             <Panel title={t.subjects}>
               <PercentBars passMark={report.passMark} items={report.bySubject.map((s) => ({ key: s.subjectId, label: name(s.nameEn, s.nameTa), sublabel: `${s.tests} ${ta ? 'தேர்வுகள்' : s.tests === 1 ? 'test' : 'tests'}`, value: s.average }))} />
+              {report.byDifficulty && report.byDifficulty.length > 0 && (
+                <>
+                  <h3 className="mt-6 mb-3 text-sm font-semibold text-slate-700 dark:text-slate-200">{t.byLevel}</h3>
+                  <PercentBars items={report.byDifficulty.map((d) => ({ key: d.difficulty, label: t.levels[d.difficulty] || d.difficulty, value: d.accuracy }))} />
+                </>
+              )}
             </Panel>
             <Panel title={t.weak}>
               <PercentBars

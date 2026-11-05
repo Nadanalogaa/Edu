@@ -27,6 +27,7 @@ interface Overview {
   bySubject: { subjectId: string; nameEn: string; average: number; attempts: number; tests: number }[];
   byClass: { classGrade: number; section: string | null; average: number; students: number }[];
   weakChapters: { chapterId: string; number: number; nameEn: string; subjectEn: string; accuracy: number; answered: number }[];
+  byDifficulty: { difficulty: string; accuracy: number; answered: number }[];
   recentTests: { testId: string; title: string; classGrade: number; average: number; submitted: number; lastSubmitted: string }[];
   atRisk: StudentRow[];
   top: StudentRow[];
@@ -194,7 +195,7 @@ const ReportsScreen: React.FC = () => {
                   />
                 </Panel>
 
-                <div className="grid lg:grid-cols-2 gap-4">
+                <div className="grid lg:grid-cols-3 gap-4">
                   <Panel title="Average by subject">
                     <PercentBars passMark={overview.passMark} items={overview.bySubject.map((s) => ({ key: s.subjectId, label: s.nameEn, sublabel: `${s.tests} tests`, value: s.average }))} />
                   </Panel>
@@ -209,6 +210,17 @@ const ReportsScreen: React.FC = () => {
                         onClick: () => setFilters({ ...filters, classGrade: c.classGrade, section: c.section || '' }),
                       }))}
                     />
+                  </Panel>
+                  <Panel title="Correct answers by level">
+                    <PercentBars
+                      items={(overview.byDifficulty || []).map((d) => ({
+                        key: d.difficulty,
+                        label: d.difficulty[0].toUpperCase() + d.difficulty.slice(1),
+                        sublabel: `${d.answered} answers`,
+                        value: d.accuracy,
+                      }))}
+                    />
+                    <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">A big drop from Easy to Hard means students know the facts but struggle to apply them.</p>
                   </Panel>
                 </div>
 

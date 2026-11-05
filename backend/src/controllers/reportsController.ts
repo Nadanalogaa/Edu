@@ -81,6 +81,20 @@ const chapterSql = (minAnswers: number) => `
   GROUP BY c.id, c.number, c.name_en, c.name_ta, s.id, s.name_en, s.name_ta
   HAVING count(*) >= ${minAnswers}`;
 
+/** Accuracy by question difficulty from the answers of attempts in `att`. */
+const difficultySql = `
+  SELECT q.difficulty, count(*)::int AS answered,
+         count(*) FILTER (WHERE (ans->>'isCorrect')::boolean)::int AS correct
+  FROM att, jsonb_array_elements(att.answers) ans
+  JOIN questions q ON q.id = (ans->>'questionId')::uuid
+  GROUP BY q.difficulty`;
+
+const difficultyRows = (rows: any[]) =>
+  ['easy', 'medium', 'hard']
+    .map((level) => rows.find((r) => r.difficulty === level))
+    .filter(Boolean)
+    .map((r) => ({ difficulty: r.difficulty, answered: r.answered, correct: r.correct, accuracy: round1((r.correct / r.answered) * 100) }));
+
 const chapterRow = (r: any) => ({
   chapterId: r.chapter_id,
   number: r.number,
@@ -194,6 +208,7 @@ export const overview = async (req: AuthRequest, res: Response) => {
                                       count(DISTINCT student_id)::int AS students
                                FROM att GROUP BY class_grade, section ORDER BY class_grade, section NULLS FIRST`);
     const chapters = await run(`${chapterSql(3)} ORDER BY (count(*) FILTER (WHERE (ans->>'isCorrect')::boolean))::float / count(*) ASC LIMIT 8`);
+    const byDifficulty = difficultyRows(await run(difficultySql));
     const recentTests = await run(`SELECT test_id, test_title, class_grade, max(end_time) AS last_submitted, avg(percentage) AS average,
                                           count(*)::int AS submitted
                                    FROM att GROUP BY test_id, test_title, class_grade ORDER BY max(end_time) DESC LIMIT 6`);
@@ -250,6 +265,7 @@ export const overview = async (req: AuthRequest, res: Response) => {
         bySubject: bySubject.map((s) => ({ subjectId: s.id, nameEn: s.name_en, nameTa: s.name_ta, average: round1(s.average), attempts: s.attempts, tests: s.tests })),
         byClass: byClass.map((c) => ({ classGrade: c.class_grade, section: c.section, average: round1(c.average), attempts: c.attempts, students: c.students })),
         weakChapters: chapters.map(chapterRow),
+        byDifficulty,
         recentTests: recentTests.map((t) => ({ testId: t.test_id, title: t.test_title, classGrade: t.class_grade, lastSubmitted: t.last_submitted, average: round1(t.average), submitted: t.submitted })),
         atRisk: students.filter((s) => s.atRisk).sort((a, b) => (a.average ?? 101) - (b.average ?? 101)).slice(0, 10),
         top: [...withScores].sort((a, b) => b.average! - a.average!).slice(0, 5),
@@ -297,6 +313,7 @@ export const buildStudentReport = async (schoolId: string, studentId: string) =>
   const bySubject = await run(`SELECT s.id, s.name_en, s.name_ta, avg(att.percentage) AS average, count(*)::int AS tests
                                FROM att JOIN subjects s ON s.id = att.subject_id GROUP BY s.id, s.name_en, s.name_ta, s.sort_order ORDER BY s.sort_order`);
   const chapters = await run(`${chapterSql(1)} ORDER BY s.name_en, c.number`);
+  const byDifficulty = difficultyRows(await run(difficultySql));
   const missed = await query(
     `SELECT t.id, t.title, t.end_time, s.name_en, s.name_ta FROM tests t
      JOIN users u ON u.id = $1
@@ -348,6 +365,7 @@ export const buildStudentReport = async (schoolId: string, studentId: string) =>
       classAverage: round1(h.class_average),
     })),
     bySubject: bySubject.map((s) => ({ subjectId: s.id, nameEn: s.name_en, nameTa: s.name_ta, average: round1(s.average), tests: s.tests })),
+    byDifficulty,
     // Chapters answered at least 3 times: below 60% correct needs practice, 60% and above is strong
     weakChapters: chapterRows.filter((c) => c.answered >= 3 && c.accuracy! < STRONG_CHAPTER).sort((a, b) => a.accuracy! - b.accuracy!).slice(0, 5),
     strongChapters: chapterRows.filter((c) => c.answered >= 3 && c.accuracy! >= STRONG_CHAPTER).sort((a, b) => b.accuracy! - a.accuracy!).slice(0, 5),

@@ -6,6 +6,7 @@ import {
   apiError, boardLabel,
 } from '../common/ui';
 import { useSubjects, useChapters, SyllabusFilters, OPTION_LETTERS, chapterLabel, downloadFromApi, Chapter, Subject } from './syllabus';
+import QuestionImage from '../common/QuestionImage';
 
 interface Question {
   _id: string;
@@ -18,6 +19,8 @@ interface Question {
   chapterId: string | null;
   schoolId: string | null;
   editable: boolean;
+  imageUrl?: string | null;
+  source?: string | null;
 }
 
 /** Question bank by class → subject → chapter, for school staff and the owner (shared bank). */
@@ -170,10 +173,13 @@ const QuestionBankScreen: React.FC = () => {
                       <Badge tone={q.difficulty === 'hard' ? 'red' : q.difficulty === 'easy' ? 'green' : 'amber'}>{q.difficulty}</Badge>
                       <Badge>{q.marks} mark{q.marks > 1 ? 's' : ''}</Badge>
                       {q.schoolId ? <Badge tone="indigo">My school</Badge> : <Badge>Shared</Badge>}
+                      {q.imageUrl && <Badge tone="indigo">Diagram</Badge>}
+                      {q.source && <Badge>{q.source}</Badge>}
                     </div>
                   </button>
                   {expanded === q._id && (
                     <div className="mt-3 pl-3 border-l-2 border-indigo-200 dark:border-indigo-800 space-y-2">
+                      <QuestionImage src={q.imageUrl} />
                       <ol className="grid sm:grid-cols-2 gap-1 text-sm">
                         {q.options.en.map((o, i) => (
                           <li key={i} className={i === q.correctAnswer ? 'font-semibold text-emerald-700 dark:text-emerald-400' : 'text-slate-600 dark:text-slate-300'}>

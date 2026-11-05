@@ -5,7 +5,7 @@ export const Questions = new Table(
   [
     'externalId', 'subject', 'unit', 'chapter', 'chapterName', 'topic', 'difficulty', 'question',
     'options', 'correctAnswer', 'explanation', 'videoUrl', 'marks', 'examType', 'isActive', 'createdBy',
-    'schoolId', 'board', 'classGrade', 'subjectId', 'chapterId',
+    'schoolId', 'board', 'classGrade', 'subjectId', 'chapterId', 'imageUrl', 'source',
   ],
   ['chapterName', 'question', 'options', 'explanation']
 );

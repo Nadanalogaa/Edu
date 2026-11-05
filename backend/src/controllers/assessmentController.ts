@@ -81,6 +81,9 @@ const questionFields = (input: Record<string, any>) => {
   const marks = input.marks === undefined || clean(input.marks) === '' ? 1 : Number(input.marks);
   if (!Number.isInteger(marks) || marks < 1 || marks > 20) throw new HttpError(400, 'Marks must be a whole number from 1 to 20');
 
+  const imageUrl = clean(input.imageUrl);
+  if (imageUrl && !/^(https?:\/\/|\/)/.test(imageUrl)) throw new HttpError(400, 'Image must be a web address (https://…) or a path starting with /');
+
   return {
     question: { en: questionEn, ta: questionTa },
     options: { en: optionsEn, ta: optionsTa },
@@ -88,6 +91,8 @@ const questionFields = (input: Record<string, any>) => {
     explanation: { en: clean(input.explanationEn), ta: clean(input.explanationTa) },
     difficulty,
     marks,
+    source: clean(input.source) || null,
+    imageUrl: imageUrl || null,
   };
 };
 
@@ -148,14 +153,18 @@ export const questionCounts = async (req: AuthRequest, res: Response) => {
     const subject = await loadSubject(req, req.query.subjectId, req.query.board);
     const params: any[] = [subject._id];
     const rows = await query(
-      `SELECT chapter_id, count(*)::int AS questions FROM questions
-       WHERE subject_id = $1 AND is_active AND ${visibleTo(req.user, params)} GROUP BY chapter_id`,
+      `SELECT chapter_id, difficulty, count(*)::int AS questions FROM questions
+       WHERE subject_id = $1 AND is_active AND ${visibleTo(req.user, params)} GROUP BY chapter_id, difficulty`,
       params
     );
-    res.status(200).json({
-      success: true,
-      data: Object.fromEntries(rows.map((r) => [r.chapter_id || 'none', r.questions])),
-    });
+    const total: Record<string, number> = {};
+    const byDifficulty: Record<string, Record<string, number>> = {};
+    for (const r of rows) {
+      const key = r.chapter_id || 'none';
+      total[key] = (total[key] || 0) + r.questions;
+      byDifficulty[key] = { ...byDifficulty[key], [r.difficulty]: r.questions };
+    }
+    res.status(200).json({ success: true, data: total, byDifficulty });
   } catch (error: any) {
     sendError(res, error, 'Question counts');
   }
@@ -189,6 +198,9 @@ export const updateQuestion = async (req: AuthRequest, res: Response) => {
     if (!existing || !existing.isActive || !canChange(req.user, existing)) throw new HttpError(404, 'Question not found');
 
     const updates: Record<string, any> = questionFields(req.body);
+    // The form does not send these; keep what the question already has
+    if (req.body.source === undefined) delete updates.source;
+    if (req.body.imageUrl === undefined) delete updates.imageUrl;
     if (isUuid(req.body.chapterId) && req.body.chapterId !== existing.chapterId) {
       const chapter = await Chapters.findById(req.body.chapterId);
       if (!chapter || chapter.subjectId !== existing.subjectId) throw new HttpError(400, 'Please choose a chapter of the same subject');
@@ -231,6 +243,8 @@ const QUESTION_COLUMNS: Record<string, string[]> = {
   explanationTa: ['explanationtamil', 'explanationta', 'விளக்கம்'],
   difficulty: ['difficulty', 'level'],
   marks: ['marks', 'mark', 'score'],
+  source: ['source', 'section', 'reference', 'page'],
+  imageUrl: ['image', 'imageurl', 'picture', 'diagram'],
 };
 const QUESTION_TEMPLATE_HEADERS = [
   'Chapter', 'Question', 'Option A', 'Option B', 'Option C', 'Option D', 'Answer', 'Explanation',
@@ -329,6 +343,43 @@ export const uploadQuestions = async (req: AuthRequest, res: Response) => {
 };
 
 // -------------------------------------------------------------------- tests
+
+/** Share of each level in a Mixed test. */
+export const MIXED_SHARE = { easy: 0.4, medium: 0.4, hard: 0.2 };
+
+/**
+ * Picks `count` questions from a shuffled pool: all of one level, or Mixed
+ * (40% easy, 40% medium, 20% hard, topping up from other levels when one runs
+ * short). Throws if the pool cannot supply enough.
+ */
+const pickByDifficulty = (pool: Doc[], count: number, difficulty?: string) => {
+  if (DIFFICULTIES.includes(difficulty as string)) {
+    const level = pool.filter((q) => q.difficulty === difficulty);
+    if (level.length < count) {
+      throw new HttpError(400, `Only ${level.length} ${difficulty} questions are available for the chosen chapters; you asked for ${count}`);
+    }
+    return level.slice(0, count);
+  }
+  if (pool.length < count) {
+    throw new HttpError(400, `Only ${pool.length} questions are available for the chosen chapters; you asked for ${count}`);
+  }
+  if (difficulty !== 'mixed') return pool.slice(0, count);
+
+  const want = { easy: Math.round(count * MIXED_SHARE.easy), hard: Math.round(count * MIXED_SHARE.hard), medium: 0 };
+  want.medium = count - want.easy - want.hard;
+  const picked: Doc[] = [];
+  for (const level of DIFFICULTIES) {
+    picked.push(...pool.filter((q) => q.difficulty === level).slice(0, want[level as keyof typeof want]));
+  }
+  // Top up from whatever is left when a level is short
+  const used = new Set(picked.map((q) => q._id));
+  for (const q of pool) {
+    if (picked.length >= count) break;
+    if (!used.has(q._id)) picked.push(q);
+  }
+  // Easy first, hard last
+  return picked.sort((a, b) => DIFFICULTIES.indexOf(a.difficulty) - DIFFICULTIES.indexOf(b.difficulty));
+};
 
 /** Active students a class assessment is for. */
 const assignedStudentsSql = `
@@ -481,22 +532,18 @@ export const createTest = async (req: AuthRequest, res: Response) => {
         params.push(chosenChapters);
         chapterSql = ` AND chapter_id = ANY($${params.length}::uuid[])`;
       }
-      if (DIFFICULTIES.includes(autoPick?.difficulty)) {
-        params.push(autoPick.difficulty);
-        chapterSql += ` AND difficulty = $${params.length}`;
-      }
-      params.push(count);
-      questions = await Questions.select(
-        `SELECT * FROM questions WHERE subject_id = $1 AND is_active AND ${visible}${chapterSql}
-         ORDER BY random() LIMIT $${params.length}`,
+      const pool = await Questions.select(
+        `SELECT * FROM questions WHERE subject_id = $1 AND is_active AND ${visible}${chapterSql} ORDER BY random()`,
         params
       );
-      if (questions.length < count) {
-        throw new HttpError(400, `Only ${questions.length} questions are available for the chosen chapters; you asked for ${count}`);
-      }
-      // Keep textbook order: by chapter, then as stored
+      questions = pickByDifficulty(pool, count, autoPick?.difficulty);
+      // Keep textbook order: by chapter, then easy to hard
       const order = new Map(chapters.map((c) => [c._id, c.number]));
-      questions.sort((a, b) => (order.get(a.chapterId) ?? 999) - (order.get(b.chapterId) ?? 999));
+      questions.sort(
+        (a, b) =>
+          (order.get(a.chapterId) ?? 999) - (order.get(b.chapterId) ?? 999) ||
+          DIFFICULTIES.indexOf(a.difficulty) - DIFFICULTIES.indexOf(b.difficulty)
+      );
     }
 
     const test = await Tests.insert({

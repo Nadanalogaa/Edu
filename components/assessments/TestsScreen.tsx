@@ -294,13 +294,14 @@ const CreateTest: React.FC<{ isOwner: boolean; board: string; onClose: () => voi
     chapterIds: [] as string[],
     mode: 'random' as 'random' | 'choose',
     count: '10',
-    difficulty: '',
+    difficulty: 'mixed',
     duration: '30',
     startTime: '',
     endTime: '',
     isPublished: true,
   });
   const [counts, setCounts] = useState<Record<string, number>>({});
+  const [levelCounts, setLevelCounts] = useState<Record<string, Record<string, number>>>({});
   const [pool, setPool] = useState<{ _id: string; question: { en: string }; chapterId: string; marks: number; options: { en: string[] }; correctAnswer: number }[]>([]);
   const [chosen, setChosen] = useState<string[]>([]);
   const [error, setError] = useState('');
@@ -313,7 +314,10 @@ const CreateTest: React.FC<{ isOwner: boolean; board: string; onClose: () => voi
     if (!form.subjectId) return setCounts({});
     api
       .get('/assessments/questions/counts', { params: { subjectId: form.subjectId, board: isOwner ? board : undefined } })
-      .then((res) => setCounts(res.data.data))
+      .then((res) => {
+        setCounts(res.data.data);
+        setLevelCounts(res.data.byDifficulty || {});
+      })
       .catch(() => setCounts({}));
   }, [form.subjectId, board, isOwner]);
 
@@ -325,10 +329,24 @@ const CreateTest: React.FC<{ isOwner: boolean; board: string; onClose: () => voi
       .catch(() => setPool([]));
   }, [form.mode, form.subjectId, board, isOwner]);
 
-  const available = useMemo(() => {
+  // Questions available in the chosen chapters, in total and per level
+  const levels = useMemo(() => {
     const ids = form.chapterIds.length ? form.chapterIds : Object.keys(counts);
-    return ids.reduce((sum, id) => sum + (counts[id] || 0), 0);
-  }, [counts, form.chapterIds]);
+    const per: { total: number; easy: number; medium: number; hard: number } = { total: 0, easy: 0, medium: 0, hard: 0 };
+    ids.forEach((id) => {
+      per.total += counts[id] || 0;
+      Object.entries(levelCounts[id] || {}).forEach(([level, n]) => {
+        if (level === 'easy' || level === 'medium' || level === 'hard') per[level] += n;
+      });
+    });
+    return per;
+  }, [counts, levelCounts, form.chapterIds]);
+  const available = form.difficulty === 'easy' || form.difficulty === 'medium' || form.difficulty === 'hard' ? levels[form.difficulty] : levels.total;
+  const mixSplit = (n: number) => {
+    const easy = Math.round(n * 0.4);
+    const hard = Math.round(n * 0.2);
+    return `${easy} easy, ${n - easy - hard} medium, ${hard} hard`;
+  };
   const visiblePool = pool.filter((q) => !form.chapterIds.length || form.chapterIds.includes(q.chapterId));
 
   const toggleChapter = (id: string) =>
@@ -425,15 +443,19 @@ const CreateTest: React.FC<{ isOwner: boolean; board: string; onClose: () => voi
             </div>
             {form.mode === 'random' ? (
               <div className="grid grid-cols-2 gap-3">
-                <Field label="Number of questions" hint={`${available} available`}>
+                <Field
+                  label="Number of questions"
+                  hint={`${available} available (${levels.easy} easy · ${levels.medium} medium · ${levels.hard} hard)`}
+                >
                   <TextInput type="number" min={1} max={200} required value={form.count} onChange={(e) => set({ count: e.target.value })} />
                 </Field>
-                <Field label="Difficulty">
+                <Field label="Test mode" hint={form.difficulty === 'mixed' ? mixSplit(Number(form.count) || 0) : undefined}>
                   <SelectInput value={form.difficulty} onChange={(e) => set({ difficulty: e.target.value })}>
-                    <option value="">Any</option>
-                    <option value="easy">Easy</option>
-                    <option value="medium">Medium</option>
-                    <option value="hard">Hard</option>
+                    <option value="mixed">Mixed (40% easy · 40% medium · 20% hard)</option>
+                    <option value="easy">Easy only</option>
+                    <option value="medium">Medium only</option>
+                    <option value="hard">Hard only</option>
+                    <option value="">Any (random)</option>
                   </SelectInput>
                 </Field>
               </div>

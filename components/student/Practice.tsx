@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
 import { useLanguage } from '../../context/LanguageContext';
 import { Panel, Button, Alert, Spinner, EmptyState, apiError } from '../common/ui';
+import QuestionImage from '../common/QuestionImage';
 
 // Self-practice: pick a subject and chapter (or NEET/JEE in 11th-12th), answer
 // with instant feedback and explanations. Nothing is marked or reported.
@@ -13,6 +14,7 @@ const TEXT = {
     question: 'Question', of: 'of', correct: 'Correct!', wrong: 'Not quite. The correct answer is', explanation: 'Explanation', next: 'Next question',
     finish: 'See my score', score: 'You got', outOf: 'out of', again: 'Practise again', change: 'Choose another chapter', noQuestions: 'No questions available here right now.',
     neetHint: 'Entrance exam practice for 11th and 12th.', pickTrack: 'Exam', pickSubject: 'Subject',
+    level: 'Level', levels: { '': 'All', easy: 'Easy', medium: 'Medium', hard: 'Hard' } as Record<string, string>,
   },
   ta: {
     title: 'பயிற்சி', subtitle: 'எந்தப் பாடப்பகுதியையும் விரும்பும் அளவு பயிற்சி செய்யுங்கள். இவை மதிப்பெண்ணுக்கானவை அல்ல.', school: 'என் பாடங்கள்', neet: 'NEET / JEE',
@@ -20,6 +22,7 @@ const TEXT = {
     question: 'கேள்வி', of: '/', correct: 'சரி!', wrong: 'தவறு. சரியான விடை', explanation: 'விளக்கம்', next: 'அடுத்த கேள்வி',
     finish: 'என் மதிப்பெண்', score: 'நீங்கள் பெற்றது', outOf: 'இல்', again: 'மீண்டும் பயிற்சி', change: 'வேறு பாடப்பகுதி', noQuestions: 'இப்போது இங்கே கேள்விகள் இல்லை.',
     neetHint: '11, 12 ஆம் வகுப்புக்கான நுழைவுத் தேர்வுப் பயிற்சி.', pickTrack: 'தேர்வு', pickSubject: 'பாடம்',
+    level: 'நிலை', levels: { '': 'அனைத்தும்', easy: 'எளிது', medium: 'நடுத்தரம்', hard: 'கடினம்' } as Record<string, string>,
   },
 };
 
@@ -37,6 +40,7 @@ const Practice: React.FC = () => {
   const [chapterId, setChapterId] = useState('');
   const [track, setTrack] = useState<'NEET' | 'JEE'>('NEET');
   const [neetSubject, setNeetSubject] = useState('');
+  const [difficulty, setDifficulty] = useState('');
   const [session, setSession] = useState<{ questions: any[]; index: number; picked: (number | null)[] } | null>(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -56,7 +60,11 @@ const Practice: React.FC = () => {
     setLoading(true);
     setError('');
     try {
-      const params = mode === 'neet' ? { track, subject: neetSubject, count: 10 } : { subjectId, chapterId: chapterId || undefined, count: 10 };
+      const params = {
+        ...(mode === 'neet' ? { track, subject: neetSubject } : { subjectId, chapterId: chapterId || undefined }),
+        difficulty: difficulty || undefined,
+        count: 10,
+      };
       const res = await api.get('/student/practice/questions', { params });
       if (!res.data.data.length) setError(t.noQuestions);
       else setSession({ questions: res.data.data, index: 0, picked: res.data.data.map(() => null) });
@@ -115,6 +123,7 @@ const Practice: React.FC = () => {
             {q.topic && ` · ${q.topic}`}
           </p>
           <h2 className="mt-2 text-lg font-semibold text-slate-800 dark:text-slate-100 whitespace-pre-line">{pick(ta, q.question)}</h2>
+          <QuestionImage src={q.imageUrl} />
           <div className="mt-4 space-y-2" role="radiogroup">
             {q.options.en.map((_: string, i: number) => {
               const isAnswer = i === q.correctAnswer;
@@ -243,6 +252,22 @@ const Practice: React.FC = () => {
                 ))}
               </ul>
             )}
+            <fieldset className="mt-4">
+              <legend className="mb-1 text-sm font-medium text-slate-700 dark:text-slate-300">{t.level}</legend>
+              <div className="flex flex-wrap gap-2">
+                {['', 'easy', 'medium', 'hard'].map((level) => (
+                  <button
+                    key={level || 'all'}
+                    type="button"
+                    aria-pressed={difficulty === level}
+                    onClick={() => setDifficulty(level)}
+                    className={`px-4 py-1.5 rounded-full text-sm font-medium border-2 ${difficulty === level ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300' : 'border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200'}`}
+                  >
+                    {t.levels[level]}
+                  </button>
+                ))}
+              </div>
+            </fieldset>
             <div className="mt-4">
               <Button disabled={loading || !subjectId} onClick={start}>
                 {t.start}
@@ -275,6 +300,22 @@ const Practice: React.FC = () => {
               </div>
             </fieldset>
           </div>
+          <fieldset className="mt-4">
+              <legend className="mb-1 text-sm font-medium text-slate-700 dark:text-slate-300">{t.level}</legend>
+              <div className="flex flex-wrap gap-2">
+                {['', 'easy', 'medium', 'hard'].map((level) => (
+                  <button
+                    key={level || 'all'}
+                    type="button"
+                    aria-pressed={difficulty === level}
+                    onClick={() => setDifficulty(level)}
+                    className={`px-4 py-1.5 rounded-full text-sm font-medium border-2 ${difficulty === level ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300' : 'border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200'}`}
+                  >
+                    {t.levels[level]}
+                  </button>
+                ))}
+              </div>
+            </fieldset>
           <div className="mt-4">
             <Button disabled={loading || !neetRow || !(track === 'NEET' ? neetRow.neet : neetRow.jee)} onClick={start}>
               {t.start}

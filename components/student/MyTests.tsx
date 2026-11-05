@@ -3,6 +3,7 @@ import api from '../../services/api';
 import { useLanguage } from '../../context/LanguageContext';
 import { Panel, Button, Badge, Alert, Spinner, EmptyState, apiError } from '../common/ui';
 import { ClockIcon, CheckCircleIcon, XCircleIcon } from '../icons';
+import QuestionImage from '../common/QuestionImage';
 
 // The student's class tests: list → take (timed, answers saved as they go) →
 // result → review with correct answers. English/Tamil follows the app language.
@@ -53,6 +54,7 @@ interface ExamQuestion {
   question: { en: string; ta: string };
   options: { en: string[]; ta: string[] };
   marks: number;
+  imageUrl?: string | null;
 }
 
 /** Tamil text when the app is in Tamil and the question has it. */
@@ -280,6 +282,7 @@ const TakeTest: React.FC<{ data: any; lang: string; onFinished: (attemptId: stri
           {t.question} {index + 1} {t.of} {questions.length} · {q.marks} {t.marks}
         </p>
         <h2 className="mt-2 text-lg font-semibold text-slate-800 dark:text-slate-100 whitespace-pre-line">{pickText(lang, q.question)}</h2>
+        <QuestionImage src={q.imageUrl} />
         <div className="mt-4 space-y-2" role="radiogroup" aria-label={`${t.question} ${index + 1}`}>
           {q.options.en.map((_, i) => {
             const selected = answers[q._id] === i;
@@ -405,6 +408,7 @@ const Review: React.FC<{ attemptId: string; lang: string; onBack: () => void }> 
               {i + 1}. {pickText(lang, q.question)}
             </p>
           </div>
+          <QuestionImage src={q.imageUrl} />
           <ul className="mt-3 space-y-1 text-sm">
             {q.options.en.map((_: string, oi: number) => {
               const isAnswer = oi === q.correctAnswer;

@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import api from '../../services/api';
 import { useLanguage } from '../../context/LanguageContext';
 import { Panel, Button, Alert, Spinner, EmptyState, SelectInput, apiError, formatDate } from '../common/ui';
+import QuestionImage from '../common/QuestionImage';
 
 // Wrong answers from the student's submitted tests, for revision.
 
@@ -92,6 +93,7 @@ const Mistakes: React.FC = () => {
                   {q.topic && q.topic !== q.subject && ` · ${q.topic}`} · {formatDate(m.createdAt)}
                 </p>
                 <p className="mt-1 font-medium text-slate-800 dark:text-slate-100 whitespace-pre-line">{text(q.question)}</p>
+                <QuestionImage src={q.imageUrl} />
                 <div className="mt-3 grid sm:grid-cols-2 gap-2 text-sm">
                   <p className="px-3 py-2 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300">
                     ✗ {t.yours}: {option(q, m.selectedAnswer)}

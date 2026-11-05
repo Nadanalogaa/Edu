@@ -97,7 +97,11 @@ export const practiceQuestions = async (req: AuthRequest, res: Response) => {
     const count = Math.min(30, Math.max(1, Number(req.query.count) || 10));
     const params: any[] = [];
     const where = [practisable(student, params)];
-    const { subjectId, chapterId, track, subject } = req.query;
+    const { subjectId, chapterId, track, subject, difficulty } = req.query;
+    if (['easy', 'medium', 'hard'].includes(String(difficulty))) {
+      params.push(String(difficulty));
+      where.push(`q.difficulty = $${params.length}`);
+    }
 
     if (track) {
       if (!canDoNeet(student)) return res.status(403).json({ success: false, message: 'NEET/JEE practice is for 11th and 12th' });
@@ -138,6 +142,7 @@ export const practiceQuestions = async (req: AuthRequest, res: Response) => {
         chapter: q.chapter,
         topic: q.topic,
         difficulty: q.difficulty,
+        imageUrl: q.imageUrl || null,
       })),
     });
   } catch (error: any) {

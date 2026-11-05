@@ -33,6 +33,7 @@ export const studentQuestion = (q: Doc) => ({
   options: q.options,
   marks: q.marks,
   chapterId: q.chapterId,
+  imageUrl: q.imageUrl || null,
 });
 
 /** Is this class assessment assigned to the student (their school, class and section)? */
