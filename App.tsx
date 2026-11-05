@@ -485,16 +485,6 @@ const DashboardLayout: React.FC = () => {
         {/* Compact Universal Header */}
         <div className="sticky top-0 z-20 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700 px-3 sm:px-5 lg:px-8 pb-2.5 pt-[max(0.625rem,env(safe-area-inset-top))]">
           <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
-            {/* Hamburger (mobile only) */}
-            <button
-              type="button"
-              onClick={() => setIsSidebarOpen(true)}
-              className="hidden flex-shrink-0 p-2 -ml-1 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 active:scale-95 transition"
-              aria-label="Open menu"
-            >
-              <MenuIcon className="w-6 h-6" />
-            </button>
-
             {currentUser.role === 'student' ? (
               <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
                 <img src="/icons/icon-192.png" alt="" className="lg:hidden w-8 h-8 flex-shrink-0" />
