@@ -31,3 +31,6 @@ dist-ssr
 
 # Uploaded documents (kept on the edu-uploads volume in production)
 backend/uploads/
+
+# Textbook PDFs and review sheets (large; kept out of git)
+subjects/
