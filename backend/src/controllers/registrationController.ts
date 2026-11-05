@@ -23,9 +23,13 @@ const validate = (rules: Array<[boolean, string]>) => {
 };
 const optional = (value: any, re: RegExp) => !value || re.test(String(value));
 
-/** Class 6-12 from "9", "9th", "IX"-free inputs; null if not a valid class. */
+const ROMAN: Record<string, number> = { vi: 6, vii: 7, viii: 8, ix: 9, x: 10, xi: 11, xii: 12 };
+
+/** 9, "9th", "IX", "Class 9" or "Std IX" -> 9; null outside 6–12. */
 export const parseClassGrade = (value: any): number | null => {
-  const match = String(value ?? '').trim().match(/^(\d{1,2})(st|nd|rd|th)?$/i);
+  const text = String(value ?? '').trim().toLowerCase().replace(/^(class|std\.?|standard|grade)\s*/, '');
+  if (ROMAN[text]) return ROMAN[text];
+  const match = text.match(/^(\d{1,2})(st|nd|rd|th)?$/i);
   const grade = match ? Number(match[1]) : NaN;
   return grade >= 6 && grade <= 12 ? grade : null;
 };

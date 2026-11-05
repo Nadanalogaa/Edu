@@ -112,7 +112,7 @@ const PeopleManager: React.FC<{ role: Role }> = ({ role }) => {
         subtitle={label.subtitle}
         actions={
           <>
-            {isStudent && (
+            {(isStudent || isTeacher) && (
               <Button variant="secondary" onClick={() => setModal({ kind: 'import' })}>
                 Import from Excel
               </Button>
@@ -267,7 +267,8 @@ const PeopleManager: React.FC<{ role: Role }> = ({ role }) => {
         />
       )}
       {modal?.kind === 'classes' && modal.person && <TeacherClassesModal teacher={modal.person} onClose={() => setModal(null)} onDone={done} />}
-      {modal?.kind === 'import' && <ImportStudents onClose={() => setModal(null)} onDone={done} schoolCode={usage?.schoolCode} />}
+      {modal?.kind === 'import' && isStudent && <ImportStudents onClose={() => setModal(null)} onDone={done} schoolCode={usage?.schoolCode} />}
+      {modal?.kind === 'import' && isTeacher && <ImportTeachers onClose={() => setModal(null)} onDone={done} schoolCode={usage?.schoolCode} />}
     </div>
   );
 };
@@ -516,6 +517,151 @@ const ImportStudents: React.FC<{ schoolCode?: string; onClose: () => void; onDon
         </p>
         <Button variant="ghost" size="sm" onClick={downloadTemplate}>
           Download Excel template
+        </Button>
+        <Field label="Excel or CSV file">
+          <input
+            type="file"
+            accept=".xlsx,.xls,.csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,text/csv"
+            required
+            onChange={(e) => setFile(e.target.files?.[0] || null)}
+            className="block w-full text-sm text-slate-600 dark:text-slate-300 file:mr-3 file:px-3 file:py-2 file:rounded-lg file:border-0 file:bg-indigo-50 file:text-indigo-700"
+          />
+        </Field>
+        {error && <Alert>{error}</Alert>}
+        <div className="flex justify-end gap-2">
+          <Button variant="secondary" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button type="submit" disabled={!file || saving}>
+            {saving ? 'Importing…' : 'Import'}
+          </Button>
+        </div>
+      </form>
+    </Modal>
+  );
+};
+
+/** Saves an Excel template the server builds (it includes the school's own subjects / classes). */
+const downloadTemplate = async (path: string, filename: string) => {
+  const res = await api.get(path, { responseType: 'blob' });
+  const url = URL.createObjectURL(res.data);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+};
+
+const ImportTeachers: React.FC<{ schoolCode?: string; onClose: () => void; onDone: (message: string, credentials?: Credential[]) => void }> = ({
+  schoolCode,
+  onClose,
+  onDone,
+}) => {
+  const [file, setFile] = useState<File | null>(null);
+  const [result, setResult] = useState<{
+    message: string;
+    created: { name: string; email: string; password: string; classes: number }[];
+    updated: { name: string; email: string; classes: number }[];
+    errors: { row: number; name?: string; email?: string; error: string }[];
+  } | null>(null);
+  const [error, setError] = useState('');
+  const [saving, setSaving] = useState(false);
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!file) return;
+    setSaving(true);
+    setError('');
+    try {
+      const form = new FormData();
+      form.append('bulkFile', file);
+      const res = await api.post('/school/teachers/bulk-upload', form, { headers: { 'Content-Type': 'multipart/form-data' }, timeout: 300000 });
+      setResult({ message: res.data.message, created: res.data.created || [], updated: res.data.updated || [], errors: res.data.errors || [] });
+    } catch (err) {
+      setError(apiError(err));
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  if (result) {
+    const credentials = result.created.map((c) => ({ name: c.name, login: c.email, password: c.password }));
+    const finish = () => onDone(result.message, credentials);
+    return (
+      <Modal title="Import finished" onClose={finish} wide>
+        <div className="space-y-4">
+          <Alert tone={result.errors.length ? 'info' : 'success'}>{result.message}</Alert>
+          {credentials.length > 0 && (
+            <div className="flex flex-wrap items-center gap-3">
+              <Button onClick={() => downloadCredentials(credentials, schoolCode)}>Download login details</Button>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Emails and passwords to hand out. Passwords cannot be shown again later.</p>
+            </div>
+          )}
+          {result.updated.length > 0 && (
+            <p className="text-sm text-slate-600 dark:text-slate-300">
+              Classes added to existing teachers: {result.updated.map((u) => u.name).join(', ')}.
+            </p>
+          )}
+          {result.errors.length > 0 && (
+            <>
+              <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-200">Rows to fix (that teacher was not added; fix the rows and import them again)</h3>
+              <Table head={['Row', 'Name', 'Email', 'Problem']}>
+                {result.errors.map((e, i) => (
+                  <tr key={i}>
+                    <td className="px-4 py-2">{e.row}</td>
+                    <td className="px-4 py-2">{e.name || '—'}</td>
+                    <td className="px-4 py-2">{e.email || '—'}</td>
+                    <td className="px-4 py-2">{e.error}</td>
+                  </tr>
+                ))}
+              </Table>
+            </>
+          )}
+          <div className="flex justify-end">
+            <Button variant="secondary" onClick={finish}>
+              Done
+            </Button>
+          </div>
+        </div>
+      </Modal>
+    );
+  }
+
+  return (
+    <Modal title="Import teachers from Excel" onClose={onClose} wide>
+      <form onSubmit={submit} className="space-y-4">
+        <p className="text-sm text-slate-600 dark:text-slate-300">
+          One row for each class and subject a teacher looks after: <b>Name, Email, Phone, Password, Class, Section, Subject</b>. A teacher who takes several
+          classes has several rows with the same email.
+        </p>
+        <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700">
+          <table className="w-full text-xs">
+            <thead className="bg-slate-50 dark:bg-slate-800 text-slate-500">
+              <tr>
+                {['Name', 'Email', 'Class', 'Section', 'Subject', 'Means'].map((h) => (
+                  <th key={h} className="px-2 py-1.5 text-left font-semibold">{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-700 text-slate-700 dark:text-slate-300">
+              {[
+                ['Priya S', 'priya@…', '9', '', 'Maths', 'Maths in every 9th section'],
+                ['Priya S', 'priya@…', '10', '', 'Maths', '…and in 10th'],
+                ['Kumar R', 'kumar@…', '9', 'A', 'Science', 'Science in 9A only'],
+                ['Lakshmi V', 'lakshmi@…', '9', 'A', 'All', 'Class teacher of 9A, every subject'],
+                ['Head Teacher', 'head@…', 'All', '', '', 'The whole school'],
+              ].map((r, i) => (
+                <tr key={i}>
+                  {r.map((c, j) => (
+                    <td key={j} className={`px-2 py-1.5 ${j === 5 ? 'text-slate-500' : ''}`}>{c || '—'}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <Button variant="ghost" size="sm" onClick={() => downloadTemplate('/school/teachers/import-template', 'teachers-import-template.xlsx').catch((err) => setError(apiError(err, 'Could not download the template')))}>
+          Download Excel template (with your subjects)
         </Button>
         <Field label="Excel or CSV file">
           <input

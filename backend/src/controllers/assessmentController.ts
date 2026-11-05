@@ -8,6 +8,7 @@ import { Subjects, Chapters, isBoard, isClassGrade } from '../models/Syllabus';
 import { query, withTransaction } from '../config/database';
 import { isUuid, pick, Doc } from '../db/table';
 import { HttpError, contentSchoolId, visibleTo, ownedBy, canChange, isOwner } from '../utils/tenancy';
+import { sendWorkbook, howToSheet } from '../utils/excel';
 import { staffScopeOf, testInScope, canTeach, sectionsFor, coversAll, StaffScope } from '../utils/staffScope';
 
 // Class-wise assessments for school admins and teachers (their school's
@@ -250,7 +251,7 @@ const QUESTION_COLUMNS: Record<string, string[]> = {
 const QUESTION_TEMPLATE_HEADERS = [
   'Chapter', 'Question', 'Option A', 'Option B', 'Option C', 'Option D', 'Answer', 'Explanation',
   'Difficulty', 'Marks', 'Question (Tamil)', 'Option A (Tamil)', 'Option B (Tamil)', 'Option C (Tamil)',
-  'Option D (Tamil)', 'Explanation (Tamil)',
+  'Option D (Tamil)', 'Explanation (Tamil)', 'Source', 'Image URL',
 ];
 
 // Header -> field; letters, digits and Tamil kept, everything else dropped
@@ -268,18 +269,57 @@ const normaliseQuestionRow = (row: Record<string, any>) => {
 
 // @desc    Excel template for questions
 // @route   GET /api/assessments/questions/template
-export const questionTemplate = (req: AuthRequest, res: Response) => {
-  const sheet = XLSX.utils.aoa_to_sheet([
-    QUESTION_TEMPLATE_HEADERS,
-    [1, 'Which of these is a prime number?', '4', '6', '7', '9', 'C', '7 has only two factors: 1 and 7.', 'easy', 1,
-      'இவற்றில் எது பகா எண்?', '4', '6', '7', '9', '7-க்கு 1 மற்றும் 7 என இரண்டு காரணிகள் மட்டுமே உள்ளன.'],
-  ]);
-  sheet['!cols'] = QUESTION_TEMPLATE_HEADERS.map((h) => ({ wch: h.startsWith('Question') || h.startsWith('Explanation') ? 40 : 14 }));
-  const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, sheet, 'Questions');
-  res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-  res.setHeader('Content-Disposition', 'attachment; filename="questions-template.xlsx"');
-  res.send(XLSX.write(workbook, { type: 'buffer', bookType: 'xlsx' }));
+export const questionTemplate = async (req: AuthRequest, res: Response) => {
+  try {
+    // With ?subjectId= the template lists that subject's chapters
+    const subject = isUuid(req.query.subjectId) ? await Subjects.findById(req.query.subjectId as string) : null;
+    const chapters = subject ? await loadChapters(subject) : [];
+    const ch = (n: number) => (chapters.length ? chapters[Math.min(n, chapters.length) - 1].number : n);
+    sendWorkbook(res, subject ? `questions-${subject.nameEn.toLowerCase().replace(/\W+/g, '-')}-${subject.classGrade}th.xlsx` : 'questions-template.xlsx', [
+      {
+        name: 'Questions',
+        rows: [
+          QUESTION_TEMPLATE_HEADERS,
+          [ch(1), 'Which of these is a prime number?', '4', '6', '7', '9', 'C', '7 has only two factors: 1 and 7.', 'easy', 1,
+            'இவற்றில் எது பகா எண்?', '4', '6', '7', '9', '7-க்கு 1 மற்றும் 7 என இரண்டு காரணிகள் மட்டுமே உள்ளன.', 'p. 12', ''],
+          [ch(1), 'The value of 2³ × 2² is', '2⁵', '2⁶', '4⁵', '2¹', 'A', 'Add the powers of the same base: 3 + 2 = 5.', 'medium', 1,
+            '', '', '', '', '', '', 'p. 15', ''],
+          [ch(2), 'Assertion (A): Every square is a rectangle.\nReason (R): A square has four right angles.',
+            'Both A and R are true, and R is the correct explanation of A', 'Both A and R are true, but R is not the correct explanation of A',
+            'A is true but R is false', 'A is false but R is true', 'A', 'A rectangle has four right angles, and a square has them too.', 'hard', 2,
+            '', '', '', '', '', '', '§2.3', ''],
+          [ch(2), 'In the figure, find the angle x.', '30°', '45°', '60°', '90°', 'B', 'Angles on a straight line add up to 180°.', 'medium', 1,
+            '', '', '', '', '', '', 'Fig. 2.4', 'https://example.com/figure-2-4.png'],
+        ],
+        widths: [9, 48, 16, 16, 16, 16, 8, 40, 11, 7, 40, 16, 16, 16, 16, 40, 14, 30],
+      },
+      howToSheet('Uploading questions: one row per question (Questions sheet)', [
+        ['Chapter (required)', 'The chapter number, as in the Chapters sheet. Or choose one chapter in the app before uploading and leave this empty.'],
+        ['Question (required)', 'The question in English. Press Alt+Enter in a cell for a new line (e.g. Assertion / Reason).'],
+        ['Option A to D (required)', 'All four options.'],
+        ['Answer (required)', 'A, B, C or D (the correct option).'],
+        ['Explanation', 'Why the answer is right. Students see it after answering and in their Mistake Book.'],
+        ['Difficulty', 'easy, medium or hard (empty = medium). Tests can be set as easy, medium, hard or mixed.'],
+        ['Marks', 'A whole number from 1 to 20 (empty = 1).'],
+        ['Tamil columns', 'Optional: the same question, options and explanation in Tamil for Tamil-medium students. Empty Tamil options copy the English ones.'],
+        ['Source', 'Optional: where it is in the textbook, e.g. p. 12 or §2.3.'],
+        ['Image URL', 'Optional: a web address (https://…) of a diagram for the question.'],
+        [],
+        ['Tips', '• Keep the first row (the column names) as it is. • Delete the sample rows before uploading. • Up to 1000 questions per file.'],
+        ['', '• The file is for one subject of one class: choose that subject in the app, then upload.'],
+        ['', '• Your questions are only for your school; the questions from the textbook are already in the app.'],
+      ]),
+      {
+        name: 'Chapters',
+        rows: subject
+          ? [[`${subject.nameEn} ${subject.classGrade}th`], ['Chapter', 'Name', 'Name in Tamil'], ...chapters.map((c) => [c.number, c.nameEn, c.nameTa])]
+          : [['Download the template from a subject in the Question Bank to see its chapter numbers here.']],
+        widths: [10, 50, 50],
+      },
+    ]);
+  } catch (error: any) {
+    sendError(res, error, 'Question template');
+  }
 };
 
 // @desc    Import questions for one subject from Excel; the Chapter column (or the chosen chapter) places each one

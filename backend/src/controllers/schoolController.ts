@@ -9,6 +9,7 @@ import { assertStudentSeats, HttpError } from '../utils/tenancy';
 import { parseClassGrade } from './registrationController';
 import { Queryable } from '../config/database';
 import { isUuid } from '../db/table';
+import { howToSheet, readFirstSheet, sendWorkbook } from '../utils/excel';
 
 // School admins manage their own school's students, teachers and fellow admins.
 // Every query is limited to req.user.schoolId; active students count against
@@ -157,44 +158,52 @@ const assignmentsByTeacher = async (schoolId: string, teacherIds: string[]) => {
   return map;
 };
 
+type AssignmentItem = { classGrade: number | null; section: string | null; subjectId: string | null };
+
 /**
- * Checks and stores a teacher's assignments, replacing the old ones.
- * `all: true` = the whole school. Each item: a class, optionally a section
- * and a subject of that class (empty = every section / every subject).
+ * Checks a teacher's classes. `all: true` = the whole school. Each item: a
+ * class, optionally a section and a subject of that class (empty = every
+ * section / every subject).
  */
-const saveAssignments = async (client: Queryable, schoolId: string, board: string, teacherId: string, input: any) => {
-  const items: { classGrade: number | null; section: string | null; subjectId: string | null }[] = [];
-  if (input?.all) {
-    items.push({ classGrade: null, section: null, subjectId: null });
-  } else {
-    for (const raw of Array.isArray(input?.items) ? input.items : []) {
-      const classGrade = parseClassGrade(raw?.classGrade);
-      if (classGrade === null) throw new HttpError(400, 'Each class must be between 6th and 12th');
-      const section = clean(raw?.section).toUpperCase() || null;
-      let subjectId: string | null = null;
-      if (raw?.subjectId) {
-        if (!isUuid(raw.subjectId)) throw new HttpError(400, 'Please choose a subject');
-        const [subject] = await query('SELECT class_grade, board FROM subjects WHERE id = $1', [raw.subjectId], client);
-        if (!subject || subject.board !== board || subject.class_grade !== classGrade) {
-          throw new HttpError(400, `The subject chosen for ${classGrade}th does not belong to that class`);
-        }
-        subjectId = raw.subjectId;
+const parseAssignments = async (client: Queryable, board: string, input: any) => {
+  const items: AssignmentItem[] = [];
+  if (input?.all) return [{ classGrade: null, section: null, subjectId: null }];
+  for (const raw of Array.isArray(input?.items) ? input.items : []) {
+    const classGrade = parseClassGrade(raw?.classGrade);
+    if (classGrade === null) throw new HttpError(400, 'Each class must be between 6th and 12th');
+    const section = clean(raw?.section).toUpperCase() || null;
+    let subjectId: string | null = null;
+    if (raw?.subjectId) {
+      if (!isUuid(raw.subjectId)) throw new HttpError(400, 'Please choose a subject');
+      const [subject] = await query('SELECT class_grade, board FROM subjects WHERE id = $1', [raw.subjectId], client);
+      if (!subject || subject.board !== board || subject.class_grade !== classGrade) {
+        throw new HttpError(400, `The subject chosen for ${classGrade}th does not belong to that class`);
       }
-      if (!items.some((i) => i.classGrade === classGrade && i.section === section && i.subjectId === subjectId)) {
-        items.push({ classGrade, section, subjectId });
-      }
+      subjectId = raw.subjectId;
+    }
+    if (!items.some((i) => i.classGrade === classGrade && i.section === section && i.subjectId === subjectId)) {
+      items.push({ classGrade, section, subjectId });
     }
   }
   if (items.length > 60) throw new HttpError(400, 'Too many classes for one teacher');
-  await query('DELETE FROM teacher_assignments WHERE teacher_id = $1', [teacherId], client);
+  return items;
+};
+
+/** Stores a teacher's classes: replacing the old ones, or adding to them. */
+const writeAssignments = async (client: Queryable, schoolId: string, teacherId: string, items: AssignmentItem[], mode: 'replace' | 'add' = 'replace') => {
+  if (mode === 'replace') await query('DELETE FROM teacher_assignments WHERE teacher_id = $1', [teacherId], client);
   for (const i of items) {
     await query(
-      'INSERT INTO teacher_assignments (school_id, teacher_id, class_grade, section, subject_id) VALUES ($1, $2, $3, $4, $5)',
+      `INSERT INTO teacher_assignments (school_id, teacher_id, class_grade, section, subject_id) VALUES ($1, $2, $3, $4, $5)
+       ON CONFLICT (teacher_id, COALESCE(class_grade, 0), COALESCE(section, ''), COALESCE(subject_id, '00000000-0000-0000-0000-000000000000')) DO NOTHING`,
       [schoolId, teacherId, i.classGrade, i.section, i.subjectId],
       client
     );
   }
 };
+
+const saveAssignments = async (client: Queryable, schoolId: string, board: string, teacherId: string, input: any) =>
+  writeAssignments(client, schoolId, teacherId, await parseAssignments(client, board, input));
 
 const schoolBoard = async (schoolId: string, client?: Queryable) => {
   const [school] = await query('SELECT board FROM schools WHERE id = $1', [schoolId], client);
@@ -420,19 +429,226 @@ const readSheet = (filePath: string) => {
 
 // @desc    Excel template for importing students
 // @route   GET /api/school/students/import-template
-export const getImportTemplate = (req: AuthRequest, res: Response) => {
-  const sheet = XLSX.utils.aoa_to_sheet([
-    IMPORT_HEADERS,
-    ['1001', 'Anu R', '9', 'A', '9876543210', '', ''],
-    ['1002', 'Bala K', '9', 'B', '9876500001', 'bala@example.com', ''],
+export const getImportTemplate = async (req: AuthRequest, res: Response) => {
+  const sections = await query(
+    `SELECT class_grade, section, count(*)::int AS n FROM users
+     WHERE school_id = $1 AND role = 'student' AND is_active AND class_grade IS NOT NULL
+     GROUP BY 1, 2 ORDER BY 1, 2 NULLS FIRST`,
+    [req.user.schoolId]
+  );
+  sendWorkbook(res, 'students-import-template.xlsx', [
+    {
+      name: 'Students',
+      rows: [
+        IMPORT_HEADERS,
+        ['1001', 'Anu R', '9', 'A', '9876543210', '', ''],
+        ['1002', 'Bala K', '9', 'A', '9876500001', 'bala.parent@example.com', ''],
+        ['1003', 'Chitra M', '9', 'B', '9876500002', '', 'chitra123'],
+        ['1004', 'Dinesh P', '10', 'A', '9876500003', '', ''],
+      ],
+      widths: [14, 24, 8, 10, 16, 28, 14],
+    },
+    howToSheet('Importing students: one row per student', [
+      ['Admission No (required)', 'The student signs in with your school code and this number. It must be unique in your school.'],
+      ['Name (required)', 'Full name as it should appear on reports.'],
+      ['Class (required)', '6 to 12, written as 9, 9th or IX.'],
+      ['Section', 'A, B, C… Use the same spelling as your teachers\' sections. Leave empty if the class has one section.'],
+      ['Phone', 'Parent\'s mobile number.'],
+      ['Email', 'Optional.'],
+      ['Password', 'Optional. Leave empty and the app creates one; download the login details after the import.'],
+      [],
+      ['Tips', '• Keep the first row (the column names) as it is. • Delete the sample rows before uploading. • Up to 2000 students per file.'],
+      ['', '• Only active students count towards your licence; the import stops when the licence is full.'],
+    ]),
+    {
+      name: 'Your classes now',
+      rows: [['Class', 'Section', 'Students'], ...sections.map((r) => [r.class_grade, r.section || '(none)', r.n])],
+      widths: [10, 12, 10],
+    },
   ]);
-  sheet['!cols'] = IMPORT_HEADERS.map((h) => ({ wch: Math.max(12, h.length + 2) }));
-  const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, sheet, 'Students');
-  const buffer = XLSX.write(workbook, { type: 'buffer', bookType: 'xlsx' });
-  res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-  res.setHeader('Content-Disposition', 'attachment; filename="students-import-template.xlsx"');
-  res.send(buffer);
+};
+
+// ------------------------------------------------------------ teacher import
+
+const TEACHER_ALIASES: Record<string, string[]> = {
+  name: ['name', 'teachername', 'fullname'],
+  email: ['email', 'emailid', 'mail'],
+  phone: ['phone', 'mobile', 'mobileno', 'phonenumber', 'mobilenumber', 'contact'],
+  password: ['password', 'pass'],
+  classGrade: ['class', 'classgrade', 'standard', 'std', 'grade'],
+  section: ['section', 'sec', 'division'],
+  subject: ['subject', 'subjects', 'subjectname'],
+};
+const TEACHER_HEADERS = ['Name', 'Email', 'Phone', 'Password', 'Class', 'Section', 'Subject'];
+
+const normaliseTeacherRow = (row: Record<string, any>) => {
+  const byKey: Record<string, any> = {};
+  for (const [header, value] of Object.entries(row)) {
+    const key = header.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const field = Object.keys(TEACHER_ALIASES).find((f) => TEACHER_ALIASES[f].includes(key));
+    if (field && byKey[field] === undefined) byKey[field] = value;
+  }
+  return byKey;
+};
+
+const WHOLE_SCHOOL = /^(all|all classes|whole school|school)$/i;
+const ALL_SUBJECTS = /^(|all|all subjects|every subject)$/i;
+const subjectKey = (v: string) => v.toLowerCase().replace(/[^a-z0-9\u0B80-\u0BFF]/g, '');
+
+// @desc    Excel template for importing teachers, with the school's subjects
+// @route   GET /api/school/teachers/import-template
+export const getTeacherImportTemplate = async (req: AuthRequest, res: Response) => {
+  const board = await schoolBoard(req.user.schoolId);
+  const subjects = await query(
+    'SELECT class_grade, name_en, name_ta FROM subjects WHERE board = $1 AND is_active ORDER BY class_grade, sort_order, name_en',
+    [board]
+  );
+  sendWorkbook(res, 'teachers-import-template.xlsx', [
+    {
+      name: 'Teachers',
+      rows: [
+        TEACHER_HEADERS,
+        ['Priya S', 'priya@yourschool.com', '9876500011', '', '9', '', 'Maths'],
+        ['Priya S', 'priya@yourschool.com', '', '', '10', '', 'Maths'],
+        ['Kumar R', 'kumar@yourschool.com', '9876500012', '', '9', 'A', 'Science'],
+        ['Kumar R', 'kumar@yourschool.com', '', '', '9', 'B', 'Science'],
+        ['Lakshmi V', 'lakshmi@yourschool.com', '9876500013', '', '9', 'A', 'All'],
+        ['Head Teacher', 'head@yourschool.com', '9876500014', 'head1234', 'All', '', ''],
+      ],
+      widths: [20, 28, 14, 12, 8, 10, 18],
+    },
+    howToSheet('Importing teachers: one row for each class and subject a teacher looks after', [
+      ['Name (required)', 'Full name.'],
+      ['Email (required)', 'The teacher signs in with this email. Use the same email on every row of the same teacher.'],
+      ['Phone', 'Mobile number (only needed on the teacher\'s first row).'],
+      ['Password', 'Optional. Leave empty and the app creates one; download the login details after the import.'],
+      ['Class (required)', '6 to 12 (written as 9, 9th or IX), or All for a teacher who looks after the whole school.'],
+      ['Section', 'A, B, C… Leave empty for every section of the class. Use the same spelling as your students\' sections.'],
+      ['Subject', 'The subject name as in the Subjects sheet (e.g. Maths, Science). Leave empty or write All for every subject (a class teacher).'],
+      [],
+      ['Examples', '• Priya teaches Maths in all sections of 9th and 10th: two rows, Class 9 and Class 10, Subject Maths, Section empty.'],
+      ['', '• Kumar teaches Science in 9A and 9B only: two rows with Section A and Section B.'],
+      ['', '• Lakshmi is the class teacher of 9A for every subject: Class 9, Section A, Subject All.'],
+      ['', '• The head teacher sees the whole school: Class All.'],
+      [],
+      ['Already added teachers', 'A row with the email of a teacher already in your school adds those classes to that teacher (nothing else changes).'],
+      ['Tips', '• Keep the first row (the column names) as it is. • Delete the sample rows before uploading. • Up to 500 rows per file.'],
+    ]),
+    {
+      name: 'Subjects',
+      rows: [['Class', 'Subject (write this)', 'Subject in Tamil'], ...subjects.map((s) => [s.class_grade, s.name_en, s.name_ta])],
+      widths: [8, 30, 30],
+    },
+  ]);
+};
+
+// @desc    Add teachers and their classes from an Excel or CSV file (one row per class and subject)
+// @route   POST /api/school/teachers/bulk-upload
+export const bulkUploadTeachers = async (req: AuthRequest, res: Response) => {
+  if (!req.file) return res.status(400).json({ success: false, message: 'Please upload an Excel or CSV file' });
+  try {
+    let rows: Record<string, any>[];
+    try {
+      rows = readFirstSheet(req.file.path).map(normaliseTeacherRow);
+    } catch {
+      throw new HttpError(400, 'Could not read the file. Please upload an Excel (.xlsx) or CSV file.');
+    }
+    // Keep Excel row numbers (row 1 is the header) and drop empty rows
+    const numbered = rows.map((row, i) => ({ row, rowNumber: i + 2 })).filter(({ row }) => Object.values(row).some((v) => clean(v)));
+    if (numbered.length === 0) throw new HttpError(400, 'The file has no teacher rows. Check the column names against the template.');
+    if (numbered.length > 500) throw new HttpError(400, 'Please import at most 500 rows at a time');
+
+    const board = await schoolBoard(req.user.schoolId);
+    const subjects = await query('SELECT id, class_grade, name_en, name_ta, code FROM subjects WHERE board = $1 AND is_active', [board]);
+    const errors: { row: number; name?: string; email?: string; error: string }[] = [];
+
+    // Rows of the same teacher (same email) together, in file order
+    const groups = new Map<string, typeof numbered>();
+    for (const item of numbered) {
+      const email = clean(item.row.email).toLowerCase();
+      if (!email) {
+        errors.push({ row: item.rowNumber, name: clean(item.row.name), error: 'Email is required' });
+        continue;
+      }
+      groups.set(email, [...(groups.get(email) || []), item]);
+    }
+
+    const created: any[] = [];
+    const updated: any[] = [];
+    for (const [email, items] of groups) {
+      const first = items[0];
+      const name = items.map((i) => clean(i.row.name)).find(Boolean) || '';
+      // Each row: a class (or the whole school), a section and a subject
+      const classes: AssignmentItem[] = [];
+      let rowsOk = true;
+      for (const { row, rowNumber } of items) {
+        const rawClass = clean(row.classGrade);
+        if (WHOLE_SCHOOL.test(rawClass)) {
+          classes.push({ classGrade: null, section: null, subjectId: null });
+          continue;
+        }
+        const classGrade = parseClassGrade(rawClass);
+        if (classGrade === null) {
+          errors.push({ row: rowNumber, name, email, error: rawClass ? `Class "${rawClass}" must be 6 to 12, or All` : 'Class is required (6 to 12, or All)' });
+          rowsOk = false;
+          continue;
+        }
+        const rawSubject = clean(row.subject);
+        let subjectId: string | null = null;
+        if (!ALL_SUBJECTS.test(rawSubject)) {
+          const key = subjectKey(rawSubject);
+          const match = subjects.find((s) => s.class_grade === classGrade && [s.name_en, s.name_ta, s.code].some((n) => n && subjectKey(n) === key));
+          if (!match) {
+            errors.push({ row: rowNumber, name, email, error: `No subject "${rawSubject}" in ${classGrade}th. See the Subjects sheet of the template.` });
+            rowsOk = false;
+            continue;
+          }
+          subjectId = match.id;
+        }
+        classes.push({ classGrade, section: clean(row.section).toUpperCase() || null, subjectId });
+      }
+      if (!rowsOk) continue; // fix the rows and import the teacher again
+
+      const items_ = classes.some((c) => !c.classGrade) ? [{ classGrade: null, section: null, subjectId: null }] : classes;
+      try {
+        const existing = await findUserByEmail(email);
+        if (existing) {
+          if (existing.role !== 'teacher' || existing.schoolId !== req.user.schoolId) throw new HttpError(400, 'This email is already used by another account');
+          await withTransaction((client) => writeAssignments(client, req.user.schoolId, existing._id, items_, 'add'));
+          updated.push({ name: existing.name, email, classes: items_.length });
+          continue;
+        }
+        const input = {
+          name,
+          email,
+          phone: items.map((i) => clean(i.row.phone)).find(Boolean),
+          password: items.map((i) => clean(i.row.password)).find(Boolean),
+        };
+        const { fields, password } = await newPersonFields('teacher', input);
+        await withTransaction(async (client) => {
+          const teacher = await createUser({ ...fields, schoolId: req.user.schoolId, isActive: true }, client);
+          await writeAssignments(client, req.user.schoolId, teacher._id, items_);
+        });
+        created.push({ name, email, password, classes: items_.length });
+      } catch (error: any) {
+        errors.push({ row: first.rowNumber, name, email, error: error.code === '23505' ? 'This email is already registered' : error.message });
+      }
+    }
+
+    const teachers = groups.size;
+    res.status(200).json({
+      success: true,
+      message: `${created.length} teachers added${updated.length ? `, ${updated.length} existing teachers given more classes` : ''}${errors.length ? `; ${errors.length} rows need fixing` : ''}`,
+      summary: { teachers, created: created.length, updated: updated.length, errors: errors.length },
+      created,
+      updated,
+      errors: errors.sort((a, b) => a.row - b.row),
+    });
+  } catch (error: any) {
+    sendError(res, error, 'Import teachers');
+  } finally {
+    fs.unlink(req.file.path, () => {});
+  }
 };
 
 // @desc    Add many students from an Excel or CSV file

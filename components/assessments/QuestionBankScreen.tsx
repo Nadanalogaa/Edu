@@ -455,10 +455,10 @@ const UploadQuestions: React.FC<{
     <Modal title={`Upload questions · ${subject.nameEn} ${subject.classGrade}th`} onClose={onClose}>
       <form onSubmit={submit} className="space-y-4">
         <p className="text-sm text-slate-600 dark:text-slate-300">
-          One question per row: <b>Chapter, Question, Option A–D, Answer</b> (A/B/C/D), and optionally Explanation, Difficulty, Marks and Tamil columns.
-          The Chapter column is the chapter number.
+          One question per row: <b>Chapter, Question, Option A–D, Answer</b> (A/B/C/D), and optionally Explanation, Difficulty, Marks, Tamil columns, Source and Image URL.
+          The Chapter column is the chapter number; the template lists this subject's chapters.
         </p>
-        <Button variant="ghost" size="sm" onClick={() => downloadFromApi('/assessments/questions/template', 'questions-template.xlsx').catch((err) => setError(apiError(err)))}>
+        <Button variant="ghost" size="sm" onClick={() => downloadFromApi(`/assessments/questions/template?subjectId=${subject._id}`, `questions-${subject.nameEn.toLowerCase().replace(/\W+/g, '-')}-${subject.classGrade}th.xlsx`).catch((err) => setError(apiError(err)))}>
           Download Excel template
         </Button>
         <Field label="Chapter for rows without a Chapter number">
