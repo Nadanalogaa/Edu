@@ -210,6 +210,22 @@ export const migrations: Migration[] = [
     name: 'State Board 9th Science and Maths textbook question bank (every chapter)',
     sql: SB9_BANK.map((c) => bankChapterSql('state_board', 9, c.subject, c.chapter, c.questions)).join('\n'),
   },
+  {
+    version: 9,
+    name: 'practice progress per student and question',
+    sql: `
+      -- What each student has practised, so practice serves new questions first and brings back wrong ones
+      CREATE TABLE practice_progress (
+        user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        question_id UUID NOT NULL REFERENCES questions(id) ON DELETE CASCADE,
+        times_seen INT NOT NULL DEFAULT 1,
+        times_correct INT NOT NULL DEFAULT 0,
+        last_correct BOOLEAN NOT NULL,
+        last_seen_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+        PRIMARY KEY (user_id, question_id)
+      );
+    `,
+  },
 ];
 
 export const runMigrations = async (client: PoolClient) => {

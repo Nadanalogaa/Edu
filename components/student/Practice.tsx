@@ -19,6 +19,8 @@ const TEXT = {
     step1: 'Subject', step2: 'Level', step3: 'Questions', chapter: 'Choose a chapter', allChaptersHint: 'A mix from the whole subject',
     hints: { '': 'A mix of every level', easy: 'Facts and definitions', medium: 'Understand and apply', hard: 'Problems and reasoning' } as Record<string, string>,
     ready: 'Ready', noneAtLevel: 'No questions at this level here yet', mins: 'about {n} min',
+    isNew: 'New', retry: 'Try again', done: 'done', allDone: 'All done – practising again',
+    sessionMix: '{new} new · {retry} to try again', fixed: 'You fixed {n} earlier mistakes!',
   },
   ta: {
     title: 'பயிற்சி', subtitle: 'எந்தப் பாடப்பகுதியையும் விரும்பும் அளவு பயிற்சி செய்யுங்கள். இவை மதிப்பெண்ணுக்கானவை அல்ல.', school: 'என் பாடங்கள்', neet: 'NEET / JEE',
@@ -31,6 +33,8 @@ const TEXT = {
     step1: 'பாடம்', step2: 'நிலை', step3: 'கேள்விகள்', chapter: 'பாடப்பகுதியைத் தேர்ந்தெடுங்கள்', allChaptersHint: 'முழுப் பாடத்திலிருந்தும் கலவை',
     hints: { '': 'எல்லா நிலைகளின் கலவை', easy: 'உண்மைகள், வரையறைகள்', medium: 'புரிந்து பயன்படுத்துதல்', hard: 'கணக்குகள், காரணம் அறிதல்' } as Record<string, string>,
     ready: 'தயார்', noneAtLevel: 'இந்த நிலையில் இங்கே இன்னும் கேள்விகள் இல்லை', mins: 'சுமார் {n} நிமிடம்',
+    isNew: 'புதியது', retry: 'மீண்டும் முயல்க', done: 'முடிந்தது', allDone: 'அனைத்தும் முடிந்தது – மீண்டும் பயிற்சி',
+    sessionMix: '{new} புதியவை · {retry} மீண்டும் முயல', fixed: 'முன்பு தவறிய {n} கேள்விகளைச் சரியாக்கினீர்கள்!',
   },
 };
 
@@ -78,16 +82,19 @@ const Practice: React.FC = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const inSession = !!session;
   useEffect(() => {
+    if (inSession) return;
     api
       .get('/student/practice/options')
       .then((res) => {
         setOptions(res.data.data);
-        setSubjectId(res.data.data.subjects[0]?.subjectId || '');
-        setNeetSubject(res.data.data.neet?.[0]?.subject || '');
+        // Keep the student's choice when coming back from a session
+        setSubjectId((current) => current || res.data.data.subjects[0]?.subjectId || '');
+        setNeetSubject((current) => current || res.data.data.neet?.[0]?.subject || '');
       })
       .catch((err) => setError(apiError(err)));
-  }, []);
+  }, [inSession]);
 
   // Ticking clock while a practice is running
   const running = !!session && !session.endedAt;
@@ -140,6 +147,10 @@ const Practice: React.FC = () => {
             <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
               ⏱ {t.timeTaken}: <b>{clock(elapsed)}</b> ({clock(Math.round(elapsed / session.questions.length))} {t.perQuestion})
             </p>
+            {(() => {
+              const fixed = session.questions.filter((q, i) => q.status === 'retry' && session.picked[i] === q.correctAnswer).length;
+              return fixed > 0 && <p className="mt-2 text-sm font-semibold text-emerald-700 dark:text-emerald-400">🎉 {t.fixed.replace('{n}', String(fixed))}</p>;
+            })()}
             <div className="mt-4 flex flex-wrap gap-2">
               <Button onClick={start} disabled={loading}>
                 {t.again}
@@ -161,6 +172,8 @@ const Practice: React.FC = () => {
       const next = [...session.picked];
       next[session.index] = i;
       setSession({ ...session, picked: next });
+      // Remembered so the next practice serves new questions and brings back wrong ones
+      api.post('/student/practice/answers', { questionId: q._id, correct: i === q.correctAnswer }).catch(() => undefined);
     };
 
     return (
@@ -171,6 +184,8 @@ const Practice: React.FC = () => {
               {t.question} {session.index + 1} {t.of} {session.questions.length}
               {q.topic && ` · ${q.topic}`}
               {q.difficulty && ` · ${t.levels[q.difficulty] || q.difficulty}`}
+              {q.status === 'new' && <span className="ml-2 px-2 py-0.5 rounded-full text-xs font-semibold bg-sky-100 text-sky-700 dark:bg-sky-500/20 dark:text-sky-300">{t.isNew}</span>}
+              {q.status === 'retry' && <span className="ml-2 px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 dark:bg-amber-500/20 dark:text-amber-300">↺ {t.retry}</span>}
             </p>
             <span className="flex-shrink-0 px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-700 text-sm font-mono text-slate-700 dark:text-slate-200" aria-label={t.time}>
               ⏱ {clock(elapsed)}
@@ -402,6 +417,7 @@ const Practice: React.FC = () => {
               <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-3" role="radiogroup" aria-label={t.chapter}>
                 {[{ chapterId: '', number: null, nameEn: t.allChapters, nameTa: t.allChapters, questions: subject.questions, byLevel: subject.byLevel }, ...subject.chapters].map((c: any) => {
                   const n = available(c);
+                  const done = Math.min(n, difficulty ? c.doneByLevel?.[difficulty] ?? 0 : c.done ?? 0);
                   const on = chapterId === c.chapterId;
                   const mix = c.byLevel || { easy: 0, medium: 0, hard: 0 };
                   const total = mix.easy + mix.medium + mix.hard || 1;
@@ -424,6 +440,11 @@ const Practice: React.FC = () => {
                           {n ? `${n} ${t.questions}` : t.noneAtLevel}
                           {!c.chapterId && n ? ` · ${t.allChaptersHint}` : ''}
                         </span>
+                        {n > 0 && done > 0 && (
+                          <span className={`block mt-0.5 text-xs font-semibold ${done >= n ? 'text-emerald-600 dark:text-emerald-400' : 'text-indigo-600 dark:text-indigo-300'}`}>
+                            {done >= n ? `✓ ${t.allDone}` : `${done} / ${n} ${t.done}`}
+                          </span>
+                        )}
                         <span className="mt-2 flex h-1.5 rounded-full overflow-hidden bg-slate-100 dark:bg-slate-700" aria-hidden="true">
                           <span className="bg-emerald-500" style={{ width: `${(mix.easy / total) * 100}%` }} />
                           <span className="bg-amber-500" style={{ width: `${(mix.medium / total) * 100}%` }} />
