@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
 import { useLanguage } from '../../context/LanguageContext';
 import { Panel, Button, Alert, Spinner, EmptyState, apiError } from '../common/ui';
-import QuestionImage from '../common/QuestionImage';
+import PracticeRunner from './PracticeRunner';
 
 // Self-practice: pick a subject and chapter (or NEET/JEE in 11th-12th), answer
 // with instant feedback and explanations. Nothing is marked or reported.
@@ -65,7 +65,7 @@ const LEVEL_LOOK: Record<string, { on: string; dot: string; icon: string }> = {
 const OFF = 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600';
 const clock = (seconds: number) => `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
 
-const Practice: React.FC = () => {
+const Practice: React.FC<{ onOpenMistakes?: () => void }> = ({ onOpenMistakes }) => {
   const { language } = useLanguage();
   const ta = language === 'ta';
   const t = TEXT[ta ? 'ta' : 'en'];
@@ -77,8 +77,8 @@ const Practice: React.FC = () => {
   const [neetSubject, setNeetSubject] = useState('');
   const [difficulty, setDifficulty] = useState('');
   const [count, setCount] = useState<number | 'all'>(10);
-  const [session, setSession] = useState<{ questions: any[]; index: number; picked: (number | null)[]; startedAt: number; endedAt?: number } | null>(null);
-  const [now, setNow] = useState(Date.now());
+  // Each start gets a new key so the session screen starts fresh
+  const [session, setSession] = useState<{ questions: any[]; key: number } | null>(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -96,14 +96,6 @@ const Practice: React.FC = () => {
       .catch((err) => setError(apiError(err)));
   }, [inSession]);
 
-  // Ticking clock while a practice is running
-  const running = !!session && !session.endedAt;
-  useEffect(() => {
-    if (!running) return;
-    const timer = setInterval(() => setNow(Date.now()), 1000);
-    return () => clearInterval(timer);
-  }, [running]);
-
   const start = async () => {
     setLoading(true);
     setError('');
@@ -115,10 +107,7 @@ const Practice: React.FC = () => {
       };
       const res = await api.get('/student/practice/questions', { params });
       if (!res.data.data.length) setError(t.noQuestions);
-      else {
-        setNow(Date.now());
-        setSession({ questions: res.data.data, index: 0, picked: res.data.data.map(() => null), startedAt: Date.now() });
-      }
+      else setSession({ questions: res.data.data, key: Date.now() });
     } catch (err) {
       setError(apiError(err));
     } finally {
@@ -127,136 +116,6 @@ const Practice: React.FC = () => {
   };
 
   if (!options) return error ? <Alert>{error}</Alert> : <Spinner />;
-
-  if (session) {
-    const done = session.index >= session.questions.length;
-    const elapsed = Math.round(((session.endedAt || now) - session.startedAt) / 1000);
-    if (done) {
-      const score = session.questions.filter((q, i) => session.picked[i] === q.correctAnswer).length;
-      return (
-        <div className="max-w-xl mx-auto space-y-4">
-          <Panel>
-            <p className="text-sm text-slate-500 dark:text-slate-400">{t.score}</p>
-            <p className="text-5xl font-bold text-slate-800 dark:text-slate-100">
-              {score}
-              <span className="text-2xl text-slate-500">
-                {' '}
-                {t.outOf} {session.questions.length}
-              </span>
-            </p>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
-              ⏱ {t.timeTaken}: <b>{clock(elapsed)}</b> ({clock(Math.round(elapsed / session.questions.length))} {t.perQuestion})
-            </p>
-            {(() => {
-              const fixed = session.questions.filter((q, i) => q.status === 'retry' && session.picked[i] === q.correctAnswer).length;
-              return fixed > 0 && <p className="mt-2 text-sm font-semibold text-emerald-700 dark:text-emerald-400">🎉 {t.fixed.replace('{n}', String(fixed))}</p>;
-            })()}
-            <div className="mt-4 flex flex-wrap gap-2">
-              <Button onClick={start} disabled={loading}>
-                {t.again}
-              </Button>
-              <Button variant="secondary" onClick={() => setSession(null)}>
-                {t.change}
-              </Button>
-            </div>
-          </Panel>
-        </div>
-      );
-    }
-
-    const q = session.questions[session.index];
-    const picked = session.picked[session.index];
-    const answered = picked !== null;
-    const choose = (i: number) => {
-      if (answered) return;
-      const next = [...session.picked];
-      next[session.index] = i;
-      setSession({ ...session, picked: next });
-      // Remembered so the next practice serves new questions and brings back wrong ones
-      api.post('/student/practice/answers', { questionId: q._id, correct: i === q.correctAnswer }).catch(() => undefined);
-    };
-
-    return (
-      <div className="max-w-2xl mx-auto space-y-4">
-        <Panel>
-          <div className="flex items-start justify-between gap-3">
-            <p className="text-sm text-slate-500 dark:text-slate-400">
-              {t.question} {session.index + 1} {t.of} {session.questions.length}
-              {q.topic && ` · ${q.topic}`}
-              {q.difficulty && ` · ${t.levels[q.difficulty] || q.difficulty}`}
-              {q.status === 'new' && <span className="ml-2 px-2 py-0.5 rounded-full text-xs font-semibold bg-sky-100 text-sky-700 dark:bg-sky-500/20 dark:text-sky-300">{t.isNew}</span>}
-              {q.status === 'retry' && <span className="ml-2 px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 dark:bg-amber-500/20 dark:text-amber-300">↺ {t.retry}</span>}
-            </p>
-            <span className="flex-shrink-0 px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-700 text-sm font-mono text-slate-700 dark:text-slate-200" aria-label={t.time}>
-              ⏱ {clock(elapsed)}
-            </span>
-          </div>
-          <div className="mt-2 h-1.5 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden">
-            <div className="h-full bg-indigo-500" style={{ width: `${(session.index / session.questions.length) * 100}%` }} />
-          </div>
-          <h2 className="mt-2 text-lg font-semibold text-slate-800 dark:text-slate-100 whitespace-pre-line">{pick(ta, q.question)}</h2>
-          <QuestionImage src={q.imageUrl} />
-          <div className="mt-4 space-y-2" role="radiogroup">
-            {q.options.en.map((_: string, i: number) => {
-              const isAnswer = i === q.correctAnswer;
-              const isPicked = i === picked;
-              const tone = !answered
-                ? 'border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-700'
-                : isAnswer
-                  ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/20'
-                  : isPicked
-                    ? 'border-red-400 bg-red-50 dark:bg-red-900/20'
-                    : 'border-slate-200 dark:border-slate-700 opacity-60';
-              return (
-                <button
-                  key={i}
-                  type="button"
-                  role="radio"
-                  aria-checked={isPicked}
-                  disabled={answered}
-                  onClick={() => choose(i)}
-                  className={`w-full flex items-start gap-3 text-left px-4 py-3 rounded-xl border-2 transition-colors ${tone}`}
-                >
-                  <span className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
-                    {LETTERS[i]}
-                  </span>
-                  <span className="pt-0.5 text-slate-800 dark:text-slate-100">
-                    {pickOpt(ta, q.options, i)}
-                    {answered && isAnswer && ' ✓'}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-          {answered && (
-            <div className="mt-4 space-y-3" role="status">
-              {picked === q.correctAnswer ? (
-                <p className="font-semibold text-emerald-700 dark:text-emerald-400">✓ {t.correct}</p>
-              ) : (
-                <p className="font-semibold text-red-600 dark:text-red-400">
-                  ✗ {t.wrong} {LETTERS[q.correctAnswer]}.
-                </p>
-              )}
-              {pick(ta, q.explanation) && (
-                <p className="text-sm text-slate-600 dark:text-slate-300">
-                  <b>{t.explanation}:</b> {pick(ta, q.explanation)}
-                </p>
-              )}
-              <div className="flex justify-end">
-                <Button
-                  onClick={() =>
-                    setSession({ ...session, index: session.index + 1, endedAt: session.index === session.questions.length - 1 ? Date.now() : undefined })
-                  }
-                >
-                  {session.index === session.questions.length - 1 ? t.finish : t.next}
-                </Button>
-              </div>
-            </div>
-          )}
-        </Panel>
-      </div>
-    );
-  }
 
   const subject = options.subjects.find((s: any) => s.subjectId === subjectId);
   const neetRow = options.neet?.find((s: any) => s.subject === neetSubject);
@@ -270,6 +129,19 @@ const Practice: React.FC = () => {
   const chapterLabel = mode === 'school'
     ? chapterId ? `${chosenRow?.number}. ${ta && chosenRow?.nameTa ? chosenRow.nameTa : chosenRow?.nameEn}` : `${subject ? subjectName(subject) : ''} · ${t.allChapters}`
     : `${track} · ${neetSubject}`;
+  if (session) {
+    return (
+      <PracticeRunner
+        key={session.key}
+        questions={session.questions}
+        title={chapterLabel}
+        onExit={() => setSession(null)}
+        onAgain={start}
+        onOpenMistakes={onOpenMistakes}
+      />
+    );
+  }
+
   const levelCount = (level: string) =>
     mode === 'school' ? (level ? chosenRow?.byLevel?.[level] ?? 0 : chosenRow?.questions ?? 0) : level ? null : neetCount;
 

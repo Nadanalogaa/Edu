@@ -4,6 +4,8 @@ import { query } from '../config/database';
 import { Questions } from '../models/Question';
 import { Subjects } from '../models/Syllabus';
 import { isUuid } from '../db/table';
+import { textbookFor } from '../utils/textbook';
+import { recordMistake, fixMistake } from '../utils/mistakes';
 
 // Self-practice for students: questions of their own class and board (the
 // shared bank and their school's), and for 11th-12th the NEET/JEE bank.
@@ -66,11 +68,34 @@ const isAssertionReason = (options: string[]) => /^both assertion and reason are
 
 /** A new A–D order every session (same order in English and Tamil). */
 const shuffleOptions = (options: { en: string[]; ta?: string[] }, correctAnswer: number) => {
-  if (!options?.en || options.en.length < 2 || isAssertionReason(options.en)) return { options, correctAnswer };
-  const order = shuffle(options.en.map((_, i) => i));
+  const same = (options?.en || []).map((_, i) => i);
+  if (!options?.en || options.en.length < 2 || isAssertionReason(options.en)) return { options, correctAnswer, order: same };
+  const order = shuffle(same);
   return {
     options: { en: order.map((i) => options.en[i]), ta: options.ta?.length ? order.map((i) => options.ta![i]) : options.ta },
     correctAnswer: order.indexOf(correctAnswer),
+    order, // order[shown position] = stored position, sent back with the answer
+  };
+};
+
+/** A question as practice shows it: options in a fresh order, with its textbook page. */
+const practiceView = (q: any, status?: string) => {
+  const { options, correctAnswer, order } = shuffleOptions(q.options, q.correctAnswer);
+  return {
+    _id: q._id,
+    question: q.question,
+    options,
+    correctAnswer,
+    order,
+    explanation: q.explanation,
+    chapter: q.chapter,
+    topic: q.topic,
+    subject: q.subject,
+    difficulty: q.difficulty,
+    imageUrl: q.imageUrl || null,
+    source: q.source || null,
+    textbook: textbookFor(q),
+    status, // new | retry | seen
   };
 };
 
@@ -167,7 +192,25 @@ export const practiceQuestions = async (req: AuthRequest, res: Response) => {
     const count = req.query.count === 'all' ? 300 : Math.min(300, Math.max(1, Number(req.query.count) || 10));
     const params: any[] = [];
     const where = [practisable(student, params)];
-    const { subjectId, chapterId, track, subject, difficulty } = req.query;
+    const { subjectId, chapterId, track, subject, difficulty, mistakes } = req.query;
+
+    // Practise my mistakes: the student's open Mistake Book questions (tests and practice)
+    if (mistakes) {
+      const mp: any[] = [student._id, student.schoolId];
+      let filter = '';
+      if (isUuid(subjectId)) {
+        mp.push(subjectId);
+        filter = ` AND q.subject_id = $${mp.length}`;
+      }
+      mp.push(count);
+      const rows = await Questions.select(
+        `SELECT q.* FROM mistake_book m JOIN questions q ON q.id = m.question_id
+         WHERE m.student_id = $1 AND NOT m.is_reviewed AND q.is_active AND (q.school_id IS NULL OR q.school_id = $2)${filter}
+         ORDER BY random() LIMIT $${mp.length}`,
+        mp
+      );
+      return res.status(200).json({ success: true, data: rows.map((q) => practiceView(q, 'retry')) });
+    }
     if (['easy', 'medium', 'hard'].includes(String(difficulty))) {
       params.push(String(difficulty));
       where.push(`q.difficulty = $${params.length}`);
@@ -209,43 +252,40 @@ export const practiceQuestions = async (req: AuthRequest, res: Response) => {
     const rows = picked.length ? await Questions.select(`SELECT q.* FROM questions q WHERE q.id = ANY($1)`, [picked.map((p) => p.id)]) : [];
     const order: Record<string, number> = { easy: 1, medium: 2, hard: 3 };
     rows.sort((a, b) => (order[a.difficulty] || 2) - (order[b.difficulty] || 2) || Math.random() - 0.5);
-    res.status(200).json({
-      success: true,
-      data: rows.map((q) => {
-        const { options, correctAnswer } = shuffleOptions(q.options, q.correctAnswer);
-        return {
-          _id: q._id,
-          question: q.question,
-          options,
-          correctAnswer,
-          explanation: q.explanation,
-          chapter: q.chapter,
-          topic: q.topic,
-          difficulty: q.difficulty,
-          imageUrl: q.imageUrl || null,
-          status: status.get(q._id), // new | retry | seen
-        };
-      }),
-    });
+    res.status(200).json({ success: true, data: rows.map((q) => practiceView(q, status.get(q._id))) });
   } catch (error: any) {
     console.error('Practice questions error:', error);
     res.status(500).json({ success: false, message: error.message || 'Error loading practice questions' });
   }
 };
 
-// @desc    Remember a practice answer (new questions first next time, wrong ones come back)
-// @route   POST /api/student/practice/answers  { questionId, correct }
+// @desc    Remember a practice answer: wrong ones go to the Mistake Book, right ones fix an open mistake
+// @route   POST /api/student/practice/answers  { questionId, selectedAnswer }  (selectedAnswer in stored option order)
 export const recordPracticeAnswer = async (req: AuthRequest, res: Response) => {
   try {
-    const { questionId, correct } = req.body || {};
-    if (!isUuid(questionId) || typeof correct !== 'boolean') {
-      return res.status(400).json({ success: false, message: 'questionId and correct are required' });
+    const { questionId, selectedAnswer } = req.body || {};
+    if (!isUuid(questionId) || !Number.isInteger(selectedAnswer) || selectedAnswer < 0 || selectedAnswer > 3) {
+      return res.status(400).json({ success: false, message: 'questionId and selectedAnswer are required' });
     }
+    const student = req.user;
+    // Only questions the student may practise, or ones already in their Mistake Book
+    // (so answers to questions in a test still open can't be probed here)
     const params: any[] = [];
-    const condition = practisable(req.user, params);
+    const condition = practisable(student, params);
     params.push(questionId);
-    const visible = await query(`SELECT 1 FROM questions q WHERE ${condition} AND q.id = $${params.length}`, params);
-    if (!visible.length) return res.status(404).json({ success: false, message: 'Question not found' });
+    const qParam = params.length;
+    params.push(student._id);
+    const [question] = await query(
+      `SELECT q.id, q.correct_answer FROM questions q
+       WHERE q.id = $${qParam} AND (
+         (${condition})
+         OR EXISTS (SELECT 1 FROM mistake_book m WHERE m.question_id = q.id AND m.student_id = $${params.length} AND NOT m.is_reviewed)
+       )`,
+      params
+    );
+    if (!question) return res.status(404).json({ success: false, message: 'Question not found' });
+
+    const correct = selectedAnswer === question.correct_answer;
     await query(
       `INSERT INTO practice_progress (user_id, question_id, times_seen, times_correct, last_correct, last_seen_at)
        VALUES ($1, $2, 1, $3::int, $4, now())
@@ -254,9 +294,12 @@ export const recordPracticeAnswer = async (req: AuthRequest, res: Response) => {
          times_correct = practice_progress.times_correct + EXCLUDED.times_correct,
          last_correct = EXCLUDED.last_correct,
          last_seen_at = now()`,
-      [req.user._id, questionId, correct ? 1 : 0, correct]
+      [student._id, questionId, correct ? 1 : 0, correct]
     );
-    res.status(200).json({ success: true });
+    let fixed = false;
+    if (correct) fixed = await fixMistake(student._id, questionId, 'practice');
+    else await recordMistake({ studentId: student._id, questionId, selectedAnswer, correctAnswer: question.correct_answer, source: 'practice' });
+    res.status(200).json({ success: true, data: { correct, addedToMistakes: !correct, fixedMistake: fixed } });
   } catch (error: any) {
     console.error('Practice answer error:', error);
     res.status(500).json({ success: false, message: error.message || 'Error saving the answer' });

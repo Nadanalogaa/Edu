@@ -226,6 +226,29 @@ export const migrations: Migration[] = [
       );
     `,
   },
+  {
+    version: 10,
+    name: 'mistake book from practice and tests, one open entry per question',
+    sql: `
+      ALTER TABLE mistake_book ALTER COLUMN attempt_id DROP NOT NULL;
+      ALTER TABLE mistake_book ADD COLUMN source TEXT NOT NULL DEFAULT 'test';
+      ALTER TABLE mistake_book ADD COLUMN wrong_count INTEGER NOT NULL DEFAULT 1;
+      -- 'practice' or 'test' when the student later answered it correctly; NULL when marked by hand
+      ALTER TABLE mistake_book ADD COLUMN fixed_in TEXT;
+      -- Merge repeated open entries for the same question into the newest one
+      WITH ranked AS (
+        SELECT id, row_number() OVER (PARTITION BY student_id, question_id ORDER BY created_at DESC) AS rn,
+               count(*) OVER (PARTITION BY student_id, question_id) AS n
+        FROM mistake_book WHERE NOT is_reviewed
+      )
+      UPDATE mistake_book m SET wrong_count = r.n FROM ranked r WHERE m.id = r.id AND r.rn = 1;
+      DELETE FROM mistake_book m USING (
+        SELECT id, row_number() OVER (PARTITION BY student_id, question_id ORDER BY created_at DESC) AS rn
+        FROM mistake_book WHERE NOT is_reviewed
+      ) r WHERE m.id = r.id AND r.rn > 1;
+      CREATE UNIQUE INDEX mistakes_open_question_idx ON mistake_book (student_id, question_id) WHERE NOT is_reviewed;
+    `,
+  },
 ];
 
 export const runMigrations = async (client: PoolClient) => {

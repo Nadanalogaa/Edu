@@ -290,11 +290,11 @@ const DashboardLayout: React.FC = () => {
         case 'my-tests':
           return <MyTests />;
         case 'practice':
-          return <Practice />;
+          return <Practice onOpenMistakes={() => setActiveView('mistakes')} />;
         case 'progress':
           return <StudentReport />;
         case 'mistakes':
-          return <Mistakes />;
+          return <Mistakes onOpenPractice={() => setActiveView('practice')} />;
         case 'neet-home':
           return <NeetDashboard />;
         case 'neet-practice':

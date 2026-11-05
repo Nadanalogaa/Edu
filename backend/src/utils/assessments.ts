@@ -2,7 +2,7 @@ import { PoolClient } from 'pg';
 import { query, Queryable } from '../config/database';
 import { Doc } from '../db/table';
 import { StudentAttempts } from '../models/StudentAttempt';
-import { MistakeBook } from '../models/MistakeBook';
+import { recordMistake, fixMistake } from './mistakes';
 import { questionsInOrder } from '../models/Question';
 
 // Shared rules for class assessments: when a test is open, scoring, and what a
@@ -95,16 +95,19 @@ export const scoreAttempt = async (
     });
 
     if (answered && !isCorrect) {
-      await MistakeBook.insert(
+      await recordMistake(
         {
           studentId: attempt.studentId,
           questionId: question._id,
           attemptId: attempt._id,
           selectedAnswer: pick.selectedAnswer,
           correctAnswer: question.correctAnswer,
+          source: 'test',
         },
         client
       );
+    } else if (isCorrect) {
+      await fixMistake(attempt.studentId, question._id, 'test', client);
     }
   }
 

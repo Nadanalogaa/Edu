@@ -4,6 +4,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { Panel, Button, Badge, Alert, Spinner, EmptyState, apiError } from '../common/ui';
 import { ClockIcon, CheckCircleIcon, XCircleIcon } from '../icons';
 import QuestionImage from '../common/QuestionImage';
+import { TextbookButton } from '../common/TextbookViewer';
 
 // The student's class tests: list → take (timed, answers saved as they go) →
 // result → review with correct answers. English/Tamil follows the app language.
@@ -433,6 +434,7 @@ const Review: React.FC<{ attemptId: string; lang: string; onBack: () => void }> 
               <b>{t.explanation}:</b> {pickText(lang, q.explanation)}
             </p>
           )}
+          <TextbookButton textbook={q.textbook} className="mt-3" />
         </Panel>
       ))}
     </div>

@@ -9,6 +9,7 @@ import { query, withTransaction } from '../config/database';
 import { AuthRequest } from '../middleware/auth';
 import { Subjects } from '../models/Syllabus';
 import { questionsInOrder } from '../models/Question';
+import { textbookFor } from '../utils/textbook';
 import {
   attemptEndsAt, isAssignedTo, lockAttempt, scoreAttempt, studentQuestion, testState, SUBMIT_GRACE_MS,
 } from '../utils/assessments';
@@ -230,47 +231,94 @@ export const getAnalytics = async (req: AuthRequest, res: Response) => {
   }
 };
 
-// @desc    Get mistake book
-// @route   GET /api/student/mistakes
+// @desc    Get mistake book (from tests and practice), with filters and a summary
+// @route   GET /api/student/mistakes?status=open|done|all&source=test|practice&subjectId=&limit=&page=
 // @access  Private (Student)
 export const getMistakes = async (req: AuthRequest, res: Response) => {
   try {
-    const { subject, isReviewed, limit = 20, page = 1 } = req.query;
-
+    const { isReviewed, status, source, subjectId, limit = 30, page = 1 } = req.query;
     const params: any[] = [req.user._id];
-    let where = 'WHERE student_id = $1';
-    if (isReviewed !== undefined) {
-      params.push(isReviewed === 'true');
-      where += ` AND is_reviewed = $${params.length}`;
+    const where = ['m.student_id = $1'];
+    const state = status || (isReviewed === undefined ? 'all' : isReviewed === 'true' ? 'done' : 'open');
+    if (state !== 'all') where.push(state === 'done' ? 'm.is_reviewed' : 'NOT m.is_reviewed');
+    if (source === 'test' || source === 'practice') {
+      params.push(source);
+      where.push(`m.source = $${params.length}`);
     }
+    if (isUuid(subjectId)) {
+      params.push(subjectId);
+      where.push(`q.subject_id = $${params.length}`);
+    }
+    const take = Math.min(100, Math.max(1, Number(limit) || 30));
+    const skip = (Math.max(1, Number(page) || 1) - 1) * take;
 
-    const skip = (Number(page) - 1) * Number(limit);
-
-    const rows = await MistakeBook.select(
-      `SELECT * FROM mistake_book ${where} ORDER BY created_at DESC LIMIT $${params.length + 1} OFFSET $${params.length + 2}`,
-      [...params, Number(limit), skip]
+    const rows = await query(
+      `SELECT m.id AS mistake_id, m.selected_answer, m.is_reviewed, m.reviewed_at, m.source AS mistake_source, m.wrong_count,
+              m.fixed_in, m.created_at AS mistake_created, m.updated_at AS mistake_updated, t.title AS test_title,
+              c.name_en AS chapter_en, c.name_ta AS chapter_ta, s.name_ta AS subject_ta, q.*
+       FROM mistake_book m
+       JOIN questions q ON q.id = m.question_id
+       LEFT JOIN chapters c ON c.id = q.chapter_id
+       LEFT JOIN subjects s ON s.id = q.subject_id
+       LEFT JOIN student_attempts a ON a.id = m.attempt_id
+       LEFT JOIN tests t ON t.id = a.test_id
+       WHERE ${where.join(' AND ')}
+       ORDER BY m.is_reviewed, m.updated_at DESC
+       LIMIT ${take} OFFSET ${skip}`,
+      params
     );
-    const questions = await Questions.findByIds(rows.map((m) => m.questionId));
-    const attempts = await StudentAttempts.findByIds(rows.map((m) => m.attemptId));
+    const [summary] = await query(
+      `SELECT count(*) FILTER (WHERE NOT m.is_reviewed)::int AS open,
+              count(*) FILTER (WHERE NOT m.is_reviewed AND m.source = 'test')::int AS open_tests,
+              count(*) FILTER (WHERE NOT m.is_reviewed AND m.source = 'practice')::int AS open_practice,
+              count(*) FILTER (WHERE m.is_reviewed)::int AS done,
+              count(*) FILTER (WHERE m.fixed_in IS NOT NULL)::int AS fixed
+       FROM mistake_book m WHERE m.student_id = $1`,
+      [req.user._id]
+    );
+    const subjects = await query(
+      `SELECT s.id AS subject_id, s.name_en, s.name_ta, count(*) FILTER (WHERE NOT m.is_reviewed)::int AS open
+       FROM mistake_book m JOIN questions q ON q.id = m.question_id JOIN subjects s ON s.id = q.subject_id
+       WHERE m.student_id = $1 GROUP BY s.id, s.name_en, s.name_ta, s.sort_order ORDER BY s.sort_order`,
+      [req.user._id]
+    );
 
-    let mistakes = rows.map((m) => ({
-      ...m,
-      questionId: questions.get(m.questionId) || null,
-      attemptId: pick(attempts.get(m.attemptId), ['createdAt']),
+    const data = rows.map((r) => ({
+      _id: r.mistake_id,
+      source: r.mistake_source,
+      testTitle: r.test_title || null,
+      selectedAnswer: r.selected_answer,
+      isReviewed: r.is_reviewed,
+      reviewedAt: r.reviewed_at,
+      fixedIn: r.fixed_in,
+      wrongCount: r.wrong_count,
+      createdAt: r.mistake_created,
+      updatedAt: r.mistake_updated,
+      question: {
+        _id: r.id,
+        subject: r.subject,
+        subjectTa: r.subject_ta,
+        chapter: r.chapter,
+        chapterName: { en: r.chapter_en || r.topic, ta: r.chapter_ta || r.chapter_en || r.topic },
+        difficulty: r.difficulty,
+        question: r.question,
+        options: r.options,
+        correctAnswer: r.correct_answer,
+        explanation: r.explanation,
+        imageUrl: r.image_url || null,
+        source: r.source || null,
+        textbook: textbookFor({ board: r.board, classGrade: r.class_grade, subject: r.subject, source: r.source }),
+      },
     }));
-
-    // Filter by subject if provided
-    if (subject) {
-      mistakes = mistakes.filter((m: any) => m.questionId?.subject === subject);
-    }
-
-    const [{ total }] = await query(`SELECT count(*)::int AS total FROM mistake_book ${where}`, params);
 
     res.status(200).json({
       success: true,
-      count: mistakes.length,
-      total,
-      data: mistakes,
+      count: data.length,
+      summary: {
+        open: summary.open, openTests: summary.open_tests, openPractice: summary.open_practice, done: summary.done, fixed: summary.fixed,
+      },
+      subjects: subjects.map((s) => ({ subjectId: s.subject_id, nameEn: s.name_en, nameTa: s.name_ta, open: s.open })),
+      data,
     });
   } catch (error: any) {
     console.error('Get mistakes error:', error);
@@ -564,6 +612,7 @@ export const reviewAttempt = async (req: AuthRequest, res: Response) => {
             correctAnswer: q.correctAnswer,
             marks: q.marks,
             imageUrl: q.imageUrl || null,
+            textbook: textbookFor(q),
             selectedAnswer: a ? a.selectedAnswer : -1,
             isCorrect: Boolean(a?.isCorrect),
           };

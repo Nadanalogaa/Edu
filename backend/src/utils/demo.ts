@@ -203,8 +203,11 @@ const setupOne = async (client: PoolClient, demo: (typeof DEMOS)[number], passwo
         if (a.selectedAnswer >= 0 && !a.isCorrect) {
           const q = test.questions.find((x) => x.id === a.questionId)!;
           await query(
-            `INSERT INTO mistake_book (student_id, question_id, attempt_id, selected_answer, correct_answer, created_at)
-             VALUES ($1, $2, $3, $4, $5, $6)`,
+            `INSERT INTO mistake_book (student_id, question_id, attempt_id, selected_answer, correct_answer, created_at, updated_at)
+             VALUES ($1, $2, $3, $4, $5, $6, $6)
+             ON CONFLICT (student_id, question_id) WHERE NOT is_reviewed DO UPDATE SET
+               selected_answer = EXCLUDED.selected_answer, attempt_id = EXCLUDED.attempt_id,
+               wrong_count = mistake_book.wrong_count + 1, updated_at = EXCLUDED.updated_at`,
             [student.id, q.id, attempt.id, a.selectedAnswer, q.correct_answer, startedAt],
             client
           );
