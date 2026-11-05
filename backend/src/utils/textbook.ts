@@ -7,7 +7,8 @@ import TEXTBOOK_PAGES from '../db/content/sb9/textbookPages.json';
 // /textbook/<class>/<board>/<subject>/<em|tm>/<printed page>.webp, each book
 // numbered by its own printed pages. A question's source names the
 // English-medium page; textbookPages.json gives the Tamil-medium page with the
-// same content (matched by the figures on each page).
+// same content (matched by the section, exercise, example and figure numbers
+// both books print, so a page is never more than one page out).
 
 const SUBJECT_FOLDERS: Record<string, string> = { Science: 'science', Maths: 'maths', Mathematics: 'maths' };
 const TAMIL_PAGE: Record<string, Record<string, number>> = TEXTBOOK_PAGES as any;
