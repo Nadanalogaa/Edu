@@ -1,0 +1,25 @@
+{
+  "name": "EduCore – School Assessments",
+  "short_name": "EduCore",
+  "description": "Practice, tests and reports for Tamil Nadu State Board and CBSE students, 6th to 12th, with NEET and JEE preparation.",
+  "id": "/",
+  "start_url": "/dashboard?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait",
+  "background_color": "#f1f5f9",
+  "theme_color": "#4f46e5",
+  "lang": "en-IN",
+  "categories": ["education"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Practice", "url": "/dashboard?view=practice", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Mistake Book", "url": "/dashboard?view=mistakes", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}

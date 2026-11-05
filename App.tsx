@@ -40,6 +40,7 @@ import Mistakes from './components/student/Mistakes';
 import ReportsScreen from './components/reports/ReportsScreen';
 import StudentReport from './components/reports/StudentReport';
 import { boardLabel, classLabel } from './components/common/ui';
+import InstallApp from './components/common/InstallApp';
 import {
     SunIcon, MoonIcon, LayoutDashboardIcon, UsersIcon, UserIcon, LogOutIcon,
     SchoolIcon, FileTextIcon, ClipboardCheckIcon, GraduationCapIcon, PenSquareIcon, BookOpenIcon, VideoIcon, StethoscopeIcon,
@@ -272,7 +273,31 @@ const DashboardLayout: React.FC = () => {
   function handleNavClick(view: string) {
     setActiveView(view);
     setIsSidebarOpen(false);
+    document.querySelector('main')?.scrollTo({ top: 0 });
   }
+
+  // Opened from a home-screen shortcut, e.g. /dashboard?view=practice
+  useEffect(() => {
+    const view = new URLSearchParams(window.location.search).get('view');
+    if (view && navConfig[currentUser.role]?.some((item) => item.view === view)) setActiveView(view);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Bottom tab bar on phones: the main screens, plus More for the full menu
+  const bottomTabs: Record<Role, string[]> = {
+    student: ['dashboard', 'my-tests', 'practice', 'mistakes'],
+    teacher: ['dashboard', 'reports', 'question-bank'],
+    admin: ['dashboard', 'students', 'tests', 'reports'],
+    owner: ['dashboard', 'schools', 'question-bank', 'tests'],
+  };
+  const shortLabels: Record<string, [string, string]> = {
+    dashboard: currentUser.role === 'teacher' ? ['Tests', 'தேர்வுகள்'] : ['Home', 'முகப்பு'],
+    'my-tests': ['Tests', 'தேர்வுகள்'], practice: ['Practice', 'பயிற்சி'], mistakes: ['Mistakes', 'தவறுகள்'],
+    reports: ['Reports', 'அறிக்கைகள்'], 'question-bank': ['Questions', 'கேள்விகள்'], students: ['Students', 'மாணவர்கள்'],
+    tests: ['Tests', 'தேர்வுகள்'], schools: ['Schools', 'பள்ளிகள்'],
+  };
+  const tabs = (bottomTabs[currentUser.role] || []).map((view) => navConfig[currentUser.role].find((i) => i.view === view)).filter(Boolean) as typeof navConfig.student;
+  const moreActive = !tabs.some((tab) => tab.view === activeView);
 
   const renderContent = () => {
     if (!currentUser) return null;
@@ -356,7 +381,7 @@ const DashboardLayout: React.FC = () => {
   if (!currentUser) return null;
 
   return (
-    <div className="flex h-screen bg-slate-100 dark:bg-slate-900 font-sans">
+    <div className="flex h-dvh bg-slate-100 dark:bg-slate-900 font-sans">
       {/* Mobile backdrop overlay */}
       {isSidebarOpen && (
         <div
@@ -370,7 +395,7 @@ const DashboardLayout: React.FC = () => {
       <aside
         className={`
           fixed lg:static inset-y-0 left-0 z-40
-          w-72 lg:w-64 h-full bg-white dark:bg-slate-800/50 px-3 py-4
+          w-72 lg:w-64 h-full bg-white dark:bg-slate-800 lg:dark:bg-slate-800/50 px-3 py-4 pt-[max(1rem,env(safe-area-inset-top))] pb-[max(1rem,env(safe-area-inset-bottom))]
           flex flex-col border-r border-slate-200 dark:border-slate-800
           transform transition-transform duration-300 ease-in-out
           ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
@@ -427,7 +452,11 @@ const DashboardLayout: React.FC = () => {
           })()}
         </nav>
 
-        {/* Who is signed in */}
+        <div className="flex-shrink-0 mt-3">
+          <InstallApp />
+        </div>
+
+        {/* Who is signed in (on phones also theme, password and sign out) */}
         <div className="flex-shrink-0 mt-3 pt-3 border-t border-slate-200 dark:border-slate-700/70 flex items-center gap-3 px-1">
           <span className="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 text-white text-sm font-bold flex items-center justify-center">
             {(currentUser.name || '?').trim().charAt(0).toUpperCase()}
@@ -440,18 +469,27 @@ const DashboardLayout: React.FC = () => {
                 : currentUser.role === 'owner' ? 'Owner' : currentUser.role === 'admin' ? 'School admin' : currentUser.role === 'teacher' ? 'Teacher' : ''}
             </p>
           </div>
+          <div className="ml-auto flex items-center gap-0.5 lg:hidden">
+            <ThemeToggle theme={theme} setTheme={handleSetTheme} />
+            <button onClick={() => { setIsSidebarOpen(false); setShowChangePassword(true); }} aria-label="Change password" className="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">
+              <KeyIcon className="w-5 h-5" />
+            </button>
+            <button onClick={logout} aria-label="Logout" className="p-2 rounded-lg text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-500/10">
+              <LogOutIcon className="w-5 h-5" />
+            </button>
+          </div>
         </div>
       </aside>
 
       <main className="flex-1 overflow-y-auto w-full">
         {/* Compact Universal Header */}
-        <div className="sticky top-0 z-20 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700 px-3 sm:px-5 lg:px-8 py-2.5">
+        <div className="sticky top-0 z-20 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700 px-3 sm:px-5 lg:px-8 pb-2.5 pt-[max(0.625rem,env(safe-area-inset-top))]">
           <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
             {/* Hamburger (mobile only) */}
             <button
               type="button"
               onClick={() => setIsSidebarOpen(true)}
-              className="lg:hidden flex-shrink-0 p-2 -ml-1 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 active:scale-95 transition"
+              className="hidden flex-shrink-0 p-2 -ml-1 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 active:scale-95 transition"
               aria-label="Open menu"
             >
               <MenuIcon className="w-6 h-6" />
@@ -459,7 +497,8 @@ const DashboardLayout: React.FC = () => {
 
             {currentUser.role === 'student' ? (
               <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
-                <GraduationCapIcon className="hidden sm:block w-7 h-7 text-indigo-500 flex-shrink-0" />
+                <img src="/icons/icon-192.png" alt="" className="lg:hidden w-8 h-8 flex-shrink-0" />
+                <GraduationCapIcon className="hidden lg:block w-7 h-7 text-indigo-500 flex-shrink-0" />
                 <div className="min-w-0">
                   <h1 className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100 truncate">
                     {language === 'ta' ? 'வருக, ' : 'Welcome, '}
@@ -489,6 +528,7 @@ const DashboardLayout: React.FC = () => {
                 <GamificationStats streak={streak} coins={coins} t={{ streak: language === 'ta' ? 'நாள் தொடர்ச்சி' : 'Day Streak', coins: language === 'ta' ? 'நாணயங்கள்' : 'coins' }} />
               )}
               <LanguageSelector />
+              <span className="hidden lg:contents">
               <ThemeToggle theme={theme} setTheme={handleSetTheme} />
               <button
                 onClick={() => setShowChangePassword(true)}
@@ -505,6 +545,7 @@ const DashboardLayout: React.FC = () => {
               >
                 <LogOutIcon className="w-5 h-5"/>
               </button>
+              </span>
             </div>
           </div>
         </div>
@@ -512,12 +553,36 @@ const DashboardLayout: React.FC = () => {
         {showChangePassword && <ChangePasswordModal onClose={() => setShowChangePassword(false)} />}
 
         {/* Main Content */}
-        <div className="px-3 py-3 sm:px-5 sm:py-4 lg:px-8 lg:py-5">
+        <div className="px-3 pt-3 pb-[calc(5.5rem+env(safe-area-inset-bottom))] sm:px-5 sm:pt-4 lg:px-8 lg:py-5">
           <div className="max-w-7xl mx-auto">
             <Suspense fallback={<PageLoading />}>{renderContent()}</Suspense>
           </div>
         </div>
       </main>
+
+      {/* Bottom tab bar (phones and tablets) */}
+      <div role="navigation" aria-label="Main screens" className="lg:hidden fixed bottom-0 inset-x-0 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 pb-[env(safe-area-inset-bottom)] shadow-[0_-4px_20px_rgba(15,23,42,0.06)]">
+        <div className="grid h-16 max-w-xl mx-auto" style={{ gridTemplateColumns: `repeat(${tabs.length + 1}, minmax(0, 1fr))` }}>
+          {tabs.map((tab) => {
+            const on = activeView === tab.view;
+            const [en, ta] = shortLabels[tab.view] || [tab.label, tab.label];
+            return (
+              <button key={tab.view} type="button" onClick={() => handleNavClick(tab.view)} aria-current={on ? 'page' : undefined}
+                className={`flex flex-col items-center justify-center gap-0.5 text-[11px] font-semibold ${on ? 'text-indigo-700 dark:text-indigo-300' : 'text-slate-500 dark:text-slate-400'}`}>
+                <span className={`flex items-center justify-center w-14 h-8 rounded-full transition-colors ${on ? 'bg-indigo-100 dark:bg-indigo-500/20' : ''}`}>{tab.icon}</span>
+                <span className="truncate max-w-full px-1">{language === 'ta' ? ta : en}</span>
+              </button>
+            );
+          })}
+          <button type="button" onClick={() => setIsSidebarOpen(true)} aria-label="Open menu"
+            className={`flex flex-col items-center justify-center gap-0.5 text-[11px] font-semibold ${moreActive ? 'text-indigo-700 dark:text-indigo-300' : 'text-slate-500 dark:text-slate-400'}`}>
+            <span className={`flex items-center justify-center w-14 h-8 rounded-full ${moreActive ? 'bg-indigo-100 dark:bg-indigo-500/20' : ''}`}>
+              <MenuIcon className="w-5 h-5" />
+            </span>
+            <span>{language === 'ta' ? 'மேலும்' : 'More'}</span>
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

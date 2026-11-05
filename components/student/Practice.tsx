@@ -333,7 +333,7 @@ const Practice: React.FC<{ onOpenMistakes?: () => void }> = ({ onOpenMistakes })
           )}
 
           {/* Start bar stays in view while scrolling the chapters */}
-          <div className="sticky bottom-3 z-10">
+          <div className="sticky bottom-[calc(4.75rem+env(safe-area-inset-bottom))] lg:bottom-3 z-10">
             <div className="flex items-center gap-3 p-3 sm:p-4 rounded-2xl bg-slate-900 dark:bg-slate-950 text-white shadow-xl">
               <span className={`flex-shrink-0 w-2.5 h-10 rounded-full ${LEVEL_LOOK[difficulty].dot}`} aria-hidden="true" />
               <div className="flex-1 min-w-0">

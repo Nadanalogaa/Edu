@@ -25,6 +25,20 @@ html, body {
   flex-direction: column;
 }
 
+/* Phones and the installed app (PWA) */
+html {
+  -webkit-tap-highlight-color: transparent; /* no grey flash on tap */
+  -webkit-text-size-adjust: 100%;
+}
+@media (max-width: 1023px) {
+  /* iPhone Safari zooms into fields with text under 16px */
+  input, select, textarea { font-size: 16px !important; }
+}
+@media (display-mode: standalone) {
+  body { overscroll-behavior-y: none; } /* no rubber-band bounce of the whole app */
+  button, a, [role='button'] { -webkit-user-select: none; user-select: none; }
+}
+
 /* Blob Animation for Background */
 @keyframes blob {
   0%, 100% {

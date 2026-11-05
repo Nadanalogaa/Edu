@@ -101,8 +101,21 @@ app.use('/api/reports', reportRoutes);
 // from the same origin, so the app needs no separate frontend host.
 const frontendDist = process.env.FRONTEND_DIST || path.join(__dirname, '../../dist');
 if (fs.existsSync(path.join(frontendDist, 'index.html'))) {
-  app.use(express.static(frontendDist));
+  app.use(
+    express.static(frontendDist, {
+      setHeaders: (res, file) => {
+        const name = path.basename(file);
+        // The service worker, app page and manifest must update straight away on phones
+        if (name === 'sw.js' || name === 'index.html' || name === 'manifest.webmanifest') res.setHeader('Cache-Control', 'no-cache');
+        // Built files have content hashes in their names, so they never change
+        else if (file.includes(`${path.sep}assets${path.sep}`)) res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+        else res.setHeader('Cache-Control', 'public, max-age=86400');
+        if (name === 'manifest.webmanifest') res.setHeader('Content-Type', 'application/manifest+json');
+      },
+    })
+  );
   app.get(/^\/(?!api\/|uploads\/).*/, (req, res) => {
+    res.setHeader('Cache-Control', 'no-cache');
     res.sendFile(path.join(frontendDist, 'index.html'));
   });
   console.log(`Serving frontend from ${frontendDist}`);
