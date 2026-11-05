@@ -134,7 +134,9 @@ const Practice: React.FC<{ onOpenMistakes?: () => void }> = ({ onOpenMistakes })
       <PracticeRunner
         key={session.key}
         questions={session.questions}
-        title={chapterLabel}
+        title={mode === 'school' ? (chapterId ? chapterLabel : t.allChapters) : `${track} · ${t.allChapters}`}
+        subject={mode === 'school' ? subject?.nameEn : neetSubject}
+        level={difficulty}
         onExit={() => setSession(null)}
         onAgain={start}
         onOpenMistakes={onOpenMistakes}

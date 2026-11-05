@@ -4,6 +4,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { Button } from '../common/ui';
 import QuestionImage from '../common/QuestionImage';
 import { TextbookButton } from '../common/TextbookViewer';
+import LiquidTimer from './LiquidTimer';
 
 // One practice session: a question at a time with instant feedback, the
 // explanation and the textbook page to study. Used by Practice and by
@@ -20,6 +21,8 @@ const TEXT = {
     again: 'Practise again', change: 'Choose another chapter', toMistakes: 'Open Mistake Book', reviewWrong: 'Questions to revise', yourAnswer: 'Your answer',
     great: 'Excellent work!', good: 'Good effort, keep going!', keepTrying: 'Keep practising, you will get there!', allRight: 'You answered every question correctly.',
     levels: { easy: 'Easy', medium: 'Medium', hard: 'Hard' } as Record<string, string>,
+    sessionLevels: { '': 'All levels', easy: 'Easy', medium: 'Medium', hard: 'Hard' } as Record<string, string>,
+    thisQuestion: 'This question', suggested: 'suggested', total: 'Total', practice: 'Practice', mistakes: 'Mistake practice', right: 'right', wrongShort: 'wrong',
   },
   ta: {
     question: 'கேள்வி', of: '/', exit: 'வெளியேறு', correct: 'சரி!', wrong: 'தவறு', rightAnswer: 'சரியான விடை', explanation: 'ஏன்',
@@ -30,8 +33,24 @@ const TEXT = {
     again: 'மீண்டும் பயிற்சி', change: 'வேறு பாடப்பகுதி', toMistakes: 'தவறுப் புத்தகம்', reviewWrong: 'திருப்ப வேண்டிய கேள்விகள்', yourAnswer: 'உங்கள் விடை',
     great: 'மிகச் சிறப்பு!', good: 'நல்ல முயற்சி, தொடருங்கள்!', keepTrying: 'தொடர்ந்து பயிற்சி செய்யுங்கள், வெற்றி பெறுவீர்கள்!', allRight: 'எல்லாக் கேள்விகளுக்கும் சரியாக விடையளித்தீர்கள்.',
     levels: { easy: 'எளிது', medium: 'நடுத்தரம்', hard: 'கடினம்' } as Record<string, string>,
+    sessionLevels: { '': 'எல்லா நிலைகளும்', easy: 'எளிது', medium: 'நடுத்தரம்', hard: 'கடினம்' } as Record<string, string>,
+    thisQuestion: 'இந்தக் கேள்வி', suggested: 'பரிந்துரை', total: 'மொத்தம்', practice: 'பயிற்சி', mistakes: 'தவறுகள் பயிற்சி', right: 'சரி', wrongShort: 'தவறு',
   },
 };
+
+// Suggested time per question by level, in seconds
+const SUGGESTED: Record<string, number> = { easy: 45, medium: 60, hard: 90 };
+const SUBJECT_ICON: Record<string, string> = {
+  Maths: '📐', Mathematics: '📐', Science: '🔬', 'Social Science': '🌍', English: '📖', Tamil: 'அ', Physics: '⚛️', Chemistry: '⚗️', Biology: '🧬',
+};
+const SUBJECT_TA: Record<string, string> = { Science: 'அறிவியல்', Maths: 'கணிதம்', Mathematics: 'கணிதம்', 'Social Science': 'சமூக அறிவியல்', English: 'ஆங்கிலம்', Tamil: 'தமிழ்' };
+const SESSION_LEVEL_CHIP: Record<string, string> = {
+  '': 'bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-300',
+  easy: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-300',
+  medium: 'bg-amber-100 text-amber-800 dark:bg-amber-500/20 dark:text-amber-300',
+  hard: 'bg-rose-100 text-rose-800 dark:bg-rose-500/20 dark:text-rose-300',
+};
+const LEVEL_ICON: Record<string, string> = { '': '🎯', easy: '🌱', medium: '⚡', hard: '🔥' };
 
 const LETTERS = ['A', 'B', 'C', 'D'];
 const LEVEL_CHIP: Record<string, string> = {
@@ -53,7 +72,12 @@ const PracticeRunner: React.FC<{
   againLabel?: string;
   exitLabel?: string;
   onOpenMistakes?: () => void;
-}> = ({ questions, title, onExit, onAgain, againLabel, exitLabel, onOpenMistakes }) => {
+  /** Subject name in English (shown in the student's language) */
+  subject?: string;
+  /** Level the student chose for the session ('' = all levels) */
+  level?: string;
+  mode?: 'practice' | 'mistakes';
+}> = ({ questions, title, onExit, onAgain, againLabel, exitLabel, onOpenMistakes, subject, level = '', mode = 'practice' }) => {
   const { language } = useLanguage();
   const ta = language === 'ta';
   const t = TEXT[ta ? 'ta' : 'en'];
@@ -63,6 +87,9 @@ const PracticeRunner: React.FC<{
   const [startedAt] = useState(Date.now());
   const [endedAt, setEndedAt] = useState<number | null>(null);
   const [now, setNow] = useState(Date.now());
+  // When the current question was shown, and how long each answered one took
+  const [shownAt, setShownAt] = useState(Date.now());
+  const [spent, setSpent] = useState<number[]>(() => questions.map(() => 0));
 
   useEffect(() => {
     if (endedAt) return;
@@ -79,19 +106,22 @@ const PracticeRunner: React.FC<{
     (i: number) => {
       if (done || answered) return;
       setPicked((list) => list.map((v, k) => (k === index ? i : v)));
+      setSpent((list) => list.map((v, k) => (k === index ? Math.round((Date.now() - shownAt) / 1000) : v)));
       // Saved with the stored option order (options are shuffled for each session)
       api
         .post('/student/practice/answers', { questionId: q._id, selectedAnswer: q.order ? q.order[i] : i })
         .then((res) => setFeedback((list) => list.map((v, k) => (k === index ? res.data.data || {} : v))))
         .catch(() => undefined);
     },
-    [done, answered, index, q]
+    [done, answered, index, q, shownAt]
   );
 
   const next = useCallback(() => {
     if (!answered) return;
     if (index === questions.length - 1) setEndedAt(Date.now());
     setIndex((i) => i + 1);
+    setShownAt(Date.now());
+    setNow(Date.now());
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [answered, index, questions.length]);
 
@@ -189,25 +219,52 @@ const PracticeRunner: React.FC<{
 
   // ------------------------------------------------------------------ question
   const isRight = answered && answer === q.correctAnswer;
+  const subjectEn = subject || q.subject || '';
+  const subjectShown = ta ? SUBJECT_TA[subjectEn] || subjectEn : subjectEn;
+  const rightSoFar = questions.filter((x, i) => picked[i] !== null && picked[i] !== undefined && picked[i] === x.correctAnswer).length;
+  const wrongSoFar = questions.filter((x, i) => picked[i] !== null && picked[i] !== undefined && picked[i] !== x.correctAnswer).length;
   const fb = feedback[index];
   return (
     <div className="max-w-3xl mx-auto space-y-3">
-      {/* Session bar: exit, where we are, time, progress */}
-      <div className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 sm:px-4 py-3">
-        <div className="flex items-center gap-3">
-          <button type="button" onClick={onExit} className="px-2.5 py-1 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">
-            ✕ {t.exit}
-          </button>
-          <p className="flex-1 min-w-0 text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">{title}</p>
-          <span className="flex-shrink-0 px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-700 text-sm font-mono text-slate-700 dark:text-slate-200" aria-label={t.time}>
-            ⏱ {clock(elapsed)}
+      {/* Session header: subject, chapter, level, progress, score and the liquid timer */}
+      <div className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 sm:px-4 py-3 space-y-3">
+        <div className="flex items-start gap-3">
+          <span className="flex-shrink-0 w-11 h-11 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 text-white text-xl flex items-center justify-center shadow-sm" aria-hidden="true">
+            {mode === 'mistakes' ? '📕' : SUBJECT_ICON[subjectEn] || '📘'}
           </span>
+          <div className="flex-1 min-w-0">
+            <p className="text-base font-bold text-slate-800 dark:text-slate-100 truncate">
+              {subjectShown}
+              <span className="ml-2 text-xs font-semibold text-slate-400">{mode === 'mistakes' ? t.mistakes : t.practice}</span>
+            </p>
+            <p className="text-sm text-slate-600 dark:text-slate-300 truncate">{title}</p>
+            <div className="mt-1.5 flex flex-wrap items-center gap-1.5 text-xs">
+              <span className={`px-2 py-0.5 rounded-full font-semibold ${SESSION_LEVEL_CHIP[level] || SESSION_LEVEL_CHIP['']}`}>
+                {LEVEL_ICON[level] || '🎯'} {t.sessionLevels[level] ?? t.sessionLevels['']}
+              </span>
+              <span className="px-2 py-0.5 rounded-full font-semibold bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200">
+                {t.question} {index + 1} {t.of} {questions.length}
+              </span>
+              <span className="px-2 py-0.5 rounded-full font-semibold bg-emerald-50 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-300">✓ {rightSoFar} {t.right}</span>
+              <span className="px-2 py-0.5 rounded-full font-semibold bg-rose-50 dark:bg-rose-500/15 text-rose-700 dark:text-rose-300">✗ {wrongSoFar} {t.wrongShort}</span>
+            </div>
+          </div>
+          <button type="button" onClick={onExit} className="flex-shrink-0 px-2.5 py-1 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">
+            ✕ <span className="hidden sm:inline">{t.exit}</span>
+          </button>
         </div>
-        <div className="mt-3 flex gap-1" aria-hidden="true">
+        <LiquidTimer
+          seconds={answered ? spent[index] : Math.max(0, Math.round((now - shownAt) / 1000))}
+          target={SUGGESTED[q.difficulty] || 60}
+          total={elapsed}
+          paused={answered}
+          labels={{ thisQuestion: t.thisQuestion, suggested: t.suggested, total: t.total }}
+        />
+        <div className="flex gap-1" aria-hidden="true">
           {questions.map((x, i) => {
             const p = picked[i];
             const tone = i === index ? 'bg-indigo-500' : p === null || p === undefined ? 'bg-slate-200 dark:bg-slate-700' : p === x.correctAnswer ? 'bg-emerald-500' : 'bg-rose-500';
-            return <span key={x._id} className={`h-1.5 flex-1 rounded-full ${tone}`} />;
+            return <span key={x._id} className={`h-1.5 flex-1 rounded-full transition-colors ${tone}`} />;
           })}
         </div>
       </div>
@@ -215,10 +272,9 @@ const PracticeRunner: React.FC<{
       {/* Question */}
       <div className="rounded-3xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm p-4 sm:p-6">
         <div className="flex flex-wrap items-center gap-2 text-xs">
-          <span className="font-semibold text-slate-500 dark:text-slate-400">
-            {t.question} {index + 1} {t.of} {questions.length}
-          </span>
-          {q.difficulty && <span className={`px-2 py-0.5 rounded-full font-semibold ${LEVEL_CHIP[q.difficulty] || ''}`}>{t.levels[q.difficulty] || q.difficulty}</span>}
+          <span className="w-7 h-7 rounded-full bg-indigo-600 text-white text-sm font-bold flex items-center justify-center">{index + 1}</span>
+          {/* With "All levels" each question's own level is worth showing */}
+          {!level && q.difficulty && <span className={`px-2 py-0.5 rounded-full font-semibold ${LEVEL_CHIP[q.difficulty] || ''}`}>{t.levels[q.difficulty] || q.difficulty}</span>}
           {q.status === 'new' && <span className="px-2 py-0.5 rounded-full font-semibold bg-sky-100 text-sky-700 dark:bg-sky-500/20 dark:text-sky-300">{t.isNew}</span>}
           {q.status === 'retry' && <span className="px-2 py-0.5 rounded-full font-semibold bg-amber-100 text-amber-800 dark:bg-amber-500/20 dark:text-amber-300">↺ {t.retry}</span>}
           {q.topic && <span className="text-slate-400 dark:text-slate-500 truncate">· {q.topic}</span>}

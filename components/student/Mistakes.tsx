@@ -109,7 +109,9 @@ const Mistakes: React.FC<{ onOpenPractice?: () => void }> = () => {
       <PracticeRunner
         key={session.key}
         questions={session.questions}
-        title={`📕 ${t.title}${chosenSubject ? ` · ${subjectName(chosenSubject)}` : ''}`}
+        title={t.title}
+        subject={chosenSubject ? chosenSubject.nameEn : t.allSubjects}
+        mode="mistakes"
         onExit={() => setSession(null)}
         exitLabel={t.back}
         onAgain={openHere > 0 ? practise : undefined}
