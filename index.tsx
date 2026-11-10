@@ -4,9 +4,11 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { setupPwa } from './utils/pwa';
+import { restoreTextSize } from './components/common/TextSize';
 
 // Installable app: service worker and install prompt
 setupPwa();
+restoreTextSize();
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {

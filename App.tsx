@@ -44,6 +44,7 @@ import ReportsScreen from './components/reports/ReportsScreen';
 import StudentReport from './components/reports/StudentReport';
 import { boardLabel, classLabel } from './components/common/ui';
 import InstallApp from './components/common/InstallApp';
+import TextSize from './components/common/TextSize';
 import ScreenErrorBoundary from './components/common/ScreenErrorBoundary';
 import { lazyWithReload } from './utils/lazyWithReload';
 import {
@@ -492,6 +493,7 @@ const DashboardLayout: React.FC = () => {
             </p>
           </div>
           <div className="ml-auto flex items-center gap-0.5 lg:hidden">
+            <TextSize />
             <ThemeToggle theme={theme} setTheme={handleSetTheme} />
             <button onClick={() => { setIsSidebarOpen(false); setShowChangePassword(true); }} aria-label="Change password" className="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">
               <KeyIcon className="w-5 h-5" />
@@ -541,7 +543,8 @@ const DashboardLayout: React.FC = () => {
               )}
               <LanguageSelector />
               <span className="hidden lg:contents">
-              <ThemeToggle theme={theme} setTheme={handleSetTheme} />
+              <TextSize />
+            <ThemeToggle theme={theme} setTheme={handleSetTheme} />
               <button
                 onClick={() => setShowChangePassword(true)}
                 aria-label="Change password"

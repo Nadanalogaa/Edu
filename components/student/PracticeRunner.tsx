@@ -5,6 +5,7 @@ import { Button } from '../common/ui';
 import QuestionImage from '../common/QuestionImage';
 import { TextbookButton } from '../common/TextbookViewer';
 import AskTeacher from '../common/AskTeacher';
+import ReadAloud, { spokenQuestion } from '../common/ReadAloud';
 import LiquidTimer from './LiquidTimer';
 
 // One practice session: a question at a time with instant feedback, the
@@ -287,7 +288,10 @@ const PracticeRunner: React.FC<{
           {q.status === 'retry' && <span className="px-2 py-0.5 rounded-full font-semibold bg-amber-100 text-amber-800 dark:bg-amber-500/20 dark:text-amber-300">↺ {t.retry}</span>}
           {q.topic && <span className="text-slate-400 dark:text-slate-500 truncate">· {q.topic}</span>}
         </div>
-        <h2 className="mt-3 text-lg sm:text-xl font-semibold leading-relaxed text-slate-800 dark:text-slate-100 whitespace-pre-line">{text(ta, q.question)}</h2>
+        <div className="mt-3 flex items-start gap-2">
+          <h2 className="flex-1 text-lg sm:text-xl font-semibold leading-relaxed text-slate-800 dark:text-slate-100 whitespace-pre-line">{text(ta, q.question)}</h2>
+          <ReadAloud lang={ta ? 'ta' : 'en'} text={spokenQuestion(text(ta, q.question), (ta && q.options.ta?.length ? q.options.ta : q.options.en) as string[])} />
+        </div>
         <QuestionImage src={q.imageUrl} />
 
         <div className={`mt-4 grid gap-2.5 ${shortOptions ? 'lg:grid-cols-2' : ''}`} role="radiogroup">

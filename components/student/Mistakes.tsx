@@ -5,6 +5,7 @@ import { Alert, Spinner, Button, apiError, formatDate } from '../common/ui';
 import QuestionImage from '../common/QuestionImage';
 import { TextbookButton } from '../common/TextbookViewer';
 import AskTeacher from '../common/AskTeacher';
+import ReadAloud from '../common/ReadAloud';
 import PracticeRunner from './PracticeRunner';
 
 // Every question the student got wrong, in class tests and in practice, with
@@ -314,7 +315,10 @@ const Mistakes: React.FC<{ onOpenPractice?: () => void }> = () => {
                     {q.chapterName?.en && ` · ${q.chapter ? `${q.chapter}. ` : ''}${text(q.chapterName)}`} · {formatDate(m.updatedAt)}
                   </span>
                 </div>
-                <p className="mt-2 text-base font-semibold text-slate-800 dark:text-slate-100 whitespace-pre-line">{text(q.question)}</p>
+                <div className="mt-2 flex items-start gap-2">
+                  <p className="flex-1 text-base font-semibold text-slate-800 dark:text-slate-100 whitespace-pre-line">{text(q.question)}</p>
+                  <ReadAloud lang={ta ? 'ta' : 'en'} text={[text(q.question), text(q.explanation)].filter(Boolean).join('. ')} />
+                </div>
                 <QuestionImage src={q.imageUrl} />
                 {asking ? (
                   <CheckQuestion key={m._id + reload} mistake={m} t={t} ta={ta} onCancel={m.due ? undefined : () => setChecking(null)} onDone={checked} />
