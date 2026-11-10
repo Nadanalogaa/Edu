@@ -27,6 +27,7 @@ const TEXT = {
     levels: { easy: 'Easy', medium: 'Medium', hard: 'Hard' } as Record<string, string>,
     sessionLevels: { '': 'All levels', easy: 'Easy', medium: 'Medium', hard: 'Hard' } as Record<string, string>,
     thisQuestion: 'This question', suggested: 'suggested', total: 'Total', practice: 'Practice', mistakes: 'Mistake practice', right: 'right', wrongShort: 'wrong',
+    timeUp: '⏰ Time up!', movingOn: 'Next question in a moment…', notAnswered: 'Time up – not answered',
   },
   ta: {
     question: 'கேள்வி', of: '/', exit: 'வெளியேறு', correct: 'சரி!', wrong: 'தவறு', rightAnswer: 'சரியான விடை', explanation: 'ஏன்',
@@ -39,8 +40,12 @@ const TEXT = {
     levels: { easy: 'எளிது', medium: 'நடுத்தரம்', hard: 'கடினம்' } as Record<string, string>,
     sessionLevels: { '': 'எல்லா நிலைகளும்', easy: 'எளிது', medium: 'நடுத்தரம்', hard: 'கடினம்' } as Record<string, string>,
     thisQuestion: 'இந்தக் கேள்வி', suggested: 'பரிந்துரை', total: 'மொத்தம்', practice: 'பயிற்சி', mistakes: 'தவறுகள் பயிற்சி', right: 'சரி', wrongShort: 'தவறு',
+    timeUp: '⏰ நேரம் முடிந்தது!', movingOn: 'சிறிது நேரத்தில் அடுத்த கேள்வி…', notAnswered: 'நேரம் முடிந்தது – விடையளிக்கவில்லை',
   },
 };
+
+/** Marks a question whose time ran out before it was answered. */
+const TIME_UP = -1;
 
 // Suggested time per question by level, in seconds
 const SUGGESTED: Record<string, number> = { easy: 45, medium: 60, hard: 90 };
@@ -133,6 +138,23 @@ const PracticeRunner: React.FC<{
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [answered, index, questions.length]);
 
+  // When the liquid timer turns red (suggested time over), the question counts as
+  // not answered: show the right answer briefly, then move on by itself. Not while
+  // the student is reading the textbook page (a dialog is open).
+  const timeUp = answer === TIME_UP;
+  const target = q ? SUGGESTED[q.difficulty] || 60 : 60;
+  const seconds = Math.max(0, Math.round((now - shownAt) / 1000));
+  useEffect(() => {
+    if (done || answered || seconds < target || document.querySelector('[role=dialog]')) return;
+    setPicked((list) => list.map((v, k) => (k === index ? TIME_UP : v)));
+    setSpent((list) => list.map((v, k) => (k === index ? target : v)));
+  }, [done, answered, seconds, target, index]);
+  useEffect(() => {
+    if (!timeUp) return;
+    const timer = setTimeout(next, 3000);
+    return () => clearTimeout(timer);
+  }, [timeUp, next]);
+
   // Keyboard: 1-4 or A-D to answer, Enter for the next question
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -207,7 +229,7 @@ const PracticeRunner: React.FC<{
                 <QuestionImage src={x.imageUrl} />
                 <div className="mt-2 grid sm:grid-cols-2 gap-2 text-sm">
                   <p className="px-3 py-2 rounded-lg bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300">
-                    ✗ {t.yourAnswer}: {LETTERS[picked[i] as number]}. {option(ta, x.options, picked[i] as number)}
+                    {picked[i] === TIME_UP ? `⏰ ${t.notAnswered}` : `✗ ${t.yourAnswer}: ${LETTERS[picked[i] as number]}. ${option(ta, x.options, picked[i] as number)}`}
                   </p>
                   <p className="px-3 py-2 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 text-emerald-800 dark:text-emerald-300">
                     ✓ {LETTERS[x.correctAnswer]}. {option(ta, x.options, x.correctAnswer)}
@@ -348,8 +370,9 @@ const PracticeRunner: React.FC<{
           className={`rounded-3xl border-2 p-4 sm:p-5 ${isRight ? 'border-emerald-300 bg-emerald-50 dark:border-emerald-700 dark:bg-emerald-900/20' : 'border-rose-300 bg-rose-50 dark:border-rose-800 dark:bg-rose-900/20'}`}
         >
           <p className={`text-lg font-bold ${isRight ? 'text-emerald-700 dark:text-emerald-400' : 'text-rose-700 dark:text-rose-400'}`}>
-            {isRight ? `🎉 ${t.correct}` : `${t.wrong} – ${t.rightAnswer} ${LETTERS[q.correctAnswer]}.`}
+            {isRight ? `🎉 ${t.correct}` : timeUp ? `${t.timeUp} ${t.rightAnswer} ${LETTERS[q.correctAnswer]}.` : `${t.wrong} – ${t.rightAnswer} ${LETTERS[q.correctAnswer]}.`}
           </p>
+          {timeUp && <p className="mt-1 text-sm font-medium text-rose-700 dark:text-rose-300 animate-pulse">{t.movingOn}</p>}
           {text(ta, q.explanation) && (
             <p className="mt-2 text-sm sm:text-base text-slate-700 dark:text-slate-200">
               <b>💡 {t.explanation}:</b> {text(ta, q.explanation)}
@@ -359,7 +382,7 @@ const PracticeRunner: React.FC<{
             <TextbookButton textbook={q.textbook} subject={q.subject} />
             {q.source && !q.textbook && <span className="text-xs text-slate-500">📖 {q.source}</span>}
             <AskTeacher key={q._id} questionId={q._id} />
-            {!isRight && <ExplainAnother key={`x${q._id}`} questionId={q._id} selectedAnswer={q.order ? q.order[picked[index]!] : picked[index]!} />}
+            {!isRight && !timeUp && <ExplainAnother key={`x${q._id}`} questionId={q._id} selectedAnswer={q.order ? q.order[picked[index]!] : picked[index]!} />}
           </div>
           {fb.addedToMistakes && <p className="mt-3 text-xs font-medium text-rose-700 dark:text-rose-300">📕 {t.addedToMistakes}</p>}
           {fb.fixedMistake && <p className="mt-3 text-xs font-medium text-emerald-700 dark:text-emerald-300">✅ {t.fixedMistake}</p>}
