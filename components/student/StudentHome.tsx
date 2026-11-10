@@ -4,6 +4,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { Panel, Button, Badge, Spinner, EmptyState, classLabel, boardLabel } from '../common/ui';
 import { PercentBars } from '../reports/charts';
+import DailyGoal from './DailyGoal';
 
 // Student home: how they are doing at a glance (tests, practice, mistakes),
 // the one best thing to do next, this week's practice, and what to practise.
@@ -129,6 +130,8 @@ const StudentHome: React.FC<{ onNavigate: (view: string) => void }> = ({ onNavig
           <span className="text-sm font-semibold text-violet-700 dark:text-violet-300">{t.seeAnswers}</span>
         </button>
       )}
+
+      <DailyGoal onPractise={() => onNavigate('practice')} />
 
       {/* At a glance */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">

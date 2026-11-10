@@ -3,7 +3,8 @@
 // - Built files (/assets, hashed names), icons, diagrams: cache first.
 // - Textbook page pictures: cached as they are opened (kept to the newest 300).
 // - API calls are never cached (marks, answers and tests must always be live).
-const VERSION = 'educore-v4';
+// - Evening practice reminders arrive as push messages; tapping one opens practice.
+const VERSION = 'educore-v5';
 const SHELL = `${VERSION}-shell`;
 const STATIC = `${VERSION}-static`;
 const PAGES = `${VERSION}-textbook`;
@@ -87,4 +88,39 @@ self.addEventListener('fetch', (event) => {
   if (url.pathname.startsWith('/assets/') || url.pathname.startsWith('/icons/') || url.pathname.startsWith('/content/') || /\.(png|svg|jpg|jpeg|webp|woff2?)$/.test(url.pathname)) {
     event.respondWith(cacheFirst(STATIC));
   }
+});
+
+// Practice reminders from the server: { title, body, url, tag }
+self.addEventListener('push', (event) => {
+  let data = {};
+  try {
+    data = event.data ? event.data.json() : {};
+  } catch {
+    data = { title: 'EduCore', body: event.data ? event.data.text() : '' };
+  }
+  event.waitUntil(
+    self.registration.showNotification(data.title || 'EduCore', {
+      body: data.body || '',
+      icon: '/icons/icon-192.png',
+      badge: '/icons/icon-192.png',
+      tag: data.tag || 'educore',
+      data: { url: data.url || '/dashboard' },
+    })
+  );
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  const url = (event.notification.data && event.notification.data.url) || '/dashboard';
+  event.waitUntil(
+    (async () => {
+      const windows = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+      const open = windows.find((w) => new URL(w.url).origin === self.location.origin);
+      if (open) {
+        await open.focus();
+        return open.navigate(url);
+      }
+      return self.clients.openWindow(url);
+    })()
+  );
 });

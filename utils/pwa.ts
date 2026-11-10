@@ -53,3 +53,37 @@ export const setupPwa = () => {
     });
   }
 };
+
+// ------------------------------------------------------------ reminders (web push)
+
+const keyBytes = (base64: string) => {
+  const padded = (base64 + '='.repeat((4 - (base64.length % 4)) % 4)).replace(/-/g, '+').replace(/_/g, '/');
+  return Uint8Array.from(atob(padded), (c) => c.charCodeAt(0));
+};
+
+/** Push needs a service worker, the Push API and (on iPhone) the installed app. */
+export const pushSupported = () =>
+  typeof window !== 'undefined' && 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window;
+
+export const currentPushSubscription = async () => {
+  if (!pushSupported()) return null;
+  const reg = await navigator.serviceWorker.getRegistration();
+  return (await reg?.pushManager.getSubscription()) || null;
+};
+
+/** Asks permission and subscribes this device; returns the subscription to send to the server. */
+export const subscribePush = async (publicKey: string) => {
+  if (!pushSupported()) throw new Error('unsupported');
+  const permission = await Notification.requestPermission();
+  if (permission !== 'granted') throw new Error('denied');
+  const reg = await navigator.serviceWorker.ready;
+  const existing = await reg.pushManager.getSubscription();
+  return existing || reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: keyBytes(publicKey) });
+};
+
+export const unsubscribePush = async () => {
+  const sub = await currentPushSubscription();
+  const endpoint = sub?.endpoint;
+  await sub?.unsubscribe();
+  return endpoint;
+};

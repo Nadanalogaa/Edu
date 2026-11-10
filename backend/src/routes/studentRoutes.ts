@@ -1,5 +1,6 @@
 import express from 'express';
 import { askDoubt, myDoubts } from '../controllers/doubtsController';
+import { getGoal, setGoal, subscribeReminders, unsubscribeReminders } from '../controllers/goalController';
 import {
   startAttempt,
   submitAttempt,
@@ -31,6 +32,10 @@ router.get('/mistakes', getMistakes);
 router.post('/mistakes/:id/check', checkMistake);
 router.post('/doubts', askDoubt);
 router.get('/doubts', myDoubts);
+router.get('/goal', getGoal);
+router.put('/goal', setGoal);
+router.post('/reminders', subscribeReminders);
+router.delete('/reminders', unsubscribeReminders);
 router.get('/tests', getSharedTests);
 
 // Class assessments

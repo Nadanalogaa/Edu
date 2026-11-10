@@ -336,6 +336,27 @@ export const migrations: Migration[] = [
       );
     `,
   },
+  {
+    version: 16,
+    name: 'daily practice goal and evening reminders (web push)',
+    sql: `
+      ALTER TABLE users ADD COLUMN daily_goal INTEGER NOT NULL DEFAULT 10 CHECK (daily_goal BETWEEN 5 AND 100);
+      -- Browsers that agreed to get reminders (one row per device)
+      CREATE TABLE push_subscriptions (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        endpoint TEXT NOT NULL UNIQUE,
+        p256dh TEXT NOT NULL,
+        auth TEXT NOT NULL,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+      );
+      CREATE INDEX push_subscriptions_user_idx ON push_subscriptions (user_id);
+      -- The day (India time) a student last got the evening reminder
+      ALTER TABLE users ADD COLUMN reminded_on DATE;
+      -- Settings the server keeps for itself (e.g. the web push keys)
+      CREATE TABLE app_settings (key TEXT PRIMARY KEY, value TEXT NOT NULL);
+    `,
+  },
 ];
 
 export const runMigrations = async (client: PoolClient) => {

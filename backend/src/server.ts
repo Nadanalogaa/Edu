@@ -23,6 +23,7 @@ dotenv.config();
 import connectDB from './config/database';
 import { seedIfEmpty } from './utils/seed';
 import { ensureOwner } from './utils/owner';
+import { setupPush, startReminderJob } from './utils/reminders';
 
 // Initialize Express app
 const app: Application = express();
@@ -137,6 +138,7 @@ const start = async () => {
     await seedIfEmpty();
   }
   await ensureOwner();
+  await setupPush().then(startReminderJob).catch((error) => console.error('Reminders disabled:', error.message));
 
   app.listen(PORT, () => {
     console.log(`Server is running in ${process.env.NODE_ENV} mode on port ${PORT}`);
