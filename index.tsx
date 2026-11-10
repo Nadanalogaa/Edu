@@ -5,10 +5,12 @@ import './index.css';
 import App from './App';
 import { setupPwa } from './utils/pwa';
 import { restoreTextSize } from './components/common/TextSize';
+import { startOfflineSync } from './utils/offline';
 
 // Installable app: service worker and install prompt
 setupPwa();
 restoreTextSize();
+startOfflineSync();
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {

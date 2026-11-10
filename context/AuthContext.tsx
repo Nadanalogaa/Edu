@@ -40,11 +40,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         try {
           const user = await authService.getMe();
           setCurrentUser(user);
-        } catch (error) {
-          console.error('Token validation failed:', error);
-          // Token is invalid, clear storage
-          authService.logout();
-          setCurrentUser(null);
+        } catch (error: any) {
+          if (!error?.response) {
+            // No connection (e.g. practising offline): keep the saved sign-in
+            setCurrentUser(storedUser);
+          } else {
+            console.error('Token validation failed:', error);
+            // Token is invalid, clear storage
+            authService.logout();
+            setCurrentUser(null);
+          }
         }
       }
 

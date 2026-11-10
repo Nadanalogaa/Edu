@@ -6,6 +6,7 @@ import QuestionImage from '../common/QuestionImage';
 import { TextbookButton } from '../common/TextbookViewer';
 import AskTeacher from '../common/AskTeacher';
 import ReadAloud, { spokenQuestion } from '../common/ReadAloud';
+import { queueAnswer } from '../../utils/offline';
 import LiquidTimer from './LiquidTimer';
 
 // One practice session: a question at a time with instant feedback, the
@@ -110,10 +111,14 @@ const PracticeRunner: React.FC<{
       setPicked((list) => list.map((v, k) => (k === index ? i : v)));
       setSpent((list) => list.map((v, k) => (k === index ? Math.round((Date.now() - shownAt) / 1000) : v)));
       // Saved with the stored option order (options are shuffled for each session)
+      const stored = q.order ? q.order[i] : i;
       api
-        .post('/student/practice/answers', { questionId: q._id, selectedAnswer: q.order ? q.order[i] : i })
+        .post('/student/practice/answers', { questionId: q._id, selectedAnswer: stored })
         .then((res) => setFeedback((list) => list.map((v, k) => (k === index ? res.data.data || {} : v))))
-        .catch(() => undefined);
+        // No connection: keep the answer and send it when the device is back online
+        .catch((error) => {
+          if (!error?.response) queueAnswer(q._id, stored);
+        });
     },
     [done, answered, index, q, shownAt]
   );

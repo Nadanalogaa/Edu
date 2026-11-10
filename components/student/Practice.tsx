@@ -3,6 +3,7 @@ import api from '../../services/api';
 import { useLanguage } from '../../context/LanguageContext';
 import { Panel, Button, Alert, Spinner, EmptyState, apiError } from '../common/ui';
 import PracticeRunner from './PracticeRunner';
+import { OfflineSet, offlineSets, saveOfflineSet, removeOfflineSet } from '../../utils/offline';
 
 // Self-practice: pick a subject and chapter (or NEET/JEE in 11th-12th), answer
 // with instant feedback and explanations. Nothing is marked or reported.
@@ -21,6 +22,8 @@ const TEXT = {
     ready: 'Ready', noneAtLevel: 'No questions at this level here yet', mins: 'about {n} min',
     isNew: 'New', retry: 'Try again', done: 'done', allDone: 'All done – practising again',
     sessionMix: '{new} new · {retry} to try again', fixed: 'You fixed {n} earlier mistakes!',
+    saveOffline: '📥 Save for offline', saving: 'Saving…', saved: '✓ Saved for offline', offlineTitle: '📴 Saved for practice without internet',
+    offlineHint: 'Answers given offline are sent when you are back online.', practiseOffline: 'Practise', remove: 'Remove', youAreOffline: 'You are offline. Practise a saved chapter:',
   },
   ta: {
     title: 'பயிற்சி', subtitle: 'எந்தப் பாடப்பகுதியையும் விரும்பும் அளவு பயிற்சி செய்யுங்கள். இவை மதிப்பெண்ணுக்கானவை அல்ல, ஆனால் நீங்கள் எவ்வளவு பயிற்சி செய்கிறீர்கள் என்பதை உங்கள் ஆசிரியர் பார்க்கலாம்.', school: 'என் பாடங்கள்', neet: 'NEET / JEE',
@@ -35,6 +38,8 @@ const TEXT = {
     ready: 'தயார்', noneAtLevel: 'இந்த நிலையில் இங்கே இன்னும் கேள்விகள் இல்லை', mins: 'சுமார் {n} நிமிடம்',
     isNew: 'புதியது', retry: 'மீண்டும் முயல்க', done: 'முடிந்தது', allDone: 'அனைத்தும் முடிந்தது – மீண்டும் பயிற்சி',
     sessionMix: '{new} புதியவை · {retry} மீண்டும் முயல', fixed: 'முன்பு தவறிய {n} கேள்விகளைச் சரியாக்கினீர்கள்!',
+    saveOffline: '📥 இணையமின்றிப் பயிற்சிக்குச் சேமி', saving: 'சேமிக்கிறது…', saved: '✓ சேமிக்கப்பட்டது', offlineTitle: '📴 இணையமின்றிப் பயிற்சிக்குச் சேமித்தவை',
+    offlineHint: 'இணையமின்றி அளித்த விடைகள் இணைப்பு வந்ததும் அனுப்பப்படும்.', practiseOffline: 'பயிற்சி', remove: 'நீக்கு', youAreOffline: 'இணைய இணைப்பு இல்லை. சேமித்த பாடத்தைப் பயிற்சி செய்யுங்கள்:',
   },
 };
 
@@ -81,6 +86,10 @@ const Practice: React.FC<{ onOpenMistakes?: () => void }> = ({ onOpenMistakes })
   const [session, setSession] = useState<{ questions: any[]; key: number } | null>(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [saved, setSaved] = useState<OfflineSet[]>(offlineSets);
+  const [saving, setSaving] = useState<'idle' | 'saving' | 'saved'>('idle');
+  useEffect(() => setSaving('idle'), [chapterId]);
+  const [offlineSession, setOfflineSession] = useState<{ set: OfflineSet; questions: any[]; key: number } | null>(null);
 
   const inSession = !!session;
   useEffect(() => {
@@ -124,7 +133,74 @@ const Practice: React.FC<{ onOpenMistakes?: () => void }> = ({ onOpenMistakes })
     }
   };
 
-  if (!options) return error ? <Alert>{error}</Alert> : <Spinner />;
+  // Ten random questions from a saved chapter, options in a fresh order (kept with their stored order)
+  const startOffline = (set: OfflineSet) => {
+    const picked = [...set.questions].sort(() => Math.random() - 0.5).slice(0, 10).map((q) => {
+      const shown = q.options.en.map((_: string, i: number) => i).sort(() => Math.random() - 0.5);
+      return {
+        ...q,
+        options: { en: shown.map((i: number) => q.options.en[i]), ta: q.options.ta?.length ? shown.map((i: number) => q.options.ta[i]) : q.options.ta },
+        correctAnswer: shown.indexOf(q.correctAnswer),
+        order: shown.map((i: number) => q.order[i]),
+      };
+    });
+    setOfflineSession({ set, questions: picked, key: Date.now() });
+  };
+
+  const saveOffline = async () => {
+    if (!subject || !chapterId) return;
+    setSaving('saving');
+    try {
+      const res = await api.get('/student/practice/questions', { params: { subjectId, chapterId, count: 'all' } });
+      const ch = subject.chapters.find((c: any) => c.chapterId === chapterId);
+      setSaved(saveOfflineSet({
+        subjectId, chapterId, subject: subjectName(subject),
+        title: { en: `${ch?.number}. ${ch?.nameEn}`, ta: `${ch?.number}. ${ch?.nameTa || ch?.nameEn}` },
+        questions: res.data.data,
+      }));
+      setSaving('saved');
+    } catch (err) {
+      setError(apiError(err));
+      setSaving('idle');
+    }
+  };
+
+  if (offlineSession) {
+    return (
+      <PracticeRunner
+        key={offlineSession.key}
+        questions={offlineSession.questions}
+        title={ta ? offlineSession.set.title.ta : offlineSession.set.title.en}
+        subject={offlineSession.set.subject}
+        onExit={() => setOfflineSession(null)}
+        onAgain={() => startOffline(offlineSession.set)}
+      />
+    );
+  }
+
+  const offlinePanel = saved.length > 0 && (
+    <section className="rounded-3xl border-2 border-dashed border-slate-300 dark:border-slate-600 p-4">
+      <p className="font-bold text-slate-800 dark:text-slate-100">{t.offlineTitle}</p>
+      <p className="text-xs text-slate-500 dark:text-slate-400">{t.offlineHint}</p>
+      <ul className="mt-2 grid sm:grid-cols-2 gap-2">
+        {saved.map((s) => (
+          <li key={s.key} className="flex items-center gap-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2">
+            <span className="flex-1 min-w-0">
+              <span className="block text-sm font-semibold truncate text-slate-800 dark:text-slate-100">{ta ? s.title.ta : s.title.en}</span>
+              <span className="block text-xs text-slate-500">{s.subject} · {s.questions.length} {t.questions}</span>
+            </span>
+            <Button size="sm" onClick={() => startOffline(s)}>{t.practiseOffline}</Button>
+            <button type="button" className="text-xs text-slate-500 underline" onClick={() => setSaved(removeOfflineSet(s.key))}>{t.remove}</button>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+
+  if (!options) {
+    if (error && saved.length) return <div className="space-y-3"><Alert tone="info">{t.youAreOffline}</Alert>{offlinePanel}</div>;
+    return error ? <Alert>{error}</Alert> : <Spinner />;
+  }
 
   const subject = options.subjects.find((s: any) => s.subjectId === subjectId);
   const neetRow = options.neet?.find((s: any) => s.subject === neetSubject);
@@ -192,6 +268,7 @@ const Practice: React.FC<{ onOpenMistakes?: () => void }> = ({ onOpenMistakes })
         <h1 className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-100">{t.title}</h1>
         <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400">{t.subtitle}</p>
       </div>
+      {offlinePanel}
       {error && <Alert onClose={() => setError('')}>{error}</Alert>}
 
       {options.neet && (
@@ -352,6 +429,11 @@ const Practice: React.FC<{ onOpenMistakes?: () => void }> = ({ onOpenMistakes })
                   {sessionSize > 0 && ` · ${t.mins.replace('{n}', String(Math.max(1, Math.round(sessionSize * 0.75))))}`}
                 </p>
               </div>
+              {mode === 'school' && chapterId && (
+                <button type="button" disabled={saving === 'saving'} onClick={saveOffline} className="hidden sm:inline text-xs text-slate-300 hover:text-white underline">
+                  {saving === 'saving' ? t.saving : saved.some((s) => s.key === `${subjectId}|${chapterId}`) ? t.saved : t.saveOffline}
+                </button>
+              )}
               <Button disabled={loading || !sessionSize} onClick={start}>
                 {t.start} →
               </Button>
