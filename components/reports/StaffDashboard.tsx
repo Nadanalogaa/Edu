@@ -27,7 +27,7 @@ interface Data {
   kpis: {
     students: number; activeThisWeek: number; testAverage: number | null; testAverageRecent: number | null; testAverageEarlier: number | null;
     testsSubmitted30: number; practiceWeek: number; practiceLastWeek: number; practiceAccuracyWeek: number | null;
-    openMistakes: number; fixedThisWeek: number; needAttention: number; watch: number;
+    openMistakes: number; fixedThisWeek: number; needAttention: number; watch: number; openDoubts?: number;
   };
   bands: Record<string, number>;
   activity: { day: string; practice: number; practiceAccuracy: number | null; practiceStudents: number; tests: number }[];
@@ -431,6 +431,20 @@ const StaffDashboard: React.FC<{ onNavigate: (view: string) => void }> = ({ onNa
             <Kpi label="Practice accuracy" icon="✅" value={k.practiceAccuracyWeek !== null ? `${k.practiceAccuracyWeek}%` : '—'} sub="correct this week" />
             <Kpi label="Open mistakes" icon="📕" value={fmt(k.openMistakes)} sub={`${fmt(k.fixedThisWeek)} fixed this week`} />
           </div>
+
+          {!!k.openDoubts && (
+            <button type="button" onClick={() => onNavigate('doubts')}
+              className="w-full text-left rounded-2xl border-2 border-violet-300 dark:border-violet-600/60 bg-violet-50 dark:bg-violet-900/20 px-4 py-3 flex flex-wrap items-center gap-3 hover:shadow-md transition-shadow">
+              <span className="text-2xl" aria-hidden="true">🙋</span>
+              <span className="flex-1 min-w-[12rem]">
+                <span className="block font-bold text-violet-900 dark:text-violet-200">
+                  Students asked about {k.openDoubts} question{k.openDoubts === 1 ? '' : 's'}
+                </span>
+                <span className="block text-sm text-violet-800/80 dark:text-violet-300/80">Answer once and every student who asked gets it.</span>
+              </span>
+              <span className="text-sm font-semibold text-violet-700 dark:text-violet-300">Answer now →</span>
+            </button>
+          )}
 
           {/* Students who need help */}
           <section id="attention" className="rounded-3xl border border-red-200 dark:border-red-900/60 bg-gradient-to-b from-red-50/80 to-white dark:from-red-950/30 dark:to-slate-900/20 p-4 sm:p-6 scroll-mt-20">

@@ -305,6 +305,37 @@ export const migrations: Migration[] = [
       CREATE INDEX mistake_book_recheck_idx ON mistake_book (student_id, recheck_at) WHERE is_reviewed AND rechecked_at IS NULL;
     `,
   },
+  {
+    version: 15,
+    name: 'ask my teacher: students raise doubts on questions, teachers answer once for everyone',
+    sql: `
+      -- A student's doubt on a question (one open doubt per student and question)
+      CREATE TABLE doubts (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        school_id UUID NOT NULL REFERENCES schools(id) ON DELETE CASCADE,
+        student_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        question_id UUID NOT NULL REFERENCES questions(id) ON DELETE CASCADE,
+        message TEXT,
+        status TEXT NOT NULL DEFAULT 'open' CHECK (status IN ('open', 'answered')),
+        -- When the student saw the answer (NULL = not yet)
+        answer_seen_at TIMESTAMPTZ,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+      );
+      CREATE UNIQUE INDEX doubts_open_idx ON doubts (student_id, question_id) WHERE status = 'open';
+      CREATE INDEX doubts_school_idx ON doubts (school_id, status);
+      -- A teacher's answer to a question, shown to every student of the school who asked about it
+      CREATE TABLE doubt_answers (
+        school_id UUID NOT NULL REFERENCES schools(id) ON DELETE CASCADE,
+        question_id UUID NOT NULL REFERENCES questions(id) ON DELETE CASCADE,
+        teacher_id UUID REFERENCES users(id) ON DELETE SET NULL,
+        reply TEXT NOT NULL,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+        PRIMARY KEY (school_id, question_id)
+      );
+    `,
+  },
 ];
 
 export const runMigrations = async (client: PoolClient) => {

@@ -1,4 +1,5 @@
 import express from 'express';
+import { askDoubt, myDoubts } from '../controllers/doubtsController';
 import {
   startAttempt,
   submitAttempt,
@@ -28,6 +29,8 @@ router.get('/attempts', getMyAttempts);
 router.get('/analytics', getAnalytics);
 router.get('/mistakes', getMistakes);
 router.post('/mistakes/:id/check', checkMistake);
+router.post('/doubts', askDoubt);
+router.get('/doubts', myDoubts);
 router.get('/tests', getSharedTests);
 
 // Class assessments

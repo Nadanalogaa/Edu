@@ -348,9 +348,16 @@ export const practiceSummary = async (req: AuthRequest, res: Response) => {
        FROM mistake_book m WHERE m.student_id = $1`,
       [userId]
     );
+    const [doubts] = await query(
+      `SELECT count(*) FILTER (WHERE status = 'open')::int AS open,
+              count(*) FILTER (WHERE status = 'answered' AND answer_seen_at IS NULL)::int AS new_answers
+       FROM doubts WHERE student_id = $1`,
+      [userId]
+    );
     res.status(200).json({
       success: true,
       data: {
+        doubts: { open: doubts.open, newAnswers: doubts.new_answers },
         answers: totals.answers,
         correct: totals.correct,
         questions: totals.questions,

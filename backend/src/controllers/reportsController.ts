@@ -3,6 +3,7 @@ import { AuthRequest } from '../middleware/auth';
 import { query } from '../config/database';
 import { isUuid } from '../db/table';
 import { HttpError } from '../utils/tenancy';
+import { openDoubtCount } from './doubtsController';
 import { StaffScope, staffScopeOf, studentInScope, workInScope, testInScope, canSeeStudent, coversAll } from '../utils/staffScope';
 
 // School reports from submitted class assessments, practice and the Mistake
@@ -824,6 +825,7 @@ export const dashboard = async (req: AuthRequest, res: Response) => {
           fixedThisWeek: students.reduce((n, s) => n + s.mistakes.fixedThisWeek, 0),
           needAttention: students.filter((s) => s.attentionScore >= 3).length,
           watch: students.filter((s) => s.attentionScore === 2).length,
+          openDoubts: (await openDoubtCount(scope.schoolId, scope.staff)).questions,
         },
         bands,
         activity,

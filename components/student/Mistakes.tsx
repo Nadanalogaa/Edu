@@ -4,6 +4,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { Alert, Spinner, Button, apiError, formatDate } from '../common/ui';
 import QuestionImage from '../common/QuestionImage';
 import { TextbookButton } from '../common/TextbookViewer';
+import AskTeacher from '../common/AskTeacher';
 import PracticeRunner from './PracticeRunner';
 
 // Every question the student got wrong, in class tests and in practice, with
@@ -335,7 +336,10 @@ const Mistakes: React.FC<{ onOpenPractice?: () => void }> = () => {
                 </>
                 )}
                 <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
-                  <TextbookButton textbook={q.textbook} subject={ta && q.subjectTa ? q.subjectTa : q.subject} />
+                  <div className="flex flex-wrap items-center gap-2">
+                    <TextbookButton textbook={q.textbook} subject={ta && q.subjectTa ? q.subjectTa : q.subject} />
+                    {!asking && <AskTeacher key={m._id} questionId={q._id} />}
+                  </div>
                   {m.isReviewed ? (
                     !m.due && (
                       <span className="text-right text-sm font-semibold text-emerald-700 dark:text-emerald-400">

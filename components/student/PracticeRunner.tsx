@@ -4,6 +4,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { Button } from '../common/ui';
 import QuestionImage from '../common/QuestionImage';
 import { TextbookButton } from '../common/TextbookViewer';
+import AskTeacher from '../common/AskTeacher';
 import LiquidTimer from './LiquidTimer';
 
 // One practice session: a question at a time with instant feedback, the
@@ -347,6 +348,7 @@ const PracticeRunner: React.FC<{
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <TextbookButton textbook={q.textbook} subject={q.subject} />
             {q.source && !q.textbook && <span className="text-xs text-slate-500">📖 {q.source}</span>}
+            <AskTeacher key={q._id} questionId={q._id} />
           </div>
           {fb.addedToMistakes && <p className="mt-3 text-xs font-medium text-rose-700 dark:text-rose-300">📕 {t.addedToMistakes}</p>}
           {fb.fixedMistake && <p className="mt-3 text-xs font-medium text-emerald-700 dark:text-emerald-300">✅ {t.fixedMistake}</p>}

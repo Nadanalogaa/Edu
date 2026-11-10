@@ -37,6 +37,8 @@ import MyTests from './components/student/MyTests';
 import StudentHome from './components/student/StudentHome';
 import Practice from './components/student/Practice';
 import Mistakes from './components/student/Mistakes';
+import MyDoubts from './components/student/MyDoubts';
+import DoubtsScreen from './components/reports/DoubtsScreen';
 import ReportsScreen from './components/reports/ReportsScreen';
 import StudentReport from './components/reports/StudentReport';
 import { boardLabel, classLabel } from './components/common/ui';
@@ -244,6 +246,7 @@ const DashboardLayout: React.FC = () => {
       { label: language === 'ta' ? 'பயிற்சி' : 'Practice', icon: <PenSquareIcon className="w-5 h-5" />, view: 'practice' },
       { label: language === 'ta' ? 'என் முன்னேற்றம்' : 'My Progress', icon: <TrendingUpIcon className="w-5 h-5" />, view: 'progress' },
       { label: language === 'ta' ? 'தவறுப் புத்தகம்' : 'Mistake Book', icon: <BookOpenIcon className="w-5 h-5" />, view: 'mistakes' },
+      { label: language === 'ta' ? 'என் சந்தேகங்கள்' : 'My Doubts', icon: <UsersIcon className="w-5 h-5" />, view: 'doubts' },
       { section: 'NEET / JEE', label: language === 'ta' ? 'NEET/JEE முகப்பு' : 'NEET/JEE Dashboard', icon: <StethoscopeIcon className="w-5 h-5" />, view: 'neet-home' },
       { label: t('practiceMode'), icon: <PenSquareIcon className="w-5 h-5" />, view: 'neet-practice' },
       { label: t('takeAnExam'), icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'exam' },
@@ -256,6 +259,7 @@ const DashboardLayout: React.FC = () => {
       { label: t('dashboard'), icon: <LayoutDashboardIcon className="w-5 h-5" />, view: 'dashboard' },
       { label: 'Tests', icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'tests' },
       { label: 'Reports', icon: <TrendingUpIcon className="w-5 h-5" />, view: 'reports' },
+      { label: "Students' Doubts", icon: <UsersIcon className="w-5 h-5" />, view: 'doubts' },
       { label: t('questionBank'), icon: <BookOpenIcon className="w-5 h-5" />, view: 'question-bank' },
     ],
     admin: [
@@ -265,6 +269,7 @@ const DashboardLayout: React.FC = () => {
       { label: 'School Admins', icon: <UserIcon className="w-5 h-5" />, view: 'admins' },
       { label: 'Tests', icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'tests' },
       { label: 'Reports', icon: <TrendingUpIcon className="w-5 h-5" />, view: 'reports' },
+      { label: "Students' Doubts", icon: <UsersIcon className="w-5 h-5" />, view: 'doubts' },
       { label: t('questionBank'), icon: <BookOpenIcon className="w-5 h-5" />, view: 'question-bank' },
     ],
     owner: [
@@ -342,6 +347,8 @@ const DashboardLayout: React.FC = () => {
           return <TestsScreen />;
         case 'reports':
           return <ReportsScreen />;
+        case 'doubts':
+          return <DoubtsScreen />;
         default:
           return <StaffDashboard onNavigate={handleNavClick} />;
       }
@@ -351,6 +358,7 @@ const DashboardLayout: React.FC = () => {
       if (activeView === 'question-bank') return <QuestionBankScreen />;
       if (activeView === 'reports') return <ReportsScreen />;
       if (activeView === 'tests') return <TestsScreen />;
+      if (activeView === 'doubts') return <DoubtsScreen />;
       return <StaffDashboard onNavigate={handleNavClick} />;
     }
 
@@ -364,6 +372,8 @@ const DashboardLayout: React.FC = () => {
           return <StudentReport />;
         case 'mistakes':
           return <Mistakes onOpenPractice={() => setActiveView('practice')} />;
+        case 'doubts':
+          return <MyDoubts />;
         case 'neet-home':
           return <NeetDashboard />;
         case 'neet-practice':

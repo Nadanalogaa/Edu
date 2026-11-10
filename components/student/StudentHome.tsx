@@ -17,6 +17,7 @@ const TEXT = {
     noPractice: 'Not started', streak: (n: number) => `${n}-day practice streak`, startStreak: 'Practise today to start a streak',
     nextStep: 'Your next step', testOpen: (t: string) => `“${t}” is open now`, testOpenHint: 'Finish it before it closes.',
     weak: (c: string) => `Practise ${c}`, weakHint: (v: number) => `Your score here is ${v}%. A few minutes of practice will help.`,
+    newAnswers: (n: number) => `👩‍🏫 Your teacher answered ${n} of your doubt${n === 1 ? '' : 's'}`, seeAnswers: 'See the answers →',
     recheck: (n: number) => `Check ${n} mistake${n === 1 ? '' : 's'} you fixed last week`, recheckHint: 'Show you still remember them.',
     revise: (n: number) => `Revise ${n} mistake${n === 1 ? '' : 's'}`, reviseHint: 'Answer them correctly to clear your Mistake Book.',
     begin: 'Start practising', beginHint: 'Pick a subject, a level and go. Every answer is saved.', go: 'Go',
@@ -34,6 +35,7 @@ const TEXT = {
     noPractice: 'இன்னும் தொடங்கவில்லை', streak: (n: number) => `${n} நாள் தொடர் பயிற்சி`, startStreak: 'இன்று பயிற்சி செய்து தொடரைத் தொடங்குங்கள்',
     nextStep: 'உங்கள் அடுத்த படி', testOpen: (t: string) => `“${t}” இப்போது திறந்துள்ளது`, testOpenHint: 'மூடுவதற்கு முன் முடியுங்கள்.',
     weak: (c: string) => `${c} பயிற்சி செய்யுங்கள்`, weakHint: (v: number) => `இங்கே உங்கள் மதிப்பெண் ${v}%. சிறிது பயிற்சி உதவும்.`,
+    newAnswers: (n: number) => `👩‍🏫 உங்கள் ${n} சந்தேகங்களுக்கு ஆசிரியர் பதிலளித்துள்ளார்`, seeAnswers: 'பதில்களைப் பார் →',
     recheck: (n: number) => `கடந்த வாரம் சரியாக்கிய ${n} தவறுகளைச் சரிபார்க்கவும்`, recheckHint: 'இன்னும் நினைவிருக்கிறதா என்று காட்டுங்கள்.',
     revise: (n: number) => `${n} தவறுகளைத் திருப்புங்கள்`, reviseHint: 'சரியாக விடையளித்தால் தவறுப் புத்தகத்திலிருந்து நீங்கும்.',
     begin: 'பயிற்சியைத் தொடங்குங்கள்', beginHint: 'பாடம், நிலையைத் தேர்ந்தெடுத்துத் தொடங்குங்கள்.', go: 'செல்',
@@ -119,6 +121,14 @@ const StudentHome: React.FC<{ onNavigate: (view: string) => void }> = ({ onNavig
           🔥 {summary.streak ? t.streak(summary.streak) : t.startStreak}
         </span>
       </div>
+
+      {summary.doubts?.newAnswers > 0 && (
+        <button type="button" onClick={() => onNavigate('doubts')}
+          className="w-full text-left rounded-2xl border-2 border-violet-300 dark:border-violet-600/60 bg-violet-50 dark:bg-violet-900/20 px-4 py-3 flex flex-wrap items-center justify-between gap-2">
+          <span className="font-bold text-violet-900 dark:text-violet-200">{t.newAnswers(summary.doubts.newAnswers)}</span>
+          <span className="text-sm font-semibold text-violet-700 dark:text-violet-300">{t.seeAnswers}</span>
+        </button>
+      )}
 
       {/* At a glance */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
