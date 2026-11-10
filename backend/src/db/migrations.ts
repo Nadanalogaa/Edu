@@ -390,6 +390,19 @@ export const migrations: Migration[] = [
       CREATE INDEX mock_attempts_student_idx ON mock_attempts (student_id, created_at);
     `,
   },
+  {
+    version: 18,
+    name: 'parent report links (read-only weekly report without a login)',
+    sql: `
+      CREATE TABLE parent_links (
+        token TEXT PRIMARY KEY,
+        student_id UUID NOT NULL UNIQUE REFERENCES users(id) ON DELETE CASCADE,
+        created_by UUID REFERENCES users(id) ON DELETE SET NULL,
+        views INTEGER NOT NULL DEFAULT 0,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+      );
+    `,
+  },
 ];
 
 export const runMigrations = async (client: PoolClient) => {

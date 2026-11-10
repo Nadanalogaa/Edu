@@ -3,6 +3,7 @@ import api from '../../services/api';
 import { useLanguage } from '../../context/LanguageContext';
 import { Panel, Button, Badge, Alert, Spinner, StatTile, Table, EmptyState, apiError, classLabel, formatDate } from '../common/ui';
 import { TrendChart, PercentBars, DailyBars, weekLabel } from './charts';
+import ShareWithParent from '../common/ShareWithParent';
 
 // One student's progress: used by school staff (any student of the school) and
 // by the student (their own, at /student/progress).
@@ -180,6 +181,7 @@ const StudentReport: React.FC<{ studentId?: string; onBack?: () => void }> = ({ 
         <StatTile label={t.missed} value={kpis.missed} tone={kpis.missed >= 2 ? 'warn' : 'default'} />
       </div>
 
+      {studentId && <ShareWithParent studentId={studentId} className="self-start" />}
       {studentId && report.practice && report.mistakes && <PracticeAndMistakes report={report} />}
 
       {report.history.length === 0 ? (

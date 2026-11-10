@@ -41,6 +41,7 @@ import MyDoubts from './components/student/MyDoubts';
 import ChapterMap from './components/student/ChapterMap';
 import Achievements from './components/student/Achievements';
 import ExamPrep from './components/student/ExamPrep';
+import ParentReport from './components/ParentReport';
 import DoubtsScreen from './components/reports/DoubtsScreen';
 import ReportsScreen from './components/reports/ReportsScreen';
 import StudentReport from './components/reports/StudentReport';
@@ -655,6 +656,7 @@ const AppContent: React.FC = () => {
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<LoginRoute />} />
       <Route path="/superadmin" element={<SuperAdminRoute />} />
+      <Route path="/parent/:token" element={<ParentReport />} />
       <Route path="/tn-schools" element={<TNSchoolsPage />} />
       <Route path="/register" element={<RegistrationLanding />} />
       <Route path="/register/student" element={<StudentRegistrationForm />} />
