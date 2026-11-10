@@ -3,6 +3,7 @@ import { askDoubt, myDoubts } from '../controllers/doubtsController';
 import { myMastery } from '../controllers/masteryController';
 import { achievements } from '../controllers/achievementsController';
 import { myParentLink } from '../controllers/parentController';
+import { explain, explainStatus } from '../controllers/explainController';
 import { myPlans, createPlan, deletePlan, startMock, submitMock } from '../controllers/examPrepController';
 import { getGoal, setGoal, subscribeReminders, unsubscribeReminders } from '../controllers/goalController';
 import {
@@ -41,6 +42,8 @@ router.get('/mastery', myMastery);
 router.get('/achievements', achievements);
 router.get('/exam-plans', myPlans);
 router.post('/parent-link', myParentLink);
+router.get('/explain/status', explainStatus);
+router.post('/explain', explain);
 router.post('/exam-plans', createPlan);
 router.delete('/exam-plans/:id', deletePlan);
 router.post('/mock-tests/start', startMock);

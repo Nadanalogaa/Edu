@@ -409,6 +409,27 @@ export const migrations: Migration[] = [
     name: 'State Board 9th Social Science, English and Tamil textbook question bank',
     sql: SB9_MORE.map((c) => bankChapterSql('state_board', 9, c.subject, c.chapter, c.questions)).join('\n'),
   },
+  {
+    version: 20,
+    name: 'AI "explain it another way": saved explanations and a daily limit per student',
+    sql: `
+      -- One explanation per question, language and wrong answer chosen (reused for every student)
+      CREATE TABLE ai_explanations (
+        question_id UUID NOT NULL REFERENCES questions(id) ON DELETE CASCADE,
+        language TEXT NOT NULL CHECK (language IN ('en', 'ta')),
+        selected_answer INTEGER NOT NULL,
+        text TEXT NOT NULL,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+        PRIMARY KEY (question_id, language, selected_answer)
+      );
+      CREATE TABLE ai_usage (
+        student_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        day DATE NOT NULL,
+        count INTEGER NOT NULL DEFAULT 0,
+        PRIMARY KEY (student_id, day)
+      );
+    `,
+  },
 ];
 
 export const runMigrations = async (client: PoolClient) => {

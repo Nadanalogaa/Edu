@@ -5,6 +5,7 @@ import { Alert, Spinner, Button, apiError, formatDate } from '../common/ui';
 import QuestionImage from '../common/QuestionImage';
 import { TextbookButton } from '../common/TextbookViewer';
 import AskTeacher from '../common/AskTeacher';
+import ExplainAnother from '../common/ExplainAnother';
 import ReadAloud from '../common/ReadAloud';
 import PracticeRunner from './PracticeRunner';
 
@@ -343,6 +344,7 @@ const Mistakes: React.FC<{ onOpenPractice?: () => void }> = () => {
                   <div className="flex flex-wrap items-center gap-2">
                     <TextbookButton textbook={q.textbook} subject={ta && q.subjectTa ? q.subjectTa : q.subject} />
                     {!asking && <AskTeacher key={m._id} questionId={q._id} />}
+                    {!asking && <ExplainAnother key={`x${m._id}`} questionId={q._id} selectedAnswer={m.selectedAnswer} />}
                   </div>
                   {m.isReviewed ? (
                     !m.due && (
