@@ -6,6 +6,7 @@ import { CHAPTERS_9_CBSE, QUESTIONS_9_CBSE } from './content/class9Cbse';
 import { bankChapterSql, bankSyncSql } from './content/sb9';
 import { FLUIDS_QUESTIONS } from './content/sb9/science03Fluids';
 import { SB9_BANK } from './content/sb9/chapters';
+import { SB9_MORE } from './content/sb9/chaptersMore';
 
 // Database changes, applied in order on startup. Each runs once (recorded in
 // schema_migrations) inside a transaction. Never edit a migration that has been
@@ -402,6 +403,11 @@ export const migrations: Migration[] = [
         created_at TIMESTAMPTZ NOT NULL DEFAULT now()
       );
     `,
+  },
+  {
+    version: 19,
+    name: 'State Board 9th Social Science, English and Tamil textbook question bank',
+    sql: SB9_MORE.map((c) => bankChapterSql('state_board', 9, c.subject, c.chapter, c.questions)).join('\n'),
   },
 ];
 

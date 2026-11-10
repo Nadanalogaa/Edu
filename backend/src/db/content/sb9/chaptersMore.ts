@@ -1,0 +1,88 @@
+// TN State Board 9th: Social Science, English and Tamil textbook question banks
+// (added after Science and Maths, so they load in their own migration).
+import { BankQuestion } from './types';
+import { QUESTIONS as eng01PartsOfSpeechQ } from './eng01PartsOfSpeech';
+import { QUESTIONS as eng02TensesQ } from './eng02Tenses';
+import { QUESTIONS as eng03ArticlesPrepositionsQ } from './eng03ArticlesPrepositions';
+import { QUESTIONS as eng04VoiceQ } from './eng04Voice';
+import { QUESTIONS as eng05ReportedSpeechQ } from './eng05ReportedSpeech';
+import { QUESTIONS as eng06VocabularyQ } from './eng06Vocabulary';
+import { QUESTIONS as ss01PrehistoricQ } from './ss01Prehistoric';
+import { QUESTIONS as ss02AncientCivilisationsQ } from './ss02AncientCivilisations';
+import { QUESTIONS as ss03EarlyTamilSocietyQ } from './ss03EarlyTamilSociety';
+import { QUESTIONS as ss04IntellectualAwakeningQ } from './ss04IntellectualAwakening';
+import { QUESTIONS as ss05ClassicalWorldQ } from './ss05ClassicalWorld';
+import { QUESTIONS as ss06MiddleAgesQ } from './ss06MiddleAges';
+import { QUESTIONS as ss07MedievalIndiaQ } from './ss07MedievalIndia';
+import { QUESTIONS as ss08ModernAgeQ } from './ss08ModernAge';
+import { QUESTIONS as ss09AgeOfRevolutionsQ } from './ss09AgeOfRevolutions';
+import { QUESTIONS as ss10IndustrialRevolutionQ } from './ss10IndustrialRevolution';
+import { QUESTIONS as ss11ColonialismQ } from './ss11Colonialism';
+import { QUESTIONS as ss12LithosphereIQ } from './ss12LithosphereI';
+import { QUESTIONS as ss13LithosphereIIQ } from './ss13LithosphereII';
+import { QUESTIONS as ss14AtmosphereQ } from './ss14Atmosphere';
+import { QUESTIONS as ss15HydrosphereQ } from './ss15Hydrosphere';
+import { QUESTIONS as ss16BiosphereQ } from './ss16Biosphere';
+import { QUESTIONS as ss17ManAndEnvironmentQ } from './ss17ManAndEnvironment';
+import { QUESTIONS as ss18MappingSkillsQ } from './ss18MappingSkills';
+import { QUESTIONS as ss19DisasterManagementQ } from './ss19DisasterManagement';
+import { QUESTIONS as ss20FormsOfGovernmentQ } from './ss20FormsOfGovernment';
+import { QUESTIONS as ss21ElectionsQ } from './ss21Elections';
+import { QUESTIONS as ss22HumanRightsQ } from './ss22HumanRights';
+import { QUESTIONS as ss23LocalSelfGovernmentQ } from './ss23LocalSelfGovernment';
+import { QUESTIONS as ss24RoadSafetyQ } from './ss24RoadSafety';
+import { QUESTIONS as ss25DevelopmentQ } from './ss25Development';
+import { QUESTIONS as ss26EmploymentQ } from './ss26Employment';
+import { QUESTIONS as ss27MoneyAndCreditQ } from './ss27MoneyAndCredit';
+import { QUESTIONS as ss28AgricultureQ } from './ss28Agriculture';
+import { QUESTIONS as ss29MigrationQ } from './ss29Migration';
+import { QUESTIONS as tam01EzhuthuQ } from './tam01Ezhuthu';
+import { QUESTIONS as tam02SolQ } from './tam02Sol';
+import { QUESTIONS as tam03SollvalamQ } from './tam03Sollvalam';
+import { QUESTIONS as tam04IlakkiyamQ } from './tam04Ilakkiyam';
+import { QUESTIONS as tam05ThirukkuralQ } from './tam05Thirukkural';
+import { QUESTIONS as tam06SangamQ } from './tam06Sangam';
+
+export const SB9_MORE: { subject: 'social_science' | 'english' | 'tamil'; chapter: number; questions: BankQuestion[] }[] = [
+  { subject: 'english', chapter: 1, questions: eng01PartsOfSpeechQ },
+  { subject: 'english', chapter: 2, questions: eng02TensesQ },
+  { subject: 'english', chapter: 3, questions: eng03ArticlesPrepositionsQ },
+  { subject: 'english', chapter: 4, questions: eng04VoiceQ },
+  { subject: 'english', chapter: 5, questions: eng05ReportedSpeechQ },
+  { subject: 'english', chapter: 6, questions: eng06VocabularyQ },
+  { subject: 'social_science', chapter: 1, questions: ss01PrehistoricQ },
+  { subject: 'social_science', chapter: 2, questions: ss02AncientCivilisationsQ },
+  { subject: 'social_science', chapter: 3, questions: ss03EarlyTamilSocietyQ },
+  { subject: 'social_science', chapter: 4, questions: ss04IntellectualAwakeningQ },
+  { subject: 'social_science', chapter: 5, questions: ss05ClassicalWorldQ },
+  { subject: 'social_science', chapter: 6, questions: ss06MiddleAgesQ },
+  { subject: 'social_science', chapter: 7, questions: ss07MedievalIndiaQ },
+  { subject: 'social_science', chapter: 8, questions: ss08ModernAgeQ },
+  { subject: 'social_science', chapter: 9, questions: ss09AgeOfRevolutionsQ },
+  { subject: 'social_science', chapter: 10, questions: ss10IndustrialRevolutionQ },
+  { subject: 'social_science', chapter: 11, questions: ss11ColonialismQ },
+  { subject: 'social_science', chapter: 12, questions: ss12LithosphereIQ },
+  { subject: 'social_science', chapter: 13, questions: ss13LithosphereIIQ },
+  { subject: 'social_science', chapter: 14, questions: ss14AtmosphereQ },
+  { subject: 'social_science', chapter: 15, questions: ss15HydrosphereQ },
+  { subject: 'social_science', chapter: 16, questions: ss16BiosphereQ },
+  { subject: 'social_science', chapter: 17, questions: ss17ManAndEnvironmentQ },
+  { subject: 'social_science', chapter: 18, questions: ss18MappingSkillsQ },
+  { subject: 'social_science', chapter: 19, questions: ss19DisasterManagementQ },
+  { subject: 'social_science', chapter: 20, questions: ss20FormsOfGovernmentQ },
+  { subject: 'social_science', chapter: 21, questions: ss21ElectionsQ },
+  { subject: 'social_science', chapter: 22, questions: ss22HumanRightsQ },
+  { subject: 'social_science', chapter: 23, questions: ss23LocalSelfGovernmentQ },
+  { subject: 'social_science', chapter: 24, questions: ss24RoadSafetyQ },
+  { subject: 'social_science', chapter: 25, questions: ss25DevelopmentQ },
+  { subject: 'social_science', chapter: 26, questions: ss26EmploymentQ },
+  { subject: 'social_science', chapter: 27, questions: ss27MoneyAndCreditQ },
+  { subject: 'social_science', chapter: 28, questions: ss28AgricultureQ },
+  { subject: 'social_science', chapter: 29, questions: ss29MigrationQ },
+  { subject: 'tamil', chapter: 1, questions: tam01EzhuthuQ },
+  { subject: 'tamil', chapter: 2, questions: tam02SolQ },
+  { subject: 'tamil', chapter: 3, questions: tam03SollvalamQ },
+  { subject: 'tamil', chapter: 4, questions: tam04IlakkiyamQ },
+  { subject: 'tamil', chapter: 5, questions: tam05ThirukkuralQ },
+  { subject: 'tamil', chapter: 6, questions: tam06SangamQ },
+];
