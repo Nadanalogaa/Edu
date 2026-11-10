@@ -357,6 +357,39 @@ export const migrations: Migration[] = [
       CREATE TABLE app_settings (key TEXT PRIMARY KEY, value TEXT NOT NULL);
     `,
   },
+  {
+    version: 17,
+    name: 'exam revision plans and self-started mock tests',
+    sql: `
+      -- A student's plan for an exam in one subject: chapters spread over the days left
+      CREATE TABLE exam_plans (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        student_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        title TEXT NOT NULL,
+        exam_date DATE NOT NULL,
+        subject_id UUID NOT NULL REFERENCES subjects(id) ON DELETE CASCADE,
+        chapter_ids UUID[] NOT NULL DEFAULT '{}',
+        daily_target INTEGER NOT NULL DEFAULT 15 CHECK (daily_target BETWEEN 5 AND 100),
+        created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+      );
+      CREATE INDEX exam_plans_student_idx ON exam_plans (student_id);
+      -- A timed mock test a student took on their own
+      CREATE TABLE mock_attempts (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        student_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        subject_id UUID REFERENCES subjects(id) ON DELETE SET NULL,
+        chapter_ids UUID[] NOT NULL DEFAULT '{}',
+        total INTEGER NOT NULL,
+        correct INTEGER NOT NULL,
+        percentage DOUBLE PRECISION NOT NULL,
+        time_taken INTEGER NOT NULL DEFAULT 0,
+        minutes INTEGER NOT NULL,
+        details JSONB NOT NULL DEFAULT '[]',
+        created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+      );
+      CREATE INDEX mock_attempts_student_idx ON mock_attempts (student_id, created_at);
+    `,
+  },
 ];
 
 export const runMigrations = async (client: PoolClient) => {

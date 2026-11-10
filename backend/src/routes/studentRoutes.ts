@@ -2,6 +2,7 @@ import express from 'express';
 import { askDoubt, myDoubts } from '../controllers/doubtsController';
 import { myMastery } from '../controllers/masteryController';
 import { achievements } from '../controllers/achievementsController';
+import { myPlans, createPlan, deletePlan, startMock, submitMock } from '../controllers/examPrepController';
 import { getGoal, setGoal, subscribeReminders, unsubscribeReminders } from '../controllers/goalController';
 import {
   startAttempt,
@@ -37,6 +38,11 @@ router.get('/doubts', myDoubts);
 router.get('/goal', getGoal);
 router.get('/mastery', myMastery);
 router.get('/achievements', achievements);
+router.get('/exam-plans', myPlans);
+router.post('/exam-plans', createPlan);
+router.delete('/exam-plans/:id', deletePlan);
+router.post('/mock-tests/start', startMock);
+router.post('/mock-tests/submit', submitMock);
 router.put('/goal', setGoal);
 router.post('/reminders', subscribeReminders);
 router.delete('/reminders', unsubscribeReminders);

@@ -393,7 +393,7 @@ export const MIXED_SHARE = { easy: 0.4, medium: 0.4, hard: 0.2 };
  * (40% easy, 40% medium, 20% hard, topping up from other levels when one runs
  * short). Throws if the pool cannot supply enough.
  */
-const pickByDifficulty = (pool: Doc[], count: number, difficulty?: string) => {
+export const pickByDifficulty = (pool: Doc[], count: number, difficulty?: string) => {
   if (DIFFICULTIES.includes(difficulty as string)) {
     const level = pool.filter((q) => q.difficulty === difficulty);
     if (level.length < count) {

@@ -15,7 +15,7 @@ import { recordMistake, fixMistake, DUE_SQL } from '../utils/mistakes';
 const NEET_SUBJECTS = ['Physics', 'Chemistry', 'Biology', 'Maths'];
 
 /** SQL condition: visible to the student and not part of a test they may still write. Pushes params. */
-const practisable = (student: any, params: any[]) => {
+export const practisable = (student: any, params: any[]) => {
   params.push(student.schoolId);
   const schoolParam = params.length;
   params.push(student.classGrade);
@@ -79,7 +79,7 @@ const shuffleOptions = (options: { en: string[]; ta?: string[] }, correctAnswer:
 };
 
 /** A question as practice shows it: options in a fresh order, with its textbook page. */
-const practiceView = (q: any, status?: string) => {
+export const practiceView = (q: any, status?: string) => {
   const { options, correctAnswer, order } = shuffleOptions(q.options, q.correctAnswer);
   return {
     _id: q._id,
