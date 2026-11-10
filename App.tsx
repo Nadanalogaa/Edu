@@ -39,6 +39,7 @@ import Practice from './components/student/Practice';
 import Mistakes from './components/student/Mistakes';
 import MyDoubts from './components/student/MyDoubts';
 import ChapterMap from './components/student/ChapterMap';
+import Achievements from './components/student/Achievements';
 import DoubtsScreen from './components/reports/DoubtsScreen';
 import ReportsScreen from './components/reports/ReportsScreen';
 import StudentReport from './components/reports/StudentReport';
@@ -250,6 +251,7 @@ const DashboardLayout: React.FC = () => {
       { label: language === 'ta' ? 'என் முன்னேற்றம்' : 'My Progress', icon: <TrendingUpIcon className="w-5 h-5" />, view: 'progress' },
       { label: language === 'ta' ? 'தவறுப் புத்தகம்' : 'Mistake Book', icon: <BookOpenIcon className="w-5 h-5" />, view: 'mistakes' },
       { label: language === 'ta' ? 'என் சந்தேகங்கள்' : 'My Doubts', icon: <UsersIcon className="w-5 h-5" />, view: 'doubts' },
+      { label: language === 'ta' ? 'சாதனைகள்' : 'Achievements', icon: <GraduationCapIcon className="w-5 h-5" />, view: 'achievements' },
       { section: 'NEET / JEE', label: language === 'ta' ? 'NEET/JEE முகப்பு' : 'NEET/JEE Dashboard', icon: <StethoscopeIcon className="w-5 h-5" />, view: 'neet-home' },
       { label: t('practiceMode'), icon: <PenSquareIcon className="w-5 h-5" />, view: 'neet-practice' },
       { label: t('takeAnExam'), icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'exam' },
@@ -379,6 +381,8 @@ const DashboardLayout: React.FC = () => {
           return <MyDoubts />;
         case 'chapters':
           return <ChapterMap onNavigate={handleNavClick} />;
+        case 'achievements':
+          return <Achievements />;
         case 'neet-home':
           return <NeetDashboard />;
         case 'neet-practice':
