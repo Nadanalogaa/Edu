@@ -38,6 +38,7 @@ import StudentHome from './components/student/StudentHome';
 import Practice from './components/student/Practice';
 import Mistakes from './components/student/Mistakes';
 import MyDoubts from './components/student/MyDoubts';
+import ChapterMap from './components/student/ChapterMap';
 import DoubtsScreen from './components/reports/DoubtsScreen';
 import ReportsScreen from './components/reports/ReportsScreen';
 import StudentReport from './components/reports/StudentReport';
@@ -244,6 +245,7 @@ const DashboardLayout: React.FC = () => {
       { label: language === 'ta' ? 'முகப்பு' : 'Home', icon: <LayoutDashboardIcon className="w-5 h-5" />, view: 'dashboard' },
       { label: language === 'ta' ? 'என் தேர்வுகள்' : 'My Tests', icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'my-tests' },
       { label: language === 'ta' ? 'பயிற்சி' : 'Practice', icon: <PenSquareIcon className="w-5 h-5" />, view: 'practice' },
+      { label: language === 'ta' ? 'பாட வரைபடம்' : 'Chapter Map', icon: <FileTextIcon className="w-5 h-5" />, view: 'chapters' },
       { label: language === 'ta' ? 'என் முன்னேற்றம்' : 'My Progress', icon: <TrendingUpIcon className="w-5 h-5" />, view: 'progress' },
       { label: language === 'ta' ? 'தவறுப் புத்தகம்' : 'Mistake Book', icon: <BookOpenIcon className="w-5 h-5" />, view: 'mistakes' },
       { label: language === 'ta' ? 'என் சந்தேகங்கள்' : 'My Doubts', icon: <UsersIcon className="w-5 h-5" />, view: 'doubts' },
@@ -374,6 +376,8 @@ const DashboardLayout: React.FC = () => {
           return <Mistakes onOpenPractice={() => setActiveView('practice')} />;
         case 'doubts':
           return <MyDoubts />;
+        case 'chapters':
+          return <ChapterMap onNavigate={handleNavClick} />;
         case 'neet-home':
           return <NeetDashboard />;
         case 'neet-practice':

@@ -89,8 +89,17 @@ const Practice: React.FC<{ onOpenMistakes?: () => void }> = ({ onOpenMistakes })
       .get('/student/practice/options')
       .then((res) => {
         setOptions(res.data.data);
+        // Opened from the chapter map (or another screen) for one chapter
+        let pick: { subjectId?: string; chapterId?: string } = {};
+        try {
+          pick = JSON.parse(sessionStorage.getItem('practice-pick') || '{}');
+          sessionStorage.removeItem('practice-pick');
+        } catch {
+          pick = {};
+        }
+        if (pick.chapterId) setChapterId(pick.chapterId);
         // Keep the student's choice when coming back from a session
-        setSubjectId((current) => current || res.data.data.subjects[0]?.subjectId || '');
+        setSubjectId((current) => pick.subjectId || current || res.data.data.subjects[0]?.subjectId || '');
         setNeetSubject((current) => current || res.data.data.neet?.[0]?.subject || '');
       })
       .catch((err) => setError(apiError(err)));

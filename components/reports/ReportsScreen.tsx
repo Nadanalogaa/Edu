@@ -4,6 +4,7 @@ import { PageHeader, Panel, Button, SelectInput, TextInput, Badge, Alert, Spinne
 import { useSubjects } from '../assessments/syllabus';
 import { TrendChart, PercentBars, weekLabel } from './charts';
 import StudentReport from './StudentReport';
+import ClassMastery from './ClassMastery';
 
 interface StudentRow {
   _id: string;
@@ -49,7 +50,7 @@ const trendBadge = (trend: number | null) => {
 
 /** School performance reports for school admins and teachers. */
 const ReportsScreen: React.FC = () => {
-  const [tab, setTab] = useState<'overview' | 'students'>('overview');
+  const [tab, setTab] = useState<'overview' | 'students' | 'mastery'>('overview');
   const [filters, setFilters] = useState({ classGrade: '' as number | '', section: '', subjectId: '', period: 'all' });
   const [sections, setSections] = useState<{ classGrade: number; section: string | null }[]>([]);
   const [overview, setOverview] = useState<Overview | null>(null);
@@ -134,7 +135,7 @@ const ReportsScreen: React.FC = () => {
 
       <div className="flex flex-wrap items-center gap-2">
         <div className="flex gap-1 p-1 bg-slate-200/60 dark:bg-slate-800 rounded-lg" role="tablist">
-          {(['overview', 'students'] as const).map((t) => (
+          {(['overview', 'students', 'mastery'] as const).map((t) => (
             <button
               key={t}
               type="button"
@@ -143,7 +144,7 @@ const ReportsScreen: React.FC = () => {
               onClick={() => setTab(t)}
               className={`px-3 py-1.5 text-sm rounded-md font-medium ${tab === t ? 'bg-white dark:bg-slate-700 shadow text-indigo-700 dark:text-indigo-300' : 'text-slate-600 dark:text-slate-300'}`}
             >
-              {t === 'overview' ? 'Overview' : 'All students'}
+              {t === 'overview' ? 'Overview' : t === 'students' ? 'All students' : 'Chapter mastery'}
             </button>
           ))}
         </div>
@@ -294,6 +295,8 @@ const ReportsScreen: React.FC = () => {
             )}
           </>
         ))}
+
+      {tab === 'mastery' && <ClassMastery subjectId={filters.subjectId} section={filters.section} />}
 
       {tab === 'students' && (
         <Panel>
