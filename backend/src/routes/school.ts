@@ -12,7 +12,8 @@ import {
   getTeacherImportTemplate,
   bulkUploadTeachers,
 } from '../controllers/schoolController';
-import { uploadBulkFile } from '../config/multer';
+import { uploadBulkFile, uploadLogo } from '../config/multer';
+import { getBranding, setBrandColor, uploadSchoolLogo, removeSchoolLogo } from '../controllers/brandingController';
 import { protect, authorize } from '../middleware/auth';
 
 // A school admin managing their own school's students, teachers and admins
@@ -23,6 +24,10 @@ router.use(authorize('admin'));
 
 router.get('/overview', getOverview);
 router.get('/sections', getSections);
+router.get('/branding', getBranding);
+router.put('/branding', setBrandColor);
+router.post('/branding/logo', uploadLogo, uploadSchoolLogo);
+router.delete('/branding/logo', removeSchoolLogo);
 
 router.get('/students', listPeople('student'));
 router.post('/students', addPerson('student'));

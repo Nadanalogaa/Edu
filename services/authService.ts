@@ -17,6 +17,9 @@ export interface User {
   role: 'owner' | 'admin' | 'teacher' | 'student';
   schoolId?: string;
   schoolName?: string;
+  schoolCode?: string;
+  schoolLogo?: string | null;
+  brandColor?: string | null;
   board?: 'state_board' | 'cbse';
   grade?: string;
   classGrade?: number;

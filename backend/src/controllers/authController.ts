@@ -116,6 +116,9 @@ export const login = async (req: Request, res: Response) => {
           admissionNumber: user.admissionNumber,
           board: school?.board,
           schoolName: school?.name,
+          schoolCode: school?.code,
+          schoolLogo: school?.logoUrl || null,
+          brandColor: school?.brandColor || null,
           language: user.language,
           theme: user.theme,
           coins: user.coins,
@@ -145,6 +148,9 @@ export const getMe = async (req: AuthRequest, res: Response) => {
       user.schoolId = school;
       user.board = school?.board;
       user.schoolName = school?.name;
+      user.schoolCode = school?.code;
+      user.schoolLogo = school?.logoUrl || null;
+      user.brandColor = school?.brandColor || null;
     }
 
     res.status(200).json({

@@ -109,3 +109,18 @@ export const uploadBulkFile = upload.single('bulkFile');
 export const uploadQuestionFile = upload.single('questionsFile');
 
 export default upload;
+
+// School logos: one picture (PNG, JPG or WebP, up to 1 MB) in uploads/logos
+const logosDir = path.join(uploadsDir, 'logos');
+if (!fs.existsSync(logosDir)) fs.mkdirSync(logosDir, { recursive: true });
+export const uploadLogo = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => cb(null, logosDir),
+    filename: (req, file, cb) => cb(null, `logo-${Date.now()}-${Math.round(Math.random() * 1e6)}${path.extname(file.originalname).toLowerCase() || '.png'}`),
+  }),
+  fileFilter: (req, file, cb) => {
+    if (['image/png', 'image/jpeg', 'image/webp'].includes(file.mimetype)) cb(null, true);
+    else cb(Object.assign(new Error('Logo must be a PNG, JPG or WebP picture'), { statusCode: 400 }));
+  },
+  limits: { fileSize: 1024 * 1024 },
+}).single('logo');

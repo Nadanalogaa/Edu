@@ -79,6 +79,8 @@ const removeDemoSchool = async (client: PoolClient, code: string) => {
 
 const setupOne = async (client: PoolClient, demo: (typeof DEMOS)[number], passwordHash: string) => {
   const rand = random(demo.seed);
+  // Keep the demo school's branding (logo, colour) across resets
+  const [brand] = await query('SELECT logo_url, brand_color FROM schools WHERE code = $1', [demo.code], client);
   await removeDemoSchool(client, demo.code);
 
   const [school] = await query(
@@ -89,6 +91,7 @@ const setupOne = async (client: PoolClient, demo: (typeof DEMOS)[number], passwo
     [demo.name, demo.code, demo.city, `office.${demo.slug}@educore.demo`, demo.board],
     client
   );
+  if (brand) await query('UPDATE schools SET logo_url = $2, brand_color = $3 WHERE id = $1', [school.id, brand.logo_url, brand.brand_color], client);
 
   const addUser = async (fields: Record<string, any>) => {
     const [row] = await query(

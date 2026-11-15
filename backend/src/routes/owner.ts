@@ -8,6 +8,8 @@ import {
   setupDemo,
 } from '../controllers/ownerController';
 import { protect, authorize } from '../middleware/auth';
+import { uploadLogo } from '../config/multer';
+import { getBranding, setBrandColor, uploadSchoolLogo, removeSchoolLogo } from '../controllers/brandingController';
 
 // The platform owner managing schools as customers
 const router = express.Router();
@@ -20,6 +22,10 @@ router.get('/schools', listSchools);
 router.post('/schools', createSchool);
 router.patch('/schools/:id', updateSchool);
 router.post('/schools/:id/reset-admin-password', resetSchoolAdminPassword);
+router.get('/schools/:id/branding', getBranding);
+router.put('/schools/:id/branding', setBrandColor);
+router.post('/schools/:id/logo', uploadLogo, uploadSchoolLogo);
+router.delete('/schools/:id/logo', removeSchoolLogo);
 router.post('/demo', setupDemo);
 
 export default router;

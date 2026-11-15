@@ -57,7 +57,7 @@ export const parentReport = async (req: Request, res: Response) => {
     const token = String(req.params.token || '');
     if (!/^[A-Za-z0-9_-]{20,40}$/.test(token)) throw new HttpError(404, 'This link is not valid');
     const [link] = await query(
-      `SELECT u.id, u.name, u.class_grade, u.section, u.school_id, u.daily_goal, s.name AS school, s.board
+      `SELECT u.id, u.name, u.class_grade, u.section, u.school_id, u.daily_goal, s.name AS school, s.board, s.logo_url, s.brand_color
        FROM parent_links l JOIN users u ON u.id = l.student_id JOIN schools s ON s.id = u.school_id
        WHERE l.token = $1 AND u.is_active`,
       [token]
@@ -130,8 +130,9 @@ export const parentReport = async (req: Request, res: Response) => {
       success: true,
       data: {
         student: { firstName: String(link.name).split(' ')[0], classGrade: link.class_grade, section: link.section, school: link.school },
+        branding: { logoUrl: link.logo_url, brandColor: link.brand_color },
         passMark: PASS_MARK,
-        week: { ...week, accuracy: week.answers ? round1((week.correct / week.answers) * 100) : null, goal: link.daily_goal, days },
+        week: { ...week, accuracy: week.answers ? round1((week.correct / week.answers) * 100) : null, goal: link.daily_goal, daily: days },
         tests: { recentAverage: round1(avg.recent), overallAverage: round1(avg.overall), latest: tests.map((t) => ({ title: t.title, subject: t.subject, percentage: round1(t.percentage), classAverage: round1(t.class_avg), at: t.end_time })) },
         openTests: open.map((t) => ({ title: t.title, subject: t.subject, closes: t.end_time })),
         mistakes: { open: mistakes.open, fixedThisWeek: mistakes.fixed_week },

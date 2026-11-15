@@ -430,6 +430,15 @@ export const migrations: Migration[] = [
       );
     `,
   },
+  {
+    version: 21,
+    name: 'school branding: logo and theme colour',
+    sql: `
+      ALTER TABLE schools ADD COLUMN logo_url TEXT;
+      -- Main colour as #rrggbb; the app derives lighter and darker shades from it
+      ALTER TABLE schools ADD COLUMN brand_color TEXT CHECK (brand_color ~ '^#[0-9a-fA-F]{6}$');
+    `,
+  },
 ];
 
 export const runMigrations = async (client: PoolClient) => {

@@ -48,6 +48,9 @@ import StudentReport from './components/reports/StudentReport';
 import { boardLabel, classLabel } from './components/common/ui';
 import InstallApp from './components/common/InstallApp';
 import TextSize from './components/common/TextSize';
+import { applyBrand } from './utils/brand';
+import SchoolLoginRoute from './components/SchoolLogin';
+import SchoolBranding from './components/school/SchoolBranding';
 import ScreenErrorBoundary from './components/common/ScreenErrorBoundary';
 import { lazyWithReload } from './utils/lazyWithReload';
 import {
@@ -164,6 +167,11 @@ const DashboardLayout: React.FC = () => {
   const [coins, setCoins] = useState(0);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
+  // The school's colour across the app (back to the EduCore colours on sign-out)
+  useEffect(() => {
+    applyBrand(currentUser?.brandColor);
+    return () => applyBrand(null);
+  }, [currentUser?.brandColor]);
 
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -275,6 +283,7 @@ const DashboardLayout: React.FC = () => {
       { label: t('manageStudents'), icon: <GraduationCapIcon className="w-5 h-5" />, view: 'students' },
       { label: t('manageTeachers'), icon: <UsersIcon className="w-5 h-5" />, view: 'teachers' },
       { label: 'School Admins', icon: <UserIcon className="w-5 h-5" />, view: 'admins' },
+      { label: 'School Branding', icon: <SchoolIcon className="w-5 h-5" />, view: 'branding' },
       { label: 'Tests', icon: <ClipboardCheckIcon className="w-5 h-5" />, view: 'tests' },
       { label: 'Reports', icon: <TrendingUpIcon className="w-5 h-5" />, view: 'reports' },
       { label: "Students' Doubts", icon: <UsersIcon className="w-5 h-5" />, view: 'doubts' },
@@ -357,6 +366,8 @@ const DashboardLayout: React.FC = () => {
           return <ReportsScreen />;
         case 'doubts':
           return <DoubtsScreen />;
+        case 'branding':
+          return <SchoolBranding />;
         default:
           return <StaffDashboard onNavigate={handleNavClick} />;
       }
@@ -436,6 +447,20 @@ const DashboardLayout: React.FC = () => {
       >
         {/* Logo + close (mobile) */}
         <div className="flex-shrink-0 flex items-center justify-between mb-4 px-1">
+            {currentUser.schoolName && currentUser.role !== 'owner' ? (
+              // The school's own logo and name, with a small EduCore credit
+              <div className="flex items-center min-w-0">
+                {currentUser.schoolLogo ? (
+                  <img src={currentUser.schoolLogo} alt="" className="w-10 h-10 shrink-0 rounded-xl object-contain bg-white p-0.5 ring-1 ring-slate-200 dark:ring-slate-700" />
+                ) : (
+                  <span className="w-10 h-10 shrink-0 rounded-xl bg-indigo-600 text-white font-bold flex items-center justify-center">{currentUser.schoolName.charAt(0)}</span>
+                )}
+                <div className="ml-3 flex flex-col min-w-0">
+                  <h1 className="text-sm lg:text-[15px] font-bold leading-tight text-slate-800 dark:text-slate-100 line-clamp-2">{currentUser.schoolName}</h1>
+                  <span className="text-[10px] leading-tight text-slate-400">Powered by EduCore</span>
+                </div>
+              </div>
+            ) : (
             <div className="flex items-center">
               <img
                 src="/logo.svg"
@@ -447,6 +472,7 @@ const DashboardLayout: React.FC = () => {
                 <span className="text-[11px] leading-tight text-indigo-600 dark:text-indigo-400">{t('landing.nav.tagline')}</span>
               </div>
             </div>
+            )}
             <button
               type="button"
               onClick={() => setIsSidebarOpen(false)}
@@ -655,6 +681,7 @@ const AppContent: React.FC = () => {
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<LoginRoute />} />
+      <Route path="/s/:code" element={<SchoolLoginRoute />} />
       <Route path="/superadmin" element={<SuperAdminRoute />} />
       <Route path="/parent/:token" element={<ParentReport />} />
       <Route path="/tn-schools" element={<TNSchoolsPage />} />

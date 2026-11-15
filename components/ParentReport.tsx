@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../services/api';
+import { applyBrand } from '../utils/brand';
 
 // The weekly report a parent opens from a link (no login): this week's
 // practice, tests, mistakes fixed, strong and weak chapters, what to do next.
@@ -54,14 +55,21 @@ const ParentReport: React.FC = () => {
   const t = T[lang];
 
   useEffect(() => {
-    api.get(`/public/parent-report/${token}`).then((res) => setData(res.data.data)).catch((err) => setError(err?.response?.data?.message || T.en.invalid));
+    api
+      .get(`/public/parent-report/${token}`)
+      .then((res) => {
+        setData(res.data.data);
+        applyBrand(res.data.data.branding?.brandColor);
+      })
+      .catch((err) => setError(err?.response?.data?.message || T.en.invalid));
+    return () => applyBrand(null);
   }, [token]);
 
   if (error) return <div className="min-h-screen flex items-center justify-center p-6 bg-slate-50 text-center text-slate-600">{error}</div>;
   if (!data) return <div className="min-h-screen flex items-center justify-center bg-slate-50"><div className="animate-spin rounded-full h-10 w-10 border-4 border-indigo-600 border-t-transparent" /></div>;
 
   const s = data.student;
-  const max = Math.max(1, ...data.week.days.map((d: any) => d.answers));
+  const max = Math.max(1, ...data.week.daily.map((d: any) => d.answers));
   const pick = (en?: string, ta?: string) => (lang === 'ta' && ta ? ta : en);
 
   return (
@@ -69,7 +77,7 @@ const ParentReport: React.FC = () => {
       <div className="max-w-2xl mx-auto p-4 sm:p-6 space-y-4">
         <header className="rounded-3xl bg-gradient-to-br from-indigo-700 to-violet-600 text-white p-5 print:bg-none print:text-black print:border">
           <div className="flex items-center justify-between gap-2">
-            <img src="/icons/icon-192.png" alt="" className="w-10 h-10 rounded-xl bg-white/15 p-0.5" />
+            <img src={data.branding?.logoUrl || '/icons/icon-192.png'} alt="" className="w-12 h-12 rounded-xl bg-white p-1 object-contain" />
             <div className="flex gap-1 print:hidden">
               {(['en', 'ta'] as const).map((l) => (
                 <button key={l} type="button" onClick={() => setLang(l)} className={`px-3 py-1 rounded-lg text-sm font-semibold ${lang === l ? 'bg-white text-indigo-700' : 'bg-white/15'}`}>
@@ -92,7 +100,7 @@ const ParentReport: React.FC = () => {
           </div>
           <div className="mt-3 rounded-2xl bg-white border border-slate-200 p-3">
             <div className="flex items-end justify-between gap-1 h-24">
-              {data.week.days.map((d: any) => (
+              {data.week.daily.map((d: any) => (
                 <div key={d.day} className="flex-1 flex flex-col items-center gap-1">
                   <span className="text-[10px] text-slate-500 tabular-nums">{d.answers || ''}</span>
                   <div className={`w-full max-w-[28px] rounded-t ${d.answers >= data.week.goal ? 'bg-emerald-500' : 'bg-indigo-400'}`} style={{ height: `${(d.answers / max) * 64 + (d.answers ? 4 : 1)}px` }} />

@@ -7,9 +7,10 @@ const inputClass =
 
 type Mode = 'student' | 'staff';
 
-const Login: React.FC = () => {
+/** `school`: opened from a school's own sign-in link (/s/<code>): its logo and name, code filled in. */
+const Login: React.FC<{ school?: { name: string; code: string; logoUrl?: string | null } }> = ({ school }) => {
     const [mode, setMode] = useState<Mode>(() => (localStorage.getItem('loginMode') === 'staff' ? 'staff' : 'student'));
-    const [schoolCode, setSchoolCode] = useState(() => localStorage.getItem('loginSchoolCode') || '');
+    const [schoolCode, setSchoolCode] = useState(() => school?.code || localStorage.getItem('loginSchoolCode') || '');
     const [admissionNumber, setAdmissionNumber] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -61,15 +62,29 @@ const Login: React.FC = () => {
         <div className="flex items-center justify-center min-h-screen bg-slate-100 dark:bg-slate-900 font-sans p-4">
             <div className="w-full max-w-md p-6 sm:p-8 space-y-6 bg-white dark:bg-slate-800/50 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800">
                 <div className="text-center">
-                    <div className="inline-flex items-center justify-center p-3 bg-indigo-600 rounded-xl mb-4">
-                        <LayoutDashboardIcon className="w-8 h-8 text-white" />
-                    </div>
-                    <h1 className="text-3xl font-bold text-slate-800 dark:text-slate-100">
-                        EduCore
-                    </h1>
-                    <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-                        Please sign in to continue
-                    </p>
+                    {school ? (
+                        <>
+                            {school.logoUrl ? (
+                                <img src={school.logoUrl} alt="" className="mx-auto mb-4 h-20 w-20 rounded-2xl object-contain bg-white p-1.5 shadow ring-1 ring-slate-200 dark:ring-slate-700" />
+                            ) : (
+                                <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-2xl bg-indigo-600 text-3xl font-bold text-white shadow">{school.name.charAt(0)}</div>
+                            )}
+                            <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100">{school.name}</h1>
+                            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Please sign in to continue</p>
+                        </>
+                    ) : (
+                        <>
+                            <div className="inline-flex items-center justify-center p-3 bg-indigo-600 rounded-xl mb-4">
+                                <LayoutDashboardIcon className="w-8 h-8 text-white" />
+                            </div>
+                            <h1 className="text-3xl font-bold text-slate-800 dark:text-slate-100">
+                                EduCore
+                            </h1>
+                            <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
+                                Please sign in to continue
+                            </p>
+                        </>
+                    )}
                 </div>
 
                 <div className="flex gap-1 p-1 bg-slate-100 dark:bg-slate-900 rounded-lg" role="tablist" aria-label="Who is signing in">
@@ -93,10 +108,14 @@ const Login: React.FC = () => {
                                     autoCapitalize="characters"
                                     required
                                     value={schoolCode}
+                                    readOnly={!!school}
                                     onChange={(e) => setSchoolCode(e.target.value)}
-                                    className={`${inputClass} uppercase`}
+                                    className={`${inputClass} uppercase ${school ? 'bg-slate-50 dark:bg-slate-800' : ''}`}
                                     placeholder="Given by your school"
                                 />
+                                {school && (
+                                    <a href="/login" className="mt-1 inline-block text-xs text-slate-500 underline">Not your school?</a>
+                                )}
                             </div>
                             <div>
                                 <label htmlFor="admission-number" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Admission number</label>
@@ -156,12 +175,13 @@ const Login: React.FC = () => {
                         Forgot your password? Ask your school office to reset it.
                     </p>
 
-                    <div className="text-center text-xs text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-700 pt-4">
+                    {!school && <div className="text-center text-xs text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-700 pt-4">
                         <p className="font-medium">Demo logins</p>
                         <p>Student: school code TNMS001 · admission no. S001 · student123</p>
                         <p>Staff: admin@school.com / admin123 · teacher@school.com / teacher123</p>
-                    </div>
+                    </div>}
                 </form>
+                {school && <p className="text-center text-xs text-slate-400">Powered by EduCore</p>}
             </div>
         </div>
     );

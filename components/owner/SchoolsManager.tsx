@@ -5,11 +5,14 @@ import {
   apiError, boardLabel, formatDate,
 } from '../common/ui';
 import { ResetPassword } from '../school/PeopleManager';
+import BrandingEditor from '../school/BrandingEditor';
 
 interface School {
   _id: string;
   name: string;
   code: string;
+  logoUrl?: string | null;
+  brandColor?: string | null;
   city: string;
   board: string;
   studentLimit: number;
@@ -39,7 +42,7 @@ const SchoolsManager: React.FC = () => {
   const [filters, setFilters] = useState({ status: '', search: '' });
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
-  const [modal, setModal] = useState<{ kind: 'create' | 'edit' | 'password'; school?: School } | null>(null);
+  const [modal, setModal] = useState<{ kind: 'create' | 'edit' | 'password' | 'branding'; school?: School } | null>(null);
 
   const load = useCallback(async () => {
     try {
@@ -113,7 +116,14 @@ const SchoolsManager: React.FC = () => {
             {schools.map((s) => (
               <tr key={s._id}>
                 <td className="px-4 py-3 min-w-[12rem]">
-                  <p className="font-medium text-slate-800 dark:text-slate-100">{s.name}</p>
+                  <p className="font-medium text-slate-800 dark:text-slate-100 flex items-center gap-2">
+                    {s.logoUrl ? (
+                      <img src={s.logoUrl} alt="" className="h-6 w-6 rounded object-contain bg-white ring-1 ring-slate-200" />
+                    ) : s.brandColor ? (
+                      <span className="h-6 w-6 rounded text-[11px] font-bold text-white flex items-center justify-center" style={{ background: s.brandColor }}>{s.name.charAt(0)}</span>
+                    ) : null}
+                    {s.name}
+                  </p>
                   <p className="text-xs text-slate-500 dark:text-slate-400">
                     {s.code} · {s.city}
                     {s.admins?.[0] && <> · {s.admins[0].email}</>}
@@ -142,6 +152,9 @@ const SchoolsManager: React.FC = () => {
                     <Button size="sm" variant="ghost" onClick={() => setModal({ kind: 'edit', school: s })}>
                       Licence
                     </Button>
+                    <Button size="sm" variant="ghost" onClick={() => setModal({ kind: 'branding', school: s })}>
+                      Branding
+                    </Button>
                     {s.admins?.length ? (
                       <Button size="sm" variant="ghost" onClick={() => setModal({ kind: 'password', school: s })}>
                         Admin password
@@ -157,6 +170,11 @@ const SchoolsManager: React.FC = () => {
 
       {modal?.kind === 'create' && <CreateSchool onClose={() => setModal(null)} onDone={done} />}
       {modal?.kind === 'edit' && modal.school && <EditLicence school={modal.school} onClose={() => setModal(null)} onDone={done} />}
+      {modal?.kind === 'branding' && modal.school && (
+        <Modal title={`Branding: ${modal.school.name}`} onClose={() => { setModal(null); load(); }} wide>
+          <BrandingEditor schoolId={modal.school._id} />
+        </Modal>
+      )}
       {modal?.kind === 'password' && modal.school?.admins?.[0] && (
         <ResetPassword
           path={`/owner/schools/${modal.school._id}/reset-admin-password`}
@@ -272,7 +290,7 @@ const CreateSchool: React.FC<{ onClose: () => void; onDone: (message: string) =>
     setError('');
     try {
       await api.post('/owner/schools', { ...form, studentLimit: Number(form.studentLimit) });
-      onDone(`${form.name} created. The school admin signs in with ${form.adminEmail}.`);
+      onDone(`${form.name} created. The school admin signs in with ${form.adminEmail}. Add the school's logo and colour with Branding.`);
     } catch (err) {
       setError(apiError(err));
     } finally {

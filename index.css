@@ -2,6 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Theme colours: indigo/violet by default, replaced by a school's brand colour (utils/brand.ts) */
+:root {
+  --brand-50: 238 242 255;
+  --brand-100: 224 231 255;
+  --brand-200: 199 210 254;
+  --brand-300: 165 180 252;
+  --brand-400: 129 140 248;
+  --brand-500: 99 102 241;
+  --brand-600: 79 70 229;
+  --brand-700: 67 56 202;
+  --brand-800: 55 48 163;
+  --brand-900: 49 46 129;
+  --brand-950: 30 27 75;
+  --accent-50: 245 243 255;
+  --accent-100: 237 233 254;
+  --accent-200: 221 214 254;
+  --accent-300: 196 181 253;
+  --accent-400: 167 139 250;
+  --accent-500: 139 92 246;
+  --accent-600: 124 58 237;
+  --accent-700: 109 40 217;
+  --accent-800: 91 33 182;
+  --accent-900: 76 29 149;
+  --accent-950: 46 16 101;
+  --pop-50: 253 244 255;
+  --pop-100: 250 232 255;
+  --pop-200: 245 208 254;
+  --pop-300: 240 171 252;
+  --pop-400: 232 121 249;
+  --pop-500: 217 70 239;
+  --pop-600: 192 38 211;
+  --pop-700: 162 28 175;
+  --pop-800: 134 25 143;
+  --pop-900: 112 26 117;
+  --pop-950: 74 4 78;
+}
+
 /* Global styles */
 html, body {
   height: 100%;
