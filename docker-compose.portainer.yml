@@ -5,7 +5,8 @@
 #   Compose path: docker-compose.portainer.yml
 #   Environment variables: POSTGRES_PASSWORD (same as the edu-db stack),
 #   JWT_SECRET, CLIENT_URL, OWNER_EMAIL, OWNER_PASSWORD; optional SEED_DEMO_DATA,
-#   GEMINI_API_KEY, PROXY_NETWORK.
+#   GEMINI_API_KEY, PROXY_NETWORK, ANTHROPIC_API_KEY, AI_EXPLAIN_DAILY_LIMIT,
+#   VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY.
 # Requires the edu-db stack (deploy/edu-db-stack.yml) to be running first.
 services:
   app:
@@ -38,6 +39,12 @@ services:
       OWNER_EMAIL: ${OWNER_EMAIL:-}
       OWNER_PASSWORD: ${OWNER_PASSWORD:-}
       OWNER_NAME: ${OWNER_NAME:-Owner}
+      # Optional: "Explain it another way" (AI explanations); hidden when empty
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      AI_EXPLAIN_DAILY_LIMIT: ${AI_EXPLAIN_DAILY_LIMIT:-15}
+      # Optional: keys for practice reminders (web push); created and kept in the database when empty
+      VAPID_PUBLIC_KEY: ${VAPID_PUBLIC_KEY:-}
+      VAPID_PRIVATE_KEY: ${VAPID_PRIVATE_KEY:-}
     volumes:
       # Registration documents and uploaded question files. Without this volume
       # every redeploy would delete them.
